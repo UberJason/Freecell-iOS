@@ -1,0 +1,599 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 50;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		96A363F6237CF0FC005C45FB /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96A363F5237CF0FC005C45FB /* AppDelegate.swift */; };
+		96A363F8237CF0FC005C45FB /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96A363F7237CF0FC005C45FB /* SceneDelegate.swift */; };
+		96A363FA237CF0FC005C45FB /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96A363F9237CF0FC005C45FB /* ContentView.swift */; };
+		96A363FC237CF0FD005C45FB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 96A363FB237CF0FD005C45FB /* Assets.xcassets */; };
+		96A363FF237CF0FD005C45FB /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 96A363FE237CF0FD005C45FB /* Preview Assets.xcassets */; };
+		96A36402237CF0FD005C45FB /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 96A36400237CF0FD005C45FB /* LaunchScreen.storyboard */; };
+		96A3640D237CF0FD005C45FB /* FreecellTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96A3640C237CF0FD005C45FB /* FreecellTests.swift */; };
+		96A36418237CF0FD005C45FB /* FreecellUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96A36417237CF0FD005C45FB /* FreecellUITests.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		96A36409237CF0FD005C45FB /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 96A363EA237CF0FC005C45FB /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 96A363F1237CF0FC005C45FB;
+			remoteInfo = Freecell;
+		};
+		96A36414237CF0FD005C45FB /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 96A363EA237CF0FC005C45FB /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 96A363F1237CF0FC005C45FB;
+			remoteInfo = Freecell;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		96A363F2237CF0FC005C45FB /* Freecell.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Freecell.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		96A363F5237CF0FC005C45FB /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		96A363F7237CF0FC005C45FB /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
+		96A363F9237CF0FC005C45FB /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		96A363FB237CF0FD005C45FB /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		96A363FE237CF0FD005C45FB /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		96A36401237CF0FD005C45FB /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		96A36403237CF0FD005C45FB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		96A36408237CF0FD005C45FB /* FreecellTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FreecellTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		96A3640C237CF0FD005C45FB /* FreecellTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FreecellTests.swift; sourceTree = "<group>"; };
+		96A3640E237CF0FD005C45FB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		96A36413237CF0FD005C45FB /* FreecellUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FreecellUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		96A36417237CF0FD005C45FB /* FreecellUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FreecellUITests.swift; sourceTree = "<group>"; };
+		96A36419237CF0FD005C45FB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		96A363EF237CF0FC005C45FB /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		96A36405237CF0FD005C45FB /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		96A36410237CF0FD005C45FB /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		96A363E9237CF0FC005C45FB = {
+			isa = PBXGroup;
+			children = (
+				96A363F4237CF0FC005C45FB /* Freecell */,
+				96A3640B237CF0FD005C45FB /* FreecellTests */,
+				96A36416237CF0FD005C45FB /* FreecellUITests */,
+				96A363F3237CF0FC005C45FB /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		96A363F3237CF0FC005C45FB /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				96A363F2237CF0FC005C45FB /* Freecell.app */,
+				96A36408237CF0FD005C45FB /* FreecellTests.xctest */,
+				96A36413237CF0FD005C45FB /* FreecellUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		96A363F4237CF0FC005C45FB /* Freecell */ = {
+			isa = PBXGroup;
+			children = (
+				96A363F5237CF0FC005C45FB /* AppDelegate.swift */,
+				96A363F7237CF0FC005C45FB /* SceneDelegate.swift */,
+				96A363F9237CF0FC005C45FB /* ContentView.swift */,
+				96A363FB237CF0FD005C45FB /* Assets.xcassets */,
+				96A36400237CF0FD005C45FB /* LaunchScreen.storyboard */,
+				96A36403237CF0FD005C45FB /* Info.plist */,
+				96A363FD237CF0FD005C45FB /* Preview Content */,
+			);
+			path = Freecell;
+			sourceTree = "<group>";
+		};
+		96A363FD237CF0FD005C45FB /* Preview Content */ = {
+			isa = PBXGroup;
+			children = (
+				96A363FE237CF0FD005C45FB /* Preview Assets.xcassets */,
+			);
+			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		96A3640B237CF0FD005C45FB /* FreecellTests */ = {
+			isa = PBXGroup;
+			children = (
+				96A3640C237CF0FD005C45FB /* FreecellTests.swift */,
+				96A3640E237CF0FD005C45FB /* Info.plist */,
+			);
+			path = FreecellTests;
+			sourceTree = "<group>";
+		};
+		96A36416237CF0FD005C45FB /* FreecellUITests */ = {
+			isa = PBXGroup;
+			children = (
+				96A36417237CF0FD005C45FB /* FreecellUITests.swift */,
+				96A36419237CF0FD005C45FB /* Info.plist */,
+			);
+			path = FreecellUITests;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		96A363F1237CF0FC005C45FB /* Freecell */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 96A3641C237CF0FD005C45FB /* Build configuration list for PBXNativeTarget "Freecell" */;
+			buildPhases = (
+				96A363EE237CF0FC005C45FB /* Sources */,
+				96A363EF237CF0FC005C45FB /* Frameworks */,
+				96A363F0237CF0FC005C45FB /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Freecell;
+			productName = Freecell;
+			productReference = 96A363F2237CF0FC005C45FB /* Freecell.app */;
+			productType = "com.apple.product-type.application";
+		};
+		96A36407237CF0FD005C45FB /* FreecellTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 96A3641F237CF0FD005C45FB /* Build configuration list for PBXNativeTarget "FreecellTests" */;
+			buildPhases = (
+				96A36404237CF0FD005C45FB /* Sources */,
+				96A36405237CF0FD005C45FB /* Frameworks */,
+				96A36406237CF0FD005C45FB /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				96A3640A237CF0FD005C45FB /* PBXTargetDependency */,
+			);
+			name = FreecellTests;
+			productName = FreecellTests;
+			productReference = 96A36408237CF0FD005C45FB /* FreecellTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		96A36412237CF0FD005C45FB /* FreecellUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 96A36422237CF0FD005C45FB /* Build configuration list for PBXNativeTarget "FreecellUITests" */;
+			buildPhases = (
+				96A3640F237CF0FD005C45FB /* Sources */,
+				96A36410237CF0FD005C45FB /* Frameworks */,
+				96A36411237CF0FD005C45FB /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				96A36415237CF0FD005C45FB /* PBXTargetDependency */,
+			);
+			name = FreecellUITests;
+			productName = FreecellUITests;
+			productReference = 96A36413237CF0FD005C45FB /* FreecellUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		96A363EA237CF0FC005C45FB /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 1120;
+				LastUpgradeCheck = 1120;
+				ORGANIZATIONNAME = "Jason Ji";
+				TargetAttributes = {
+					96A363F1237CF0FC005C45FB = {
+						CreatedOnToolsVersion = 11.2;
+					};
+					96A36407237CF0FD005C45FB = {
+						CreatedOnToolsVersion = 11.2;
+						TestTargetID = 96A363F1237CF0FC005C45FB;
+					};
+					96A36412237CF0FD005C45FB = {
+						CreatedOnToolsVersion = 11.2;
+						TestTargetID = 96A363F1237CF0FC005C45FB;
+					};
+				};
+			};
+			buildConfigurationList = 96A363ED237CF0FC005C45FB /* Build configuration list for PBXProject "Freecell" */;
+			compatibilityVersion = "Xcode 9.3";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 96A363E9237CF0FC005C45FB;
+			productRefGroup = 96A363F3237CF0FC005C45FB /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				96A363F1237CF0FC005C45FB /* Freecell */,
+				96A36407237CF0FD005C45FB /* FreecellTests */,
+				96A36412237CF0FD005C45FB /* FreecellUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		96A363F0237CF0FC005C45FB /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				96A36402237CF0FD005C45FB /* LaunchScreen.storyboard in Resources */,
+				96A363FF237CF0FD005C45FB /* Preview Assets.xcassets in Resources */,
+				96A363FC237CF0FD005C45FB /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		96A36406237CF0FD005C45FB /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		96A36411237CF0FD005C45FB /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		96A363EE237CF0FC005C45FB /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				96A363F6237CF0FC005C45FB /* AppDelegate.swift in Sources */,
+				96A363F8237CF0FC005C45FB /* SceneDelegate.swift in Sources */,
+				96A363FA237CF0FC005C45FB /* ContentView.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		96A36404237CF0FD005C45FB /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				96A3640D237CF0FD005C45FB /* FreecellTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		96A3640F237CF0FD005C45FB /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				96A36418237CF0FD005C45FB /* FreecellUITests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		96A3640A237CF0FD005C45FB /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 96A363F1237CF0FC005C45FB /* Freecell */;
+			targetProxy = 96A36409237CF0FD005C45FB /* PBXContainerItemProxy */;
+		};
+		96A36415237CF0FD005C45FB /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 96A363F1237CF0FC005C45FB /* Freecell */;
+			targetProxy = 96A36414237CF0FD005C45FB /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		96A36400237CF0FD005C45FB /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				96A36401237CF0FD005C45FB /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		96A3641A237CF0FD005C45FB /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		96A3641B237CF0FD005C45FB /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		96A3641D237CF0FD005C45FB /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_ASSET_PATHS = "\"Freecell/Preview Content\"";
+				DEVELOPMENT_TEAM = 2GPQ8GE99T;
+				ENABLE_PREVIEWS = YES;
+				INFOPLIST_FILE = Freecell/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.JYJApps.Freecell;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		96A3641E237CF0FD005C45FB /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_ASSET_PATHS = "\"Freecell/Preview Content\"";
+				DEVELOPMENT_TEAM = 2GPQ8GE99T;
+				ENABLE_PREVIEWS = YES;
+				INFOPLIST_FILE = Freecell/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.JYJApps.Freecell;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		96A36420237CF0FD005C45FB /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 2GPQ8GE99T;
+				INFOPLIST_FILE = FreecellTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.JYJApps.FreecellTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Freecell.app/Freecell";
+			};
+			name = Debug;
+		};
+		96A36421237CF0FD005C45FB /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 2GPQ8GE99T;
+				INFOPLIST_FILE = FreecellTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.JYJApps.FreecellTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Freecell.app/Freecell";
+			};
+			name = Release;
+		};
+		96A36423237CF0FD005C45FB /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 2GPQ8GE99T;
+				INFOPLIST_FILE = FreecellUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.JYJApps.FreecellUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = Freecell;
+			};
+			name = Debug;
+		};
+		96A36424237CF0FD005C45FB /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 2GPQ8GE99T;
+				INFOPLIST_FILE = FreecellUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.JYJApps.FreecellUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = Freecell;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		96A363ED237CF0FC005C45FB /* Build configuration list for PBXProject "Freecell" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				96A3641A237CF0FD005C45FB /* Debug */,
+				96A3641B237CF0FD005C45FB /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		96A3641C237CF0FD005C45FB /* Build configuration list for PBXNativeTarget "Freecell" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				96A3641D237CF0FD005C45FB /* Debug */,
+				96A3641E237CF0FD005C45FB /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		96A3641F237CF0FD005C45FB /* Build configuration list for PBXNativeTarget "FreecellTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				96A36420237CF0FD005C45FB /* Debug */,
+				96A36421237CF0FD005C45FB /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		96A36422237CF0FD005C45FB /* Build configuration list for PBXNativeTarget "FreecellUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				96A36423237CF0FD005C45FB /* Debug */,
+				96A36424237CF0FD005C45FB /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 96A363EA237CF0FC005C45FB /* Project object */;
+}
