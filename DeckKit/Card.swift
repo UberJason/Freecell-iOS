@@ -1,6 +1,6 @@
 //
 //  Card.swift
-//  CardKit
+//  DeckKit
 //
 //  Created by Jason Ji on 11/13/19.
 //  Copyright © 2019 Jason Ji. All rights reserved.

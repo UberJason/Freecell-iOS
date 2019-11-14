@@ -53,8 +53,8 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "96A36431237CF138005C45FB"
-               BuildableName = "CardKitTests.xctest"
-               BlueprintName = "CardKitTests"
+               BuildableName = "DeckKitTests.xctest"
+               BlueprintName = "DeckKitTests"
                ReferencedContainer = "container:Freecell.xcodeproj">
             </BuildableReference>
          </TestableReference>

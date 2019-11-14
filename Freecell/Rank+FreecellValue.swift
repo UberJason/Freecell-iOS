@@ -6,7 +6,7 @@
 //  Copyright © 2019 Jason Ji. All rights reserved.
 //
 
-import CardKit
+import DeckKit
 
 extension Rank: Valuing {
     public var value: Int {

@@ -15,11 +15,11 @@
 		96A36402237CF0FD005C45FB /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 96A36400237CF0FD005C45FB /* LaunchScreen.storyboard */; };
 		96A3640D237CF0FD005C45FB /* FreecellTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96A3640C237CF0FD005C45FB /* FreecellTests.swift */; };
 		96A36418237CF0FD005C45FB /* FreecellUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96A36417237CF0FD005C45FB /* FreecellUITests.swift */; };
-		96A36433237CF138005C45FB /* CardKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 96A3642A237CF138005C45FB /* CardKit.framework */; };
-		96A3643A237CF138005C45FB /* CardKitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96A36439237CF138005C45FB /* CardKitTests.swift */; };
-		96A3643C237CF138005C45FB /* CardKit.h in Headers */ = {isa = PBXBuildFile; fileRef = 96A3642C237CF138005C45FB /* CardKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		96A3643F237CF138005C45FB /* CardKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 96A3642A237CF138005C45FB /* CardKit.framework */; };
-		96A36440237CF138005C45FB /* CardKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 96A3642A237CF138005C45FB /* CardKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		96A36433237CF138005C45FB /* DeckKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 96A3642A237CF138005C45FB /* DeckKit.framework */; };
+		96A3643A237CF138005C45FB /* DeckKitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96A36439237CF138005C45FB /* DeckKitTests.swift */; };
+		96A3643C237CF138005C45FB /* DeckKit.h in Headers */ = {isa = PBXBuildFile; fileRef = 96A3642C237CF138005C45FB /* DeckKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		96A3643F237CF138005C45FB /* DeckKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 96A3642A237CF138005C45FB /* DeckKit.framework */; };
+		96A36440237CF138005C45FB /* DeckKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 96A3642A237CF138005C45FB /* DeckKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		96A36449237CF141005C45FB /* Suit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96A36448237CF141005C45FB /* Suit.swift */; };
 		96A3644B237CF157005C45FB /* Card.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96A3644A237CF157005C45FB /* Card.swift */; };
 		96A3644F237CF18B005C45FB /* Deck.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96A3644E237CF18B005C45FB /* Deck.swift */; };
@@ -72,7 +72,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				96A36440237CF138005C45FB /* CardKit.framework in Embed Frameworks */,
+				96A36440237CF138005C45FB /* DeckKit.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -94,11 +94,11 @@
 		96A36413237CF0FD005C45FB /* FreecellUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FreecellUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		96A36417237CF0FD005C45FB /* FreecellUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FreecellUITests.swift; sourceTree = "<group>"; };
 		96A36419237CF0FD005C45FB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		96A3642A237CF138005C45FB /* CardKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = CardKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		96A3642C237CF138005C45FB /* CardKit.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CardKit.h; sourceTree = "<group>"; };
+		96A3642A237CF138005C45FB /* DeckKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = DeckKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		96A3642C237CF138005C45FB /* DeckKit.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DeckKit.h; sourceTree = "<group>"; };
 		96A3642D237CF138005C45FB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		96A36432237CF138005C45FB /* CardKitTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CardKitTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		96A36439237CF138005C45FB /* CardKitTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardKitTests.swift; sourceTree = "<group>"; };
+		96A36432237CF138005C45FB /* DeckKitTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DeckKitTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		96A36439237CF138005C45FB /* DeckKitTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeckKitTests.swift; sourceTree = "<group>"; };
 		96A3643B237CF138005C45FB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		96A36448237CF141005C45FB /* Suit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Suit.swift; sourceTree = "<group>"; };
 		96A3644A237CF157005C45FB /* Card.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Card.swift; sourceTree = "<group>"; };
@@ -112,7 +112,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				96A3643F237CF138005C45FB /* CardKit.framework in Frameworks */,
+				96A3643F237CF138005C45FB /* DeckKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -141,7 +141,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				96A36433237CF138005C45FB /* CardKit.framework in Frameworks */,
+				96A36433237CF138005C45FB /* DeckKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -154,8 +154,8 @@
 				96A363F4237CF0FC005C45FB /* Freecell */,
 				96A3640B237CF0FD005C45FB /* FreecellTests */,
 				96A36416237CF0FD005C45FB /* FreecellUITests */,
-				96A3642B237CF138005C45FB /* CardKit */,
-				96A36438237CF138005C45FB /* CardKitTests */,
+				96A3642B237CF138005C45FB /* DeckKit */,
+				96A36438237CF138005C45FB /* DeckKitTests */,
 				96A363F3237CF0FC005C45FB /* Products */,
 			);
 			sourceTree = "<group>";
@@ -166,8 +166,8 @@
 				96A363F2237CF0FC005C45FB /* Freecell.app */,
 				96A36408237CF0FD005C45FB /* FreecellTests.xctest */,
 				96A36413237CF0FD005C45FB /* FreecellUITests.xctest */,
-				96A3642A237CF138005C45FB /* CardKit.framework */,
-				96A36432237CF138005C45FB /* CardKitTests.xctest */,
+				96A3642A237CF138005C45FB /* DeckKit.framework */,
+				96A36432237CF138005C45FB /* DeckKitTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -213,26 +213,26 @@
 			path = FreecellUITests;
 			sourceTree = "<group>";
 		};
-		96A3642B237CF138005C45FB /* CardKit */ = {
+		96A3642B237CF138005C45FB /* DeckKit */ = {
 			isa = PBXGroup;
 			children = (
-				96A3642C237CF138005C45FB /* CardKit.h */,
+				96A3642C237CF138005C45FB /* DeckKit.h */,
 				96A3642D237CF138005C45FB /* Info.plist */,
 				96A36448237CF141005C45FB /* Suit.swift */,
 				96A36450237CF475005C45FB /* Rank.swift */,
 				96A3644A237CF157005C45FB /* Card.swift */,
 				96A3644E237CF18B005C45FB /* Deck.swift */,
 			);
-			path = CardKit;
+			path = DeckKit;
 			sourceTree = "<group>";
 		};
-		96A36438237CF138005C45FB /* CardKitTests */ = {
+		96A36438237CF138005C45FB /* DeckKitTests */ = {
 			isa = PBXGroup;
 			children = (
-				96A36439237CF138005C45FB /* CardKitTests.swift */,
+				96A36439237CF138005C45FB /* DeckKitTests.swift */,
 				96A3643B237CF138005C45FB /* Info.plist */,
 			);
-			path = CardKitTests;
+			path = DeckKitTests;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -242,7 +242,7 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				96A3643C237CF138005C45FB /* CardKit.h in Headers */,
+				96A3643C237CF138005C45FB /* DeckKit.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -304,9 +304,9 @@
 			productReference = 96A36413237CF0FD005C45FB /* FreecellUITests.xctest */;
 			productType = "com.apple.product-type.bundle.ui-testing";
 		};
-		96A36429237CF138005C45FB /* CardKit */ = {
+		96A36429237CF138005C45FB /* DeckKit */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 96A36441237CF138005C45FB /* Build configuration list for PBXNativeTarget "CardKit" */;
+			buildConfigurationList = 96A36441237CF138005C45FB /* Build configuration list for PBXNativeTarget "DeckKit" */;
 			buildPhases = (
 				96A36425237CF138005C45FB /* Headers */,
 				96A36426237CF138005C45FB /* Sources */,
@@ -317,14 +317,14 @@
 			);
 			dependencies = (
 			);
-			name = CardKit;
+			name = DeckKit;
 			productName = CardKit;
-			productReference = 96A3642A237CF138005C45FB /* CardKit.framework */;
+			productReference = 96A3642A237CF138005C45FB /* DeckKit.framework */;
 			productType = "com.apple.product-type.framework";
 		};
-		96A36431237CF138005C45FB /* CardKitTests */ = {
+		96A36431237CF138005C45FB /* DeckKitTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 96A36445237CF138005C45FB /* Build configuration list for PBXNativeTarget "CardKitTests" */;
+			buildConfigurationList = 96A36445237CF138005C45FB /* Build configuration list for PBXNativeTarget "DeckKitTests" */;
 			buildPhases = (
 				96A3642E237CF138005C45FB /* Sources */,
 				96A3642F237CF138005C45FB /* Frameworks */,
@@ -336,9 +336,9 @@
 				96A36435237CF138005C45FB /* PBXTargetDependency */,
 				96A36437237CF138005C45FB /* PBXTargetDependency */,
 			);
-			name = CardKitTests;
+			name = DeckKitTests;
 			productName = CardKitTests;
-			productReference = 96A36432237CF138005C45FB /* CardKitTests.xctest */;
+			productReference = 96A36432237CF138005C45FB /* DeckKitTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
 /* End PBXNativeTarget section */
@@ -388,8 +388,8 @@
 				96A363F1237CF0FC005C45FB /* Freecell */,
 				96A36407237CF0FD005C45FB /* FreecellTests */,
 				96A36412237CF0FD005C45FB /* FreecellUITests */,
-				96A36429237CF138005C45FB /* CardKit */,
-				96A36431237CF138005C45FB /* CardKitTests */,
+				96A36429237CF138005C45FB /* DeckKit */,
+				96A36431237CF138005C45FB /* DeckKitTests */,
 			);
 		};
 /* End PBXProject section */
@@ -478,7 +478,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				96A3643A237CF138005C45FB /* CardKitTests.swift in Sources */,
+				96A3643A237CF138005C45FB /* DeckKitTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -497,7 +497,7 @@
 		};
 		96A36435237CF138005C45FB /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 96A36429237CF138005C45FB /* CardKit */;
+			target = 96A36429237CF138005C45FB /* DeckKit */;
 			targetProxy = 96A36434237CF138005C45FB /* PBXContainerItemProxy */;
 		};
 		96A36437237CF138005C45FB /* PBXTargetDependency */ = {
@@ -507,7 +507,7 @@
 		};
 		96A3643E237CF138005C45FB /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 96A36429237CF138005C45FB /* CardKit */;
+			target = 96A36429237CF138005C45FB /* DeckKit */;
 			targetProxy = 96A3643D237CF138005C45FB /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -775,14 +775,14 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				INFOPLIST_FILE = CardKit/Info.plist;
+				INFOPLIST_FILE = DeckKit/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.JYJApps.CardKit;
+				PRODUCT_BUNDLE_IDENTIFIER = com.JYJApps.DeckKit;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -804,14 +804,14 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				INFOPLIST_FILE = CardKit/Info.plist;
+				INFOPLIST_FILE = DeckKit/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.JYJApps.CardKit;
+				PRODUCT_BUNDLE_IDENTIFIER = com.JYJApps.DeckKit;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 5.0;
@@ -827,13 +827,13 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 2GPQ8GE99T;
-				INFOPLIST_FILE = CardKitTests/Info.plist;
+				INFOPLIST_FILE = DeckKitTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.JYJApps.CardKitTests;
+				PRODUCT_BUNDLE_IDENTIFIER = com.JYJApps.DeckKitTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -847,13 +847,13 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 2GPQ8GE99T;
-				INFOPLIST_FILE = CardKitTests/Info.plist;
+				INFOPLIST_FILE = DeckKitTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.JYJApps.CardKitTests;
+				PRODUCT_BUNDLE_IDENTIFIER = com.JYJApps.DeckKitTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -900,7 +900,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		96A36441237CF138005C45FB /* Build configuration list for PBXNativeTarget "CardKit" */ = {
+		96A36441237CF138005C45FB /* Build configuration list for PBXNativeTarget "DeckKit" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				96A36442237CF138005C45FB /* Debug */,
@@ -909,7 +909,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		96A36445237CF138005C45FB /* Build configuration list for PBXNativeTarget "CardKitTests" */ = {
+		96A36445237CF138005C45FB /* Build configuration list for PBXNativeTarget "DeckKitTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				96A36446237CF138005C45FB /* Debug */,

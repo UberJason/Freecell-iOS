@@ -1,16 +1,16 @@
 //
-//  CardKitTests.swift
-//  CardKitTests
+//  DeckKitTests.swift
+//  DeckKitTests
 //
 //  Created by Jason Ji on 11/13/19.
 //  Copyright © 2019 Jason Ji. All rights reserved.
 //
 
 import XCTest
-@testable import CardKit
+@testable import DeckKit
 @testable import Freecell
 
-class CardKitTests: XCTestCase {
+class DeckKitTests: XCTestCase {
 
     override func setUp() {
         // Put setup code here. This method is called before the invocation of each test method in the class.

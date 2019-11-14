@@ -7,7 +7,7 @@
 //
 
 import XCTest
-@testable import CardKit
+@testable import DeckKit
 @testable import Freecell
 
 class FreecellTests: XCTestCase {
