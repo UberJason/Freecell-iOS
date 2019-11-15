@@ -38,6 +38,7 @@
 		96A36484237E3851005C45FB /* FreeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96A36483237E3851005C45FB /* FreeCell.swift */; };
 		96A36486237E385B005C45FB /* Foundation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96A36485237E385B005C45FB /* Foundation.swift */; };
 		96A36488237E3894005C45FB /* FreecellError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96A36487237E3894005C45FB /* FreecellError.swift */; };
+		96A3648A237F51BA005C45FB /* Convenience.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96A36489237F51BA005C45FB /* Convenience.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -170,6 +171,7 @@
 		96A36483237E3851005C45FB /* FreeCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FreeCell.swift; sourceTree = "<group>"; };
 		96A36485237E385B005C45FB /* Foundation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Foundation.swift; sourceTree = "<group>"; };
 		96A36487237E3894005C45FB /* FreecellError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FreecellError.swift; sourceTree = "<group>"; };
+		96A36489237F51BA005C45FB /* Convenience.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Convenience.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -308,6 +310,7 @@
 				96A36450237CF475005C45FB /* Rank.swift */,
 				96A3644A237CF157005C45FB /* Card.swift */,
 				96A3644E237CF18B005C45FB /* Deck.swift */,
+				96A36489237F51BA005C45FB /* Convenience.swift */,
 			);
 			path = DeckKit;
 			sourceTree = "<group>";
@@ -329,10 +332,10 @@
 				96A36476237E33D3005C45FB /* Board.swift */,
 				96A36478237E3408005C45FB /* Stack.swift */,
 				96A36485237E385B005C45FB /* Foundation.swift */,
-				96A36487237E3894005C45FB /* FreecellError.swift */,
 				96A36481237E384C005C45FB /* Column.swift */,
 				96A36483237E3851005C45FB /* FreeCell.swift */,
 				96A36452237CF490005C45FB /* Rank+FreecellValue.swift */,
+				96A36487237E3894005C45FB /* FreecellError.swift */,
 			);
 			path = FreecellKit;
 			sourceTree = "<group>";
@@ -657,6 +660,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				96A3644F237CF18B005C45FB /* Deck.swift in Sources */,
+				96A3648A237F51BA005C45FB /* Convenience.swift in Sources */,
 				96A36451237CF475005C45FB /* Rank.swift in Sources */,
 				96A36449237CF141005C45FB /* Suit.swift in Sources */,
 				96A3644B237CF157005C45FB /* Card.swift in Sources */,

@@ -11,7 +11,7 @@ import Foundation
 public protocol DeckProtocol {
     var cards: [Card] { get }
     
-    func draw() -> Card
+    func draw() -> Card?
 }
 
 public class Deck: DeckProtocol {
@@ -31,7 +31,8 @@ public class Deck: DeckProtocol {
         }
     }
     
-    public func draw() -> Card {
-        return cards.remove(at: 0)
+    public func draw() -> Card? {
+        if cards.isEmpty { return nil }
+        return cards.removeLast()
     }
 }

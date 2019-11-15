@@ -14,7 +14,7 @@ class Foundation: Stack {
     var stack = [Card]()
     
     var maxSize: Int { return 13 }
-    var topItem: Card? { return stack.last }
+    var topItem: Card? { return stack.last ?? nil }
 
     init(suit: Suit) {
         self.suit = suit
@@ -24,10 +24,13 @@ class Foundation: Stack {
         guard item.suit == suit else {
             throw FreecellError.invalidSuitForFoundation
         }
-        guard item.rank.value == item.rank.value + 1 else {
+        
+        if let topItem = topItem, item.rank.value != topItem.rank.value + 1 {
+            print("Fail: topCard is rank \(topItem.rank.value) and new item is rank \(item.rank.value)")
             throw FreecellError.invalidRankForFoundation
         }
-        
+
+        stack.append(item)
     }
     
     func pop() -> Card? {

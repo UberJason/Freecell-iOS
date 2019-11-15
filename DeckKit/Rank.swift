@@ -9,8 +9,7 @@
 import Foundation
 
 public enum Rank: Int, CaseIterable {
-    case ace = 1
-    case two
+    case two = 2
     case three
     case four
     case five
@@ -22,6 +21,7 @@ public enum Rank: Int, CaseIterable {
     case jack
     case queen
     case king
+    case ace
     
     var displayTitle: String {
         switch self {

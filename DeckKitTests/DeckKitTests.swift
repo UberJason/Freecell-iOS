@@ -37,9 +37,9 @@ class DeckKitTests: XCTestCase {
     func testDeckInit() {
         let deck = Deck(shuffled: false)
         XCTAssertEqual(deck.cards.count, 52)
-        XCTAssertEqual(deck.cards.first!, Card(suit: .clubs, rank: .ace))
-        XCTAssertEqual(deck.cards[12], Card(suit: .clubs, rank: .king))
-        XCTAssertEqual(deck.cards[13], Card(suit: .diamonds, rank: .ace))
+        XCTAssertEqual(deck.cards.first!, Card.two.ofClubs)
+        XCTAssertEqual(deck.cards[12], Card.ace.ofClubs)
+        XCTAssertEqual(deck.cards[13], Card.two.ofDiamonds)
     }
     
     func testDeckDraw() {
@@ -47,7 +47,17 @@ class DeckKitTests: XCTestCase {
         XCTAssertEqual(deck.cards.count, 52)
         
         let card = deck.draw()
+        XCTAssertNotNil(card)
         XCTAssertEqual(deck.cards.count, 51)
-        XCTAssertFalse(deck.cards.contains(card))
+        XCTAssertEqual(card, Card.ace.ofSpades)
+        XCTAssertFalse(deck.cards.contains(card!))
+        
+        for _ in 0 ..< 51 {
+            let _ = deck.draw()
+        }
+        
+        let notACard = deck.draw()
+        XCTAssertNil(notACard)
+        XCTAssertTrue(deck.cards.count == 0)
     }
 }

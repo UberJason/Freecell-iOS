@@ -11,10 +11,7 @@ import DeckKit
 extension Rank: Valuing {
     public var value: Int {
         switch self {
-        case .ace: return 14
-        case .jack: return 11
-        case .queen: return 12
-        case .king: return 13
+        case .ace: return 1
         default: return rawValue
         }
     }
