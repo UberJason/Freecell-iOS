@@ -24,7 +24,20 @@
 		96A3644B237CF157005C45FB /* Card.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96A3644A237CF157005C45FB /* Card.swift */; };
 		96A3644F237CF18B005C45FB /* Deck.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96A3644E237CF18B005C45FB /* Deck.swift */; };
 		96A36451237CF475005C45FB /* Rank.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96A36450237CF475005C45FB /* Rank.swift */; };
-		96A36453237CF490005C45FB /* Rank+FreecellValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96A36452237CF490005C45FB /* Rank+FreecellValue.swift */; };
+		96A36462237E33C0005C45FB /* FreecellKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 96A36459237E33BF005C45FB /* FreecellKit.framework */; };
+		96A36469237E33C0005C45FB /* FreecellKitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96A36468237E33C0005C45FB /* FreecellKitTests.swift */; };
+		96A3646B237E33C0005C45FB /* FreecellKit.h in Headers */ = {isa = PBXBuildFile; fileRef = 96A3645B237E33BF005C45FB /* FreecellKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		96A3646E237E33C0005C45FB /* FreecellKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 96A36459237E33BF005C45FB /* FreecellKit.framework */; };
+		96A3646F237E33C0005C45FB /* FreecellKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 96A36459237E33BF005C45FB /* FreecellKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		96A36477237E33D3005C45FB /* Board.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96A36476237E33D3005C45FB /* Board.swift */; };
+		96A36479237E3408005C45FB /* Stack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96A36478237E3408005C45FB /* Stack.swift */; };
+		96A3647B237E367A005C45FB /* DeckKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 96A3642A237CF138005C45FB /* DeckKit.framework */; };
+		96A3647C237E367A005C45FB /* DeckKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 96A3642A237CF138005C45FB /* DeckKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		96A36480237E37D1005C45FB /* Rank+FreecellValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96A36452237CF490005C45FB /* Rank+FreecellValue.swift */; };
+		96A36482237E384C005C45FB /* Column.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96A36481237E384C005C45FB /* Column.swift */; };
+		96A36484237E3851005C45FB /* FreeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96A36483237E3851005C45FB /* FreeCell.swift */; };
+		96A36486237E385B005C45FB /* Foundation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96A36485237E385B005C45FB /* Foundation.swift */; };
+		96A36488237E3894005C45FB /* FreecellError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96A36487237E3894005C45FB /* FreecellError.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -63,6 +76,34 @@
 			remoteGlobalIDString = 96A36429237CF138005C45FB;
 			remoteInfo = CardKit;
 		};
+		96A36463237E33C0005C45FB /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 96A363EA237CF0FC005C45FB /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 96A36458237E33BF005C45FB;
+			remoteInfo = FreecellKit;
+		};
+		96A36465237E33C0005C45FB /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 96A363EA237CF0FC005C45FB /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 96A363F1237CF0FC005C45FB;
+			remoteInfo = Freecell;
+		};
+		96A3646C237E33C0005C45FB /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 96A363EA237CF0FC005C45FB /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 96A36458237E33BF005C45FB;
+			remoteInfo = FreecellKit;
+		};
+		96A3647D237E367A005C45FB /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 96A363EA237CF0FC005C45FB /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 96A36429237CF138005C45FB;
+			remoteInfo = DeckKit;
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -73,6 +114,18 @@
 			dstSubfolderSpec = 10;
 			files = (
 				96A36440237CF138005C45FB /* DeckKit.framework in Embed Frameworks */,
+				96A3646F237E33C0005C45FB /* FreecellKit.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		96A3647F237E367A005C45FB /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				96A3647C237E367A005C45FB /* DeckKit.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -105,6 +158,18 @@
 		96A3644E237CF18B005C45FB /* Deck.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Deck.swift; sourceTree = "<group>"; };
 		96A36450237CF475005C45FB /* Rank.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Rank.swift; sourceTree = "<group>"; };
 		96A36452237CF490005C45FB /* Rank+FreecellValue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Rank+FreecellValue.swift"; sourceTree = "<group>"; };
+		96A36459237E33BF005C45FB /* FreecellKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = FreecellKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		96A3645B237E33BF005C45FB /* FreecellKit.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FreecellKit.h; sourceTree = "<group>"; };
+		96A3645C237E33BF005C45FB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		96A36461237E33C0005C45FB /* FreecellKitTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FreecellKitTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		96A36468237E33C0005C45FB /* FreecellKitTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FreecellKitTests.swift; sourceTree = "<group>"; };
+		96A3646A237E33C0005C45FB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		96A36476237E33D3005C45FB /* Board.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Board.swift; sourceTree = "<group>"; };
+		96A36478237E3408005C45FB /* Stack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Stack.swift; sourceTree = "<group>"; };
+		96A36481237E384C005C45FB /* Column.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Column.swift; sourceTree = "<group>"; };
+		96A36483237E3851005C45FB /* FreeCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FreeCell.swift; sourceTree = "<group>"; };
+		96A36485237E385B005C45FB /* Foundation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Foundation.swift; sourceTree = "<group>"; };
+		96A36487237E3894005C45FB /* FreecellError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FreecellError.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -113,6 +178,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				96A3643F237CF138005C45FB /* DeckKit.framework in Frameworks */,
+				96A3646E237E33C0005C45FB /* FreecellKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -145,6 +211,22 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		96A36456237E33BF005C45FB /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				96A3647B237E367A005C45FB /* DeckKit.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		96A3645E237E33C0005C45FB /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				96A36462237E33C0005C45FB /* FreecellKit.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -154,9 +236,12 @@
 				96A363F4237CF0FC005C45FB /* Freecell */,
 				96A3640B237CF0FD005C45FB /* FreecellTests */,
 				96A36416237CF0FD005C45FB /* FreecellUITests */,
+				96A3645A237E33BF005C45FB /* FreecellKit */,
+				96A36467237E33C0005C45FB /* FreecellKitTests */,
 				96A3642B237CF138005C45FB /* DeckKit */,
 				96A36438237CF138005C45FB /* DeckKitTests */,
 				96A363F3237CF0FC005C45FB /* Products */,
+				96A3647A237E367A005C45FB /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -168,6 +253,8 @@
 				96A36413237CF0FD005C45FB /* FreecellUITests.xctest */,
 				96A3642A237CF138005C45FB /* DeckKit.framework */,
 				96A36432237CF138005C45FB /* DeckKitTests.xctest */,
+				96A36459237E33BF005C45FB /* FreecellKit.framework */,
+				96A36461237E33C0005C45FB /* FreecellKitTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -182,7 +269,6 @@
 				96A36400237CF0FD005C45FB /* LaunchScreen.storyboard */,
 				96A36403237CF0FD005C45FB /* Info.plist */,
 				96A363FD237CF0FD005C45FB /* Preview Content */,
-				96A36452237CF490005C45FB /* Rank+FreecellValue.swift */,
 			);
 			path = Freecell;
 			sourceTree = "<group>";
@@ -235,6 +321,38 @@
 			path = DeckKitTests;
 			sourceTree = "<group>";
 		};
+		96A3645A237E33BF005C45FB /* FreecellKit */ = {
+			isa = PBXGroup;
+			children = (
+				96A3645B237E33BF005C45FB /* FreecellKit.h */,
+				96A3645C237E33BF005C45FB /* Info.plist */,
+				96A36476237E33D3005C45FB /* Board.swift */,
+				96A36478237E3408005C45FB /* Stack.swift */,
+				96A36485237E385B005C45FB /* Foundation.swift */,
+				96A36487237E3894005C45FB /* FreecellError.swift */,
+				96A36481237E384C005C45FB /* Column.swift */,
+				96A36483237E3851005C45FB /* FreeCell.swift */,
+				96A36452237CF490005C45FB /* Rank+FreecellValue.swift */,
+			);
+			path = FreecellKit;
+			sourceTree = "<group>";
+		};
+		96A36467237E33C0005C45FB /* FreecellKitTests */ = {
+			isa = PBXGroup;
+			children = (
+				96A36468237E33C0005C45FB /* FreecellKitTests.swift */,
+				96A3646A237E33C0005C45FB /* Info.plist */,
+			);
+			path = FreecellKitTests;
+			sourceTree = "<group>";
+		};
+		96A3647A237E367A005C45FB /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
@@ -243,6 +361,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				96A3643C237CF138005C45FB /* DeckKit.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		96A36454237E33BF005C45FB /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				96A3646B237E33C0005C45FB /* FreecellKit.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -262,6 +388,7 @@
 			);
 			dependencies = (
 				96A3643E237CF138005C45FB /* PBXTargetDependency */,
+				96A3646D237E33C0005C45FB /* PBXTargetDependency */,
 			);
 			name = Freecell;
 			productName = Freecell;
@@ -341,6 +468,45 @@
 			productReference = 96A36432237CF138005C45FB /* DeckKitTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
+		96A36458237E33BF005C45FB /* FreecellKit */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 96A36470237E33C0005C45FB /* Build configuration list for PBXNativeTarget "FreecellKit" */;
+			buildPhases = (
+				96A36454237E33BF005C45FB /* Headers */,
+				96A36455237E33BF005C45FB /* Sources */,
+				96A36456237E33BF005C45FB /* Frameworks */,
+				96A36457237E33BF005C45FB /* Resources */,
+				96A3647F237E367A005C45FB /* Embed Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				96A3647E237E367A005C45FB /* PBXTargetDependency */,
+			);
+			name = FreecellKit;
+			productName = FreecellKit;
+			productReference = 96A36459237E33BF005C45FB /* FreecellKit.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+		96A36460237E33C0005C45FB /* FreecellKitTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 96A36473237E33C0005C45FB /* Build configuration list for PBXNativeTarget "FreecellKitTests" */;
+			buildPhases = (
+				96A3645D237E33C0005C45FB /* Sources */,
+				96A3645E237E33C0005C45FB /* Frameworks */,
+				96A3645F237E33C0005C45FB /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				96A36464237E33C0005C45FB /* PBXTargetDependency */,
+				96A36466237E33C0005C45FB /* PBXTargetDependency */,
+			);
+			name = FreecellKitTests;
+			productName = FreecellKitTests;
+			productReference = 96A36461237E33C0005C45FB /* FreecellKitTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -370,6 +536,14 @@
 						CreatedOnToolsVersion = 11.2;
 						TestTargetID = 96A363F1237CF0FC005C45FB;
 					};
+					96A36458237E33BF005C45FB = {
+						CreatedOnToolsVersion = 11.2;
+						LastSwiftMigration = 1120;
+					};
+					96A36460237E33C0005C45FB = {
+						CreatedOnToolsVersion = 11.2;
+						TestTargetID = 96A363F1237CF0FC005C45FB;
+					};
 				};
 			};
 			buildConfigurationList = 96A363ED237CF0FC005C45FB /* Build configuration list for PBXProject "Freecell" */;
@@ -388,6 +562,8 @@
 				96A363F1237CF0FC005C45FB /* Freecell */,
 				96A36407237CF0FD005C45FB /* FreecellTests */,
 				96A36412237CF0FD005C45FB /* FreecellUITests */,
+				96A36458237E33BF005C45FB /* FreecellKit */,
+				96A36460237E33C0005C45FB /* FreecellKitTests */,
 				96A36429237CF138005C45FB /* DeckKit */,
 				96A36431237CF138005C45FB /* DeckKitTests */,
 			);
@@ -433,6 +609,20 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		96A36457237E33BF005C45FB /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		96A3645F237E33C0005C45FB /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -441,7 +631,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				96A363F6237CF0FC005C45FB /* AppDelegate.swift in Sources */,
-				96A36453237CF490005C45FB /* Rank+FreecellValue.swift in Sources */,
 				96A363F8237CF0FC005C45FB /* SceneDelegate.swift in Sources */,
 				96A363FA237CF0FC005C45FB /* ContentView.swift in Sources */,
 			);
@@ -482,6 +671,28 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		96A36455237E33BF005C45FB /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				96A36486237E385B005C45FB /* Foundation.swift in Sources */,
+				96A36484237E3851005C45FB /* FreeCell.swift in Sources */,
+				96A36480237E37D1005C45FB /* Rank+FreecellValue.swift in Sources */,
+				96A36482237E384C005C45FB /* Column.swift in Sources */,
+				96A36488237E3894005C45FB /* FreecellError.swift in Sources */,
+				96A36479237E3408005C45FB /* Stack.swift in Sources */,
+				96A36477237E33D3005C45FB /* Board.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		96A3645D237E33C0005C45FB /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				96A36469237E33C0005C45FB /* FreecellKitTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -509,6 +720,26 @@
 			isa = PBXTargetDependency;
 			target = 96A36429237CF138005C45FB /* DeckKit */;
 			targetProxy = 96A3643D237CF138005C45FB /* PBXContainerItemProxy */;
+		};
+		96A36464237E33C0005C45FB /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 96A36458237E33BF005C45FB /* FreecellKit */;
+			targetProxy = 96A36463237E33C0005C45FB /* PBXContainerItemProxy */;
+		};
+		96A36466237E33C0005C45FB /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 96A363F1237CF0FC005C45FB /* Freecell */;
+			targetProxy = 96A36465237E33C0005C45FB /* PBXContainerItemProxy */;
+		};
+		96A3646D237E33C0005C45FB /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 96A36458237E33BF005C45FB /* FreecellKit */;
+			targetProxy = 96A3646C237E33C0005C45FB /* PBXContainerItemProxy */;
+		};
+		96A3647E237E367A005C45FB /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 96A36429237CF138005C45FB /* DeckKit */;
+			targetProxy = 96A3647D237E367A005C45FB /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -771,6 +1002,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEFINES_MODULE = YES;
+				DERIVE_MACCATALYST_PRODUCT_BUNDLE_IDENTIFIER = NO;
 				DEVELOPMENT_TEAM = 2GPQ8GE99T;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
@@ -785,6 +1017,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.JYJApps.DeckKit;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
+				SUPPORTS_MACCATALYST = NO;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -800,6 +1033,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEFINES_MODULE = YES;
+				DERIVE_MACCATALYST_PRODUCT_BUNDLE_IDENTIFIER = NO;
 				DEVELOPMENT_TEAM = 2GPQ8GE99T;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
@@ -814,6 +1048,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.JYJApps.DeckKit;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
+				SUPPORTS_MACCATALYST = NO;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
@@ -854,6 +1089,103 @@
 					"@loader_path/Frameworks",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.JYJApps.DeckKitTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Freecell.app/Freecell";
+			};
+			name = Release;
+		};
+		96A36471237E33C0005C45FB /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = 2GPQ8GE99T;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = FreecellKit/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.JYJApps.FreecellKit;
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SKIP_INSTALL = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		96A36472237E33C0005C45FB /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = 2GPQ8GE99T;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = FreecellKit/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.JYJApps.FreecellKit;
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
+		96A36474237E33C0005C45FB /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 2GPQ8GE99T;
+				INFOPLIST_FILE = FreecellKitTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.JYJApps.FreecellKitTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Freecell.app/Freecell";
+			};
+			name = Debug;
+		};
+		96A36475237E33C0005C45FB /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 2GPQ8GE99T;
+				INFOPLIST_FILE = FreecellKitTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.JYJApps.FreecellKitTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -914,6 +1246,24 @@
 			buildConfigurations = (
 				96A36446237CF138005C45FB /* Debug */,
 				96A36447237CF138005C45FB /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		96A36470237E33C0005C45FB /* Build configuration list for PBXNativeTarget "FreecellKit" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				96A36471237E33C0005C45FB /* Debug */,
+				96A36472237E33C0005C45FB /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		96A36473237E33C0005C45FB /* Build configuration list for PBXNativeTarget "FreecellKitTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				96A36474237E33C0005C45FB /* Debug */,
+				96A36475237E33C0005C45FB /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

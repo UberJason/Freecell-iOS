@@ -22,6 +22,16 @@
                ReferencedContainer = "container:Freecell.xcodeproj">
             </BuildableReference>
          </TestableReference>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "96A36460237E33C0005C45FB"
+               BuildableName = "FreecellKitTests.xctest"
+               BlueprintName = "FreecellKitTests"
+               ReferencedContainer = "container:Freecell.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
       </Testables>
    </TestAction>
    <LaunchAction
