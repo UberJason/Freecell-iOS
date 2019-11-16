@@ -9,10 +9,15 @@
 import Foundation
 import DeckKit
 
-public class FreeCell: Stack {
+public class FreeCell: Stack, Identifiable {
+    public let id: Int
     public var item: Card?
     public var maxSize: Int { return 1 }
     public var topItem: Card? { return item }
+    
+    init(id: Int) {
+        self.id = id
+    }
     
     public func push(_ item: Card) throws {
         guard case .none = self.item else {

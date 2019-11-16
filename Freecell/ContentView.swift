@@ -7,15 +7,37 @@
 //
 
 import SwiftUI
+import FreecellKit
 
 struct ContentView: View {
+    let board = Board()
+    
     var body: some View {
-        Text("Hello, World!")
+        VStack {
+            HStack {
+                HStack {
+                    ForEach(board.freecells) { _ in
+                        Rectangle()
+                            .frame(width: 50, height: 100)
+                            .background(Color.white)
+                    }
+                    Spacer()
+                    ForEach(board.foundations) { _ in
+                        Rectangle()
+                            .frame(width: 50, height: 100)
+                            .background(Color.white)
+                    }
+                }
+            }
+        }
+        .background(Color.green)
     }
 }
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         ContentView()
+            .previewDevice("iPad Pro 11")
+            .previewLayout(.fixed(width: 1024, height: 768))
     }
 }

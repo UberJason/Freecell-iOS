@@ -46,7 +46,7 @@ class FreecellKitTests: XCTestCase {
     }
 
     func testFoundationPush() {
-        let foundation = Foundation(suit: .spades)
+        let foundation = Foundation(id: 0, suit: .spades)
         
         do {
             try foundation.push(aceOfSpades)
@@ -78,7 +78,7 @@ class FreecellKitTests: XCTestCase {
     }
     
     func testColumnPush() {
-        let column = Column()
+        let column = Column(id: 0)
         
         do {
             try column.push(sevenOfSpades)

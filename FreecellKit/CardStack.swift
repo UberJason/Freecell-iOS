@@ -12,8 +12,8 @@ import DeckKit
 public class CardStack: Column {
     public var bottomItem: Card? { return stack.first }
     
-    init(cards: [Card]) {
-        super.init()
+    init(id: Int, cards: [Card]) {
+        super.init(id: id)
         stack = cards
     }
 }

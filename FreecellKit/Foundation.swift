@@ -9,14 +9,16 @@
 import Foundation
 import DeckKit
 
-public class Foundation: Stack {
+public class Foundation: Stack, Identifiable {
+    public let id: Int
     public let suit: Suit
     var stack = [Card]()
     
     public var maxSize: Int { return 13 }
     public var topItem: Card? { return stack.last ?? nil }
 
-    public init(suit: Suit) {
+    public init(id: Int, suit: Suit) {
+        self.id = id
         self.suit = suit
     }
     

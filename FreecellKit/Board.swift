@@ -17,14 +17,14 @@ public class Board {
     public init() {
         let deck = Deck(shuffled: true)
         
-        freecells = (1...4).map { _ in FreeCell() }
+        freecells = (0...3).map { i in FreeCell(id: i) }
         foundations = [
-            Foundation(suit: .diamonds),
-            Foundation(suit: .clubs),
-            Foundation(suit: .hearts),
-            Foundation(suit: .spades)
+            Foundation(id: 0, suit: .diamonds),
+            Foundation(id: 1, suit: .clubs),
+            Foundation(id: 2, suit: .hearts),
+            Foundation(id: 3, suit: .spades)
         ]
-        columns = (1...8).map { _ in Column() }
+        columns = (0...7).map { i in Column(id: i) }
         
         for i in 0 ..< Deck.maxCardCount {
             guard let card = deck.draw() else { fatalError("Deck empty during new game setup") }

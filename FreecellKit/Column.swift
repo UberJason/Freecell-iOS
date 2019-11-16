@@ -9,10 +9,15 @@
 import Foundation
 import DeckKit
 
-public class Column: Stack {
+public class Column: Stack, Identifiable {
+    public let id: Int
     var stack = [Card]()
     public var maxSize: Int { return Deck.maxCardCount }
     public var topItem: Card? { return stack.last }
+
+    public init(id: Int) {
+        self.id = id
+    }
 
     public func push(_ item: Card) throws {
         if let topCard = topItem,
