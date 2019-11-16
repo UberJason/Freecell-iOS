@@ -16,3 +16,7 @@ extension Rank: Valuing {
         }
     }
 }
+
+extension Card: Identifiable {
+    public var id: String { return displayTitle }
+}

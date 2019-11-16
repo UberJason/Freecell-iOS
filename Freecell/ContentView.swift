@@ -13,24 +13,59 @@ struct ContentView: View {
     let board = Board()
     
     var body: some View {
-        VStack {
-            HStack {
+        ZStack(alignment: .top) {
+            WindowView()
+            .frame(maxWidth: .infinity, maxHeight: .infinity)
+        
+            VStack(spacing: 80.0) {
                 HStack {
-                    ForEach(board.freecells) { _ in
-                        Rectangle()
-                            .frame(width: 50, height: 100)
-                            .background(Color.white)
+                    HStack {
+                        ForEach(board.freecells) { _ in
+                            CardRect()
+                        }
                     }
                     Spacer()
-                    ForEach(board.foundations) { _ in
-                        Rectangle()
-                            .frame(width: 50, height: 100)
-                            .background(Color.white)
+                    HStack {
+                        ForEach(board.foundations) { _ in
+                            CardRect()
+                        }
                     }
                 }
-            }
-        }
-        .background(Color.green)
+                
+                HStack(spacing: 20.0) {
+                    ForEach(board.columns) { column in
+                        ZStack {
+                            ForEach(0..<column.cards.count) { i in
+                                CardRect()
+                                    .offset(x: 0, y: 30*CGFloat(i))
+                            }
+                        }
+                    }
+                }
+            }.padding(EdgeInsets(top: 80, leading: 20, bottom: 40, trailing: 20))
+            
+        }.edgesIgnoringSafeArea(.all)
+    }
+}
+
+struct WindowView: View {
+    var body: some View {
+        Spacer().background(Color.green)
+    }
+}
+
+struct CardRect: View {
+    var body: some View {
+        Rectangle()
+            .frame(width: 125, height: 187)
+            .foregroundColor(.white)
+        .overlay(
+            RoundedRectangle(cornerRadius: 8)
+                .stroke(Color.black, lineWidth: 0.25)
+        )
+            .clipShape(RoundedRectangle(cornerRadius: 8))
+            
+//            .shadow(color: .black, radius: 0.2, x: 0, y: 0)
     }
 }
 
@@ -38,6 +73,6 @@ struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         ContentView()
             .previewDevice("iPad Pro 11")
-            .previewLayout(.fixed(width: 1024, height: 768))
+            .previewLayout(.fixed(width: 1194, height: 834))
     }
 }

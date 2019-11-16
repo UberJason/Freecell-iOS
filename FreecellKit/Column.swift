@@ -48,6 +48,10 @@ public class Column: Stack, Identifiable {
 //        stack.insert(contentsOf: cardStack.stack, at: 0)
     }
     
+    public var cards: [Card] {
+        return stack.reversed()
+    }
+    
     func setupPush(_ card: Card) {
         _push(card)
     }
