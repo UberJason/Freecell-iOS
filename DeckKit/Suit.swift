@@ -10,4 +10,28 @@ import Foundation
 
 public enum Suit: CaseIterable {
     case clubs, diamonds, hearts, spades
+    
+    public var color: SuitColor {
+        switch self {
+        case .clubs, .spades: return .black
+        case .diamonds, .hearts: return .red
+        }
+    }
+    
+    public var displayTitle: String {
+        switch self {
+        case .clubs:
+            return "♣️"
+        case .diamonds:
+            return "♦️"
+        case .hearts:
+            return "❤️"
+        case .spades:
+            return "♠️"
+        }
+    }
+}
+
+public enum SuitColor {
+    case red, black
 }

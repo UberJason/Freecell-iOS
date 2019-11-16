@@ -21,4 +21,12 @@ public struct Card: CardProtocol, Equatable {
         self.suit = suit
         self.rank = rank
     }
+    
+    public var displayTitle: String {
+        return "\(suit.displayTitle)\(rank.displayTitle)"
+    }
+    
+    public func isOppositeColor(of otherCard: Card) -> Bool {
+        return suit.color != otherCard.suit.color
+    }
 }

@@ -7,11 +7,14 @@
 //
 
 import Foundation
+import DeckKit
 
 enum FreecellError: Error, LocalizedError {
     case cellOccupied
-    case invalidSuitForFoundation
-    case invalidRankForFoundation
+    case invalidSuitForFoundation(baseSuit: Suit, newCard: Card)
+    case invalidRankForFoundation(baseCard: Card, newCard: Card)
+    case invalidSuitForColumn(baseCard: Card, newCard: Card)
+    case invalidRankForColumn(baseCard: Card, newCard: Card)
     
     var errorDescription: String? {
         let description: String
@@ -19,10 +22,14 @@ enum FreecellError: Error, LocalizedError {
         switch self {
         case .cellOccupied:
             description = "Attempted to push a card onto an occupied free cell."
-        case .invalidSuitForFoundation:
-            description = "Attempted to push a card of the wrong suit onto a foundation (e.g. a ♠️ onto a ♣️ foundation)."
-        case .invalidRankForFoundation:
-            description = "Attempted to push a card of the wrong rank onto a foundation (e.g. 7♠️ onto 2♠️)"
+        case .invalidSuitForFoundation(let baseSuit, let newCard):
+            description = "Attempted to push a card of the wrong suit onto a foundation (\(newCard.displayTitle) onto a \(baseSuit.displayTitle) foundation)."
+        case .invalidRankForFoundation(let baseCard, let newCard):
+            description = "Attempted to push a card of the wrong rank onto a foundation (\(newCard.displayTitle) onto \(baseCard.displayTitle))"
+        case .invalidSuitForColumn(let baseCard, let newCard):
+            description = "Attempted to push a card of the wrong suit onto a column (\(newCard.displayTitle) onto \(baseCard.displayTitle))"
+        case .invalidRankForColumn(let baseCard, let newCard):
+            description = "Attempted to push a card of the wrong rank onto a column (\(newCard.displayTitle) onto \(baseCard.displayTitle))"
         }
         
         return "FreecellError: \(description)"

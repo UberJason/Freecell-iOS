@@ -15,6 +15,16 @@ class Column: Stack {
     var topItem: Card? { return stack.last }
     
     func push(_ item: Card) throws {
+        if let topCard = topItem,
+            !topCard.isOppositeColor(of: item) {
+            throw FreecellError.invalidSuitForColumn(baseCard: topCard, newCard: item)
+        }
+        
+        if let topCard = topItem,
+            item.rank.value != topCard.rank.value - 1 {
+            throw FreecellError.invalidRankForColumn(baseCard: topCard, newCard: item)
+        }
+        
         stack.append(item)
     }
     

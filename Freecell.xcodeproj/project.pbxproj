@@ -329,11 +329,11 @@
 			children = (
 				96A3645B237E33BF005C45FB /* FreecellKit.h */,
 				96A3645C237E33BF005C45FB /* Info.plist */,
-				96A36476237E33D3005C45FB /* Board.swift */,
 				96A36478237E3408005C45FB /* Stack.swift */,
+				96A36483237E3851005C45FB /* FreeCell.swift */,
 				96A36485237E385B005C45FB /* Foundation.swift */,
 				96A36481237E384C005C45FB /* Column.swift */,
-				96A36483237E3851005C45FB /* FreeCell.swift */,
+				96A36476237E33D3005C45FB /* Board.swift */,
 				96A36452237CF490005C45FB /* Rank+FreecellValue.swift */,
 				96A36487237E3894005C45FB /* FreecellError.swift */,
 			);

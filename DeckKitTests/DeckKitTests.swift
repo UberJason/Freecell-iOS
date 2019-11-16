@@ -12,6 +12,11 @@ import XCTest
 
 class DeckKitTests: XCTestCase {
 
+    let aceOfSpades = Card.ace.ofSpades
+    let aceOfClubs = Card.ace.ofClubs
+    let twoOfDiamonds = Card.two.ofDiamonds
+    let twoOfClubs = Card.two.ofClubs
+    
     override func setUp() {
         // Put setup code here. This method is called before the invocation of each test method in the class.
     }
@@ -37,9 +42,9 @@ class DeckKitTests: XCTestCase {
     func testDeckInit() {
         let deck = Deck(shuffled: false)
         XCTAssertEqual(deck.cards.count, 52)
-        XCTAssertEqual(deck.cards.first!, Card.two.ofClubs)
-        XCTAssertEqual(deck.cards[12], Card.ace.ofClubs)
-        XCTAssertEqual(deck.cards[13], Card.two.ofDiamonds)
+        XCTAssertEqual(deck.cards.first!, twoOfClubs)
+        XCTAssertEqual(deck.cards[12], aceOfClubs)
+        XCTAssertEqual(deck.cards[13], twoOfDiamonds)
     }
     
     func testDeckDraw() {
@@ -49,7 +54,7 @@ class DeckKitTests: XCTestCase {
         let card = deck.draw()
         XCTAssertNotNil(card)
         XCTAssertEqual(deck.cards.count, 51)
-        XCTAssertEqual(card, Card.ace.ofSpades)
+        XCTAssertEqual(card, aceOfSpades)
         XCTAssertFalse(deck.cards.contains(card!))
         
         for _ in 0 ..< 51 {
@@ -59,5 +64,18 @@ class DeckKitTests: XCTestCase {
         let notACard = deck.draw()
         XCTAssertNil(notACard)
         XCTAssertTrue(deck.cards.count == 0)
+    }
+    
+    func testSuitColor() {
+        XCTAssertEqual(aceOfSpades.suit.color, SuitColor.black)
+        XCTAssertFalse(aceOfSpades.isOppositeColor(of: aceOfClubs))
+        
+        XCTAssertEqual(twoOfDiamonds.suit.color, SuitColor.red)
+        XCTAssertTrue(aceOfClubs.isOppositeColor(of: twoOfDiamonds))
+    }
+    
+    func testDisplayTitle() {
+        XCTAssertEqual(aceOfSpades.displayTitle, "♠️A")
+        XCTAssertEqual(twoOfDiamonds.displayTitle, "♦️2")
     }
 }
