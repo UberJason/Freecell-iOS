@@ -15,6 +15,8 @@ public protocol DeckProtocol {
 }
 
 public class Deck: DeckProtocol {
+    public static let maxCardCount = 52
+    
     public var cards: [Card]
     
     public init(shuffled: Bool) {

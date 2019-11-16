@@ -9,12 +9,12 @@
 import Foundation
 import DeckKit
 
-class Column: Stack {
+public class Column: Stack {
     var stack = [Card]()
-    var maxSize: Int { return 52 }
-    var topItem: Card? { return stack.last }
-    
-    func push(_ item: Card) throws {
+    public var maxSize: Int { return Deck.maxCardCount }
+    public var topItem: Card? { return stack.last }
+
+    public func push(_ item: Card) throws {
         if let topCard = topItem,
             !topCard.isOppositeColor(of: item) {
             throw FreecellError.invalidSuitForColumn(baseCard: topCard, newCard: item)
@@ -25,11 +25,29 @@ class Column: Stack {
             throw FreecellError.invalidRankForColumn(baseCard: topCard, newCard: item)
         }
         
-        stack.append(item)
+        _push(item)
     }
     
-    func pop() -> Card? {
+    public func pop() -> Card? {
         guard !stack.isEmpty else { return nil }
-        return stack.removeLast()
+        return stack.removeFirst()
+    }
+    
+    public func item(at index: Int) -> Card? {
+        guard index < stack.count else { return nil }
+        return stack[index]
+    }
+    
+    public func pushStack(_ cardStack: CardStack) throws {
+        fatalError("Implement pushStack(_:)")
+//        stack.insert(contentsOf: cardStack.stack, at: 0)
+    }
+    
+    func setupPush(_ card: Card) {
+        _push(card)
+    }
+    
+    private func _push(_ item: Card) {
+        stack.insert(item, at: 0)
     }
 }

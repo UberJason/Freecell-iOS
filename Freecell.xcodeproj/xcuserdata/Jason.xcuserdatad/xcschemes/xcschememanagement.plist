@@ -7,12 +7,12 @@
 		<key>DeckKit.xcscheme_^#shared#^_</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>1</integer>
+			<integer>2</integer>
 		</dict>
 		<key>DeckKitTests.xcscheme_^#shared#^_</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>2</integer>
+			<integer>4</integer>
 		</dict>
 		<key>Freecell.xcscheme_^#shared#^_</key>
 		<dict>
@@ -22,7 +22,7 @@
 		<key>FreecellKit.xcscheme_^#shared#^_</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>4</integer>
+			<integer>1</integer>
 		</dict>
 		<key>FreecellKitTests.xcscheme_^#shared#^_</key>
 		<dict>
@@ -48,6 +48,11 @@
 			<true/>
 		</dict>
 		<key>96A36431237CF138005C45FB</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>96A36458237E33BF005C45FB</key>
 		<dict>
 			<key>primary</key>
 			<true/>

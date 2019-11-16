@@ -106,4 +106,28 @@ class FreecellKitTests: XCTestCase {
             XCTFail("Should be able to push \(fourOfClubs.displayTitle) onto a column with top card \(column.topItem!.displayTitle)")
         } catch {}
     }
+    
+    func testBoardSetup() {
+        let board = Board()
+        
+        XCTAssertEqual(board.columns.count, 8)
+        XCTAssertEqual(board.columns[0].stack.count, 7)
+        XCTAssertEqual(board.columns[1].stack.count, 7)
+        XCTAssertEqual(board.columns[2].stack.count, 7)
+        XCTAssertEqual(board.columns[3].stack.count, 7)
+        XCTAssertEqual(board.columns[4].stack.count, 6)
+        XCTAssertEqual(board.columns[4].stack.count, 6)
+        XCTAssertEqual(board.columns[4].stack.count, 6)
+        XCTAssertEqual(board.columns[4].stack.count, 6)
+        
+        XCTAssertEqual(board.freecells.count, 4)
+        board.freecells.forEach { XCTAssertNil($0.item) }
+        
+        XCTAssertEqual(board.foundations.count, 4)
+        board.foundations.forEach { XCTAssertNil($0.topItem) }
+        XCTAssertEqual(board.foundations[0].suit, Suit.diamonds)
+        XCTAssertEqual(board.foundations[1].suit, Suit.clubs)
+        XCTAssertEqual(board.foundations[2].suit, Suit.hearts)
+        XCTAssertEqual(board.foundations[3].suit, Suit.spades)
+    }
 }

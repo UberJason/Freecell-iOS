@@ -9,18 +9,18 @@
 import Foundation
 import DeckKit
 
-class Foundation: Stack {
-    let suit: Suit
+public class Foundation: Stack {
+    public let suit: Suit
     var stack = [Card]()
     
-    var maxSize: Int { return 13 }
-    var topItem: Card? { return stack.last ?? nil }
+    public var maxSize: Int { return 13 }
+    public var topItem: Card? { return stack.last ?? nil }
 
-    init(suit: Suit) {
+    public init(suit: Suit) {
         self.suit = suit
     }
     
-    func push(_ item: Card) throws {
+    public func push(_ item: Card) throws {
         guard item.suit == suit else {
             throw FreecellError.invalidSuitForFoundation(baseSuit: suit, newCard: item)
         }
@@ -29,11 +29,16 @@ class Foundation: Stack {
             throw FreecellError.invalidRankForFoundation(baseCard: topCard, newCard: item)
         }
 
-        stack.append(item)
+        stack.insert(item, at: 0)
     }
     
-    func pop() -> Card? {
+    public func pop() -> Card? {
         assertionFailure("Can't remove a card from Foundation")
         return nil
+    }
+    
+    public func item(at index: Int) -> Card? {
+        guard index < stack.count else { return nil }
+        return stack[index]
     }
 }
