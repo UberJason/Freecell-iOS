@@ -23,7 +23,7 @@ public enum Rank: Int, CaseIterable {
     case king
     case ace
     
-    var displayTitle: String {
+    public var displayTitle: String {
         switch self {
         case .ace: return "A"
         case .king: return "K"

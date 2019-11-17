@@ -1,5 +1,5 @@
 //
-//  ContentView.swift
+//  GameView.swift
 //  Freecell
 //
 //  Created by Jason Ji on 11/13/19.
@@ -7,10 +7,15 @@
 //
 
 import SwiftUI
+import DeckKit
 import FreecellKit
 
-struct ContentView: View {
-    let board = Board()
+class Game: ObservableObject {
+    @Published var board = Board()
+}
+
+struct GameView: View {
+    @ObservedObject var game = Game()
     
     var body: some View {
         ZStack(alignment: .top) {
@@ -20,28 +25,41 @@ struct ContentView: View {
             VStack(spacing: 80.0) {
                 HStack {
                     HStack {
-                        ForEach(board.freecells) { _ in
-                            CardRect()
+                        ForEach(game.board.freecells) { _ in
+                            CardView(card: Card.ace.ofSpades)
                         }
                     }
                     Spacer()
                     HStack {
-                        ForEach(board.foundations) { _ in
-                            CardRect()
+                        ForEach(game.board.foundations) { foundation in
+                            CardView(card: Card(suit: foundation.suit, rank: .ace))
                         }
                     }
                 }
                 
                 HStack(spacing: 20.0) {
-                    ForEach(board.columns) { column in
+                    ForEach(game.board.columns) { column in
                         ZStack {
                             ForEach(0..<column.cards.count) { i in
-                                CardRect()
+                                CardView(card: column.item(at: i)!)
                                     .offset(x: 0, y: 30*CGFloat(i))
                             }
                         }
                     }
                 }
+                
+                Button(action: {
+//                    let card = self.game.board.columns[0].pop()
+//                    self.game.board.columns[1].setupPush(card!)
+                }, label: {
+                    Text("Do It")
+                        .foregroundColor(.white)
+                        .padding()
+                        .overlay(
+                            RoundedRectangle(cornerRadius: 8)
+                                .stroke(Color.white, lineWidth: 2.0)
+                        )
+                    }).offset(x: 0, y: 120)
             }.padding(EdgeInsets(top: 80, leading: 20, bottom: 40, trailing: 20))
             
         }.edgesIgnoringSafeArea(.all)
@@ -54,24 +72,10 @@ struct WindowView: View {
     }
 }
 
-struct CardRect: View {
-    var body: some View {
-        Rectangle()
-            .frame(width: 125, height: 187)
-            .foregroundColor(.white)
-        .overlay(
-            RoundedRectangle(cornerRadius: 8)
-                .stroke(Color.black, lineWidth: 0.25)
-        )
-            .clipShape(RoundedRectangle(cornerRadius: 8))
-            
-//            .shadow(color: .black, radius: 0.2, x: 0, y: 0)
-    }
-}
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
-        ContentView()
+        GameView()
             .previewDevice("iPad Pro 11")
             .previewLayout(.fixed(width: 1194, height: 834))
     }

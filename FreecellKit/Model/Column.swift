@@ -52,7 +52,7 @@ public class Column: Stack, Identifiable {
         return stack.reversed()
     }
     
-    func setupPush(_ card: Card) {
+    public func setupPush(_ card: Card) {
         _push(card)
     }
     
