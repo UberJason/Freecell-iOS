@@ -14,10 +14,11 @@ struct EmptySpotView: View {
             Rectangle()
                 .frame(width: 125, height: 187) // w x h = 1 x 1.5
                 .foregroundColor(.white)
-            .overlay(
-                RoundedRectangle(cornerRadius: 8)
-                    .stroke(Color.black, lineWidth: 0.5)
-            )
+                .opacity(0.5)
+//            .overlay(
+//                RoundedRectangle(cornerRadius: 8)
+//                    .stroke(Color.black, lineWidth: 0.5)
+//            )
                 .clipShape(RoundedRectangle(cornerRadius: 8))
 
             
@@ -31,6 +32,9 @@ struct EmptySpotView: View {
 struct EmptySpotView_Previews: PreviewProvider {
     static var previews: some View {
         EmptySpotView()
+            .frame(width: 125, height: 187)
+            .frame(width: 200, height: 262)
+            .background(Color.green)
             .previewLayout(.fixed(width: 200, height: 262))
     }
 }

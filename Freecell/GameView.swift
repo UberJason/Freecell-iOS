@@ -25,8 +25,8 @@ struct GameView: View {
             VStack(spacing: 60.0) {
                 HStack {
                     HStack {
-                        ForEach(game.board.freecells) { _ in
-                            CardView(card: Card.ace.ofSpades)
+                        ForEach(game.board.freecells) { freeCell in
+                            FreeCellView(freeCell: freeCell)
                                 .frame(width: 125, height: 187)
                         }
                     }

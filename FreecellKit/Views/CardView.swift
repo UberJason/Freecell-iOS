@@ -36,19 +36,18 @@ public struct CardView: View {
                         .font(.system(size: 7, weight: .semibold, design: .default))
                 }.padding(EdgeInsets(top: 5, leading: 5, bottom: 0, trailing: 0))
             }
-            ZStack(alignment: .topLeading) {
-                Rectangle()
-                    .foregroundColor(.red)
-                VStack(alignment: .center, spacing: 0) {
-                    Text(card.rank.displayTitle)
-                        .font(.system(size: 15, weight: .semibold, design: .default))
-                        .foregroundColor(.red)
-                    Text(card.suit.displayTitle)
-                        .font(.system(size: 7, weight: .semibold, design: .default))
-                }
-                .padding(EdgeInsets(top: 5, leading: 5, bottom: 0, trailing: 0))
-            }
-            .transformEffect(.init(rotationAngle: CGFloat.pi))
+//            ZStack(alignment: .topLeading) {
+//                Rectangle()
+//                    .foregroundColor(.blue)
+//                VStack(alignment: .center, spacing: 0) {
+//                    Text(card.rank.displayTitle)
+//                        .font(.system(size: 15, weight: .semibold, design: .default))
+//                    Text(card.suit.displayTitle)
+//                        .font(.system(size: 7, weight: .semibold, design: .default))
+//                }
+//                .padding(EdgeInsets(top: 5, leading: 5, bottom: 0, trailing: 0))
+//            }
+//            .transformEffect(.init(rotationAngle: CGFloat.pi))
         }
                     
 //            .shadow(color: .black, radius: 0.2, x: 0, y: 0)

@@ -41,9 +41,15 @@ struct FreeCellView_Previews: PreviewProvider {
         
         return Group {
             FreeCellView(freeCell: emptyFreeCell)
+                .frame(width: 125, height: 187)
+                .frame(width: 200, height: 262)
+                .background(Color.green)
                 .previewLayout(.fixed(width: 200, height: 262))
             FreeCellView(freeCell: occupiedFreeCell)
-            .previewLayout(.fixed(width: 200, height: 262))
+                .frame(width: 125, height: 187)
+                .frame(width: 200, height: 262)
+                .background(Color.green)
+                .previewLayout(.fixed(width: 200, height: 262))
         }
     }
 }
