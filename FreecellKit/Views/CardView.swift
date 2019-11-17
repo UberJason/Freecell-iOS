@@ -17,20 +17,38 @@ public struct CardView: View {
     }
     
     public var body: some View {
-        ZStack(alignment: .topLeading) {
+        ZStack {
             Rectangle()
-                .frame(width: 125, height: 187) // w x h = 1 x 1.5
                 .foregroundColor(.white)
             .overlay(
                 RoundedRectangle(cornerRadius: 8)
-                    .stroke(Color.black, lineWidth: 0.25)
+                    .stroke(Color.black, lineWidth: 0.5)
             )
                 .clipShape(RoundedRectangle(cornerRadius: 8))
 
-            VStack {
-                Text(card.rank.displayTitle)
-                Text(card.suit.displayTitle)
-            }.padding(EdgeInsets(top: 5, leading: 5, bottom: 0, trailing: 0))
+            ZStack(alignment: .topLeading) {
+                Rectangle()
+                    .foregroundColor(.clear)
+                VStack(alignment: .center, spacing: 0) {
+                    Text(card.rank.displayTitle)
+                        .font(.system(size: 15, weight: .semibold, design: .default))
+                    Text(card.suit.displayTitle)
+                        .font(.system(size: 7, weight: .semibold, design: .default))
+                }.padding(EdgeInsets(top: 5, leading: 5, bottom: 0, trailing: 0))
+            }
+            ZStack(alignment: .topLeading) {
+                Rectangle()
+                    .foregroundColor(.red)
+                VStack(alignment: .center, spacing: 0) {
+                    Text(card.rank.displayTitle)
+                        .font(.system(size: 15, weight: .semibold, design: .default))
+                        .foregroundColor(.red)
+                    Text(card.suit.displayTitle)
+                        .font(.system(size: 7, weight: .semibold, design: .default))
+                }
+                .padding(EdgeInsets(top: 5, leading: 5, bottom: 0, trailing: 0))
+            }
+            .transformEffect(.init(rotationAngle: CGFloat.pi))
         }
                     
 //            .shadow(color: .black, radius: 0.2, x: 0, y: 0)
@@ -40,6 +58,7 @@ public struct CardView: View {
 struct CardView_Previews: PreviewProvider {
     static var previews: some View {
         CardView(card: Card.ace.ofSpades)
-            .previewLayout(.fixed(width: 200, height: 262))
+            .frame(width: 125, height: 187)
+            .previewLayout(.fixed(width: 200, height: 300))
     }
 }

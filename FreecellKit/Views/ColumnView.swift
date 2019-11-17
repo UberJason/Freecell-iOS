@@ -7,15 +7,23 @@
 //
 
 import SwiftUI
+import DeckKit
 
 struct ColumnView: View {
-    var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+    let column: Column
+    
+    public init(column: Column) {
+        self.column = column
+    }
+    
+    public var body: some View {
+        CardView(card: Card.ace.ofSpades)
     }
 }
 
 struct ColumnView_Previews: PreviewProvider {
     static var previews: some View {
-        ColumnView()
+        ColumnView(column: Column(id: 0))
+            .previewLayout(.fixed(width: 200, height: 262))
     }
 }

@@ -7,15 +7,22 @@
 //
 
 import SwiftUI
+import DeckKit
 
 struct FoundationView: View {
-    var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+    let foundation: Foundation
+    public init(foundation: Foundation) {
+        self.foundation = foundation
+    }
+    
+    public var body: some View {
+        CardView(card: Card.ace.ofSpades)
     }
 }
 
 struct FoundationView_Previews: PreviewProvider {
     static var previews: some View {
-        FoundationView()
+        FoundationView(foundation: Foundation(id: 0, suit: .spades))
+            .previewLayout(.fixed(width: 200, height: 262))
     }
 }

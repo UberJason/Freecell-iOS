@@ -11,6 +11,7 @@
 		9625628B2381D84C003C09AA /* FreeCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9625628A2381D84C003C09AA /* FreeCellView.swift */; };
 		9625628D2381D853003C09AA /* FoundationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9625628C2381D853003C09AA /* FoundationView.swift */; };
 		9625628F2381D857003C09AA /* ColumnView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9625628E2381D857003C09AA /* ColumnView.swift */; };
+		962562912381DEEB003C09AA /* EmptySpotView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 962562902381DEEB003C09AA /* EmptySpotView.swift */; };
 		9661E7AC2380439C00183A99 /* CardStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9661E7AB2380439C00183A99 /* CardStack.swift */; };
 		96A363F6237CF0FC005C45FB /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96A363F5237CF0FC005C45FB /* AppDelegate.swift */; };
 		96A363F8237CF0FC005C45FB /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96A363F7237CF0FC005C45FB /* SceneDelegate.swift */; };
@@ -143,6 +144,7 @@
 		9625628A2381D84C003C09AA /* FreeCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FreeCellView.swift; sourceTree = "<group>"; };
 		9625628C2381D853003C09AA /* FoundationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoundationView.swift; sourceTree = "<group>"; };
 		9625628E2381D857003C09AA /* ColumnView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColumnView.swift; sourceTree = "<group>"; };
+		962562902381DEEB003C09AA /* EmptySpotView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptySpotView.swift; sourceTree = "<group>"; };
 		9661E7AB2380439C00183A99 /* CardStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardStack.swift; sourceTree = "<group>"; };
 		96A363F2237CF0FC005C45FB /* Freecell.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Freecell.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		96A363F5237CF0FC005C45FB /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -246,6 +248,7 @@
 			isa = PBXGroup;
 			children = (
 				962562882381D846003C09AA /* CardView.swift */,
+				962562902381DEEB003C09AA /* EmptySpotView.swift */,
 				9625628A2381D84C003C09AA /* FreeCellView.swift */,
 				9625628C2381D853003C09AA /* FoundationView.swift */,
 				9625628E2381D857003C09AA /* ColumnView.swift */,
@@ -714,6 +717,7 @@
 				9661E7AC2380439C00183A99 /* CardStack.swift in Sources */,
 				962562892381D846003C09AA /* CardView.swift in Sources */,
 				96A36486237E385B005C45FB /* Foundation.swift in Sources */,
+				962562912381DEEB003C09AA /* EmptySpotView.swift in Sources */,
 				96A36484237E3851005C45FB /* FreeCell.swift in Sources */,
 				96A36480237E37D1005C45FB /* Rank+FreecellValue.swift in Sources */,
 				96A36482237E384C005C45FB /* Column.swift in Sources */,

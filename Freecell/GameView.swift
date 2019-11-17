@@ -22,17 +22,19 @@ struct GameView: View {
             WindowView()
             .frame(maxWidth: .infinity, maxHeight: .infinity)
         
-            VStack(spacing: 80.0) {
+            VStack(spacing: 60.0) {
                 HStack {
                     HStack {
                         ForEach(game.board.freecells) { _ in
                             CardView(card: Card.ace.ofSpades)
+                                .frame(width: 125, height: 187)
                         }
                     }
                     Spacer()
                     HStack {
                         ForEach(game.board.foundations) { foundation in
                             CardView(card: Card(suit: foundation.suit, rank: .ace))
+                                .frame(width: 125, height: 187)
                         }
                     }
                 }
@@ -42,7 +44,8 @@ struct GameView: View {
                         ZStack {
                             ForEach(0..<column.cards.count) { i in
                                 CardView(card: column.item(at: i)!)
-                                    .offset(x: 0, y: 30*CGFloat(i))
+                                    .offset(x: 0, y: 35*CGFloat(i))
+                                    .frame(width: 125, height: 187)
                             }
                         }
                     }
@@ -59,8 +62,8 @@ struct GameView: View {
                             RoundedRectangle(cornerRadius: 8)
                                 .stroke(Color.white, lineWidth: 2.0)
                         )
-                    }).offset(x: 0, y: 120)
-            }.padding(EdgeInsets(top: 80, leading: 20, bottom: 40, trailing: 20))
+                    }).offset(x: 0, y: 190)
+            }.padding(EdgeInsets(top: 40, leading: 20, bottom: 40, trailing: 20))
             
         }.edgesIgnoringSafeArea(.all)
     }

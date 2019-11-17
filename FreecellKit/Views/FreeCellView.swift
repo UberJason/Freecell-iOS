@@ -7,15 +7,43 @@
 //
 
 import SwiftUI
+import DeckKit
 
-struct FreeCellView: View {
-    var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+public struct FreeCellView: View {
+    let freeCell: FreeCell
+    
+    public init(freeCell: FreeCell) {
+        self.freeCell = freeCell
+    }
+    
+    public var body: some View {
+        viewToShow
+    }
+    
+    var viewToShow: AnyView {
+        if let card = freeCell.item {
+            return AnyView(CardView(card: card))
+        }
+        else {
+            return AnyView(EmptySpotView())
+        }
     }
 }
 
 struct FreeCellView_Previews: PreviewProvider {
     static var previews: some View {
-        FreeCellView()
+        let emptyFreeCell = FreeCell(id: 0)
+        let occupiedFreeCell: FreeCell = {
+            let f = FreeCell(id: 1)
+            try! f.push(Card.ace.ofSpades)
+            return f
+        }()
+        
+        return Group {
+            FreeCellView(freeCell: emptyFreeCell)
+                .previewLayout(.fixed(width: 200, height: 262))
+            FreeCellView(freeCell: occupiedFreeCell)
+            .previewLayout(.fixed(width: 200, height: 262))
+        }
     }
 }
