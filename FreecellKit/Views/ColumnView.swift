@@ -9,7 +9,7 @@
 import SwiftUI
 import DeckKit
 
-struct ColumnView: View {
+public struct ColumnView: View {
     let column: Column
     
     public init(column: Column) {
@@ -17,13 +17,25 @@ struct ColumnView: View {
     }
     
     public var body: some View {
-        CardView(card: Card.ace.ofSpades)
+        ZStack {
+            ForEach(0..<column.items.count) { i in
+                CardView(card: self.column.item(at: i)!)
+                    .offset(x: 0, y: 35*CGFloat(i))
+                    .frame(width: 125, height: 187)
+            }
+        }
     }
 }
 
 struct ColumnView_Previews: PreviewProvider {
     static var previews: some View {
-        ColumnView(column: Column(id: 0))
-            .previewLayout(.fixed(width: 200, height: 262))
+        let column = Column(id: 0)
+        column.setupPush(Card.king.ofDiamonds)
+        column.setupPush(Card.seven.ofSpades)
+        column.setupPush(Card.four.ofHearts)
+        column.setupPush(Card.ace.ofSpades)
+        
+        return ColumnView(column: column)
+            .previewLayout(.fixed(width: 200, height: 700))
     }
 }

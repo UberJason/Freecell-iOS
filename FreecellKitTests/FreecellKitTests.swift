@@ -77,6 +77,20 @@ class FreecellKitTests: XCTestCase {
         } catch {}
     }
     
+    func testMultipleFoundationPush() {
+        let f = Foundation(id: 0, suit: .hearts)
+        do {
+            try f.push(Card.ace.ofHearts)
+            try f.push(Card.two.ofHearts)
+            try f.push(Card.three.ofHearts)
+            try f.push(Card.four.ofHearts)
+        } catch {
+            print(error.localizedDescription)
+            XCTFail("Should be able to push A through 4 of Hearts")
+        }
+    }
+    
+    
     func testColumnPush() {
         let column = Column(id: 0)
         

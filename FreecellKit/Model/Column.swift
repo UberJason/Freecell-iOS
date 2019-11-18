@@ -13,7 +13,7 @@ public class Column: Stack, Identifiable {
     public let id: Int
     var stack = [Card]()
     public var maxSize: Int { return Deck.maxCardCount }
-    public var topItem: Card? { return stack.last }
+    public var topItem: Card? { return stack.first }
 
     public init(id: Int) {
         self.id = id
@@ -48,7 +48,7 @@ public class Column: Stack, Identifiable {
 //        stack.insert(contentsOf: cardStack.stack, at: 0)
     }
     
-    public var cards: [Card] {
+    public var items: [Card] {
         return stack.reversed()
     }
     

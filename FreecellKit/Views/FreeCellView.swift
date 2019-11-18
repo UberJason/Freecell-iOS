@@ -11,41 +11,30 @@ import DeckKit
 
 public struct FreeCellView: View {
     let freeCell: FreeCell
-    
+
     public init(freeCell: FreeCell) {
         self.freeCell = freeCell
     }
     
     public var body: some View {
-        viewToShow
-    }
-    
-    var viewToShow: AnyView {
-        if let card = freeCell.item {
-            return AnyView(CardView(card: card))
-        }
-        else {
-            return AnyView(EmptySpotView())
+        ZStack {
+            EmptySpotView()
+            freeCell.item.map { CardView(card: $0) }
         }
     }
 }
 
 struct FreeCellView_Previews: PreviewProvider {
+    static var emptyFreeCell = FreeCell(id: 0)
+    static var occupiedFreeCell: FreeCell = {
+        let f = FreeCell(id: 1)
+        try! f.push(Card.ace.ofSpades)
+        return f
+    }()
+    
     static var previews: some View {
-        let emptyFreeCell = FreeCell(id: 0)
-        let occupiedFreeCell: FreeCell = {
-            let f = FreeCell(id: 1)
-            try! f.push(Card.ace.ofSpades)
-            return f
-        }()
-        
-        return Group {
-            FreeCellView(freeCell: emptyFreeCell)
-                .frame(width: 125, height: 187)
-                .frame(width: 200, height: 262)
-                .background(Color.green)
-                .previewLayout(.fixed(width: 200, height: 262))
-            FreeCellView(freeCell: occupiedFreeCell)
+        ForEach([emptyFreeCell, occupiedFreeCell]) { freeCell in
+            FreeCellView(freeCell: freeCell)
                 .frame(width: 125, height: 187)
                 .frame(width: 200, height: 262)
                 .background(Color.green)

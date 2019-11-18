@@ -10,7 +10,7 @@ import Foundation
 import DeckKit
 
 public class CardStack: Column {
-    public var bottomItem: Card? { return stack.first }
+    public var bottomItem: Card? { return stack.last }
     
     init(id: Int, cards: [Card]) {
         super.init(id: id)

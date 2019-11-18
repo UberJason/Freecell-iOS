@@ -26,6 +26,10 @@ protocol Stack {
     /// Top item on the stack, first to be popped off. Returns nil if stack is empty.
     var topItem: T? { get }
     
+    /// List of items, where the most recently pushed item is at the back of the array.
+    /// Returns empty array if stack is empty.
+    var items: [T] { get }
+    
     /// Maximum allowed stack size.
     var maxSize: Int { get }
 }

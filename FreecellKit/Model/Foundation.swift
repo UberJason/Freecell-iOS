@@ -15,7 +15,7 @@ public class Foundation: Stack, Identifiable {
     var stack = [Card]()
     
     public var maxSize: Int { return 13 }
-    public var topItem: Card? { return stack.last ?? nil }
+    public var topItem: Card? { return stack.first ?? nil }
 
     public init(id: Int, suit: Suit) {
         self.id = id
@@ -32,6 +32,10 @@ public class Foundation: Stack, Identifiable {
         }
 
         stack.insert(item, at: 0)
+    }
+    
+    public var items: [Card] {
+        return stack.reversed()
     }
     
     public func pop() -> Card? {

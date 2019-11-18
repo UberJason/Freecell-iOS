@@ -33,7 +33,7 @@ struct GameView: View {
                     Spacer()
                     HStack {
                         ForEach(game.board.foundations) { foundation in
-                            CardView(card: Card(suit: foundation.suit, rank: .ace))
+                            FoundationView(foundation: foundation)
                                 .frame(width: 125, height: 187)
                         }
                     }
@@ -41,13 +41,7 @@ struct GameView: View {
                 
                 HStack(spacing: 20.0) {
                     ForEach(game.board.columns) { column in
-                        ZStack {
-                            ForEach(0..<column.cards.count) { i in
-                                CardView(card: column.item(at: i)!)
-                                    .offset(x: 0, y: 35*CGFloat(i))
-                                    .frame(width: 125, height: 187)
-                            }
-                        }
+                        ColumnView(column: column)
                     }
                 }
                 

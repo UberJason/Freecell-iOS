@@ -9,20 +9,41 @@
 import SwiftUI
 import DeckKit
 
-struct FoundationView: View {
+public struct FoundationView: View {
     let foundation: Foundation
+    
     public init(foundation: Foundation) {
         self.foundation = foundation
     }
     
     public var body: some View {
-        CardView(card: Card.ace.ofSpades)
+        ZStack {
+            EmptySpotView(suit: foundation.suit)
+            ForEach(foundation.items) { card in
+                CardView(card: card)
+            }
+        }
     }
 }
 
 struct FoundationView_Previews: PreviewProvider {
+    static let emptyFoundation = Foundation(id: 0, suit: .spades)
+    static let filledFoundation: Foundation = {
+        let f = Foundation(id: 1, suit: .hearts)
+        try! f.push(Card.ace.ofHearts)
+        try! f.push(Card.two.ofHearts)
+        try! f.push(Card.three.ofHearts)
+        try? f.push(Card.four.ofHearts)
+        return f
+    }()
+    
     static var previews: some View {
-        FoundationView(foundation: Foundation(id: 0, suit: .spades))
-            .previewLayout(.fixed(width: 200, height: 262))
+        ForEach([filledFoundation]) { foundation in
+            FoundationView(foundation: foundation)
+                .frame(width: 125, height: 187)
+                .frame(width: 200, height: 262)
+                .background(Color.green)
+                .previewLayout(.fixed(width: 200, height: 262))
+        }
     }
 }

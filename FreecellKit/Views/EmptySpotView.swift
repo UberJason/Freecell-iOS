@@ -7,9 +7,16 @@
 //
 
 import SwiftUI
+import DeckKit
 
-struct EmptySpotView: View {
-    var body: some View {
+public struct EmptySpotView: View {
+    let suit: Suit?
+    
+    public init(suit: Suit? = nil) {
+        self.suit = suit
+    }
+    
+    public var body: some View {
         ZStack {
             Rectangle()
                 .frame(width: 125, height: 187) // w x h = 1 x 1.5
@@ -22,7 +29,7 @@ struct EmptySpotView: View {
                 .clipShape(RoundedRectangle(cornerRadius: 8))
 
             
-            Text("!")
+            Text(suit?.displayTitle ?? "!")
                 .font(.system(size: 30, weight: .semibold, design: .default))
           
         }
@@ -30,11 +37,22 @@ struct EmptySpotView: View {
 }
 
 struct EmptySpotView_Previews: PreviewProvider {
+    static let spadeEmpty = EmptySpotView(suit: .spades)
+    static let noEmpty = EmptySpotView()
+    
     static var previews: some View {
-        EmptySpotView()
-            .frame(width: 125, height: 187)
-            .frame(width: 200, height: 262)
-            .background(Color.green)
-            .previewLayout(.fixed(width: 200, height: 262))
+        Group {
+            EmptySpotView()
+                .frame(width: 125, height: 187)
+                .frame(width: 200, height: 262)
+                .background(Color.green)
+                .previewLayout(.fixed(width: 200, height: 262))
+            
+            EmptySpotView(suit: .spades)
+                .frame(width: 125, height: 187)
+                .frame(width: 200, height: 262)
+                .background(Color.green)
+                .previewLayout(.fixed(width: 200, height: 262))
+        }
     }
 }

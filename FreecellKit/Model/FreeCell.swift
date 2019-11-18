@@ -14,6 +14,10 @@ public class FreeCell: Stack, Identifiable {
     public var item: Card?
     public var maxSize: Int { return 1 }
     public var topItem: Card? { return item }
+    public var items: [Card] {
+        guard let item = item else { return [] }
+        return [item]
+    }
     
     init(id: Int) {
         self.id = id
