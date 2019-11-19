@@ -9,13 +9,22 @@
 import SwiftUI
 import DeckKit
 import FreecellKit
+import Combine
 
-class Game: ObservableObject {
-    @Published var board = Board()
-}
+//class Game {
+//    var board = Board()
+    
+//    var cancellable: AnyCancellable?
+//    init() {
+//        cancellable = board.objectWillChange.sink { _ in
+//            print("Board published a value")
+//            self.objectWillChange.send()
+//        }
+//    }
+//}
 
 struct GameView: View {
-    @ObservedObject var game = Game()
+    var board = Board()
     
     var body: some View {
         ZStack(alignment: .top) {
@@ -25,14 +34,14 @@ struct GameView: View {
             VStack(spacing: 60.0) {
                 HStack {
                     HStack {
-                        ForEach(game.board.freecells) { freeCell in
+                        ForEach(board.freecells) { freeCell in
                             FreeCellView(freeCell: freeCell)
                                 .frame(width: 125, height: 187)
                         }
                     }
                     Spacer()
                     HStack {
-                        ForEach(game.board.foundations) { foundation in
+                        ForEach(board.foundations) { foundation in
                             FoundationView(foundation: foundation)
                                 .frame(width: 125, height: 187)
                         }
@@ -40,14 +49,15 @@ struct GameView: View {
                 }
                 
                 HStack(spacing: 20.0) {
-                    ForEach(game.board.columns) { column in
+                    ForEach(board.columns) { column in
                         ColumnView(column: column)
                     }
                 }
                 
                 Button(action: {
-//                    let card = self.game.board.columns[0].pop()
-//                    self.game.board.columns[1].setupPush(card!)
+                    let card = self.board.columns[0].pop()
+                    self.board.columns[1].setupPush(card!)
+//                    self.board.__testPublisher()
                 }, label: {
                     Text("Do It")
                         .foregroundColor(.white)

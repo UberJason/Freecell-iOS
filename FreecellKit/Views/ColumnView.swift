@@ -10,17 +10,18 @@ import SwiftUI
 import DeckKit
 
 public struct ColumnView: View {
-    let column: Column
+    @ObservedObject var column: Column
     
     public init(column: Column) {
         self.column = column
     }
     
+    #warning("TODO: ForEach over column.items NOT count, use index(for:) to calculate offset")
     public var body: some View {
         ZStack {
-            ForEach(0..<column.items.count) { i in
-                CardView(card: self.column.item(at: i)!)
-                    .offset(x: 0, y: 35*CGFloat(i))
+            ForEach(column.items) { item in
+                CardView(card: item)
+                    .offset(x: 0, y: 35*CGFloat(self.column.orderIndex(for: item)))
                     .frame(width: 125, height: 187)
             }
         }

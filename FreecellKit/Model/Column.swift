@@ -9,9 +9,9 @@
 import Foundation
 import DeckKit
 
-public class Column: Stack, Identifiable {
+public class Column: Stack, CardLocation, Identifiable, ObservableObject {
     public let id: Int
-    var stack = [Card]()
+    @Published var stack = [Card]()
     public var maxSize: Int { return Deck.maxCardCount }
     public var topItem: Card? { return stack.first }
 
@@ -40,13 +40,13 @@ public class Column: Stack, Identifiable {
     
     public func item(at index: Int) -> Card? {
         guard index < stack.count else { return nil }
-        return stack[index]
+        return stack.reversed()[index]
     }
     
-    public func pushStack(_ cardStack: CardStack) throws {
-        fatalError("Implement pushStack(_:)")
-//        stack.insert(contentsOf: cardStack.stack, at: 0)
-    }
+//    public func pushStack(_ cardStack: CardStack) throws {
+//        fatalError("Implement pushStack(_:)")
+////        stack.insert(contentsOf: cardStack.stack, at: 0)
+//    }
     
     public var items: [Card] {
         return stack.reversed()
@@ -58,5 +58,9 @@ public class Column: Stack, Identifiable {
     
     private func _push(_ item: Card) {
         stack.insert(item, at: 0)
+    }
+    
+    public func orderIndex(for card: Card) -> Int {
+        return stack.reversed().firstIndex(of: card) ?? -1
     }
 }

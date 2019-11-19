@@ -9,7 +9,7 @@
 import Foundation
 import DeckKit
 
-public class Foundation: Stack, Identifiable {
+public class Foundation: Stack, CardLocation, Identifiable {
     public let id: Int
     public let suit: Suit
     var stack = [Card]()
@@ -45,6 +45,6 @@ public class Foundation: Stack, Identifiable {
     
     public func item(at index: Int) -> Card? {
         guard index < stack.count else { return nil }
-        return stack[index]
+        return stack.reversed()[index]
     }
 }

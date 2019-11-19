@@ -9,7 +9,7 @@
 import Foundation
 import DeckKit
 
-public class FreeCell: Stack, Identifiable {
+public class FreeCell: Stack, CardLocation, Identifiable {
     public let id: Int
     public var item: Card?
     public var maxSize: Int { return 1 }

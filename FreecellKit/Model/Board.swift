@@ -8,14 +8,18 @@
 
 import Foundation
 import DeckKit
+import Combine
 
-public class Board {
-    public let freecells: [FreeCell]
-    public let foundations: [Foundation]
-    public let columns: [Column]
+public class Board: ObservableObject {
+    public var freecells: [FreeCell]
+    public var foundations: [Foundation]
+    public var columns: [Column]
+    
+    public lazy var publisher: AnyPublisher<BoardEvent, Never> = eventSubject.eraseToAnyPublisher()
+    private var eventSubject = PassthroughSubject<BoardEvent, Never>()
     
     public init() {
-        let deck = Deck(shuffled: true)
+        let deck = Deck(shuffled: false)
         
         freecells = (0...3).map { i in FreeCell(id: i) }
         foundations = [
@@ -31,4 +35,13 @@ public class Board {
             columns[i % columns.count].setupPush(card)
         }
     }
+    
+    public func __testPublisher() {
+        eventSubject.send(.debug)
+    }
+}
+
+public enum BoardEvent {
+    case debug
+    case moved(from: CardLocation, to: CardLocation)
 }
