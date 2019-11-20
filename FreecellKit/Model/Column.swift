@@ -13,7 +13,7 @@ public class Column: Stack, CardLocation, Identifiable, ObservableObject {
     public let id: Int
     @Published var stack = [Card]()
     public var maxSize: Int { return Deck.maxCardCount }
-    public var topItem: Card? { return stack.first }
+    public var topItem: Card? { return stack.last }
 
     public init(id: Int) {
         self.id = id
@@ -35,21 +35,21 @@ public class Column: Stack, CardLocation, Identifiable, ObservableObject {
     
     public func pop() -> Card? {
         guard !stack.isEmpty else { return nil }
-        return stack.removeFirst()
+        return stack.removeLast()
     }
     
     public func item(at index: Int) -> Card? {
         guard index < stack.count else { return nil }
-        return stack.reversed()[index]
+        return stack[index]
     }
     
 //    public func pushStack(_ cardStack: CardStack) throws {
 //        fatalError("Implement pushStack(_:)")
-////        stack.insert(contentsOf: cardStack.stack, at: 0)
+////        stack.append(contentsOf: cardStack.stack)
 //    }
     
     public var items: [Card] {
-        return stack.reversed()
+        return stack
     }
     
     public func setupPush(_ card: Card) {
@@ -57,10 +57,10 @@ public class Column: Stack, CardLocation, Identifiable, ObservableObject {
     }
     
     private func _push(_ item: Card) {
-        stack.insert(item, at: 0)
+        stack.append(item)
     }
     
     public func orderIndex(for card: Card) -> Int {
-        return stack.reversed().firstIndex(of: card) ?? -1
+        return stack.firstIndex(of: card) ?? -1
     }
 }

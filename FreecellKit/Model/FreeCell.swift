@@ -9,9 +9,9 @@
 import Foundation
 import DeckKit
 
-public class FreeCell: Stack, CardLocation, Identifiable {
+public class FreeCell: Stack, CardLocation, Identifiable, ObservableObject {
     public let id: Int
-    public var item: Card?
+    @Published public var item: Card?
     public var maxSize: Int { return 1 }
     public var topItem: Card? { return item }
     public var items: [Card] {

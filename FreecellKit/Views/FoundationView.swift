@@ -10,7 +10,7 @@ import SwiftUI
 import DeckKit
 
 public struct FoundationView: View {
-    let foundation: Foundation
+    @ObservedObject var foundation: Foundation
     
     public init(foundation: Foundation) {
         self.foundation = foundation

@@ -10,7 +10,7 @@ import SwiftUI
 import DeckKit
 
 public struct FreeCellView: View {
-    let freeCell: FreeCell
+    @ObservedObject var freeCell: FreeCell
 
     public init(freeCell: FreeCell) {
         self.freeCell = freeCell

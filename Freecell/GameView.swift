@@ -46,18 +46,49 @@ struct GameView: View {
                     }
                 }
                 
-                Button(action: {
-                    let card = self.game.board.columns[0].pop()
-                    self.game.board.columns[1].setupPush(card!)
-                }, label: {
-                    Text("Do It")
-                        .foregroundColor(.white)
-                        .padding()
-                        .overlay(
-                            RoundedRectangle(cornerRadius: 8)
-                                .stroke(Color.white, lineWidth: 2.0)
-                        )
-                    }).offset(x: 0, y: 190)
+                HStack {
+                    Button(action: {
+                        let card = self.game.board.columns[0].pop()
+                        self.game.board.columns[1].setupPush(card!)
+                    }, label: {
+                        Text("Column")
+                            .foregroundColor(.white)
+                            .padding()
+                            .overlay(
+                                RoundedRectangle(cornerRadius: 8)
+                                    .stroke(Color.white, lineWidth: 2.0)
+                            )
+                        })
+                        .offset(x: 0, y: 190)
+                    
+                    Button(action: {
+                        let card = self.game.board.columns[0].pop()
+                        try! self.game.board.freecells[0].push(card!)
+                    }, label: {
+                        Text("FreeCell")
+                            .foregroundColor(.white)
+                            .padding()
+                            .overlay(
+                                RoundedRectangle(cornerRadius: 8)
+                                    .stroke(Color.white, lineWidth: 2.0)
+                            )
+                        })
+                        .offset(x: 0, y: 190)
+                    
+                    Button(action: {
+                        let card = self.game.board.columns[0].pop()
+                        try! self.game.board.foundations[3].push(card!)
+                    }, label: {
+                        Text("Foundation")
+                            .foregroundColor(.white)
+                            .padding()
+                            .overlay(
+                                RoundedRectangle(cornerRadius: 8)
+                                    .stroke(Color.white, lineWidth: 2.0)
+                            )
+                        })
+                        .offset(x: 0, y: 190)
+                }
             }.padding(EdgeInsets(top: 40, leading: 20, bottom: 40, trailing: 20))
             
         }.edgesIgnoringSafeArea(.all)

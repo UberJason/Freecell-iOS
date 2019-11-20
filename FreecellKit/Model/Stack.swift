@@ -14,10 +14,6 @@ import DeckKit
 /// and oldest item at the FRONT of the array. Reason is so when rendering
 /// the stack in UI, can simply iterate over the items and lay them down one by one.
 
-/// The internal implementations put the most recent item at the FRONT of the array
-/// and oldest item at the BACK of the array. Reason is so when pushing one stack
-/// onto another, can simply insert the new stack at index 0 on the old one.
-
 public protocol Stack {
     associatedtype T
     

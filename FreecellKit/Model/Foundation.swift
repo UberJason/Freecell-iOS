@@ -9,13 +9,13 @@
 import Foundation
 import DeckKit
 
-public class Foundation: Stack, CardLocation, Identifiable {
+public class Foundation: Stack, CardLocation, Identifiable, ObservableObject {
     public let id: Int
     public let suit: Suit
-    var stack = [Card]()
+    @Published var stack = [Card]()
     
     public var maxSize: Int { return 13 }
-    public var topItem: Card? { return stack.first ?? nil }
+    public var topItem: Card? { return stack.last ?? nil }
 
     public init(id: Int, suit: Suit) {
         self.id = id
@@ -31,11 +31,11 @@ public class Foundation: Stack, CardLocation, Identifiable {
             throw FreecellError.invalidRankForFoundation(baseCard: topCard, newCard: item)
         }
 
-        stack.insert(item, at: 0)
+        stack.append(item)
     }
     
     public var items: [Card] {
-        return stack.reversed()
+        return stack
     }
     
     public func pop() -> Card? {
@@ -45,6 +45,6 @@ public class Foundation: Stack, CardLocation, Identifiable {
     
     public func item(at index: Int) -> Card? {
         guard index < stack.count else { return nil }
-        return stack.reversed()[index]
+        return stack[index]
     }
 }
