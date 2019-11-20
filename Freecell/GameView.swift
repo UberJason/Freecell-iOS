@@ -11,20 +11,12 @@ import DeckKit
 import FreecellKit
 import Combine
 
-//class Game {
-//    var board = Board()
-    
-//    var cancellable: AnyCancellable?
-//    init() {
-//        cancellable = board.objectWillChange.sink { _ in
-//            print("Board published a value")
-//            self.objectWillChange.send()
-//        }
-//    }
-//}
+class Game {
+    var board = Board()
+}
 
 struct GameView: View {
-    var board = Board()
+    var game = Game()
     
     var body: some View {
         ZStack(alignment: .top) {
@@ -34,14 +26,14 @@ struct GameView: View {
             VStack(spacing: 60.0) {
                 HStack {
                     HStack {
-                        ForEach(board.freecells) { freeCell in
+                        ForEach(game.board.freecells) { freeCell in
                             FreeCellView(freeCell: freeCell)
                                 .frame(width: 125, height: 187)
                         }
                     }
                     Spacer()
                     HStack {
-                        ForEach(board.foundations) { foundation in
+                        ForEach(game.board.foundations) { foundation in
                             FoundationView(foundation: foundation)
                                 .frame(width: 125, height: 187)
                         }
@@ -49,15 +41,14 @@ struct GameView: View {
                 }
                 
                 HStack(spacing: 20.0) {
-                    ForEach(board.columns) { column in
+                    ForEach(game.board.columns) { column in
                         ColumnView(column: column)
                     }
                 }
                 
                 Button(action: {
-                    let card = self.board.columns[0].pop()
-                    self.board.columns[1].setupPush(card!)
-//                    self.board.__testPublisher()
+                    let card = self.game.board.columns[0].pop()
+                    self.game.board.columns[1].setupPush(card!)
                 }, label: {
                     Text("Do It")
                         .foregroundColor(.white)
