@@ -10,8 +10,7 @@ import SwiftUI
 import DeckKit
 
 public struct BoardView: View {
-    @State var selected: Card? = nil
-    let board: Board
+    @ObservedObject var board: Board
     
     public init(board: Board) {
         self.board = board
@@ -26,7 +25,7 @@ public struct BoardView: View {
                 HStack {
                     HStack {
                         ForEach(board.freecells) { freeCell in
-                            FreeCellView(freeCell: freeCell, selected: self.$selected, onTapHandler: self.board.handleTap(from:))
+                            FreeCellView(freeCell: freeCell, selected: self.$board.selectedCard, onTapHandler: self.board.handleTap(from:))
                                 .frame(width: 125, height: 187)
                                 .onTapGesture {
                                     print("Tap freecell")
@@ -49,7 +48,7 @@ public struct BoardView: View {
                 
                 HStack(spacing: 20.0) {
                     ForEach(board.columns) { column in
-                        ColumnView(column: column, selected: self.$selected, onTapHandler: self.board.handleTap(from:))
+                        ColumnView(column: column, selected: self.$board.selectedCard, onTapHandler: self.board.handleTap(from:))
                             .frame(width: 125, height: 187)
                             .onTapGesture {
                                 print("Tap column \(column.id)")

@@ -10,10 +10,20 @@ import Foundation
 import DeckKit
 import Combine
 
+enum SelectionState {
+    case idle, selected(card: Card)
+}
+
 public class Board: ObservableObject {
     public var freecells: [FreeCell]
     public var foundations: [Foundation]
     public var columns: [Column]
+    
+    var selectionState: SelectionState {
+        return selectedCard.map { .selected(card: $0) } ?? .idle
+    }
+    
+    @Published public var selectedCard: Card?
     
     public init() {
         let deck = Deck(shuffled: false)
@@ -36,6 +46,8 @@ public class Board: ObservableObject {
     public func handleTap<T>(from item: T) {
         if let card = item as? Card {
             print("Board detected tap from: \(card.displayTitle)")
+            selectedCard = card
+            print(selectionState)
         }
         else {
             print("Board detected tap from somewhere: \(item)")

@@ -144,4 +144,21 @@ class FreecellKitTests: XCTestCase {
         XCTAssertEqual(board.foundations[2].suit, Suit.hearts)
         XCTAssertEqual(board.foundations[3].suit, Suit.spades)
     }
+    
+    func testBoardSelectionState() {
+        let board = Board()
+        
+        switch board.selectionState {
+        case .idle: break
+        case .selected(_): XCTFail("board selectionState should be idle")
+        }
+        
+        board.selectedCard = Card.ace.ofSpades
+        
+        switch board.selectionState {
+        case .idle: XCTFail("board selectionState should not be idle")
+        case .selected(let card):
+            XCTAssertEqual(card, Card.ace.ofSpades, "Selected card should be \(Card.ace.ofSpades.displayTitle)")
+        }
+    }
 }
