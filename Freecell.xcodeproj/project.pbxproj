@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		9622959A23835A7B005D599B /* CardLocation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9622959923835A7B005D599B /* CardLocation.swift */; };
 		9622959C238393BA005D599B /* GameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96A363F9237CF0FC005C45FB /* GameView.swift */; };
+		962295F223884563005D599B /* CardRectangle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 962295F123884563005D599B /* CardRectangle.swift */; };
 		962562892381D846003C09AA /* CardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 962562882381D846003C09AA /* CardView.swift */; };
 		9625628B2381D84C003C09AA /* FreeCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9625628A2381D84C003C09AA /* FreeCellView.swift */; };
 		9625628D2381D853003C09AA /* FoundationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9625628C2381D853003C09AA /* FoundationView.swift */; };
@@ -142,6 +143,7 @@
 
 /* Begin PBXFileReference section */
 		9622959923835A7B005D599B /* CardLocation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardLocation.swift; sourceTree = "<group>"; };
+		962295F123884563005D599B /* CardRectangle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardRectangle.swift; sourceTree = "<group>"; };
 		962562882381D846003C09AA /* CardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardView.swift; sourceTree = "<group>"; };
 		9625628A2381D84C003C09AA /* FreeCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FreeCellView.swift; sourceTree = "<group>"; };
 		9625628C2381D853003C09AA /* FoundationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoundationView.swift; sourceTree = "<group>"; };
@@ -250,6 +252,7 @@
 			isa = PBXGroup;
 			children = (
 				962562882381D846003C09AA /* CardView.swift */,
+				962295F123884563005D599B /* CardRectangle.swift */,
 				962562902381DEEB003C09AA /* EmptySpotView.swift */,
 				9625628A2381D84C003C09AA /* FreeCellView.swift */,
 				9625628C2381D853003C09AA /* FoundationView.swift */,
@@ -717,6 +720,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				9625628F2381D857003C09AA /* ColumnView.swift in Sources */,
+				962295F223884563005D599B /* CardRectangle.swift in Sources */,
 				9661E7AC2380439C00183A99 /* CardStack.swift in Sources */,
 				962562892381D846003C09AA /* CardView.swift in Sources */,
 				96A36486237E385B005C45FB /* Foundation.swift in Sources */,

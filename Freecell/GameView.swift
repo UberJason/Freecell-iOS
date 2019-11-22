@@ -29,6 +29,9 @@ struct GameView: View {
                         ForEach(game.board.freecells) { freeCell in
                             FreeCellView(freeCell: freeCell)
                                 .frame(width: 125, height: 187)
+                                .onTapGesture {
+                                    print("Tap freecell")
+                                }
                         }
                     }
                     Spacer()
@@ -43,6 +46,9 @@ struct GameView: View {
                 HStack(spacing: 20.0) {
                     ForEach(game.board.columns) { column in
                         ColumnView(column: column)
+                            .onTapGesture {
+                                print("Tap column \(column.id)")
+                            }
                     }
                 }
                 

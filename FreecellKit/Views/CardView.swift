@@ -18,13 +18,11 @@ public struct CardView: View {
     
     public var body: some View {
         ZStack {
-            Rectangle()
-                .foregroundColor(.white)
-            .overlay(
-                RoundedRectangle(cornerRadius: 8)
-                    .stroke(Color.black, lineWidth: 0.5)
-            )
-                .clipShape(RoundedRectangle(cornerRadius: 8))
+            CardRectangle()
+                .overlay(
+                    RoundedRectangle(cornerRadius: 8)
+                        .stroke(Color.black, lineWidth: 0.5)
+                )
 
             ZStack(alignment: .topLeading) {
                 Rectangle()

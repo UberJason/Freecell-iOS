@@ -18,20 +18,11 @@ public struct EmptySpotView: View {
     
     public var body: some View {
         ZStack {
-            Rectangle()
+            CardRectangle(opacity: 0.5)
                 .frame(width: 125, height: 187) // w x h = 1 x 1.5
-                .foregroundColor(.white)
-                .opacity(0.5)
-//            .overlay(
-//                RoundedRectangle(cornerRadius: 8)
-//                    .stroke(Color.black, lineWidth: 0.5)
-//            )
-                .clipShape(RoundedRectangle(cornerRadius: 8))
-
             
             Text(suit?.displayTitle ?? "!")
                 .font(.system(size: 30, weight: .semibold, design: .default))
-          
         }
     }
 }
