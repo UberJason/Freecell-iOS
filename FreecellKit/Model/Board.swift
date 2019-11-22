@@ -14,10 +14,7 @@ public class Board: ObservableObject {
     public var freecells: [FreeCell]
     public var foundations: [Foundation]
     public var columns: [Column]
-    
-    public lazy var publisher: AnyPublisher<BoardEvent, Never> = eventSubject.eraseToAnyPublisher()
-    private var eventSubject = PassthroughSubject<BoardEvent, Never>()
-    
+
     public init() {
         let deck = Deck(shuffled: false)
         
@@ -35,13 +32,4 @@ public class Board: ObservableObject {
             columns[i % columns.count].setupPush(card)
         }
     }
-    
-    public func __testPublisher() {
-        eventSubject.send(.debug)
-    }
-}
-
-public enum BoardEvent {
-    case debug
-    case moved(from: CardLocation, to: CardLocation)
 }

@@ -42,17 +42,16 @@ public class Column: Stack, CardLocation, Identifiable, ObservableObject {
         guard index < stack.count else { return nil }
         return stack[index]
     }
-    
-//    public func pushStack(_ cardStack: CardStack) throws {
-//        fatalError("Implement pushStack(_:)")
-////        stack.append(contentsOf: cardStack.stack)
-//    }
-    
+
     public var items: [Card] {
         return stack
     }
     
     public func setupPush(_ card: Card) {
+        _push(card)
+    }
+    
+    public func debugPush(_ card: Card) {
         _push(card)
     }
     

@@ -11,12 +11,8 @@ import DeckKit
 import FreecellKit
 import Combine
 
-class Game {
-    var board = Board()
-}
-
 struct GameView: View {
-    var game = Game()
+    var board = Board()
     
     var body: some View {
         ZStack(alignment: .top) {
@@ -26,14 +22,14 @@ struct GameView: View {
             VStack(spacing: 60.0) {
                 HStack {
                     HStack {
-                        ForEach(game.board.freecells) { freeCell in
+                        ForEach(board.freecells) { freeCell in
                             FreeCellView(freeCell: freeCell)
                                 .frame(width: 125, height: 187)
                         }
                     }
                     Spacer()
                     HStack {
-                        ForEach(game.board.foundations) { foundation in
+                        ForEach(board.foundations) { foundation in
                             FoundationView(foundation: foundation)
                                 .frame(width: 125, height: 187)
                         }
@@ -41,54 +37,27 @@ struct GameView: View {
                 }
                 
                 HStack(spacing: 20.0) {
-                    ForEach(game.board.columns) { column in
+                    ForEach(board.columns) { column in
                         ColumnView(column: column)
                     }
                 }
                 
-                HStack {
-                    Button(action: {
-                        let card = self.game.board.columns[0].pop()
-                        self.game.board.columns[1].setupPush(card!)
-                    }, label: {
-                        Text("Column")
-                            .foregroundColor(.white)
-                            .padding()
-                            .overlay(
-                                RoundedRectangle(cornerRadius: 8)
-                                    .stroke(Color.white, lineWidth: 2.0)
-                            )
-                        })
-                        .offset(x: 0, y: 190)
-                    
-                    Button(action: {
-                        let card = self.game.board.columns[0].pop()
-                        try! self.game.board.freecells[0].push(card!)
-                    }, label: {
-                        Text("FreeCell")
-                            .foregroundColor(.white)
-                            .padding()
-                            .overlay(
-                                RoundedRectangle(cornerRadius: 8)
-                                    .stroke(Color.white, lineWidth: 2.0)
-                            )
-                        })
-                        .offset(x: 0, y: 190)
-                    
-                    Button(action: {
-                        let card = self.game.board.columns[0].pop()
-                        try! self.game.board.foundations[3].push(card!)
-                    }, label: {
-                        Text("Foundation")
-                            .foregroundColor(.white)
-                            .padding()
-                            .overlay(
-                                RoundedRectangle(cornerRadius: 8)
-                                    .stroke(Color.white, lineWidth: 2.0)
-                            )
-                        })
-                        .offset(x: 0, y: 190)
-                }
+                Button(action: {
+                    withAnimation {
+                        if let card = self.board.columns[0].pop() {
+                            self.board.columns[1].debugPush(card)
+                        }
+                    }
+                }, label: {
+                    Text("Move From Column 0 to 1")
+                        .foregroundColor(.white)
+                        .padding()
+                        .overlay(
+                            RoundedRectangle(cornerRadius: 8)
+                                .stroke(Color.white, lineWidth: 2.0)
+                        )
+                    })
+                    .offset(x: 0, y: 190)
             }.padding(EdgeInsets(top: 40, leading: 20, bottom: 40, trailing: 20))
             
         }.edgesIgnoringSafeArea(.all)
