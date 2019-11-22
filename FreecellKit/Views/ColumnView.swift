@@ -11,9 +11,11 @@ import DeckKit
 
 public struct ColumnView: View {
     @ObservedObject var column: Column
-    let selectedIndex = 2
-    public init(column: Column) {
+    @Binding var selectedCard: Card?
+    
+    public init(column: Column, selected: Binding<Card?>) {
         self.column = column
+        self._selectedCard = selected
     }
     
     public var body: some View {
@@ -29,18 +31,21 @@ public struct ColumnView: View {
                     
                     .onTapGesture {
                         print("Tapped card: \(item.displayTitle)")
+                        self.selectedCard = item
                     }
             }
         }
     }
     
     func overlayView(for card: Card) -> some View {
-        let color: Color = self.column.orderIndex(for: card) == self.selectedIndex ? .yellow : .clear
+        let color: Color = selectedCard == card ? .yellow : .clear
         return CardRectangle(foregroundColor: color, opacity: 0.5)
     }
 }
 
 struct ColumnView_Previews: PreviewProvider {
+    @State static var selected: Card? = Card.ace.ofSpades
+    
     static var previews: some View {
         let column = Column(id: 0)
         column.setupPush(Card.king.ofDiamonds)
@@ -48,7 +53,7 @@ struct ColumnView_Previews: PreviewProvider {
         column.setupPush(Card.four.ofHearts)
         column.setupPush(Card.ace.ofSpades)
         
-        return ColumnView(column: column)
+        return ColumnView(column: column, selected: $selected)
             .previewLayout(.fixed(width: 200, height: 700))
     }
 }

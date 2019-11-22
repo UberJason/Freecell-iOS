@@ -16,6 +16,8 @@ class Game {
 }
 
 struct GameView: View {
+    @State var selected: Card? = nil
+    
     var game = Game()
     
     var body: some View {
@@ -45,7 +47,7 @@ struct GameView: View {
                 
                 HStack(spacing: 20.0) {
                     ForEach(game.board.columns) { column in
-                        ColumnView(column: column)
+                        ColumnView(column: column, selected: self.$selected)
                             .onTapGesture {
                                 print("Tap column \(column.id)")
                             }
