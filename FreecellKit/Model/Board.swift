@@ -15,9 +15,6 @@ public class Board: ObservableObject {
     public var foundations: [Foundation]
     public var columns: [Column]
     
-    public lazy var publisher: AnyPublisher<BoardEvent, Never> = eventSubject.eraseToAnyPublisher()
-    private var eventSubject = PassthroughSubject<BoardEvent, Never>()
-    
     public init() {
         let deck = Deck(shuffled: false)
         
@@ -36,12 +33,12 @@ public class Board: ObservableObject {
         }
     }
     
-    public func __testPublisher() {
-        eventSubject.send(.debug)
+    public func handleTap<T>(from item: T) {
+        if let card = item as? Card {
+            print("Board detected tap from: \(card.displayTitle)")
+        }
+        else {
+            print("Board detected tap from somewhere: \(item)")
+        }
     }
-}
-
-public enum BoardEvent {
-    case debug
-    case moved(from: CardLocation, to: CardLocation)
 }

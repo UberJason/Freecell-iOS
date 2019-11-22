@@ -16,99 +16,12 @@ class Game {
 }
 
 struct GameView: View {
-    @State var selected: Card? = nil
-    
     var game = Game()
     
     var body: some View {
-        ZStack(alignment: .top) {
-            WindowView()
-            .frame(maxWidth: .infinity, maxHeight: .infinity)
-        
-            VStack(spacing: 60.0) {
-                HStack {
-                    HStack {
-                        ForEach(game.board.freecells) { freeCell in
-                            FreeCellView(freeCell: freeCell)
-                                .frame(width: 125, height: 187)
-                                .onTapGesture {
-                                    print("Tap freecell")
-                                }
-                        }
-                    }
-                    Spacer()
-                    HStack {
-                        ForEach(game.board.foundations) { foundation in
-                            FoundationView(foundation: foundation)
-                                .frame(width: 125, height: 187)
-                        }
-                    }
-                }
-                
-                HStack(spacing: 20.0) {
-                    ForEach(game.board.columns) { column in
-                        ColumnView(column: column, selected: self.$selected)
-                            .onTapGesture {
-                                print("Tap column \(column.id)")
-                            }
-                    }
-                }
-                
-                HStack {
-                    Button(action: {
-                        let card = self.game.board.columns[0].pop()
-                        self.game.board.columns[1].setupPush(card!)
-                    }, label: {
-                        Text("Column")
-                            .foregroundColor(.white)
-                            .padding()
-                            .overlay(
-                                RoundedRectangle(cornerRadius: 8)
-                                    .stroke(Color.white, lineWidth: 2.0)
-                            )
-                        })
-                        .offset(x: 0, y: 190)
-                    
-                    Button(action: {
-                        let card = self.game.board.columns[0].pop()
-                        try! self.game.board.freecells[0].push(card!)
-                    }, label: {
-                        Text("FreeCell")
-                            .foregroundColor(.white)
-                            .padding()
-                            .overlay(
-                                RoundedRectangle(cornerRadius: 8)
-                                    .stroke(Color.white, lineWidth: 2.0)
-                            )
-                        })
-                        .offset(x: 0, y: 190)
-                    
-                    Button(action: {
-                        let card = self.game.board.columns[0].pop()
-                        try! self.game.board.foundations[3].push(card!)
-                    }, label: {
-                        Text("Foundation")
-                            .foregroundColor(.white)
-                            .padding()
-                            .overlay(
-                                RoundedRectangle(cornerRadius: 8)
-                                    .stroke(Color.white, lineWidth: 2.0)
-                            )
-                        })
-                        .offset(x: 0, y: 190)
-                }
-            }.padding(EdgeInsets(top: 40, leading: 20, bottom: 40, trailing: 20))
-            
-        }.edgesIgnoringSafeArea(.all)
+        BoardView(board: game.board)
     }
 }
-
-struct WindowView: View {
-    var body: some View {
-        Spacer().background(Color.green)
-    }
-}
-
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {

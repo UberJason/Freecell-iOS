@@ -11,15 +11,25 @@ import DeckKit
 
 public struct FreeCellView: View {
     @ObservedObject var freeCell: FreeCell
-
-    public init(freeCell: FreeCell) {
+    @Binding var selectedCard: Card?
+    var onTapHandler: CardTapHandler?
+    
+    public init(freeCell: FreeCell, selected: Binding<Card?>, onTapHandler: CardTapHandler? = nil) {
         self.freeCell = freeCell
+        self._selectedCard = selected
+        self.onTapHandler = onTapHandler
     }
     
     public var body: some View {
         ZStack {
             EmptySpotView()
-            freeCell.item.map { CardView(card: $0) }
+            freeCell.item.map { card in
+                CardView(card: card)
+                    .onTapGesture {
+                        self.onTapHandler?(card)
+                    }
+            }
+            
         }
     }
 }
@@ -31,10 +41,11 @@ struct FreeCellView_Previews: PreviewProvider {
         try! f.push(Card.ace.ofSpades)
         return f
     }()
+    @State static var selected: Card? = Card.ace.ofSpades
     
     static var previews: some View {
         ForEach([emptyFreeCell, occupiedFreeCell]) { freeCell in
-            FreeCellView(freeCell: freeCell)
+            FreeCellView(freeCell: freeCell, selected: $selected)
                 .frame(width: 125, height: 187)
                 .frame(width: 200, height: 262)
                 .background(Color.green)

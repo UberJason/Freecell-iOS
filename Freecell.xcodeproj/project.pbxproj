@@ -10,6 +10,8 @@
 		9622959A23835A7B005D599B /* CardLocation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9622959923835A7B005D599B /* CardLocation.swift */; };
 		9622959C238393BA005D599B /* GameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96A363F9237CF0FC005C45FB /* GameView.swift */; };
 		962295F223884563005D599B /* CardRectangle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 962295F123884563005D599B /* CardRectangle.swift */; };
+		962295F52388762D005D599B /* BoardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 962295F323887623005D599B /* BoardView.swift */; };
+		962295F92388937D005D599B /* CardTapHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 962295F72388936C005D599B /* CardTapHandler.swift */; };
 		962562892381D846003C09AA /* CardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 962562882381D846003C09AA /* CardView.swift */; };
 		9625628B2381D84C003C09AA /* FreeCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9625628A2381D84C003C09AA /* FreeCellView.swift */; };
 		9625628D2381D853003C09AA /* FoundationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9625628C2381D853003C09AA /* FoundationView.swift */; };
@@ -144,6 +146,8 @@
 /* Begin PBXFileReference section */
 		9622959923835A7B005D599B /* CardLocation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardLocation.swift; sourceTree = "<group>"; };
 		962295F123884563005D599B /* CardRectangle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardRectangle.swift; sourceTree = "<group>"; };
+		962295F323887623005D599B /* BoardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = BoardView.swift; path = FreecellKit/Views/BoardView.swift; sourceTree = SOURCE_ROOT; };
+		962295F72388936C005D599B /* CardTapHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardTapHandler.swift; sourceTree = "<group>"; };
 		962562882381D846003C09AA /* CardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardView.swift; sourceTree = "<group>"; };
 		9625628A2381D84C003C09AA /* FreeCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FreeCellView.swift; sourceTree = "<group>"; };
 		9625628C2381D853003C09AA /* FoundationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoundationView.swift; sourceTree = "<group>"; };
@@ -248,15 +252,25 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		962295F623889359005D599B /* Utility */ = {
+			isa = PBXGroup;
+			children = (
+				96A36452237CF490005C45FB /* Rank+FreecellValue.swift */,
+				962295F72388936C005D599B /* CardTapHandler.swift */,
+			);
+			path = Utility;
+			sourceTree = "<group>";
+		};
 		962562862381D824003C09AA /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				962562882381D846003C09AA /* CardView.swift */,
 				962295F123884563005D599B /* CardRectangle.swift */,
 				962562902381DEEB003C09AA /* EmptySpotView.swift */,
+				962562882381D846003C09AA /* CardView.swift */,
 				9625628A2381D84C003C09AA /* FreeCellView.swift */,
 				9625628C2381D853003C09AA /* FoundationView.swift */,
 				9625628E2381D857003C09AA /* ColumnView.swift */,
+				962295F323887623005D599B /* BoardView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -271,7 +285,6 @@
 				96A36481237E384C005C45FB /* Column.swift */,
 				9661E7AB2380439C00183A99 /* CardStack.swift */,
 				96A36476237E33D3005C45FB /* Board.swift */,
-				96A36452237CF490005C45FB /* Rank+FreecellValue.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -376,6 +389,7 @@
 				96A36487237E3894005C45FB /* FreecellError.swift */,
 				962562872381D828003C09AA /* Model */,
 				962562862381D824003C09AA /* Views */,
+				962295F623889359005D599B /* Utility */,
 			);
 			path = FreecellKit;
 			sourceTree = "<group>";
@@ -724,6 +738,7 @@
 				9661E7AC2380439C00183A99 /* CardStack.swift in Sources */,
 				962562892381D846003C09AA /* CardView.swift in Sources */,
 				96A36486237E385B005C45FB /* Foundation.swift in Sources */,
+				962295F92388937D005D599B /* CardTapHandler.swift in Sources */,
 				962562912381DEEB003C09AA /* EmptySpotView.swift in Sources */,
 				96A36484237E3851005C45FB /* FreeCell.swift in Sources */,
 				96A36480237E37D1005C45FB /* Rank+FreecellValue.swift in Sources */,
@@ -732,6 +747,7 @@
 				9625628D2381D853003C09AA /* FoundationView.swift in Sources */,
 				9622959A23835A7B005D599B /* CardLocation.swift in Sources */,
 				96A36488237E3894005C45FB /* FreecellError.swift in Sources */,
+				962295F52388762D005D599B /* BoardView.swift in Sources */,
 				96A36479237E3408005C45FB /* Stack.swift in Sources */,
 				96A36477237E33D3005C45FB /* Board.swift in Sources */,
 			);

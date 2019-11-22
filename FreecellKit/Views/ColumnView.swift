@@ -12,10 +12,12 @@ import DeckKit
 public struct ColumnView: View {
     @ObservedObject var column: Column
     @Binding var selectedCard: Card?
+    var onTapHandler: CardTapHandler?
     
-    public init(column: Column, selected: Binding<Card?>) {
+    public init(column: Column, selected: Binding<Card?>, onTapHandler: CardTapHandler? = nil) {
         self.column = column
         self._selectedCard = selected
+        self.onTapHandler = onTapHandler
     }
     
     public var body: some View {
@@ -27,11 +29,8 @@ public struct ColumnView: View {
                         self.overlayView(for: item)
                     )
                     .offset(x: 0, y: 35*CGFloat(self.column.orderIndex(for: item)))
-                    .frame(width: 125, height: 187)
-                    
                     .onTapGesture {
-                        print("Tapped card: \(item.displayTitle)")
-                        self.selectedCard = item
+                        self.onTapHandler?(item)
                     }
             }
         }
@@ -54,6 +53,9 @@ struct ColumnView_Previews: PreviewProvider {
         column.setupPush(Card.ace.ofSpades)
         
         return ColumnView(column: column, selected: $selected)
+            .frame(width: 125, height: 187)
+            .frame(width: 200, height: 700)
+            .background(Color.green)
             .previewLayout(.fixed(width: 200, height: 700))
     }
 }
