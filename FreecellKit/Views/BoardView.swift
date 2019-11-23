@@ -28,7 +28,6 @@ public struct BoardView: View {
                             FreeCellView(freeCell: freeCell, selected: self.$board.selectedCard, onTapHandler: self.board.handleTap(from:))
                                 .frame(width: 125, height: 187)
                                 .onTapGesture {
-                                    print("Tap freecell")
                                     self.board.handleTap(from: freeCell)
                                 }
                         }
@@ -39,7 +38,6 @@ public struct BoardView: View {
                             FoundationView(foundation: foundation)
                                 .frame(width: 125, height: 187)
                                 .onTapGesture {
-                                    print("Tap foundation")
                                     self.board.handleTap(from: foundation)
                                 }
                         }
@@ -51,7 +49,7 @@ public struct BoardView: View {
                         ColumnView(column: column, selected: self.$board.selectedCard, onTapHandler: self.board.handleTap(from:))
                             .frame(width: 125, height: 187)
                             .onTapGesture {
-                                print("Tap column \(column.id)")
+                                self.board.handleTap(from: column)
                             }
                     }
                 }

@@ -44,17 +44,25 @@ public class Board: ObservableObject {
     }
     
     public func handleTap<T>(from item: T) {
-        if let card = item as? Card {
+        switch item {
+        case let card as Card:
             cardTapped(card)
-        }
-        else {
-            print("Board detected tap from somewhere: \(item)")
+            
+        case let location as CardLocation:
+            locationTapped(location)
+            
+        default:
+            print("what is this")
         }
     }
     
     private func cardTapped(_ card: Card) {
         print("Board detected tap from: \(card.displayTitle)")
         selectedCard = (selectedCard != card) ? card : nil
-        print(selectionState)
+        print("selection state: \(selectionState)")
+    }
+    
+    private func locationTapped(_ location: CardLocation) {
+        print("Board detected tap from somewhere: \(location)")
     }
 }
