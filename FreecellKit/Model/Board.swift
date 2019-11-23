@@ -64,5 +64,36 @@ public class Board: ObservableObject {
     
     private func locationTapped(_ location: CardLocation) {
         print("Board detected tap from somewhere: \(location)")
+        switch selectionState {
+        case .idle:
+            print("Idle, nothing to do")
+        case .selected(let card):
+            do {
+                try move(card: card, to: location)
+            } catch {
+                print(error.localizedDescription)
+            }
+        }
+    }
+    
+    func location(containing card: Card) -> CardLocation {
+        let allLocations: [[CardLocation]] = [freecells, foundations, columns]
+        
+        guard let containingLocation = allLocations
+            .flatMap({ $0 })
+            .filter({ location in
+                location.contains(card)
+            })
+            .first else { fatalError("Fatal error! Nobody seems to have the card: \(card.displayTitle)") }
+        
+        return containingLocation
+    }
+    
+    #warning("TODO: if the move fails, undo the pop")
+    func move(card: Card, to location: CardLocation) throws {
+        let containingLocation = self.location(containing: card)
+        if let card = containingLocation.pop() {
+            try location.receive(card)
+        }
     }
 }

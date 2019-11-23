@@ -63,4 +63,9 @@ public class Column: Stack, CardLocation, Identifiable, ObservableObject {
     public func orderIndex(for card: Card) -> Int {
         return stack.firstIndex(of: card) ?? -1
     }
+    
+    public func contains(_ card: Card) -> Bool {
+        return stack.contains(card)
+    }
+    
 }

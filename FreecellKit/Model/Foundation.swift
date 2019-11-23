@@ -10,6 +10,7 @@ import Foundation
 import DeckKit
 
 public class Foundation: Stack, CardLocation, Identifiable, ObservableObject {
+    
     public let id: Int
     public let suit: Suit
     @Published var stack = [Card]()
@@ -46,5 +47,9 @@ public class Foundation: Stack, CardLocation, Identifiable, ObservableObject {
     public func item(at index: Int) -> Card? {
         guard index < stack.count else { return nil }
         return stack[index]
+    }
+    
+    public func contains(_ card: Card) -> Bool {
+        return stack.contains(card)
     }
 }

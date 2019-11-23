@@ -10,5 +10,13 @@ import Foundation
 import DeckKit
 
 public protocol CardLocation {
-    
+    func contains(_ card: Card) -> Bool
+    func pop() -> Card?
+    func receive(_ card: Card) throws
+}
+
+public extension CardLocation where Self: Stack, T == Card {
+    func receive(_ card: Card) throws {
+        try push(card)
+    }
 }
