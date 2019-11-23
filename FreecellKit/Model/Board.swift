@@ -25,9 +25,7 @@ public class Board: ObservableObject {
     
     @Published public var selectedCard: Card?
     
-    public init() {
-        let deck = Deck(shuffled: false)
-        
+    public init(deck: Deck = Deck(shuffled: false)) {
         freecells = (0...3).map { i in FreeCell(id: i) }
         foundations = [
             Foundation(id: 0, suit: .diamonds),
@@ -42,7 +40,8 @@ public class Board: ObservableObject {
             columns[i % columns.count].setupPush(card)
         }
     }
-    
+
+    #warning("TODO: double taps/clicks")
     public func handleTap<T>(from item: T) {
         switch item {
         case let card as Card:
@@ -56,6 +55,7 @@ public class Board: ObservableObject {
         }
     }
     
+    #warning("TODO: if cardTapped while selectionState == .selected, don't just change the selection")
     private func cardTapped(_ card: Card) {
         print("Board detected tap from: \(card.displayTitle)")
         selectedCard = (selectedCard != card) ? card : nil
@@ -69,7 +69,7 @@ public class Board: ObservableObject {
             print("Idle, nothing to do")
         case .selected(let card):
             do {
-                try move(card: card, to: location)
+                try move(card, to: location)
             } catch {
                 print(error.localizedDescription)
             }
@@ -90,7 +90,7 @@ public class Board: ObservableObject {
     }
     
     #warning("TODO: if the move fails, undo the pop")
-    func move(card: Card, to location: CardLocation) throws {
+    func move(_ card: Card, to location: CardLocation) throws {
         let containingLocation = self.location(containing: card)
         if let card = containingLocation.pop() {
             try location.receive(card)

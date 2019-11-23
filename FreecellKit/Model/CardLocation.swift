@@ -10,6 +10,7 @@ import Foundation
 import DeckKit
 
 public protocol CardLocation {
+    var id: Int { get }
     func contains(_ card: Card) -> Bool
     func pop() -> Card?
     func receive(_ card: Card) throws

@@ -161,4 +161,37 @@ class FreecellKitTests: XCTestCase {
             XCTAssertEqual(card, Card.ace.ofSpades, "Selected card should be \(Card.ace.ofSpades.displayTitle)")
         }
     }
+    
+    func testBoardLocationContainingMethod() throws {
+        let board = Board(deck: Deck(shuffled: false))
+        
+        validateLocation(for: board, card: Card.ace.ofSpades, expectedLocation: board.columns[0])
+        validateLocation(for: board, card: Card.queen.ofClubs, expectedLocation: board.columns[1])
+        validateLocation(for: board, card: Card.five.ofClubs, expectedLocation: board.columns[0])
+        
+        let card = try XCTUnwrap(board.columns[0].pop())
+        try! board.freecells[0].push(card)
+        
+        validateLocation(for: board, card: card, expectedLocation: board.freecells[0])
+        
+        let card2 = try XCTUnwrap(board.columns[7].pop())
+        try! board.freecells[1].push(card2)
+        let card3 = try XCTUnwrap(board.columns[7].pop())
+        try! board.foundations[1].push(card3)
+        
+        validateLocation(for: board, card: card2, expectedLocation: board.freecells[1])
+        validateLocation(for: board, card: card3, expectedLocation: board.foundations[1])
+    }
+    
+    private func validateLocation(for board: Board, card: Card, expectedLocation: CardLocation) {
+        let location = board.location(containing: card)
+        guard type(of: location) == type(of: expectedLocation) else {
+            XCTFail("board containing \(Card.ace.ofSpades.displayTitle) should be a \(type(of: expectedLocation))")
+            return
+        }
+        
+        XCTAssertEqual(location.id, expectedLocation.id)
+    }
+    
+    #warning("Unit test for Board.move(_:to:)")
 }
