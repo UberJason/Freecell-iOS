@@ -70,6 +70,7 @@ public class Board: ObservableObject {
         case .selected(let card):
             do {
                 try move(card, to: location)
+                selectedCard = nil
             } catch {
                 print(error.localizedDescription)
             }

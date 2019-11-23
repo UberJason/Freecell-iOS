@@ -9,7 +9,7 @@
 import SwiftUI
 import DeckKit
 
-public struct ColumnView: View {
+public struct ColumnView: View, SelectedOverlaying {
     @ObservedObject var column: Column
     @Binding var selectedCard: Card?
     var onTapHandler: CardTapHandler?
@@ -23,22 +23,17 @@ public struct ColumnView: View {
     public var body: some View {
         ZStack {
             EmptySpotView()
-            ForEach(column.items) { item in
-                CardView(card: item)
+            ForEach(column.items) { card in
+                CardView(card: card)
                     .overlay(
-                        self.overlayView(for: item)
+                        self.overlayView(for: card)
                     )
-                    .offset(x: 0, y: 35*CGFloat(self.column.orderIndex(for: item)))
+                    .offset(x: 0, y: 35*CGFloat(self.column.orderIndex(for: card)))
                     .onTapGesture {
-                        self.onTapHandler?(item)
+                        self.onTapHandler?(card)
                     }
             }
         }
-    }
-    
-    func overlayView(for card: Card) -> some View {
-        let color: Color = selectedCard == card ? .yellow : .clear
-        return CardRectangle(foregroundColor: color, opacity: 0.5)
     }
 }
 

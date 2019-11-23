@@ -9,7 +9,7 @@
 import SwiftUI
 import DeckKit
 
-public struct FreeCellView: View {
+public struct FreeCellView: View, SelectedOverlaying {
     @ObservedObject var freeCell: FreeCell
     @Binding var selectedCard: Card?
     var onTapHandler: CardTapHandler?
@@ -25,6 +25,9 @@ public struct FreeCellView: View {
             EmptySpotView()
             freeCell.item.map { card in
                 CardView(card: card)
+                    .overlay(
+                        self.overlayView(for: card)
+                    )
                     .onTapGesture {
                         self.onTapHandler?(card)
                     }
