@@ -17,10 +17,21 @@ public class Column: CardStack, CardLocation {
         super.init()
     }
     
-//    public func validSubstack() -> CardStack {
-//        return CardStack(cards: <#[Card]#>)
-//    }
+    public func canReceive(_ card: Card) -> Bool {
+        guard let topItem = topItem else { return true }
+        
+        return self.card(card, canStackOn: topItem)
+    }
     
+//    public func validSubstack() -> CardStack? {
+//        guard let topItem = topItem else { return nil }
+//        guard stack.count > 1 else { return CardStack(cards: [topItem]) }
+//        
+//        let reversedStack = stack.reversed()
+//        var topCard = reversedStack.first
+//        
+//    }
+
     
     //    public func pushStack(_ cardStack: CardStack) throws {
     //        fatalError("Implement pushStack(_:)")

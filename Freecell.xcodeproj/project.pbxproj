@@ -19,6 +19,7 @@
 		962562912381DEEB003C09AA /* EmptySpotView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 962562902381DEEB003C09AA /* EmptySpotView.swift */; };
 		9661E7AC2380439C00183A99 /* CardStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9661E7AB2380439C00183A99 /* CardStack.swift */; };
 		968889382389C44A001DD34B /* SelectedOverlaying.swift in Sources */ = {isa = PBXBuildFile; fileRef = 968889372389C44A001DD34B /* SelectedOverlaying.swift */; };
+		9688893A2389CB83001DD34B /* Result+SuccessVoid.swift in Sources */ = {isa = PBXBuildFile; fileRef = 968889392389CB83001DD34B /* Result+SuccessVoid.swift */; };
 		96A363F6237CF0FC005C45FB /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96A363F5237CF0FC005C45FB /* AppDelegate.swift */; };
 		96A363F8237CF0FC005C45FB /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96A363F7237CF0FC005C45FB /* SceneDelegate.swift */; };
 		96A363FC237CF0FD005C45FB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 96A363FB237CF0FD005C45FB /* Assets.xcassets */; };
@@ -156,6 +157,7 @@
 		962562902381DEEB003C09AA /* EmptySpotView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptySpotView.swift; sourceTree = "<group>"; };
 		9661E7AB2380439C00183A99 /* CardStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardStack.swift; sourceTree = "<group>"; };
 		968889372389C44A001DD34B /* SelectedOverlaying.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectedOverlaying.swift; sourceTree = "<group>"; };
+		968889392389CB83001DD34B /* Result+SuccessVoid.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Result+SuccessVoid.swift"; sourceTree = "<group>"; };
 		96A363F2237CF0FC005C45FB /* Freecell.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Freecell.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		96A363F5237CF0FC005C45FB /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		96A363F7237CF0FC005C45FB /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -260,6 +262,7 @@
 				96A36452237CF490005C45FB /* Rank+FreecellValue.swift */,
 				962295F72388936C005D599B /* CardTapHandler.swift */,
 				968889372389C44A001DD34B /* SelectedOverlaying.swift */,
+				968889392389CB83001DD34B /* Result+SuccessVoid.swift */,
 			);
 			path = Utility;
 			sourceTree = "<group>";
@@ -283,10 +286,10 @@
 			children = (
 				96A36478237E3408005C45FB /* Stack.swift */,
 				9622959923835A7B005D599B /* CardLocation.swift */,
+				9661E7AB2380439C00183A99 /* CardStack.swift */,
 				96A36483237E3851005C45FB /* FreeCell.swift */,
 				96A36485237E385B005C45FB /* Foundation.swift */,
 				96A36481237E384C005C45FB /* Column.swift */,
-				9661E7AB2380439C00183A99 /* CardStack.swift */,
 				96A36476237E33D3005C45FB /* Board.swift */,
 			);
 			path = Model;
@@ -741,6 +744,7 @@
 				9661E7AC2380439C00183A99 /* CardStack.swift in Sources */,
 				962562892381D846003C09AA /* CardView.swift in Sources */,
 				96A36486237E385B005C45FB /* Foundation.swift in Sources */,
+				9688893A2389CB83001DD34B /* Result+SuccessVoid.swift in Sources */,
 				962295F92388937D005D599B /* CardTapHandler.swift in Sources */,
 				962562912381DEEB003C09AA /* EmptySpotView.swift in Sources */,
 				96A36484237E3851005C45FB /* FreeCell.swift in Sources */,

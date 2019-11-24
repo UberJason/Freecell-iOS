@@ -47,5 +47,9 @@ public class FreeCell: Stack, CardLocation, Identifiable, ObservableObject {
     public func contains(_ card: Card) -> Bool {
         return topItem == card
     }
+    
+    public func canReceive(_ card: Card) -> Bool {
+        return self.item == nil
+    }
 }
 

@@ -22,16 +22,14 @@ public class CardStack: Stack, Identifiable, ObservableObject {
     }
     
     public func push(_ item: Card) throws {
-        if let topCard = topItem,
-            !topCard.isOppositeColor(of: item) {
-            throw FreecellError.invalidSuitForColumn(baseCard: topCard, newCard: item)
-        }
         
-        if let topCard = topItem,
-            item.rank.value != topCard.rank.value - 1 {
-            throw FreecellError.invalidRankForColumn(baseCard: topCard, newCard: item)
+        if let topItem = topItem {
+            switch validate(card: item, canStackOn: topItem) {
+            case .success: break
+            case .failure(let error): throw error
+            }
         }
-        
+
         _push(item)
     }
     
@@ -65,4 +63,22 @@ public class CardStack: Stack, Identifiable, ObservableObject {
         return stack.contains(card)
     }
     
+    func card(_ newCard: Card, canStackOn baseCard: Card) -> Bool {
+        switch validate(card: newCard, canStackOn: baseCard) {
+        case .success: return true
+        case .failure(_): return false
+        }
+    }
+    
+    func validate(card newCard: Card, canStackOn baseCard: Card) -> Result<Void, Error> {
+        guard baseCard.isOppositeColor(of: newCard) else {
+            return .failure(FreecellError.invalidSuitForColumn(baseCard: baseCard, newCard: newCard))
+        }
+        
+        guard newCard.rank.value == baseCard.rank.value - 1 else {
+            return .failure(FreecellError.invalidRankForColumn(baseCard: baseCard, newCard: newCard))
+        }
+        
+        return .success
+    }
 }

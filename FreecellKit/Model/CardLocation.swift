@@ -13,6 +13,7 @@ public protocol CardLocation {
     var id: Int { get }
     func contains(_ card: Card) -> Bool
     func pop() -> Card?
+    func canReceive(_ card: Card) -> Bool
     func receive(_ card: Card) throws
 }
 

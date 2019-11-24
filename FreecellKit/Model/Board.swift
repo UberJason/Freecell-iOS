@@ -55,7 +55,7 @@ public class Board: ObservableObject {
         }
     }
     
-    #warning("TODO: if cardTapped while selectionState == .selected, don't just change the selection")
+    #warning("If selectedCard isn't the top card, show valid stack or do nothing?")
     private func cardTapped(_ card: Card) {
         print("Board detected tap from: \(card.displayTitle)")
         
@@ -71,6 +71,7 @@ public class Board: ObservableObject {
                 do {
                     try move(selected, to: location)
                 } catch {
+                    #warning("TODO: On failure, display an alert or play a sound or something")
                     print(error.localizedDescription)
                 }
             }
@@ -106,12 +107,14 @@ public class Board: ObservableObject {
         return containingLocation
     }
     
-    #warning("TODO: if the move fails, undo the pop")
     func move(_ card: Card, to location: CardLocation) throws {
         let containingLocation = self.location(containing: card)
+        guard location.canReceive(card) else { throw FreecellError.invalidMove }
+        
         if let card = containingLocation.pop() {
             try location.receive(card)
         }
+        
         selectedCard = nil
     }
 }

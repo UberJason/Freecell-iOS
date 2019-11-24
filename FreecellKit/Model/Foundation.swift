@@ -24,15 +24,12 @@ public class Foundation: Stack, CardLocation, Identifiable, ObservableObject {
     }
     
     public func push(_ item: Card) throws {
-        guard item.suit == suit else {
-            throw FreecellError.invalidSuitForFoundation(baseSuit: suit, newCard: item)
+        switch validate(card: item, canStackOn: topItem, foundationSuit: suit) {
+        case .success:
+            stack.append(item)
+        case .failure(let error):
+            throw error
         }
-        
-        if let topCard = topItem, item.rank.value != topCard.rank.value + 1 {
-            throw FreecellError.invalidRankForFoundation(baseCard: topCard, newCard: item)
-        }
-
-        stack.append(item)
     }
     
     public var items: [Card] {
@@ -51,5 +48,26 @@ public class Foundation: Stack, CardLocation, Identifiable, ObservableObject {
     
     public func contains(_ card: Card) -> Bool {
         return stack.contains(card)
+    }
+    
+    func validate(card newCard: Card, canStackOn baseCard: Card?, foundationSuit suit: Suit) -> Result<Void, Error> {
+        guard newCard.suit == suit else {
+            return .failure(FreecellError.invalidSuitForFoundation(baseSuit: suit, newCard: newCard))
+        }
+        
+        guard let topCard = baseCard else { return .success }
+        
+        guard newCard.rank.value == topCard.rank.value + 1 else {
+            return .failure(FreecellError.invalidRankForFoundation(baseCard: topCard, newCard: newCard))
+        }
+        
+        return .success
+    }
+    
+    public func canReceive(_ card: Card) -> Bool {
+        switch validate(card: card, canStackOn: topItem, foundationSuit: suit) {
+        case .success: return true
+        case .failure(_): return false
+        }
     }
 }
