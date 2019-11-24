@@ -58,7 +58,24 @@ public class Board: ObservableObject {
     #warning("TODO: if cardTapped while selectionState == .selected, don't just change the selection")
     private func cardTapped(_ card: Card) {
         print("Board detected tap from: \(card.displayTitle)")
-        selectedCard = (selectedCard != card) ? card : nil
+        
+        switch selectionState {
+        case .idle:
+            selectedCard = card
+        case .selected(let selected):
+            if card == selected {
+                selectedCard = nil
+            }
+            else {
+                let location = self.location(containing: card)
+                do {
+                    try move(selected, to: location)
+                } catch {
+                    print(error.localizedDescription)
+                }
+            }
+        }
+        
         print("selection state: \(selectionState)")
     }
     
@@ -70,7 +87,6 @@ public class Board: ObservableObject {
         case .selected(let card):
             do {
                 try move(card, to: location)
-                selectedCard = nil
             } catch {
                 print(error.localizedDescription)
             }
@@ -96,5 +112,6 @@ public class Board: ObservableObject {
         if let card = containingLocation.pop() {
             try location.receive(card)
         }
+        selectedCard = nil
     }
 }
