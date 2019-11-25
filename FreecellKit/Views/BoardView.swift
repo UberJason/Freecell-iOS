@@ -32,7 +32,9 @@ public struct BoardView: View {
                                 }
                         }
                     }
+                    
                     Spacer()
+                    
                     HStack {
                         ForEach(board.foundations) { foundation in
                             FoundationView(foundation: foundation)
@@ -52,50 +54,6 @@ public struct BoardView: View {
                                 self.board.handleTap(from: column)
                             }
                     }
-                }
-                
-                HStack {
-                    Button(action: {
-                        let card = self.board.columns[0].pop()
-                        self.board.columns[1].setupPush(card!)
-                    }, label: {
-                        Text("Column")
-                            .foregroundColor(.white)
-                            .padding()
-                            .overlay(
-                                RoundedRectangle(cornerRadius: 8)
-                                    .stroke(Color.white, lineWidth: 2.0)
-                            )
-                        })
-                        .offset(x: 0, y: 190)
-                    
-                    Button(action: {
-                        let card = self.board.columns[0].pop()
-                        try! self.board.freecells[0].push(card!)
-                    }, label: {
-                        Text("FreeCell")
-                            .foregroundColor(.white)
-                            .padding()
-                            .overlay(
-                                RoundedRectangle(cornerRadius: 8)
-                                    .stroke(Color.white, lineWidth: 2.0)
-                            )
-                        })
-                        .offset(x: 0, y: 190)
-                    
-                    Button(action: {
-                        let card = self.board.columns[0].pop()
-                        try! self.board.foundations[3].push(card!)
-                    }, label: {
-                        Text("Foundation")
-                            .foregroundColor(.white)
-                            .padding()
-                            .overlay(
-                                RoundedRectangle(cornerRadius: 8)
-                                    .stroke(Color.white, lineWidth: 2.0)
-                            )
-                        })
-                        .offset(x: 0, y: 190)
                 }
             }.padding(EdgeInsets(top: 40, leading: 20, bottom: 40, trailing: 20))
             

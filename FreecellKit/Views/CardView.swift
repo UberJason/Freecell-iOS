@@ -62,11 +62,12 @@ struct CardTabView: View {
     }
     
     var body: some View {
-        VStack(alignment: .center, spacing: 0) {
+        VStack(alignment: .center, spacing: -2) {
             Text(card.rank.displayTitle)
-                .font(.system(size: 15, weight: .semibold, design: .default))
+                .font(.system(size: 22, weight: .semibold, design: .default))
+                .foregroundColor(card.suit.swiftUIColor)
             Text(card.suit.displayTitle)
-                .font(.system(size: 7, weight: .semibold, design: .default))
+                .font(.system(size: 11, weight: .semibold, design: .default))
         }
     }
 }

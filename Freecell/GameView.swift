@@ -12,7 +12,7 @@ import FreecellKit
 import Combine
 
 class Game {
-    var board = Board()
+    var board = Board(deck: Deck(shuffled: true))
 }
 
 struct GameView: View {

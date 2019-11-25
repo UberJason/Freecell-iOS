@@ -56,6 +56,7 @@ public class Board: ObservableObject {
     }
     
     #warning("If selectedCard isn't the top card, show valid stack or do nothing?")
+    #warning("TODO: After successful card move, survey the board and auto-move cards to Foundation as necessary")
     private func cardTapped(_ card: Card) {
         print("Board detected tap from: \(card.displayTitle)")
         
@@ -116,5 +117,9 @@ public class Board: ObservableObject {
         }
         
         selectedCard = nil
+    }
+    
+    func autoUpdateFoundations() {
+        
     }
 }

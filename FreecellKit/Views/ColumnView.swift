@@ -28,7 +28,7 @@ public struct ColumnView: View, SelectedOverlaying {
                     .overlay(
                         self.overlayView(for: card)
                     )
-                    .offset(x: 0, y: 35*CGFloat(self.column.orderIndex(for: card)))
+                    .offset(x: 0, y: 40*CGFloat(self.column.orderIndex(for: card)))
                     .onTapGesture {
                         self.onTapHandler?(card)
                     }
