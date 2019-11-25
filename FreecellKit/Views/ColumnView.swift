@@ -13,11 +13,13 @@ public struct ColumnView: View, SelectedOverlaying {
     @ObservedObject var column: Column
     @Binding var selectedCard: Card?
     var onTapHandler: CardTapHandler?
+    var onDoubleTapHandler: CardDoubleTapHandler?
     
-    public init(column: Column, selected: Binding<Card?>, onTapHandler: CardTapHandler? = nil) {
+    public init(column: Column, selected: Binding<Card?>, onTapHandler: CardTapHandler? = nil, onDoubleTapHandler: CardDoubleTapHandler? = nil) {
         self.column = column
         self._selectedCard = selected
         self.onTapHandler = onTapHandler
+        self.onDoubleTapHandler = onDoubleTapHandler
     }
     
     public var body: some View {
@@ -35,6 +37,18 @@ public struct ColumnView: View, SelectedOverlaying {
             }
         }
     }
+    
+//    func exclusiveTapGesture(for card: Card) -> AnyGesture<Void> {
+//        let doubleTapGesture = TapGesture(count: 1).onEnded {
+//            self.onDoubleTapHandler?(card)
+//        }
+//        let tapGesture = TapGesture().onEnded {
+//            self.onTapHandler?(card)
+//        }
+//
+//        let doubleOrSingleTapGesture = doubleTapGesture.exclusively(before: tapGesture)
+//        return AnyGesture<Void>(doubleOrSingleTapGesture)
+//    }
 }
 
 struct ColumnView_Previews: PreviewProvider {

@@ -50,8 +50,23 @@ public class Board: ObservableObject {
         case let location as CardLocation:
             locationTapped(location)
             
+        case let _ as BoardView:
+            selectedCard = nil
+            
         default:
             print("what is this")
+        }
+    }
+    
+    public func handleDoubleTap<T>(from item: T) {
+        switch item {
+        case let card as Card:
+            do {
+                try moveCardToAvailableFreecell(card)
+            } catch {
+                print(error.localizedDescription)
+            }
+        default: break
         }
     }
     
@@ -65,7 +80,11 @@ public class Board: ObservableObject {
             selectedCard = card
         case .selected(let selected):
             if card == selected {
-                selectedCard = nil
+                do {
+                    try moveCardToAvailableFreecell(card)
+                } catch {
+                    print(error.localizedDescription)
+                }
             }
             else {
                 let location = self.location(containing: card)
@@ -117,6 +136,14 @@ public class Board: ObservableObject {
         }
         
         selectedCard = nil
+    }
+    
+    func moveCardToAvailableFreecell(_ card: Card) throws {
+        guard let availableFreeCell = freecells.filter({ freecell in freecell.canReceive(card) }).first else {
+            throw FreecellError.invalidMove
+        }
+        
+        try move(card, to: availableFreeCell)
     }
     
     func autoUpdateFoundations() {

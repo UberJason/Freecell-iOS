@@ -10,3 +10,4 @@ import Foundation
 import DeckKit
 
 public typealias CardTapHandler = (_ card: Card) -> Void
+public typealias CardDoubleTapHandler = (_ card: Card) -> Void

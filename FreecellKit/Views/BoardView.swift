@@ -48,7 +48,7 @@ public struct BoardView: View {
                 
                 HStack(spacing: 20.0) {
                     ForEach(board.columns) { column in
-                        ColumnView(column: column, selected: self.$board.selectedCard, onTapHandler: self.board.handleTap(from:))
+                        ColumnView(column: column, selected: self.$board.selectedCard, onTapHandler: self.board.handleTap(from:), onDoubleTapHandler: self.board.handleDoubleTap(from:))
                             .frame(width: self.cardSize.width, height: self.cardSize.height)
                             .onTapGesture {
                                 self.board.handleTap(from: column)
@@ -57,7 +57,12 @@ public struct BoardView: View {
                 }
             }.padding(EdgeInsets(top: 40, leading: 20, bottom: 40, trailing: 20))
             
-        }.edgesIgnoringSafeArea(.all)
+        }
+        .edgesIgnoringSafeArea(.all)
+        .onTapGesture {
+            print("board tapped")
+            self.board.handleTap(from: self)
+        }
     }
     
     var cardSize: CGSize {
