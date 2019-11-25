@@ -19,7 +19,6 @@ public struct EmptySpotView: View {
     public var body: some View {
         ZStack {
             CardRectangle(opacity: 0.5)
-                .frame(width: 125, height: 187) // w x h = 1 x 1.5
             
             Text(suit?.displayTitle ?? "!")
                 .font(.system(size: 30, weight: .semibold, design: .default))

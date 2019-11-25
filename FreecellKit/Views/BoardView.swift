@@ -26,7 +26,7 @@ public struct BoardView: View {
                     HStack {
                         ForEach(board.freecells) { freeCell in
                             FreeCellView(freeCell: freeCell, selected: self.$board.selectedCard, onTapHandler: self.board.handleTap(from:))
-                                .frame(width: 125, height: 187)
+                                .frame(width: self.cardSize.width, height: self.cardSize.height)
                                 .onTapGesture {
                                     self.board.handleTap(from: freeCell)
                                 }
@@ -38,7 +38,7 @@ public struct BoardView: View {
                     HStack {
                         ForEach(board.foundations) { foundation in
                             FoundationView(foundation: foundation)
-                                .frame(width: 125, height: 187)
+                                .frame(width: self.cardSize.width, height: self.cardSize.height)
                                 .onTapGesture {
                                     self.board.handleTap(from: foundation)
                                 }
@@ -49,7 +49,7 @@ public struct BoardView: View {
                 HStack(spacing: 20.0) {
                     ForEach(board.columns) { column in
                         ColumnView(column: column, selected: self.$board.selectedCard, onTapHandler: self.board.handleTap(from:))
-                            .frame(width: 125, height: 187)
+                            .frame(width: self.cardSize.width, height: self.cardSize.height)
                             .onTapGesture {
                                 self.board.handleTap(from: column)
                             }
@@ -58,6 +58,11 @@ public struct BoardView: View {
             }.padding(EdgeInsets(top: 40, leading: 20, bottom: 40, trailing: 20))
             
         }.edgesIgnoringSafeArea(.all)
+    }
+    
+    var cardSize: CGSize {
+//        return CGSize(width: 125, height: 187)
+        return CGSize(width: 107, height: 160)
     }
 }
 
