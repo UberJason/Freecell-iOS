@@ -15,8 +15,28 @@ extension Rank: Valuing {
         default: return rawValue
         }
     }
+    
+    public init?(value: Int) {
+        switch value {
+        case 1: self = .ace
+        case 14: return nil
+        default: self.init(rawValue: value)
+        }
+    }
 }
 
-extension Card: Identifiable {
-    public var id: String { return displayTitle }
+extension Rank: Comparable {
+    public static func < (lhs: Rank, rhs: Rank) -> Bool {
+        return lhs.value < rhs.value
+    }
+}
+
+extension Rank {
+    public var nextHighest: Rank? {
+        return Rank(value: self.value + 1)
+    }
+    
+    public var nextLowest: Rank? {
+        return Rank(value: self.value - 1)
+    }
 }

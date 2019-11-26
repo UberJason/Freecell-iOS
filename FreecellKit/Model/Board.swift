@@ -50,12 +50,16 @@ public class Board: ObservableObject {
         case let location as CardLocation:
             locationTapped(location)
             
-        case let _ as BoardView:
+        case _ as BoardView:
             selectedCard = nil
             
         default:
             print("what is this")
         }
+        
+        print("Smallest outstanding red: \(lowestOutstandingRedRank!)")
+        print("Smallest outstanding black: \(lowestOutstandingBlackRank!)")
+        print("Smallest outstanding rank: \(lowestOutstandingRank!)")
     }
     
     public func handleDoubleTap<T>(from item: T) {
@@ -73,8 +77,6 @@ public class Board: ObservableObject {
     #warning("If selectedCard isn't the top card, show valid stack or do nothing?")
     #warning("TODO: After successful card move, survey the board and auto-move cards to Foundation as necessary")
     private func cardTapped(_ card: Card) {
-        print("Board detected tap from: \(card.displayTitle)")
-        
         switch selectionState {
         case .idle:
             selectedCard = card
@@ -96,15 +98,12 @@ public class Board: ObservableObject {
                 }
             }
         }
-        
-        print("selection state: \(selectionState)")
     }
     
     private func locationTapped(_ location: CardLocation) {
-        print("Board detected tap from somewhere: \(location)")
         switch selectionState {
         case .idle:
-            print("Idle, nothing to do")
+            break
         case .selected(let card):
             do {
                 try move(card, to: location)
@@ -147,6 +146,73 @@ public class Board: ObservableObject {
     }
     
     func autoUpdateFoundations() {
+        #warning("TODO: evaluate if canAutostack(_:) works, then figure out how to work this recursively - something involving if canAutostack(_:) then auto-stack and call autoUpdateFoundations() again")
         
+    }
+}
+
+extension Board {
+    var clubFoundation: Foundation { return foundations.filter({ $0.suit == .clubs }).first! }
+    var diamondFoundation: Foundation { return foundations.filter({ $0.suit == .diamonds }).first! }
+    var heartFoundation: Foundation { return foundations.filter({ $0.suit == .hearts }).first! }
+    var spadeFoundation: Foundation { return foundations.filter({ $0.suit == .spades }).first! }
+    
+    /// Return lowest outstanding card for a given suit. Returns nil only if the entire suit has moved up to the foundation.
+    /// - Parameter suit: Suit to check lowest outstanding card value.
+    func lowestOutstandingCard(for suit: Suit) -> Card? {
+        let foundation = foundations.filter({ $0.suit == suit }).first!
+        
+        guard let topCard = foundation.topItem else { return Card(suit: suit, rank: .ace) }
+        guard let nextHighest = topCard.rank.nextHighest else { return nil }
+        
+        return Card(suit: suit, rank: nextHighest)
+    }
+    
+    var lowestOutstandingRedRank: Rank? {
+        switch (lowestOutstandingCard(for: .diamonds)?.rank, lowestOutstandingCard(for: .hearts)?.rank) {
+        case (nil, nil):
+            return nil
+        case (nil, let .some(smallestOutstandingHeart)):
+            return smallestOutstandingHeart
+        case (.some(let smallestOutstandingDiamond), nil):
+            return smallestOutstandingDiamond
+        case (let .some(smallestOutstandingDiamond), let .some(smallestOutstandingHeart)):
+            return min(smallestOutstandingDiamond, smallestOutstandingHeart)
+        }
+    }
+    
+    var lowestOutstandingBlackRank: Rank? {
+        switch(lowestOutstandingCard(for: .clubs)?.rank, lowestOutstandingCard(for: .spades)?.rank) {
+        case (nil, nil):
+            return nil
+        case (nil, let .some(smallestOutstandingSpade)):
+            return smallestOutstandingSpade
+        case (.some(let smallestOutstandingClub), nil):
+            return smallestOutstandingClub
+        case (let .some(smallestOutstandingClub), let .some(smallestOutstandingSpade)):
+            return min(smallestOutstandingClub, smallestOutstandingSpade)
+        }
+    }
+    
+    var lowestOutstandingRank: Rank? {
+        let topCards = foundations.map({ $0.topItem }).compactMap { $0 }
+        
+        // If any foundations did not have a top card, the lowest outstanding card is an ace.
+        if topCards.count < 4 {
+            return .ace
+        }
+        
+        // If outstandingRanks contains nil, we can ignore - these would only be suits that are fully filled out and have nothing left on the board.
+        let outstandingRanks = topCards.map({ $0.rank.nextHighest }).compactMap { $0 }
+        
+        return outstandingRanks.sorted().first
+    }
+    
+    func canAutostack(_ card: Card) -> Bool {
+        guard let lowestOutstandingRank = lowestOutstandingRank else { return true }
+        
+        let foundation = foundations.filter({ $0.suit == card.suit }).first!
+        
+        return foundation.canReceive(card) && card.rank.value - 1 <= lowestOutstandingRank.value
     }
 }

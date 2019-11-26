@@ -193,5 +193,26 @@ class FreecellKitTests: XCTestCase {
         XCTAssertEqual(location.id, expectedLocation.id)
     }
     
+    func testRankNextHighestOrLowest() throws {
+        let rank = Rank.ace
+        let nextHighest = rank.nextHighest
+        XCTAssertEqual(nextHighest, Rank.two)
+        
+        let nextLowest = rank.nextLowest
+        XCTAssertNil(nextLowest)
+        
+        let rank2 = Rank.king
+        let nextLowest2 = rank2.nextLowest
+        let nextHighest2 = rank2.nextHighest
+        
+        XCTAssertEqual(nextLowest2, Rank.queen)
+        XCTAssertNil(nextHighest2)
+    }
+  
+    #warning("Unit test for Board.lowestOutstandingRedRank and lowestOutstandingBlackRank")
+//    func testLowestOutstandingRedRank() {
+//        let board = Board(deck: Deck(shuffled: false))
+//    }
+    
     #warning("Unit test for Board.move(_:to:)")
 }
