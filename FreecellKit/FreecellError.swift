@@ -12,7 +12,7 @@ import DeckKit
 enum FreecellError: Error, LocalizedError {
     case cellOccupied
     case invalidSuitForFoundation(baseSuit: Suit, newCard: Card)
-    case invalidRankForFoundation(baseCard: Card, newCard: Card)
+    case invalidRankForFoundation(baseCard: Card?, newCard: Card)
     case invalidSuitForColumn(baseCard: Card, newCard: Card)
     case invalidRankForColumn(baseCard: Card, newCard: Card)
     case invalidMove
@@ -26,7 +26,7 @@ enum FreecellError: Error, LocalizedError {
         case .invalidSuitForFoundation(let baseSuit, let newCard):
             description = "Attempted to push a card of the wrong suit onto a foundation (\(newCard.displayTitle) onto a \(baseSuit.displayTitle) foundation)."
         case .invalidRankForFoundation(let baseCard, let newCard):
-            description = "Attempted to push a card of the wrong rank onto a foundation (\(newCard.displayTitle) onto \(baseCard.displayTitle))"
+            description = "Attempted to push a card of the wrong rank onto a foundation (\(newCard.displayTitle) onto \(baseCard?.displayTitle ?? "empty foundation"))"
         case .invalidSuitForColumn(let baseCard, let newCard):
             description = "Attempted to push a card of the wrong suit onto a column (\(newCard.displayTitle) onto \(baseCard.displayTitle))"
         case .invalidRankForColumn(let baseCard, let newCard):

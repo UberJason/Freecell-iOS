@@ -135,6 +135,7 @@ public class Board: ObservableObject {
         }
         
         selectedCard = nil
+        autoUpdateFoundations()
     }
     
     func moveCardToAvailableFreecell(_ card: Card) throws {
@@ -145,7 +146,25 @@ public class Board: ObservableObject {
         try move(card, to: availableFreeCell)
     }
     
+    func moveCardToAppropriateFoundation(_ card: Card) throws {
+        let foundation = foundations.filter({ $0.suit == card.suit }).first!
+        try move(card, to: foundation)
+    }
+    
     func autoUpdateFoundations() {
+        let exposedCards = freecells.map({ $0.topItem }).compactMap { $0 } +
+                                columns.map({ $0.topItem }).compactMap { $0 }
+        
+        for exposedCard in exposedCards {
+            if canAutostack(exposedCard) {
+                do {
+                    try moveCardToAppropriateFoundation(exposedCard)
+                    return autoUpdateFoundations()
+                } catch {
+                    print(error.localizedDescription)
+                }
+            }
+        }
         #warning("TODO: evaluate if canAutostack(_:) works, then figure out how to work this recursively - something involving if canAutostack(_:) then auto-stack and call autoUpdateFoundations() again")
         
     }

@@ -75,6 +75,13 @@ class FreecellKitTests: XCTestCase {
             try foundation.push(sevenOfSpades)
             XCTFail("Should be able to push \(sevenOfSpades.displayTitle) onto \(twoOfSpades.displayTitle)")
         } catch {}
+        
+        let foundation2 = Foundation(id: 1, suit: .spades)
+        
+        do {
+            try foundation2.push(twoOfSpades)
+            XCTFail("Should not be able to push \(twoOfSpades.displayTitle) onto an empty Spade foundation")
+        } catch {}
     }
     
     func testMultipleFoundationPush() {

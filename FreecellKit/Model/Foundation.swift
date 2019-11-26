@@ -55,7 +55,7 @@ public class Foundation: Stack, CardLocation, Identifiable, ObservableObject {
             return .failure(FreecellError.invalidSuitForFoundation(baseSuit: suit, newCard: newCard))
         }
         
-        guard let topCard = baseCard else { return .success }
+        guard let topCard = baseCard else { return newCard.rank == .ace ? .success : .failure(FreecellError.invalidRankForFoundation(baseCard: nil, newCard: newCard)) }
         
         guard newCard.rank.value == topCard.rank.value + 1 else {
             return .failure(FreecellError.invalidRankForFoundation(baseCard: topCard, newCard: newCard))
