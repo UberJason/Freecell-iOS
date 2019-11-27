@@ -128,6 +128,13 @@ class FreecellKitTests: XCTestCase {
         } catch {}
     }
     
+    func testCardStackCanStackOn() {
+        let stack = CardStack()
+        XCTAssertTrue(stack.card(Card.two.ofSpades, canStackOn: Card.three.ofHearts))
+        XCTAssertFalse(stack.card(Card.two.ofSpades, canStackOn: Card.three.ofSpades))
+        XCTAssertFalse(stack.card(Card.two.ofSpades, canStackOn: Card.four.ofHearts))
+    }
+    
     func testBoardSetup() {
         let board = Board()
         
@@ -216,6 +223,50 @@ class FreecellKitTests: XCTestCase {
         XCTAssertNil(nextHighest2)
     }
   
+    func testColumnValidSubstack() throws {
+        
+        func validate(for column: Column, expectedCount: Int, expectedTop: Card?, expectedBottom: Card?) throws {
+            let validSubstack = try XCTUnwrap(column.validSubstack())
+            
+            XCTAssertEqual(validSubstack.stack.count, expectedCount)
+            XCTAssertEqual(validSubstack.topItem, expectedTop)
+            XCTAssertEqual(validSubstack.bottomItem, expectedBottom)
+        }
+        
+        var column = Column(id: 0, cards: [
+            Card.four.ofSpades,
+            Card.seven.ofClubs,
+            Card.king.ofClubs,
+            Card.eight.ofHearts,
+            Card.queen.ofSpades,
+            Card.jack.ofHearts,
+            Card.ten.ofClubs,
+            Card.nine.ofHearts
+        ])
+        
+        try validate(for: column, expectedCount: 4, expectedTop: Card.nine.ofHearts, expectedBottom: Card.queen.ofSpades)
+        
+        column = Column(id: 0, cards: [
+            Card.four.ofSpades,
+            Card.seven.ofClubs,
+            Card.king.ofClubs,
+            Card.eight.ofHearts,
+            Card.nine.ofHearts
+        ])
+        
+        try validate(for: column, expectedCount: 1, expectedTop: Card.nine.ofHearts, expectedBottom: Card.nine.ofHearts)
+        
+        column = Column(id: 0, cards: [])
+        let nilValidSubstack = column.validSubstack()
+        XCTAssertNil(nilValidSubstack)
+        
+        column = Column(id: 0, cards: [
+            Card.four.ofSpades
+        ])
+        
+        try validate(for: column, expectedCount: 1, expectedTop: Card.four.ofSpades, expectedBottom: Card.four.ofSpades)
+    }
+    
     #warning("Unit test for Board.lowestOutstandingRedRank and lowestOutstandingBlackRank")
 //    func testLowestOutstandingRedRank() {
 //        let board = Board(deck: Deck(shuffled: false))

@@ -151,6 +151,9 @@ public class Board: ObservableObject {
             }
         }
     }
+    
+    #warning("TODO: Implement moveSubstack() - requires CardStack.validSubstack()")
+    #warning("TODO: Implement moveFullStack()")
 }
 
 extension Board {

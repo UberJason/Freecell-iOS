@@ -15,6 +15,8 @@ public class CardStack: Stack, Identifiable, ObservableObject {
     public var maxSize: Int { return Deck.maxCardCount }
     public var topItem: Card? { return stack.last }
     
+    public var bottomItem: Card? { return stack.first }
+    
     public init() {}
     
     public init(cards: [Card]) {
