@@ -7,12 +7,27 @@
 		<key>DeckKit.xcscheme_^#shared#^_</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>2</integer>
+			<integer>3</integer>
 		</dict>
 		<key>DeckKitTests.xcscheme_^#shared#^_</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>4</integer>
+			<integer>5</integer>
+		</dict>
+		<key>Freecell-Mac.xcscheme_^#shared#^_</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>1</integer>
+		</dict>
+		<key>Freecell-MacTests.xcscheme_^#shared#^_</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>6</integer>
+		</dict>
+		<key>Freecell-MacUITests.xcscheme_^#shared#^_</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>7</integer>
 		</dict>
 		<key>Freecell.xcscheme_^#shared#^_</key>
 		<dict>
@@ -22,12 +37,12 @@
 		<key>FreecellKit.xcscheme_^#shared#^_</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>1</integer>
+			<integer>2</integer>
 		</dict>
 		<key>FreecellKitTests.xcscheme_^#shared#^_</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>3</integer>
+			<integer>4</integer>
 		</dict>
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
@@ -58,6 +73,21 @@
 			<true/>
 		</dict>
 		<key>96A36460237E33C0005C45FB</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>96CA9AD4238F0E4900C34A60</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>96CA9AE8238F0E4B00C34A60</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>96CA9AF3238F0E4B00C34A60</key>
 		<dict>
 			<key>primary</key>
 			<true/>
