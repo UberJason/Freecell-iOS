@@ -41,24 +41,18 @@ public class Board: ObservableObject {
         }
     }
 
-    #warning("TODO: double taps/clicks")
     public func handleTap<T>(from item: T) {
         switch item {
         case let card as Card:
             cardTapped(card)
-            
         case let location as CardLocation:
             locationTapped(location)
-            
         case _ as BoardView:
             selectedCard = nil
-            
         default:
-            print("what is this")
+            break
         }
         
-        print("Smallest outstanding red: \(lowestOutstandingRedRank!)")
-        print("Smallest outstanding black: \(lowestOutstandingBlackRank!)")
         print("Smallest outstanding rank: \(lowestOutstandingRank!)")
     }
     
@@ -75,28 +69,23 @@ public class Board: ObservableObject {
     }
     
     #warning("If selectedCard isn't the top card, show valid stack or do nothing?")
-    #warning("TODO: After successful card move, survey the board and auto-move cards to Foundation as necessary")
     private func cardTapped(_ card: Card) {
-        switch selectionState {
-        case .idle:
-            selectedCard = card
-        case .selected(let selected):
-            if card == selected {
-                do {
+        do {
+            switch selectionState {
+            case .idle:
+                selectedCard = card
+            case .selected(let selected):
+                if card == selected {
                     try moveCardToAvailableFreecell(card)
-                } catch {
-                    print(error.localizedDescription)
                 }
-            }
-            else {
-                let location = self.location(containing: card)
-                do {
+                else {
+                    let location = self.location(containing: card)
                     try move(selected, to: location)
-                } catch {
-                    #warning("TODO: On failure, display an alert or play a sound or something")
-                    print(error.localizedDescription)
                 }
             }
+        } catch {
+            #warning("TODO: On failure, display an alert or play a sound or something")
+            print(error.localizedDescription)
         }
     }
     
@@ -135,7 +124,7 @@ public class Board: ObservableObject {
         }
         
         selectedCard = nil
-        autoUpdateFoundations()
+        try autoUpdateFoundations()
     }
     
     func moveCardToAvailableFreecell(_ card: Card) throws {
@@ -151,31 +140,21 @@ public class Board: ObservableObject {
         try move(card, to: foundation)
     }
     
-    func autoUpdateFoundations() {
+    func autoUpdateFoundations() throws {
         let exposedCards = freecells.map({ $0.topItem }).compactMap { $0 } +
                                 columns.map({ $0.topItem }).compactMap { $0 }
         
         for exposedCard in exposedCards {
             if canAutostack(exposedCard) {
-                do {
-                    try moveCardToAppropriateFoundation(exposedCard)
-                    return autoUpdateFoundations()
-                } catch {
-                    print(error.localizedDescription)
-                }
+                try moveCardToAppropriateFoundation(exposedCard)
+                return try autoUpdateFoundations()
             }
         }
-        #warning("TODO: evaluate if canAutostack(_:) works, then figure out how to work this recursively - something involving if canAutostack(_:) then auto-stack and call autoUpdateFoundations() again")
-        
     }
 }
 
 extension Board {
-    var clubFoundation: Foundation { return foundations.filter({ $0.suit == .clubs }).first! }
-    var diamondFoundation: Foundation { return foundations.filter({ $0.suit == .diamonds }).first! }
-    var heartFoundation: Foundation { return foundations.filter({ $0.suit == .hearts }).first! }
-    var spadeFoundation: Foundation { return foundations.filter({ $0.suit == .spades }).first! }
-    
+  
     /// Return lowest outstanding card for a given suit. Returns nil only if the entire suit has moved up to the foundation.
     /// - Parameter suit: Suit to check lowest outstanding card value.
     func lowestOutstandingCard(for suit: Suit) -> Card? {
@@ -185,32 +164,6 @@ extension Board {
         guard let nextHighest = topCard.rank.nextHighest else { return nil }
         
         return Card(suit: suit, rank: nextHighest)
-    }
-    
-    var lowestOutstandingRedRank: Rank? {
-        switch (lowestOutstandingCard(for: .diamonds)?.rank, lowestOutstandingCard(for: .hearts)?.rank) {
-        case (nil, nil):
-            return nil
-        case (nil, let .some(smallestOutstandingHeart)):
-            return smallestOutstandingHeart
-        case (.some(let smallestOutstandingDiamond), nil):
-            return smallestOutstandingDiamond
-        case (let .some(smallestOutstandingDiamond), let .some(smallestOutstandingHeart)):
-            return min(smallestOutstandingDiamond, smallestOutstandingHeart)
-        }
-    }
-    
-    var lowestOutstandingBlackRank: Rank? {
-        switch(lowestOutstandingCard(for: .clubs)?.rank, lowestOutstandingCard(for: .spades)?.rank) {
-        case (nil, nil):
-            return nil
-        case (nil, let .some(smallestOutstandingSpade)):
-            return smallestOutstandingSpade
-        case (.some(let smallestOutstandingClub), nil):
-            return smallestOutstandingClub
-        case (let .some(smallestOutstandingClub), let .some(smallestOutstandingSpade)):
-            return min(smallestOutstandingClub, smallestOutstandingSpade)
-        }
     }
     
     var lowestOutstandingRank: Rank? {

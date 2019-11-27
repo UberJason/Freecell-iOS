@@ -66,14 +66,14 @@ public struct BoardView: View {
     }
     
     var cardSize: CGSize {
-//        return CGSize(width: 125, height: 187)
-        return CGSize(width: 107, height: 160)
+//        return CGSize(width: 125, height: 187)  // iPad Pro
+        return CGSize(width: 107, height: 160)  // iPad Mini
     }
 }
 
 struct WindowView: View {
     var body: some View {
-        Spacer().background(Color.green)
+        Spacer().background(Color(red: 0, green: 127/255.0, blue: 0))
     }
 }
 
