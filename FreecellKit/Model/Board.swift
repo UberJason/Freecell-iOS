@@ -155,13 +155,25 @@ public class Board: ObservableObject {
             }
         }
     }
+
+    func canMoveSubstack(from fromColumn: Column, to toColumn: Column) -> Bool {
+        guard let substack = fromColumn.validSubstack(),
+            let bottomItem = substack.bottomItem else { return false }
+        
+        guard toColumn.canReceive(bottomItem) else { return false }
+        
+        let availableFreecellCount = freecells.filter({ !$0.isOccupied }).count
+        return substack.stack.count <= availableFreecellCount + 1
+    }
     
-    #warning("TODO: Implement moveSubstack() - requires CardStack.validSubstack()")
-    #warning("TODO: Implement moveFullStack()")
-    
+    #warning("If stack move is invalid, the board is left in a corrupt state. Add checks to ensure the move is valid.")
     func moveSubstack(from fromColumn: Column, to toColumn: Column) throws {
         guard let substack = fromColumn.validSubstack(),
             let card = fromColumn.topItem else { return }
+        
+        guard canMoveSubstack(from: fromColumn, to: toColumn) else { throw FreecellError.invalidMove }
+        
+        guard toColumn.canReceive(card) else { throw FreecellError.invalidMove }
         
         if substack.stack.count == 1 {
             try move(card, to: toColumn)
@@ -177,6 +189,8 @@ public class Board: ObservableObject {
             try move(card, to: toColumn)
         }
     }
+    
+    #warning("TODO: Implement moveFullStack()")
 }
 
 extension Board {
