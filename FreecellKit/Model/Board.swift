@@ -115,6 +115,10 @@ public class Board: ObservableObject {
         return containingLocation
     }
     
+    /// Moves card to the given location. Assumes the card is in a valid location and has not yet been removed - do not call pop() prior to calling move(_:to:).
+    /// - Parameters:
+    ///   - card: Card to move to the given location.
+    ///   - location: Location to receive the card.
     func move(_ card: Card, to location: CardLocation) throws {
         let containingLocation = self.location(containing: card)
         guard location.canReceive(card) else { throw FreecellError.invalidMove }
@@ -128,7 +132,7 @@ public class Board: ObservableObject {
     }
     
     func moveCardToAvailableFreecell(_ card: Card) throws {
-        guard let availableFreeCell = freecells.filter({ freecell in freecell.canReceive(card) }).first else {
+        guard let availableFreeCell = nextAvailableFreecell else {
             throw FreecellError.invalidMove
         }
         
@@ -154,10 +158,33 @@ public class Board: ObservableObject {
     
     #warning("TODO: Implement moveSubstack() - requires CardStack.validSubstack()")
     #warning("TODO: Implement moveFullStack()")
+    
+    func moveSubstack(from fromColumn: Column, to toColumn: Column) throws {
+        guard let substack = fromColumn.validSubstack(),
+            let card = fromColumn.topItem else { return }
+        
+        if substack.stack.count == 1 {
+            try move(card, to: toColumn)
+        }
+        else {
+            guard let currentAvailableFreeCell = nextAvailableFreecell else { throw FreecellError.invalidMove }
+            
+            try move(card, to: currentAvailableFreeCell)
+            try moveSubstack(from: fromColumn, to: toColumn)
+            
+            guard let card = currentAvailableFreeCell.item else { fatalError("Something went wrong during moveSubstack(from:to:)") }
+            
+            try move(card, to: toColumn)
+        }
+    }
 }
 
 extension Board {
   
+    public var nextAvailableFreecell: FreeCell? {
+        return freecells.filter({ !$0.isOccupied }).first
+    }
+    
     /// Return lowest outstanding card for a given suit. Returns nil only if the entire suit has moved up to the foundation.
     /// - Parameter suit: Suit to check lowest outstanding card value.
     func lowestOutstandingCard(for suit: Suit) -> Card? {

@@ -21,6 +21,19 @@ class FreecellKitTests: XCTestCase {
     let sixOfDiamonds = Card.six.ofDiamonds
     let fourOfClubs = Card.four.ofClubs
     
+    func sampleStackColumn() -> Column {
+            return Column(id: 0, cards: [
+            Card.four.ofSpades,
+            Card.seven.ofClubs,
+            Card.king.ofClubs,
+            Card.eight.ofHearts,
+            Card.queen.ofSpades,
+            Card.jack.ofHearts,
+            Card.ten.ofClubs,
+            Card.nine.ofHearts
+        ])
+    }
+    
     override func setUp() {
         // Put setup code here. This method is called before the invocation of each test method in the class.
     }
@@ -207,6 +220,28 @@ class FreecellKitTests: XCTestCase {
         XCTAssertEqual(location.id, expectedLocation.id)
     }
     
+    func testFreecellOccupied() throws {
+        
+        func validate(for board: Board, expectedId: Int) {
+            let availableFreeCell = board.nextAvailableFreecell
+            XCTAssertEqual(availableFreeCell?.id, expectedId)
+        }
+        
+        let board = Board()
+        validate(for: board, expectedId: 0)
+        
+        try? board.freecells[0].push(Card.ace.ofSpades)
+        validate(for: board, expectedId: 1)
+        
+        try? board.freecells[2].push(Card.queen.ofSpades)
+        validate(for: board, expectedId: 1)
+        
+        try? board.freecells[1].push(Card.two.ofSpades)
+        try? board.freecells[3].push(Card.four.ofClubs)
+        
+        XCTAssertNil(board.nextAvailableFreecell)
+    }
+    
     func testRankNextHighestOrLowest() throws {
         let rank = Rank.ace
         let nextHighest = rank.nextHighest
@@ -233,16 +268,7 @@ class FreecellKitTests: XCTestCase {
             XCTAssertEqual(validSubstack.bottomItem, expectedBottom)
         }
         
-        var column = Column(id: 0, cards: [
-            Card.four.ofSpades,
-            Card.seven.ofClubs,
-            Card.king.ofClubs,
-            Card.eight.ofHearts,
-            Card.queen.ofSpades,
-            Card.jack.ofHearts,
-            Card.ten.ofClubs,
-            Card.nine.ofHearts
-        ])
+        var column = sampleStackColumn()
         
         try validate(for: column, expectedCount: 4, expectedTop: Card.nine.ofHearts, expectedBottom: Card.queen.ofSpades)
         
@@ -267,10 +293,60 @@ class FreecellKitTests: XCTestCase {
         try validate(for: column, expectedCount: 1, expectedTop: Card.four.ofSpades, expectedBottom: Card.four.ofSpades)
     }
     
+    func testMoveSubstack() throws {
+        var board = Board.emptyBoard
+        
+        board.columns[0] = sampleStackColumn()
+        try board.moveSubstack(from: board.columns[0], to: board.columns[1])
+        
+        XCTAssertEqual(board.columns[0].stack.count, 4)
+        XCTAssertEqual(board.columns[1].stack.count, 4)
+        
+        XCTAssertEqual(board.columns[0].stack, [
+            Card.four.ofSpades,
+            Card.seven.ofClubs,
+            Card.king.ofClubs,
+            Card.eight.ofHearts
+        ])
+        
+        XCTAssertEqual(board.columns[1].stack, [
+            Card.queen.ofSpades,
+            Card.jack.ofHearts,
+            Card.ten.ofClubs,
+            Card.nine.ofHearts
+        ])
+        
+        board = Board.emptyBoard
+        board.columns[0] = sampleStackColumn()
+        try board.freecells[0].push(Card.ace.ofHearts)
+        try board.freecells[1].push(Card.two.ofHearts)
+        
+        do {
+            try board.moveSubstack(from: board.columns[0], to: board.columns[1])
+            XCTFail("Should not be able to move the substack given only 2 freecells")
+        } catch {}
+    }
+    
     #warning("Unit test for Board.lowestOutstandingRedRank and lowestOutstandingBlackRank")
 //    func testLowestOutstandingRedRank() {
 //        let board = Board(deck: Deck(shuffled: false))
 //    }
     
     #warning("Unit test for Board.move(_:to:)")
+}
+
+extension Board {
+    static var emptyBoard: Board {
+        let board = Board()
+        board.freecells = (0...3).map { i in FreeCell(id: i) }
+        board.columns = (0...7).map { i in Column(id: i) }
+        board.foundations = [
+            Foundation(id: 0, suit: .diamonds),
+            Foundation(id: 1, suit: .clubs),
+            Foundation(id: 2, suit: .hearts),
+            Foundation(id: 3, suit: .spades)
+        ]
+        
+        return board
+    }
 }

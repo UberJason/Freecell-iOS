@@ -12,19 +12,24 @@ import DeckKit
 public class FreeCell: Stack, CardLocation, Identifiable, ObservableObject {
     public let id: Int
     @Published public var item: Card?
+    
     public var maxSize: Int { return 1 }
+    
     public var topItem: Card? { return item }
+    
     public var items: [Card] {
         guard let item = item else { return [] }
         return [item]
     }
+    
+    public var isOccupied: Bool { return item != nil }
     
     init(id: Int) {
         self.id = id
     }
     
     public func push(_ item: Card) throws {
-        guard case .none = self.item else {
+        guard !isOccupied else {
             throw FreecellError.cellOccupied
         }
         
@@ -45,11 +50,11 @@ public class FreeCell: Stack, CardLocation, Identifiable, ObservableObject {
     }
     
     public func contains(_ card: Card) -> Bool {
-        return topItem == card
+        return item == card
     }
     
     public func canReceive(_ card: Card) -> Bool {
-        return self.item == nil
+        return !isOccupied
     }
 }
 
