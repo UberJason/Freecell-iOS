@@ -64,6 +64,7 @@
 		96CA9B05238F0E5600C34A60 /* DeckKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 96A3642A237CF138005C45FB /* DeckKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		96CA9B09238F0E5C00C34A60 /* FreecellKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 96A36459237E33BF005C45FB /* FreecellKit.framework */; };
 		96CA9B0A238F0E5C00C34A60 /* FreecellKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 96A36459237E33BF005C45FB /* FreecellKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		96CA9B0E239300C300C34A60 /* BoardDriver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96CA9B0D239300C300C34A60 /* BoardDriver.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -265,6 +266,7 @@
 		96CA9AF4238F0E4B00C34A60 /* Freecell-MacUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Freecell-MacUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		96CA9AF8238F0E4B00C34A60 /* Freecell_MacUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Freecell_MacUITests.swift; sourceTree = "<group>"; };
 		96CA9AFA238F0E4B00C34A60 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		96CA9B0D239300C300C34A60 /* BoardDriver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoardDriver.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -385,6 +387,7 @@
 				96A36485237E385B005C45FB /* Foundation.swift */,
 				96A36481237E384C005C45FB /* Column.swift */,
 				96A36476237E33D3005C45FB /* Board.swift */,
+				96CA9B0D239300C300C34A60 /* BoardDriver.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -990,6 +993,7 @@
 				9625628D2381D853003C09AA /* FoundationView.swift in Sources */,
 				968889382389C44A001DD34B /* SelectedOverlaying.swift in Sources */,
 				9622959A23835A7B005D599B /* CardLocation.swift in Sources */,
+				96CA9B0E239300C300C34A60 /* BoardDriver.swift in Sources */,
 				96A36488237E3894005C45FB /* FreecellError.swift in Sources */,
 				962295F52388762D005D599B /* BoardView.swift in Sources */,
 				96A36479237E3408005C45FB /* Stack.swift in Sources */,

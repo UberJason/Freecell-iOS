@@ -10,20 +10,10 @@ import Foundation
 import DeckKit
 import Combine
 
-enum SelectionState {
-    case idle, selected(card: Card)
-}
-
-public class Board: ObservableObject {
+public class Board {
     public var freecells: [FreeCell]
     public var foundations: [Foundation]
     public var columns: [Column]
-    
-    var selectionState: SelectionState {
-        return selectedCard.map { .selected(card: $0) } ?? .idle
-    }
-    
-    @Published public var selectedCard: Card?
     
     public init(deck: Deck = Deck(shuffled: false)) {
         freecells = (0...3).map { i in FreeCell(id: i) }
@@ -40,67 +30,6 @@ public class Board: ObservableObject {
             columns[i % columns.count].setupPush(card)
         }
     }
-
-    public func handleTap<T>(from item: T) {
-        switch item {
-        case let card as Card:
-            cardTapped(card)
-        case let location as CardLocation:
-            locationTapped(location)
-        case _ as BoardView:
-            selectedCard = nil
-        default:
-            break
-        }
-        
-        print("Smallest outstanding rank: \(lowestOutstandingRank!)")
-    }
-    
-    public func handleDoubleTap<T>(from item: T) {
-        switch item {
-        case let card as Card:
-            do {
-                try moveCardToAvailableFreecell(card)
-            } catch {
-                print(error.localizedDescription)
-            }
-        default: break
-        }
-    }
-    
-    #warning("If selectedCard isn't the top card, show valid stack or do nothing?")
-    private func cardTapped(_ card: Card) {
-        do {
-            switch selectionState {
-            case .idle:
-                selectedCard = card
-            case .selected(let selected):
-                if card == selected {
-                    try moveCardToAvailableFreecell(card)
-                }
-                else {
-                    let location = self.location(containing: card)
-                    try move(selected, to: location)
-                }
-            }
-        } catch {
-            #warning("TODO: On failure, display an alert or play a sound or something")
-            print(error.localizedDescription)
-        }
-    }
-    
-    private func locationTapped(_ location: CardLocation) {
-        switch selectionState {
-        case .idle:
-            break
-        case .selected(let card):
-            do {
-                try move(card, to: location)
-            } catch {
-                print(error.localizedDescription)
-            }
-        }
-    }
     
     func location(containing card: Card) -> CardLocation {
         let allLocations: [[CardLocation]] = [freecells, foundations, columns]
@@ -115,6 +44,10 @@ public class Board: ObservableObject {
         return containingLocation
     }
     
+    func findAndPerformValidMove(from card: Card, to location: CardLocation) throws {
+        
+    }
+    
     /// Moves card to the given location. Assumes the card is in a valid location and has not yet been removed - do not call pop() prior to calling move(_:to:).
     /// - Parameters:
     ///   - card: Card to move to the given location.
@@ -127,7 +60,6 @@ public class Board: ObservableObject {
             try location.receive(card)
         }
         
-        selectedCard = nil
         try autoUpdateFoundations()
     }
     
@@ -191,6 +123,9 @@ public class Board: ObservableObject {
     }
     
     #warning("TODO: Implement moveFullStack()")
+    func moveFullStack(from fromColumn: Column, to toColumn: Column) throws {
+        try moveSubstack(from: fromColumn, to: toColumn)
+    }
 }
 
 extension Board {

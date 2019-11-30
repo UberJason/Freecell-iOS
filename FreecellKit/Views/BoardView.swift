@@ -10,10 +10,10 @@ import SwiftUI
 import DeckKit
 
 public struct BoardView: View {
-    @ObservedObject var board: Board
+    @ObservedObject var boardDriver: BoardDriver
     
-    public init(board: Board) {
-        self.board = board
+    public init(boardDriver: BoardDriver) {
+        self.boardDriver = boardDriver
     }
     
     public var body: some View {
@@ -24,11 +24,11 @@ public struct BoardView: View {
             VStack(spacing: 60.0) {
                 HStack {
                     HStack {
-                        ForEach(board.freecells) { freeCell in
-                            FreeCellView(freeCell: freeCell, selected: self.$board.selectedCard, onTapHandler: self.board.handleTap(from:))
+                        ForEach(boardDriver.freecells) { freeCell in
+                            FreeCellView(freeCell: freeCell, selected: self.$boardDriver.selectedCard, onTapHandler: self.boardDriver.handleTap(from:))
                                 .frame(width: self.cardSize.width, height: self.cardSize.height)
                                 .onTapGesture {
-                                    self.board.handleTap(from: freeCell)
+                                    self.boardDriver.handleTap(from: freeCell)
                                 }
                         }
                     }
@@ -36,22 +36,22 @@ public struct BoardView: View {
                     Spacer()
                     
                     HStack {
-                        ForEach(board.foundations) { foundation in
+                        ForEach(boardDriver.foundations) { foundation in
                             FoundationView(foundation: foundation)
                                 .frame(width: self.cardSize.width, height: self.cardSize.height)
                                 .onTapGesture {
-                                    self.board.handleTap(from: foundation)
+                                    self.boardDriver.handleTap(from: foundation)
                                 }
                         }
                     }
                 }
                 
                 HStack(spacing: 20.0) {
-                    ForEach(board.columns) { column in
-                        ColumnView(column: column, selected: self.$board.selectedCard, onTapHandler: self.board.handleTap(from:), onDoubleTapHandler: self.board.handleDoubleTap(from:))
+                    ForEach(boardDriver.columns) { column in
+                        ColumnView(column: column, selected: self.$boardDriver.selectedCard, onTapHandler: self.boardDriver.handleTap(from:), onDoubleTapHandler: self.boardDriver.handleDoubleTap(from:))
                             .frame(width: self.cardSize.width, height: self.cardSize.height)
                             .onTapGesture {
-                                self.board.handleTap(from: column)
+                                self.boardDriver.handleTap(from: column)
                             }
                     }
                 }
@@ -61,7 +61,7 @@ public struct BoardView: View {
         .edgesIgnoringSafeArea(.all)
         .onTapGesture {
             print("board tapped")
-            self.board.handleTap(from: self)
+            self.boardDriver.handleTap(from: self)
         }
     }
     
@@ -79,7 +79,7 @@ struct WindowView: View {
 
 struct BoardView_Previews: PreviewProvider {
     static var previews: some View {
-        BoardView(board: Board())
+        BoardView(boardDriver: BoardDriver())
             .previewDevice("iPad Pro 11")
             .previewLayout(.fixed(width: 1194, height: 834))
     }

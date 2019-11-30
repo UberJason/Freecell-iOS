@@ -12,14 +12,14 @@ import FreecellKit
 import Combine
 
 class Game {
-    var board = Board(deck: Deck(shuffled: true))
+    var boardDriver = BoardDriver()
 }
 
 struct GameView: View {
     var game = Game()
     
     var body: some View {
-        BoardView(board: game.board)
+        BoardView(boardDriver: game.boardDriver)
     }
 }
 
