@@ -70,4 +70,8 @@ public class Foundation: Stack, CardLocation, Identifiable, ObservableObject {
         case .failure(_): return false
         }
     }
+    
+    public func selectableCard() -> Card? {
+        return nil
+    }
 }

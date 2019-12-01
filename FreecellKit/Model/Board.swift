@@ -44,8 +44,32 @@ public class Board {
         return containingLocation
     }
     
-    func findAndPerformValidMove(from card: Card, to location: CardLocation) throws {
+    
+    /// Finds and attempts to perform a valid move using the selected card and the destination location.
+    ///
+    /// - Parameters:
+    ///   - card: Current user selected card. Will be moved or part of the move, if a stack movement.
+    ///   - toLocation: Destination to receive the card and/or stack.
+    func performValidMove(from card: Card, to toLocation: CardLocation) throws {
         
+        // Edge case: If user taps selected card twice, move card to available freecell.
+        if toLocation.contains(card), toLocation is Column {
+            try moveCardToAvailableFreecell(card)
+            try autoUpdateFoundations()
+            return
+        }
+
+        // If user attempts a column-to-column move, search for and attempt a stack movement.
+        // In any other case, attempt a single-card move.
+        let fromLocation = self.location(containing: card)
+        
+        switch(fromLocation, toLocation) {
+        case (let fromColumn as Column, let toColumn as Column):
+            try performValidStackMovement(from: fromColumn, to: toColumn)
+        default:
+            try move(card, to: toLocation)
+            try autoUpdateFoundations()
+        }
     }
     
     /// Moves card to the given location. Assumes the card is in a valid location and has not yet been removed - do not call pop() prior to calling move(_:to:).
@@ -125,6 +149,11 @@ public class Board {
     #warning("TODO: Implement moveFullStack()")
     func moveFullStack(from fromColumn: Column, to toColumn: Column) throws {
         try moveSubstack(from: fromColumn, to: toColumn)
+    }
+    
+    #warning("TODO: Implement performValidStackMovement")
+    func performValidStackMovement(from fromColumn: Column, to toColumn: Column) throws {
+        fatalError("Implement performValidStackMovement - recursively search for a valid stack that can move")
     }
 }
 

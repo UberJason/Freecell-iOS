@@ -25,10 +25,10 @@ public struct BoardView: View {
                 HStack {
                     HStack {
                         ForEach(boardDriver.freecells) { freeCell in
-                            FreeCellView(freeCell: freeCell, selected: self.$boardDriver.selectedCard, onTapHandler: self.boardDriver.handleTap(from:))
+                            FreeCellView(freeCell: freeCell, selected: self.$boardDriver.selectedCard, onTapHandler: self.boardDriver.itemTapped(_:))
                                 .frame(width: self.cardSize.width, height: self.cardSize.height)
                                 .onTapGesture {
-                                    self.boardDriver.handleTap(from: freeCell)
+                                    self.boardDriver.itemTapped(freeCell)
                                 }
                         }
                     }
@@ -40,7 +40,7 @@ public struct BoardView: View {
                             FoundationView(foundation: foundation)
                                 .frame(width: self.cardSize.width, height: self.cardSize.height)
                                 .onTapGesture {
-                                    self.boardDriver.handleTap(from: foundation)
+                                    self.boardDriver.itemTapped(foundation)
                                 }
                         }
                     }
@@ -48,10 +48,10 @@ public struct BoardView: View {
                 
                 HStack(spacing: 20.0) {
                     ForEach(boardDriver.columns) { column in
-                        ColumnView(column: column, selected: self.$boardDriver.selectedCard, onTapHandler: self.boardDriver.handleTap(from:), onDoubleTapHandler: self.boardDriver.handleDoubleTap(from:))
+                        ColumnView(column: column, selected: self.$boardDriver.selectedCard, onTapHandler: self.boardDriver.itemTapped(_:))
                             .frame(width: self.cardSize.width, height: self.cardSize.height)
                             .onTapGesture {
-                                self.boardDriver.handleTap(from: column)
+                                self.boardDriver.itemTapped(column)
                             }
                     }
                 }
@@ -61,7 +61,7 @@ public struct BoardView: View {
         .edgesIgnoringSafeArea(.all)
         .onTapGesture {
             print("board tapped")
-            self.boardDriver.handleTap(from: self)
+            self.boardDriver.itemTapped(self)
         }
     }
     

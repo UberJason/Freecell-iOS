@@ -56,5 +56,9 @@ public class FreeCell: Stack, CardLocation, Identifiable, ObservableObject {
     public func canReceive(_ card: Card) -> Bool {
         return !isOccupied
     }
+    
+    public func selectableCard() -> Card? {
+        return item
+    }
 }
 

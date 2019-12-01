@@ -30,62 +30,26 @@ public class BoardDriver: ObservableObject {
         
     }
     
-    public func handleTap<T>(from item: T) {
+    public func itemTapped<T>(_ item: T) {
         switch item {
         case let card as Card:
-            cardTapped(card)
+            handleTap(in: board.location(containing: card))
         case let location as CardLocation:
-            locationTapped(location)
+            handleTap(in: location)
         case _ as BoardView:
             selectedCard = nil
         default:
             break
         }
-        
     }
     
-    public func handleDoubleTap<T>(from item: T) {
-        switch item {
-        case let card as Card:
-            do {
-                try board.moveCardToAvailableFreecell(card)
-            } catch {
-                print(error.localizedDescription)
-            }
-        default: break
-        }
-    }
-    
-    #warning("If selectedCard isn't the top card, show valid stack or do nothing?")
-    private func cardTapped(_ card: Card) {
-        do {
-            switch selectionState {
-            case .idle:
-                selectedCard = card
-            case .selected(let selected):
-                if card == selected {
-                    try board.moveCardToAvailableFreecell(card)
-                    selectedCard = nil
-                }
-                else {
-                    let location = board.location(containing: card)
-                    try board.move(selected, to: location)
-                    selectedCard = nil
-                }
-            }
-        } catch {
-            #warning("TODO: On failure, display an alert or play a sound or something")
-            print(error.localizedDescription)
-        }
-    }
-    
-    private func locationTapped(_ location: CardLocation) {
+    private func handleTap(in location: CardLocation) {
         switch selectionState {
         case .idle:
-            break
+            selectedCard = location.selectableCard()
         case .selected(let card):
             do {
-                try board.move(card, to: location)
+                try board.performValidMove(from: card, to: location)
                 selectedCard = nil
             } catch {
                 print(error.localizedDescription)

@@ -46,10 +46,7 @@ public class Column: CardStack, CardLocation {
         return CardStack(cards: Array(substack))
     }
 
-    
-    //    public func pushStack(_ cardStack: CardStack) throws {
-    //        fatalError("Implement pushStack(_:)")
-    ////        stack.append(contentsOf: cardStack.stack)
-    //    }
-    
+    public func selectableCard() -> Card? {
+        return topItem
+    }
 }

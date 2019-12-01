@@ -15,6 +15,11 @@ public protocol CardLocation {
     func pop() -> Card?
     func canReceive(_ card: Card) -> Bool
     func receive(_ card: Card) throws
+    
+    /// Returns card at this CardLocation that can be selected, if exists.
+    /// Foundations always return nil, FreeCells return the item if exists, and
+    /// Columns return the top card if exists.
+    func selectableCard() -> Card?
 }
 
 public extension CardLocation where Self: Stack, T == Card {
