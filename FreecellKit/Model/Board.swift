@@ -113,7 +113,7 @@ public class Board {
     }
 
     func canMoveSubstack(from fromColumn: Column, to toColumn: Column) -> Bool {
-        guard let substack = fromColumn.validSubstack(),
+        guard let substack = fromColumn.largestValidSubstack(),
             let bottomItem = substack.bottomItem else { return false }
         
         guard toColumn.canReceive(bottomItem) else { return false }
@@ -124,7 +124,7 @@ public class Board {
     
     #warning("If stack move is invalid, the board is left in a corrupt state. Add checks to ensure the move is valid.")
     func moveSubstack(from fromColumn: Column, to toColumn: Column) throws {
-        guard let substack = fromColumn.validSubstack(),
+        guard let substack = fromColumn.largestValidSubstack(),
             let card = fromColumn.topItem else { return }
         
         guard canMoveSubstack(from: fromColumn, to: toColumn) else { throw FreecellError.invalidMove }
@@ -146,13 +146,19 @@ public class Board {
         }
     }
     
-    #warning("TODO: Implement moveFullStack()")
+    #warning("TODO: Implement canMoveFullStack() - for now, just calls canMoveSubstack()")
+    func canMoveFullStack(from fromColumn: Column, to toColumn: Column) -> Bool {
+        return canMoveSubstack(from: fromColumn, to: toColumn)
+    }
+    
+    #warning("TODO: Implement moveFullStack() - for now, just performs moveSubstack()")
     func moveFullStack(from fromColumn: Column, to toColumn: Column) throws {
         try moveSubstack(from: fromColumn, to: toColumn)
     }
     
     #warning("TODO: Implement performValidStackMovement")
     func performValidStackMovement(from fromColumn: Column, to toColumn: Column) throws {
+        
         fatalError("Implement performValidStackMovement - recursively search for a valid stack that can move")
     }
 }

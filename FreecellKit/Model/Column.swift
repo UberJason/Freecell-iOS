@@ -27,24 +27,6 @@ public class Column: CardStack, CardLocation {
         
         return self.card(card, canStackOn: topItem)
     }
-    
-    public func validSubstack() -> CardStack? {
-        guard let topItem = topItem else { return nil }
-        guard stack.count > 1 else { return CardStack(cards: [topItem]) }
-        
-        var currentIndex = stack.endIndex - 1, nextIndex = currentIndex - 1
-        var currentCard = stack[currentIndex], nextCard = stack[nextIndex]
-    
-        while self.card(currentCard, canStackOn: nextCard) && nextIndex >= 0 {
-            currentIndex -= 1; nextIndex -= 1
-            currentCard = stack[currentIndex]; nextCard = stack[nextIndex]
-        }
-        
-        // At end, currentIndex is top of the valid substack
-        let substack = Array(stack[currentIndex..<stack.endIndex])
-        
-        return CardStack(cards: Array(substack))
-    }
 
     public func selectableCard() -> Card? {
         return topItem
