@@ -173,16 +173,16 @@ class FreecellKitTests: XCTestCase {
     }
     
     func testBoardSelectionState() {
-        let board = Board()
+        let boardDriver = BoardDriver()
         
-        switch board.selectionState {
+        switch boardDriver.selectionState {
         case .idle: break
         case .selected(_): XCTFail("board selectionState should be idle")
         }
         
-        board.selectedCard = Card.ace.ofSpades
+        boardDriver.selectedCard = Card.ace.ofSpades
         
-        switch board.selectionState {
+        switch boardDriver.selectionState {
         case .idle: XCTFail("board selectionState should not be idle")
         case .selected(let card):
             XCTAssertEqual(card, Card.ace.ofSpades, "Selected card should be \(Card.ace.ofSpades.displayTitle)")
@@ -261,11 +261,11 @@ class FreecellKitTests: XCTestCase {
     func testColumnValidSubstack() throws {
         
         func validate(for column: Column, expectedCount: Int, expectedTop: Card?, expectedBottom: Card?) throws {
-            let validSubstack = try XCTUnwrap(column.validSubstack())
+            let largestValidSubstack = try XCTUnwrap(column.largestValidSubstack())
             
-            XCTAssertEqual(validSubstack.stack.count, expectedCount)
-            XCTAssertEqual(validSubstack.topItem, expectedTop)
-            XCTAssertEqual(validSubstack.bottomItem, expectedBottom)
+            XCTAssertEqual(largestValidSubstack.stack.count, expectedCount)
+            XCTAssertEqual(largestValidSubstack.topItem, expectedTop)
+            XCTAssertEqual(largestValidSubstack.bottomItem, expectedBottom)
         }
         
         var column = sampleStackColumn()
@@ -283,7 +283,7 @@ class FreecellKitTests: XCTestCase {
         try validate(for: column, expectedCount: 1, expectedTop: Card.nine.ofHearts, expectedBottom: Card.nine.ofHearts)
         
         column = Column(id: 0, cards: [])
-        let nilValidSubstack = column.validSubstack()
+        let nilValidSubstack = column.largestValidSubstack()
         XCTAssertNil(nilValidSubstack)
         
         column = Column(id: 0, cards: [
@@ -309,7 +309,7 @@ class FreecellKitTests: XCTestCase {
         board.freecells = (0...3).map { i in FreeCell(id: i) }
         
         board.columns[2] = Column(id: 2, cards: [Card.ace.ofSpades])
-        XCTAssertFalse(board.canMoveSubstack(from: board.columns[0], to: board.columns[2]), "Should not be able to move a substack with bottom card \(board.columns[0].validSubstack()!.bottomItem!.displayTitle) to sit on the \(Card.ace.ofSpades.displayTitle)")
+        XCTAssertFalse(board.canMoveSubstack(from: board.columns[0], to: board.columns[2]), "Should not be able to move a substack with bottom card \(board.columns[0].largestValidSubstack()!.bottomItem!.displayTitle) to sit on the \(Card.ace.ofSpades.displayTitle)")
         
         XCTAssertFalse(board.canMoveSubstack(from: board.columns[3], to: board.columns[0]), "Should not be able to move an empty column onto another column")
     }
