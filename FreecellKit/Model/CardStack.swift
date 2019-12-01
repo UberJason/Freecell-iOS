@@ -87,19 +87,7 @@ public class CardStack: Stack, Identifiable, ObservableObject {
     /// Returns the largest valid movable substack within this CardStack.
     /// For example, if the stack is [♠️K, ❤️9,♦️6, ♣️5, ❤️4], this function returns [♦️6, ♣️5, ❤️4].
     public func largestValidSubstack() -> CardStack? {
-        guard let topItem = topItem else { return nil }
-        guard stack.count > 1 else { return CardStack(cards: [topItem]) }
-        
-        var currentIndex = stack.endIndex - 1, nextIndex = currentIndex - 1
-        var currentCard = stack[currentIndex], nextCard = stack[nextIndex]
-    
-        while self.card(currentCard, canStackOn: nextCard) && nextIndex >= 0 {
-            currentIndex -= 1; nextIndex -= 1
-            currentCard = stack[currentIndex]; nextCard = stack[nextIndex]
-        }
-        
-        // At end, currentIndex is top of the valid substack
-        let substack = Array(stack[currentIndex..<stack.endIndex])
+        guard let substack = validSubstackArraySlice else { return nil }
         
         return CardStack(cards: Array(substack))
     }
@@ -119,5 +107,25 @@ public class CardStack: Stack, Identifiable, ObservableObject {
         let substack = Array(stack[index..<stack.endIndex])
         
         return CardStack(cards: Array(substack))
+    }
+    
+    private var validSubstackArraySlice: ArraySlice<Card>? {
+        guard let topItem = topItem else { return nil }
+        guard stack.count > 1 else { return [topItem] }
+        
+        var currentIndex = stack.endIndex - 1, nextIndex = currentIndex - 1
+        var currentCard = stack[currentIndex], nextCard = stack[nextIndex]
+    
+        while self.card(currentCard, canStackOn: nextCard) && nextIndex >= 0 {
+            currentIndex -= 1; nextIndex -= 1
+            currentCard = stack[currentIndex]; nextCard = stack[nextIndex]
+        }
+        
+        // At end, currentIndex is top of the valid substack
+        return stack[currentIndex..<stack.endIndex]
+    }
+    
+    var isFullyValid: Bool {
+        return validSubstackArraySlice?.count == stack.count
     }
 }
