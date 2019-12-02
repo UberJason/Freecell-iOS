@@ -100,13 +100,21 @@ public class CardStack: Stack, Identifiable, ObservableObject {
     /// will return [♣️5, ❤️4].
     /// - Parameter index: Index to start the substack.
     public func substack(from index: Int) -> CardStack? {
-        guard let largestValidSubstack = largestValidSubstack() else { return nil }
-        guard index < largestValidSubstack.stack.count else { return nil }
+        guard let largestValidSubstack = validSubstackArraySlice else { return nil }
+        guard index < largestValidSubstack.count else { return nil }
         
-        let stack = largestValidSubstack.stack
-        let substack = Array(stack[index..<stack.endIndex])
+        let substack = Array(largestValidSubstack[index..<stack.endIndex])
         
         return CardStack(cards: Array(substack))
+    }
+    
+    /// Returns a valid substack from this CardStack which is capped by the given capCard,
+    /// if exists. For example, if the stack is [♠️K, ❤️9,♦️6, ♣️5, ❤️4], calling
+    /// `validSubstack(cappedBy: ♣️5)` will return [♣️5, ❤️4].
+    /// - Parameter capCard: Card at the root of the substack.
+    public func validSubstack(cappedBy capCard: Card) -> CardStack? {
+        fatalError("Implement validSubstack(cappedBy:)")
+        
     }
     
     private var validSubstackArraySlice: ArraySlice<Card>? {
