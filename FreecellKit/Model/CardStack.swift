@@ -92,7 +92,6 @@ public class CardStack: Stack, Identifiable, ObservableObject {
         return CardStack(cards: Array(substack))
     }
     
-    
     /// Returns a substack from the `largestValidSubstack` starting at the
     /// given index. This method is generally expected to be called on a fully valid
     /// CardStack, but if not, it starts with the largest valid substack before considering
@@ -103,7 +102,7 @@ public class CardStack: Stack, Identifiable, ObservableObject {
         guard let largestValidSubstack = validSubstackArraySlice else { return nil }
         guard index < largestValidSubstack.count else { return nil }
         
-        let substack = Array(largestValidSubstack[index..<stack.endIndex])
+        let substack = largestValidSubstack[index..<largestValidSubstack.endIndex]
         
         return CardStack(cards: Array(substack))
     }
@@ -111,9 +110,14 @@ public class CardStack: Stack, Identifiable, ObservableObject {
     /// Returns a valid substack from this CardStack which is capped by the given capCard,
     /// if exists. For example, if the stack is [♠️K, ❤️9,♦️6, ♣️5, ❤️4], calling
     /// `validSubstack(cappedBy: ♣️5)` will return [♣️5, ❤️4].
-    /// - Parameter capCard: Card at the root of the substack.
+    /// - Parameter capCard: Card at the root of the substack. This card would be
+    /// stacked onto another column's top card during a stack move.
     public func validSubstack(cappedBy capCard: Card) -> CardStack? {
-        fatalError("Implement validSubstack(cappedBy:)")
+        guard let largestValidSubstack = validSubstackArraySlice,
+            let index = largestValidSubstack.firstIndex(of: capCard) else { return nil }
+        
+        let substack = largestValidSubstack[index..<largestValidSubstack.endIndex]
+        return CardStack(cards: Array(substack))
         
     }
     

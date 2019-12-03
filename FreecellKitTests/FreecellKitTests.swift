@@ -258,6 +258,7 @@ class FreecellKitTests: XCTestCase {
         XCTAssertNil(nextHighest2)
     }
   
+    #warning("Test CardStack.validSubstack(cappedBy:)")
     func testColumnValidSubstack() throws {
         
         func validate(for column: Column, expectedCount: Int, expectedTop: Card?, expectedBottom: Card?) throws {
@@ -293,11 +294,50 @@ class FreecellKitTests: XCTestCase {
         try validate(for: column, expectedCount: 1, expectedTop: Card.four.ofSpades, expectedBottom: Card.four.ofSpades)
     }
     
-    func testCanMoveSubstack() {
-        var board = Board.emptyBoard
+    func testColumnSubstackFromIndex() throws {
+        
+    }
+    
+    #warning("Test degenerate case of just the top card can move")
+    func testCapCard() {
+        func validate(for board: Board, from fromColumn: Column, to toColumn: Column, expectedCapCard: Card?) {
+            let capCard = board.capCard(forMovingFrom: fromColumn, to: toColumn)
+            XCTAssertEqual(capCard, expectedCapCard)
+        }
+        
+        let board = Board.emptyBoard
+        board.columns[0] = Column(id: 0, cards: [
+            Card.four.ofSpades,
+            Card.seven.ofClubs,
+            Card.king.ofClubs,
+            Card.eight.ofHearts,
+            Card.jack.ofHearts,
+            Card.ten.ofClubs
+        ])
+        
+        board.columns[1] = Column(id: 1, cards: [
+            Card.six.ofSpades,
+            Card.king.ofHearts,
+            Card.five.ofDiamonds,
+            Card.eight.ofClubs,
+            Card.ten.ofSpades,
+            Card.nine.ofDiamonds,
+            Card.eight.ofSpades,
+            Card.seven.ofDiamonds,
+            Card.six.ofClubs,
+            Card.five.ofHearts
+        ])
+        
+        validate(for: board, from: board.columns[1], to: board.columns[0], expectedCapCard: Card.nine.ofDiamonds)
+    }
+    
+    #warning("Test degenerate case of moving just one card")
+    func testCanMoveSubstack() throws {
+        let board = Board.emptyBoard
         board.columns[0] = sampleStackColumn()
         
         board.columns[1] = Column(id: 1, cards: [])
+        
         XCTAssertTrue(board.canMoveSubstack(from: board.columns[0], to: board.columns[1]), "Should be able to move a 4-card substack into an empty column with 4 free cells")
         
         try! board.freecells[0].push(Card.ace.ofClubs)
@@ -309,11 +349,13 @@ class FreecellKitTests: XCTestCase {
         board.freecells = (0...3).map { i in FreeCell(id: i) }
         
         board.columns[2] = Column(id: 2, cards: [Card.ace.ofSpades])
+
         XCTAssertFalse(board.canMoveSubstack(from: board.columns[0], to: board.columns[2]), "Should not be able to move a substack with bottom card \(board.columns[0].largestValidSubstack()!.bottomItem!.displayTitle) to sit on the \(Card.ace.ofSpades.displayTitle)")
         
         XCTAssertFalse(board.canMoveSubstack(from: board.columns[3], to: board.columns[0]), "Should not be able to move an empty column onto another column")
     }
     
+    #warning("Test move substack which is smaller than the largest valid substack")
     func testMoveSubstack() throws {
         var board = Board.emptyBoard
         

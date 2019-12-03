@@ -112,33 +112,32 @@ public class Board {
         }
     }
     
-    func substackCapCard(forMovingFrom fromColumn: Column, to toColumn: Column) -> Card? {
-        fatalError("Implement substackCapCard(forMovingFrom:to:)")
-    }
-    
-    func moveSubstack(from fromColumn: Column, cappedBy capCard: Card, to toColumn: Column) throws {
-        fatalError("Implement moveSubstack(from:cappedBy:to:)")
-    }
+    func capCard(forMovingFrom fromColumn: Column, to toColumn: Column) -> Card? {
+        guard let largestValidSubstack = fromColumn.largestValidSubstack() else { return nil }
+        var currentIndex = 0
+        var currentCard = largestValidSubstack.item(at: currentIndex)
+        
+        while currentIndex < largestValidSubstack.stack.count {
+            if let card = currentCard, toColumn.canReceive(card) {
+                return card
+            }
 
-    func canMoveSubstack(from fromColumn: Column, to toColumn: Column) -> Bool {
-        guard let substack = fromColumn.largestValidSubstack(),
-            let bottomItem = substack.bottomItem else { return false }
+            currentIndex += 1
+            currentCard = largestValidSubstack.item(at: currentIndex)
+        }
         
-        guard toColumn.canReceive(bottomItem) else { return false }
-        
-        let availableFreecellCount = freecells.filter({ !$0.isOccupied }).count
-        return substack.stack.count <= availableFreecellCount + 1
+        return nil
     }
     
     #warning("If stack move is invalid, the board is left in a corrupt state. Add checks to ensure the move is valid.")
     func moveSubstack(from fromColumn: Column, to toColumn: Column) throws {
-        guard let substack = fromColumn.largestValidSubstack(),
+        guard let capCard = capCard(forMovingFrom: fromColumn, to: toColumn),
+            let substack = fromColumn.validSubstack(cappedBy: capCard),
             let card = fromColumn.topItem else { return }
         
-        guard canMoveSubstack(from: fromColumn, to: toColumn) else { throw FreecellError.invalidMove }
-        
-        guard toColumn.canReceive(card) else { throw FreecellError.invalidMove }
-        
+        guard canMoveSubstack(from: fromColumn, to: toColumn),
+            toColumn.canReceive(card) else { throw FreecellError.invalidMove }
+
         if substack.stack.count == 1 {
             try move(card, to: toColumn)
         }
@@ -153,6 +152,41 @@ public class Board {
             try move(card, to: toColumn)
         }
     }
+
+    func canMoveSubstack(from fromColumn: Column, to toColumn: Column) -> Bool {
+        guard let capCard = capCard(forMovingFrom: fromColumn, to: toColumn),
+            let substack = fromColumn.validSubstack(cappedBy: capCard),
+            let bottomItem = substack.bottomItem else { return false }
+        
+        guard toColumn.canReceive(bottomItem) else { return false }
+        
+        let availableFreecellCount = freecells.filter({ !$0.isOccupied }).count
+        return substack.stack.count <= availableFreecellCount + 1
+    }
+    
+//    @available(*, deprecated, message: "moveSubstack(from:to:) is deprecated. Use moveSubstack(from:cappedBy:to:) instead.")
+//    func moveSubstack(from fromColumn: Column, to toColumn: Column) throws {
+//        guard let substack = fromColumn.largestValidSubstack(),
+//            let card = fromColumn.topItem else { return }
+//
+//        guard canMoveSubstack(from: fromColumn, to: toColumn) else { throw FreecellError.invalidMove }
+//
+//        guard toColumn.canReceive(card) else { throw FreecellError.invalidMove }
+//
+//        if substack.stack.count == 1 {
+//            try move(card, to: toColumn)
+//        }
+//        else {
+//            guard let currentAvailableFreeCell = nextAvailableFreecell else { throw FreecellError.invalidMove }
+//
+//            try move(card, to: currentAvailableFreeCell)
+//            try moveSubstack(from: fromColumn, to: toColumn)
+//
+//            guard let card = currentAvailableFreeCell.item else { fatalError("Something went wrong during moveSubstack(from:to:)") }
+//
+//            try move(card, to: toColumn)
+//        }
+//    }
     
     #warning("TODO: Implement canMoveFullStack() - for now, just calls canMoveSubstack()")
     func canMoveFullStack(from fromColumn: Column, to toColumn: Column) -> Bool {
@@ -161,7 +195,9 @@ public class Board {
     
     #warning("TODO: Implement moveFullStack() - for now, just performs moveSubstack()")
     func moveFullStack(from fromColumn: Column, to toColumn: Column) throws {
-        try moveSubstack(from: fromColumn, to: toColumn)
+        if canMoveSubstack(from: fromColumn, to: toColumn) {
+            try moveSubstack(from: fromColumn, to: toColumn)
+        }
     }
     
     #warning("Need to rethink moveSubstack(from:to:) to include indexes. Can't use substack objects because they will be copied out of the original Columns. Need another method on Column or CardStack that grabs validSubstack(from index:) instead. WIP - substackCapCard(forMovingFrom:to:) and moveSubstack(from:cappedBy:to:)")
