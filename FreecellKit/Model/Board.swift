@@ -179,15 +179,10 @@ public class Board {
         }
     }
     
-    #warning("TODO: Implement performValidStackMovement")
     func performValidStackMovement(from fromColumn: Column, to toColumn: Column) throws {
-        if canMoveSubstack(from: fromColumn, to: toColumn) {
-            try moveSubstack(from: fromColumn, to: toColumn)
+        if canMoveFullStack(from: fromColumn, to: toColumn) {
+            try moveFullStack(from: fromColumn, to: toColumn)
         }
-//        if let card = fromColumn.topItem {
-//            try move(card, to: toColumn)
-//        }
-//        fatalError("Implement performValidStackMovement - recursively search for a valid stack that can move")
     }
 }
 
