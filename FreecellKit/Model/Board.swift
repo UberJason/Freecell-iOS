@@ -135,14 +135,17 @@ public class Board {
             let substack = fromColumn.validSubstack(cappedBy: capCard),
             let card = fromColumn.topItem else { return }
         
-        guard canMoveSubstack(from: fromColumn, to: toColumn),
-            toColumn.canReceive(card) else { throw FreecellError.invalidMove }
+        guard canMoveSubstack(from: fromColumn, to: toColumn) else {
+                throw FreecellError.invalidMove
+        }
 
         if substack.stack.count == 1 {
             try move(card, to: toColumn)
         }
         else {
-            guard let currentAvailableFreeCell = nextAvailableFreecell else { throw FreecellError.invalidMove }
+            guard let currentAvailableFreeCell = nextAvailableFreecell else {
+                throw FreecellError.invalidMove
+            }
             
             try move(card, to: currentAvailableFreeCell)
             try moveSubstack(from: fromColumn, to: toColumn)

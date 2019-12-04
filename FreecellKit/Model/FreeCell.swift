@@ -24,8 +24,9 @@ public class FreeCell: Stack, CardLocation, Identifiable, ObservableObject {
     
     public var isOccupied: Bool { return item != nil }
     
-    init(id: Int) {
+    init(id: Int, card: Card? = nil) {
         self.id = id
+        self.item = card
     }
     
     public func push(_ item: Card) throws {

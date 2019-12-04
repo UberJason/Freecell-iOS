@@ -22,7 +22,7 @@ class FreecellKitTests: XCTestCase {
     let fourOfClubs = Card.four.ofClubs
     
     func sampleStackColumn() -> Column {
-            return Column(id: 0, cards: [
+        return Column(id: 0, cards: [
             Card.four.ofSpades,
             Card.seven.ofClubs,
             Card.king.ofClubs,
@@ -298,14 +298,14 @@ class FreecellKitTests: XCTestCase {
         
     }
     
-    #warning("Test degenerate case of just the top card can move")
-    func testCapCard() {
+    func testCapCard() throws {
         func validate(for board: Board, from fromColumn: Column, to toColumn: Column, expectedCapCard: Card?) {
             let capCard = board.capCard(forMovingFrom: fromColumn, to: toColumn)
             XCTAssertEqual(capCard, expectedCapCard)
         }
-        
-        let board = Board.emptyBoard
+    
+        // Test cap card expected to be a larger stack
+        let board = Board.empty
         board.columns[0] = Column(id: 0, cards: [
             Card.four.ofSpades,
             Card.seven.ofClubs,
@@ -316,7 +316,7 @@ class FreecellKitTests: XCTestCase {
         ])
         
         board.columns[1] = Column(id: 1, cards: [
-            Card.six.ofSpades,
+            Card.six.ofHearts,
             Card.king.ofHearts,
             Card.five.ofDiamonds,
             Card.eight.ofClubs,
@@ -329,13 +329,23 @@ class FreecellKitTests: XCTestCase {
         ])
         
         validate(for: board, from: board.columns[1], to: board.columns[0], expectedCapCard: Card.nine.ofDiamonds)
+        
+        // Test cap card expected to be just a single card
+        board.columns[0] = Column(id: 0, cards: [
+            Card.six.ofSpades
+        ])
+
+        validate(for: board, from: board.columns[1], to: board.columns[0], expectedCapCard: Card.five.ofHearts)
+        
+        // Test cap card should be based on number of available freecells if the target is empty
+        board.columns[0] = Column(id: 0, cards: [])
+
+        validate(for: board, from: board.columns[1], to: board.columns[0], expectedCapCard: Card.nine.ofDiamonds)
     }
     
-    #warning("Test degenerate case of moving just one card")
     func testCanMoveSubstack() throws {
-        let board = Board.emptyBoard
+        let board = Board.empty
         board.columns[0] = sampleStackColumn()
-        
         board.columns[1] = Column(id: 1, cards: [])
         
         XCTAssertTrue(board.canMoveSubstack(from: board.columns[0], to: board.columns[1]), "Should be able to move a 4-card substack into an empty column with 4 free cells")
@@ -344,7 +354,7 @@ class FreecellKitTests: XCTestCase {
         XCTAssertTrue(board.canMoveSubstack(from: board.columns[0], to: board.columns[1]), "Should be able to move a 4-card substack into an empty column with 3 free cells")
         
         try! board.freecells[1].push(Card.two.ofClubs)
-        XCTAssertFalse(board.canMoveSubstack(from: board.columns[0], to: board.columns[1]), "Should NOT be able to move a 4-card substack into an empty column with 2 free cells")
+        XCTAssertTrue(board.canMoveSubstack(from: board.columns[0], to: board.columns[1]), "Should be able to move a 3 out of the 4 cards in a 4-card substack into an empty column with 2 free cells")
         
         board.freecells = (0...3).map { i in FreeCell(id: i) }
         
@@ -353,53 +363,108 @@ class FreecellKitTests: XCTestCase {
         XCTAssertFalse(board.canMoveSubstack(from: board.columns[0], to: board.columns[2]), "Should not be able to move a substack with bottom card \(board.columns[0].largestValidSubstack()!.bottomItem!.displayTitle) to sit on the \(Card.ace.ofSpades.displayTitle)")
         
         XCTAssertFalse(board.canMoveSubstack(from: board.columns[3], to: board.columns[0]), "Should not be able to move an empty column onto another column")
+        
+        board.columns[3] = Column(id: 3, cards: [Card.ten.ofSpades])
+        XCTAssertTrue(board.canMoveSubstack(from: board.columns[0], to: board.columns[3]), "Should be able to move at least the single card from one stack to another")
     }
     
     #warning("Test move substack which is smaller than the largest valid substack")
     func testMoveSubstack() throws {
-        var board = Board.emptyBoard
         
+        // Test moving a full substack to an empty column
+        var board = Board.empty
+
         board.columns[0] = sampleStackColumn()
         try board.moveSubstack(from: board.columns[0], to: board.columns[1])
-        
-        XCTAssertEqual(board.columns[0].stack.count, 4)
-        XCTAssertEqual(board.columns[1].stack.count, 4)
-        
+
         XCTAssertEqual(board.columns[0].stack, [
             Card.four.ofSpades,
             Card.seven.ofClubs,
             Card.king.ofClubs,
             Card.eight.ofHearts
         ])
-        
+
         XCTAssertEqual(board.columns[1].stack, [
             Card.queen.ofSpades,
             Card.jack.ofHearts,
             Card.ten.ofClubs,
             Card.nine.ofHearts
         ])
+
+        // Test moving a substack which is smaller than the largest valid substack
+        board = Board.empty
+        board.columns[0] = sampleStackColumn()
+        board.columns[1] = Column(id: 1, cards: [Card.jack.ofDiamonds])
         
-        board = Board.emptyBoard
+        try board.moveSubstack(from: board.columns[0], to: board.columns[1])
+        
+        XCTAssertEqual(board.columns[0].stack, [
+            Card.four.ofSpades,
+            Card.seven.ofClubs,
+            Card.king.ofClubs,
+            Card.eight.ofHearts,
+            Card.queen.ofSpades,
+            Card.jack.ofHearts
+        ])
+        
+        XCTAssertEqual(board.columns[1].stack, [
+            Card.jack.ofDiamonds,
+            Card.ten.ofClubs,
+            Card.nine.ofHearts
+        ])
+        
+        
+        // Test moving a substack to an empty column where available freecells require only a smaller move.
+        board = Board.empty
         board.columns[0] = sampleStackColumn()
         try board.freecells[0].push(Card.ace.ofHearts)
         try board.freecells[1].push(Card.two.ofHearts)
+
+        try board.moveSubstack(from: board.columns[0], to: board.columns[1])
+        
+        XCTAssertEqual(board.columns[0].stack, [
+            Card.four.ofSpades,
+            Card.seven.ofClubs,
+            Card.king.ofClubs,
+            Card.eight.ofHearts,
+            Card.queen.ofSpades
+        ])
+        
+        XCTAssertEqual(board.columns[1].stack, [
+            Card.jack.ofHearts,
+            Card.ten.ofClubs,
+            Card.nine.ofHearts
+        ])
+    }
+ 
+    func testMoveCard() throws {
+        var board = Board.empty
+        board.columns[0] = sampleStackColumn()
+        
+        try board.move(board.columns[0].topItem!, to: board.columns[1])
+        XCTAssertEqual(board.columns[0].stack, [
+            Card.four.ofSpades,
+            Card.seven.ofClubs,
+            Card.king.ofClubs,
+            Card.eight.ofHearts,
+            Card.queen.ofSpades,
+            Card.jack.ofHearts,
+            Card.ten.ofClubs
+        ])
+        XCTAssertEqual(board.columns[1].stack, [Card.nine.ofHearts])
+        
+        board.columns[0] = sampleStackColumn()
+        board.columns[1] = Column(id: 1,cards: [Card.four.ofHearts])
         
         do {
-            try board.moveSubstack(from: board.columns[0], to: board.columns[1])
-            XCTFail("Should not be able to move the substack given only 2 freecells")
+            try board.move(board.columns[0].topItem!, to: board.columns[1])
+            XCTFail("Should not be able to move the ❤️9 on top of the ❤️4")
         } catch {}
     }
-    
-    #warning("Unit test for Board.lowestOutstandingRedRank and lowestOutstandingBlackRank")
-//    func testLowestOutstandingRedRank() {
-//        let board = Board(deck: Deck(shuffled: false))
-//    }
-    
-    #warning("Unit test for Board.move(_:to:)")
 }
 
 extension Board {
-    static var emptyBoard: Board {
+    static var empty: Board {
         let board = Board()
         board.freecells = (0...3).map { i in FreeCell(id: i) }
         board.columns = (0...7).map { i in Column(id: i) }
@@ -413,3 +478,7 @@ extension Board {
         return board
     }
 }
+//
+//extension Card: CustomDebugStringConvertible {
+//    public var debugDescription: String { return displayTitle }
+//}
