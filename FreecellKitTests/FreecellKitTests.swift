@@ -292,6 +292,13 @@ class FreecellKitTests: XCTestCase {
         ])
         
         try validate(for: column, expectedCount: 1, expectedTop: Card.four.ofSpades, expectedBottom: Card.four.ofSpades)
+        
+        column = Column(id: 0, cards: [
+            Card.jack.ofDiamonds,
+            Card.ten.ofSpades
+        ])
+        
+        try validate(for: column, expectedCount: 2, expectedTop: Card.ten.ofSpades, expectedBottom: Card.jack.ofDiamonds)
     }
     
     func testColumnSubstackFromIndex() throws {
@@ -336,11 +343,11 @@ class FreecellKitTests: XCTestCase {
         ])
 
         validate(for: board, from: board.columns[1], to: board.columns[0], expectedCapCard: Card.five.ofHearts)
-        
-        // Test cap card should be based on number of available freecells if the target is empty
-        board.columns[0] = Column(id: 0, cards: [])
-
-        validate(for: board, from: board.columns[1], to: board.columns[0], expectedCapCard: Card.nine.ofDiamonds)
+//
+//        // Test cap card should be based on number of available freecells if the target is empty
+//        board.columns[0] = Column(id: 0, cards: [])
+//
+//        validate(for: board, from: board.columns[1], to: board.columns[0], expectedCapCard: Card.nine.ofDiamonds)
     }
     
     func testCanMoveSubstack() throws {
@@ -368,7 +375,6 @@ class FreecellKitTests: XCTestCase {
         XCTAssertTrue(board.canMoveSubstack(from: board.columns[0], to: board.columns[3]), "Should be able to move at least the single card from one stack to another")
     }
     
-    #warning("Test move substack which is smaller than the largest valid substack")
     func testMoveSubstack() throws {
         
         // Test moving a full substack to an empty column
@@ -417,8 +423,8 @@ class FreecellKitTests: XCTestCase {
         // Test moving a substack to an empty column where available freecells require only a smaller move.
         board = Board.empty
         board.columns[0] = sampleStackColumn()
-        try board.freecells[0].push(Card.ace.ofHearts)
-        try board.freecells[1].push(Card.two.ofHearts)
+        try board.freecells[0].push(Card.ten.ofDiamonds)
+        try board.freecells[1].push(Card.nine.ofDiamonds)
 
         try board.moveSubstack(from: board.columns[0], to: board.columns[1])
         

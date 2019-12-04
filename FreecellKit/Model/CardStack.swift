@@ -128,8 +128,11 @@ public class CardStack: Stack, Identifiable, ObservableObject {
         var currentIndex = stack.endIndex - 1, nextIndex = currentIndex - 1
         var currentCard = stack[currentIndex], nextCard = stack[nextIndex]
     
-        while self.card(currentCard, canStackOn: nextCard) && nextIndex >= 0 {
+        while self.card(currentCard, canStackOn: nextCard) {
             currentIndex -= 1; nextIndex -= 1
+            if nextIndex < 0 {
+                break
+            }
             currentCard = stack[currentIndex]; nextCard = stack[nextIndex]
         }
         

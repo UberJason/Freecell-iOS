@@ -31,4 +31,6 @@ public class Column: CardStack, CardLocation {
     public func selectableCard() -> Card? {
         return topItem
     }
+    
+    public var isEmpty: Bool { return topItem == nil }
 }
