@@ -183,22 +183,42 @@ public class Board {
         }
     }
 
-    #warning("TODO: Implement canMoveFullStack() - for now, just calls canMoveSubstack()")
+    #warning("TODO: Validate canMoveFullStack()")
     func canMoveFullStack(from fromColumn: Column, to toColumn: Column) -> Bool {
-        return canMoveSubstack(from: fromColumn, to: toColumn)
+        guard let capCard = capCard(forMovingFrom: fromColumn, to: toColumn),
+            let substack = fromColumn.validSubstack(cappedBy: capCard) else { return false }
+        
+        guard toColumn.canReceive(capCard) else { return false }
+        
+        let availableFreeColumnCount = self.availableFreeColumnCount(excluding: toColumn)
+        
+        return substack.stack.count <= (availableFreecellCount + 1)*(availableFreeColumnCount+1)
     }
     
-    #warning("TODO: Implement moveFullStack() - for now, just performs moveSubstack()")
+    #warning("TODO: Validate moveFullStack()")
     func moveFullStack(from fromColumn: Column, to toColumn: Column) throws {
         // Remember when counting other empty columns to not count toColumn if it's empty
+        guard canMoveFullStack(from: fromColumn, to: toColumn) else {
+            throw FreecellError.invalidMove
+        }
+            
         if canMoveSubstack(from: fromColumn, to: toColumn) {
             try moveSubstack(from: fromColumn, to: toColumn)
+        }
+        else {
+            guard let freeColumn = freeColumns(excluding: toColumn).first else { fatalError("Something went wrong during moveFullStack(from:to:)")}
+            try moveSubstack(from: fromColumn, to: freeColumn)
+            try moveFullStack(from: fromColumn, to: toColumn)
+            try moveSubstack(from: freeColumn, to: toColumn)
         }
     }
     
     func performValidStackMovement(from fromColumn: Column, to toColumn: Column) throws {
         if canMoveFullStack(from: fromColumn, to: toColumn) {
             try moveFullStack(from: fromColumn, to: toColumn)
+        }
+        else if canMoveSubstack(from: fromColumn, to: toColumn) {
+            try moveSubstack(from: fromColumn, to: toColumn)
         }
         try autoUpdateFoundations()
     }
@@ -248,5 +268,9 @@ extension Board {
     
     func freeColumns(excluding excludedColumn: Column?) -> [Column] {
         return columns.filter { $0.isEmpty && $0.id != excludedColumn?.id }
+    }
+    
+    public func availableFreeColumnCount(excluding excludedColumn: Column?) -> Int {
+        return freeColumns(excluding: excludedColumn).count
     }
 }
