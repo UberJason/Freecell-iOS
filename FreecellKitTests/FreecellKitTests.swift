@@ -259,7 +259,7 @@ class FreecellKitTests: XCTestCase {
     }
     
    func testMoveCard() throws {
-       var board = Board.empty
+       let board = Board.empty
        board.columns[0] = sampleStackColumn()
        
        try board.move(board.columns[0].topItem!, to: board.columns[1])
@@ -326,10 +326,29 @@ class FreecellKitTests: XCTestCase {
         try validate(for: column, expectedCount: 2, expectedTop: Card.ten.ofSpades, expectedBottom: Card.jack.ofDiamonds)
     }
     
-    func testColumnSubstackFromIndex() throws {
+    func testValidSubstackCappedBy() {
+        let stack = CardStack(cards: [
+            Card.king.ofSpades,
+            Card.nine.ofHearts,
+            Card.six.ofDiamonds,
+            Card.five.ofClubs,
+            Card.four.ofHearts
+        ])
         
+        var validSubstack = stack.validSubstack(cappedBy: Card.six.ofDiamonds)
+        XCTAssertEqual(validSubstack?.stack, [
+            Card.six.ofDiamonds,
+            Card.five.ofClubs,
+            Card.four.ofHearts
+        ])
+        
+        validSubstack = stack.validSubstack(cappedBy: Card.five.ofClubs)
+        XCTAssertEqual(validSubstack?.stack, [
+            Card.five.ofClubs,
+            Card.four.ofHearts
+        ])
     }
-    
+
     func testCapCard() throws {
         func validate(for board: Board, from fromColumn: Column, to toColumn: Column, expectedCapCard: Card?) {
             let capCard = board.capCard(forMovingFrom: fromColumn, to: toColumn)
@@ -486,6 +505,31 @@ class FreecellKitTests: XCTestCase {
         try board.foundations[2].push(Card.ace.ofHearts)
         
         try board.moveSubstack(from: board.columns[0], to: board.columns[1])
+    }
+    
+    func testFreeColumns() throws {
+        let board = Board.empty
+        let deck = Deck(shuffled: true)
+        try board.columns.forEach {
+            let card = try XCTUnwrap(deck.draw())
+            try $0.push(card)
+        }
+        
+        var freeColumns = board.freeColumns(excluding: nil)
+        XCTAssertEqual(freeColumns.count, 0)
+        
+        _ = board.columns[0].pop()
+        freeColumns = board.freeColumns(excluding: nil)
+        XCTAssertEqual(freeColumns.count, 1)
+        freeColumns = board.freeColumns(excluding: board.columns[0])
+        XCTAssertEqual(freeColumns.count, 0)
+        
+        _ = board.columns[1].pop()
+        _ = board.columns[2].pop()
+        freeColumns = board.freeColumns(excluding: nil)
+        XCTAssertEqual(freeColumns.count, 3)
+        freeColumns = board.freeColumns(excluding: board.columns[0])
+        XCTAssertEqual(freeColumns.count, 2)
     }
 
 }

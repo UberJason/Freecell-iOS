@@ -44,7 +44,6 @@ public class Board {
         return containingLocation
     }
     
-    
     /// Finds and attempts to perform a valid move using the selected card and the destination location.
     ///
     /// - Parameters:
@@ -89,6 +88,8 @@ public class Board {
         }
     }
     
+    /// Convenience method to attempt to move card to the first available freecell. Throws invalidMove if all freecells are occupied.
+    /// - Parameter card: Card to move to freecell.
     func moveCardToAvailableFreecell(_ card: Card) throws {
         guard let availableFreeCell = nextAvailableFreecell else {
             throw FreecellError.invalidMove
@@ -97,11 +98,16 @@ public class Board {
         try move(card, to: availableFreeCell)
     }
     
+    /// Convenience method to attempt to move card to the corresponding foundation (E.g. move a club to the Club foundation).
+    /// - Parameter card: Card to attempt to move to the corresponding foundation.
     func moveCardToAppropriateFoundation(_ card: Card) throws {
         let foundation = foundations.filter({ $0.suit == card.suit }).first!
         try move(card, to: foundation)
     }
     
+    /// Method to inspect the board and automatically move cards up to foundations recursively if possible and allowed.
+    /// For example, if an Ace is uncovered after a move, and autoUpdateFoundations() is called, the Ace will be moved to its
+    /// corresponding foundation.
     func autoUpdateFoundations() throws {
         let exposedCards = freecells.map({ $0.topItem }).compactMap { $0 } +
                                 columns.map({ $0.topItem }).compactMap { $0 }
@@ -114,6 +120,15 @@ public class Board {
         }
     }
     
+    /// Returns the card, if any, at the bottom (cap) of the valid substack that may be moved from from fromColumn to toColumn.
+    /// For example, if the intent is to move a stack from column [♠️K, ❤️9,♦️6, ♣️5, ❤️4] to column [♠️J, ♣️9, ♦️8, ♠️7],
+    /// the valid substack that can be moved is [♦️6, ♣️5, ❤️4], and the cap card is ♦️6.
+    /// 
+    /// Note that this method does NOT consider whether the move is legal or not due to sufficient freecells or empty columns.
+    /// It only considers valid stacking combinations and finds the card that would be at the bottom of the moving stack.
+    /// - Parameters:
+    ///   - fromColumn: Origin column for the substack move
+    ///   - toColumn: Destination column for the substack move
     func capCard(forMovingFrom fromColumn: Column, to toColumn: Column) -> Card? {
         guard let largestValidSubstack = fromColumn.largestValidSubstack() else { return nil }
         var currentIndex = 0
@@ -190,7 +205,6 @@ public class Board {
 }
 
 extension Board {
-  
     public var availableFreecellCount: Int {
         return freecells.filter({ !$0.isOccupied }).count
     }
@@ -230,5 +244,9 @@ extension Board {
         let foundation = foundations.filter({ $0.suit == card.suit }).first!
         
         return foundation.canReceive(card) && card.rank.value - 1 <= lowestOutstandingRank.value
+    }
+    
+    func freeColumns(excluding excludedColumn: Column?) -> [Column] {
+        return columns.filter { $0.isEmpty && $0.id != excludedColumn?.id }
     }
 }

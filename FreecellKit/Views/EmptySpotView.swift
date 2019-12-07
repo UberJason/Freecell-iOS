@@ -20,7 +20,7 @@ public struct EmptySpotView: View {
         ZStack {
             CardRectangle(opacity: 0.5)
             
-            Text(suit?.displayTitle ?? "!")
+            Text(suit?.displayTitle ?? "")
                 .font(.system(size: 30, weight: .semibold, design: .default))
         }
     }

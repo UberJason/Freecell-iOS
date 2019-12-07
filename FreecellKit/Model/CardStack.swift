@@ -92,21 +92,6 @@ public class CardStack: Stack, Identifiable, ObservableObject {
         return CardStack(cards: Array(substack))
     }
     
-    /// Returns a substack from the `largestValidSubstack` starting at the
-    /// given index. This method is generally expected to be called on a fully valid
-    /// CardStack, but if not, it starts with the largest valid substack before considering
-    /// the index. For example, if the stack is [♦️6, ♣️5, ❤️4], calling `substack(from: 1)`
-    /// will return [♣️5, ❤️4].
-    /// - Parameter index: Index to start the substack.
-    public func substack(from index: Int) -> CardStack? {
-        guard let largestValidSubstack = validSubstackArraySlice else { return nil }
-        guard index < largestValidSubstack.count else { return nil }
-        
-        let substack = largestValidSubstack[index..<largestValidSubstack.endIndex]
-        
-        return CardStack(cards: Array(substack))
-    }
-    
     /// Returns a valid substack from this CardStack which is capped by the given capCard,
     /// if exists. For example, if the stack is [♠️K, ❤️9,♦️6, ♣️5, ❤️4], calling
     /// `validSubstack(cappedBy: ♣️5)` will return [♣️5, ❤️4].
