@@ -20,6 +20,7 @@ struct GameView: View {
     
     var body: some View {
         BoardView(boardDriver: game.boardDriver)
+//        .onCommand(<#T##selector: Selector##Selector#>, perform: <#T##(() -> Void)?##(() -> Void)?##() -> Void#>)
     }
 }
 

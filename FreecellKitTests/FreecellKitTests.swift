@@ -532,6 +532,7 @@ class FreecellKitTests: XCTestCase {
         XCTAssertEqual(freeColumns.count, 2)
     }
 
+    #warning("Test canMoveFullStack(from:to:) and moveFullStack(from:to:) using screenshot examples")
 }
 
 extension Board {
