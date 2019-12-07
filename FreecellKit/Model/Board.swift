@@ -55,7 +55,6 @@ public class Board {
         // Edge case: If user taps selected card twice, move card to available freecell.
         if toLocation.contains(card), toLocation is Column {
             try moveCardToAvailableFreecell(card)
-            try autoUpdateFoundations()
             return
         }
 
@@ -68,7 +67,6 @@ public class Board {
             try performValidStackMovement(from: fromColumn, to: toColumn)
         default:
             try move(card, to: toLocation)
-            try autoUpdateFoundations()
         }
     }
     
@@ -76,7 +74,9 @@ public class Board {
     /// - Parameters:
     ///   - card: Card to move to the given location.
     ///   - location: Location to receive the card.
-    func move(_ card: Card, to location: CardLocation) throws {
+    ///   - deferringAutoUpdate: If false, the board will attempt to auto-update foundations after a successful move.
+    ///    When in the middle of a stack movement, this value may be preferred to be true to avoid putting the board in an unexpected state.
+    func move(_ card: Card, to location: CardLocation, deferringAutoUpdate: Bool = false) throws {
         let containingLocation = self.location(containing: card)
         guard location.canReceive(card) else { throw FreecellError.invalidMove }
         
@@ -84,7 +84,9 @@ public class Board {
             try location.receive(card)
         }
         
-        try autoUpdateFoundations()
+        if !deferringAutoUpdate {
+            try autoUpdateFoundations()
+        }
     }
     
     func moveCardToAvailableFreecell(_ card: Card) throws {
@@ -150,19 +152,19 @@ public class Board {
         }
 
         if substack.stack.count == 1 || availableFreecellCount == 0 {
-            try move(card, to: toColumn)
+            try move(card, to: toColumn, deferringAutoUpdate: true)
         }
         else {
             guard let currentAvailableFreeCell = nextAvailableFreecell else {
                 throw FreecellError.invalidMove
             }
             
-            try move(card, to: currentAvailableFreeCell)
+            try move(card, to: currentAvailableFreeCell, deferringAutoUpdate: true)
             try moveSubstack(from: fromColumn, to: toColumn)
             
             guard let card = currentAvailableFreeCell.item else { fatalError("Something went wrong during moveSubstack(from:to:)") }
             
-            try move(card, to: toColumn)
+            try move(card, to: toColumn, deferringAutoUpdate: true)
         }
     }
 
@@ -183,6 +185,7 @@ public class Board {
         if canMoveFullStack(from: fromColumn, to: toColumn) {
             try moveFullStack(from: fromColumn, to: toColumn)
         }
+        try autoUpdateFoundations()
     }
 }
 

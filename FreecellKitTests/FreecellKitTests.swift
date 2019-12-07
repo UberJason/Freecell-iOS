@@ -441,6 +441,31 @@ class FreecellKitTests: XCTestCase {
             Card.ten.ofClubs,
             Card.nine.ofHearts
         ])
+        
+        // Test moving a substack while avoiding an auto-update in the middle of the movement to avoid an
+        // unexpected board state and subsequent crash.
+        board = Board.empty
+        board.columns[0] = Column(id: 0, cards: [
+            Card.three.ofHearts,
+            Card.three.ofDiamonds,
+            Card.queen.ofSpades,
+            Card.four.ofSpades,
+            Card.ace.ofDiamonds,
+            Card.three.ofSpades,
+            Card.two.ofDiamonds
+        ])
+        board.columns[1] = Column(id: 1, cards: [
+            Card.eight.ofSpades,
+            Card.eight.ofClubs,
+            Card.king.ofSpades,
+            Card.queen.ofClubs,
+            Card.nine.ofHearts,
+            Card.four.ofHearts
+        ])
+        
+        try board.foundations[2].push(Card.ace.ofHearts)
+        
+        try board.moveSubstack(from: board.columns[0], to: board.columns[1])
     }
  
     func testMoveCard() throws {
