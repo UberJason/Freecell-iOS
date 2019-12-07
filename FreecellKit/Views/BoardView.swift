@@ -60,7 +60,6 @@ public struct BoardView: View {
         }
         .edgesIgnoringSafeArea(.all)
         .onTapGesture {
-            print("board tapped")
             self.boardDriver.itemTapped(self)
         }
     }

@@ -257,6 +257,31 @@ class FreecellKitTests: XCTestCase {
         XCTAssertEqual(nextLowest2, Rank.queen)
         XCTAssertNil(nextHighest2)
     }
+    
+   func testMoveCard() throws {
+       var board = Board.empty
+       board.columns[0] = sampleStackColumn()
+       
+       try board.move(board.columns[0].topItem!, to: board.columns[1])
+       XCTAssertEqual(board.columns[0].stack, [
+           Card.four.ofSpades,
+           Card.seven.ofClubs,
+           Card.king.ofClubs,
+           Card.eight.ofHearts,
+           Card.queen.ofSpades,
+           Card.jack.ofHearts,
+           Card.ten.ofClubs
+       ])
+       XCTAssertEqual(board.columns[1].stack, [Card.nine.ofHearts])
+       
+       board.columns[0] = sampleStackColumn()
+       board.columns[1] = Column(id: 1,cards: [Card.four.ofHearts])
+       
+       do {
+           try board.move(board.columns[0].topItem!, to: board.columns[1])
+           XCTFail("Should not be able to move the ❤️9 on top of the ❤️4")
+       } catch {}
+   }
   
     #warning("Test CardStack.validSubstack(cappedBy:)")
     func testColumnValidSubstack() throws {
@@ -343,11 +368,6 @@ class FreecellKitTests: XCTestCase {
         ])
 
         validate(for: board, from: board.columns[1], to: board.columns[0], expectedCapCard: Card.five.ofHearts)
-//
-//        // Test cap card should be based on number of available freecells if the target is empty
-//        board.columns[0] = Column(id: 0, cards: [])
-//
-//        validate(for: board, from: board.columns[1], to: board.columns[0], expectedCapCard: Card.nine.ofDiamonds)
     }
     
     func testCanMoveSubstack() throws {
@@ -376,7 +396,6 @@ class FreecellKitTests: XCTestCase {
     }
     
     func testMoveSubstack() throws {
-        
         // Test moving a full substack to an empty column
         var board = Board.empty
 
@@ -442,6 +461,7 @@ class FreecellKitTests: XCTestCase {
             Card.nine.ofHearts
         ])
         
+        
         // Test moving a substack while avoiding an auto-update in the middle of the movement to avoid an
         // unexpected board state and subsequent crash.
         board = Board.empty
@@ -467,31 +487,7 @@ class FreecellKitTests: XCTestCase {
         
         try board.moveSubstack(from: board.columns[0], to: board.columns[1])
     }
- 
-    func testMoveCard() throws {
-        var board = Board.empty
-        board.columns[0] = sampleStackColumn()
-        
-        try board.move(board.columns[0].topItem!, to: board.columns[1])
-        XCTAssertEqual(board.columns[0].stack, [
-            Card.four.ofSpades,
-            Card.seven.ofClubs,
-            Card.king.ofClubs,
-            Card.eight.ofHearts,
-            Card.queen.ofSpades,
-            Card.jack.ofHearts,
-            Card.ten.ofClubs
-        ])
-        XCTAssertEqual(board.columns[1].stack, [Card.nine.ofHearts])
-        
-        board.columns[0] = sampleStackColumn()
-        board.columns[1] = Column(id: 1,cards: [Card.four.ofHearts])
-        
-        do {
-            try board.move(board.columns[0].topItem!, to: board.columns[1])
-            XCTFail("Should not be able to move the ❤️9 on top of the ❤️4")
-        } catch {}
-    }
+
 }
 
 extension Board {
@@ -509,7 +505,3 @@ extension Board {
         return board
     }
 }
-//
-//extension Card: CustomDebugStringConvertible {
-//    public var debugDescription: String { return displayTitle }
-//}
