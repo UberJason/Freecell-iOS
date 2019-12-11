@@ -11,22 +11,41 @@ import DeckKit
 import FreecellKit
 import Combine
 
-class Game {
-    var boardDriver = BoardDriver()
+class Game: ObservableObject {
+    @Published var boardDriver = BoardDriver()
+    
+    var cancellable: AnyCancellable?
+    
+    func connect(_ publisher: AnyPublisher<GameEvent, Never>) {
+        cancellable = publisher.sink { [weak self] event in
+            switch event {
+            case .newGame:
+                self?.boardDriver = BoardDriver()
+            case .undo:
+                print("Undo event received")
+            case .redo:
+                print("Redo event received")
+            }
+            
+        }
+    }
 }
 
 struct GameView: View {
-    var game = Game()
+    @ObservedObject var game = Game()
+    
+    init(newGamePublisher: AnyPublisher<GameEvent, Never>) {
+        game.connect(newGamePublisher)
+    }
     
     var body: some View {
         BoardView(boardDriver: game.boardDriver)
-//        .onCommand(<#T##selector: Selector##Selector#>, perform: <#T##(() -> Void)?##(() -> Void)?##() -> Void#>)
     }
 }
 
 struct GameView_Previews: PreviewProvider {
     static var previews: some View {
-        GameView()
+        GameView(newGamePublisher: PassthroughSubject<GameEvent, Never>().eraseToAnyPublisher())
             .previewDevice("iPad Pro 11")
             .previewLayout(.fixed(width: 1194, height: 834))
     }

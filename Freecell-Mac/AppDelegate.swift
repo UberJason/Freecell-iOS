@@ -8,16 +8,18 @@
 
 import Cocoa
 import SwiftUI
+import Combine
 
 @NSApplicationMain
 class AppDelegate: NSObject, NSApplicationDelegate {
 
     var window: NSWindow!
 
+    var gameEventPublisher = PassthroughSubject<GameEvent, Never>()
 
     func applicationDidFinishLaunching(_ aNotification: Notification) {
         // Create the SwiftUI view that provides the window contents.
-        let contentView = GameView()
+        let contentView = GameView(newGamePublisher: gameEventPublisher.eraseToAnyPublisher())
 
         // Create the window and set the content view. 
         window = NSWindow(
@@ -34,6 +36,19 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         // Insert code here to tear down your application
     }
 
-
+    @IBAction func newGame(_ sender: Any) {
+        gameEventPublisher.send(.newGame)
+    }
+    
+    @IBAction func undoMove(_ sender: Any) {
+        gameEventPublisher.send(.undo)
+    }
+    
+    @IBAction func redoMove(_ sender: Any) {
+        gameEventPublisher.send(.redo)
+    }
 }
 
+enum GameEvent {
+    case newGame, undo, redo
+}
