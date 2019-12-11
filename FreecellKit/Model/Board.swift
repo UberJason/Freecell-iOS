@@ -183,6 +183,11 @@ public class Board {
         }
     }
 
+    // Edge case: Need to know if we are attempting a full stack movement to an empty column, i.e. other free columns are available.
+    func isFullStackMoveToEmptyColumn(from fromColumn: Column, to toColumn: Column) -> Bool {
+        return toColumn.isEmpty && availableFreeColumnCount(excluding: toColumn) > 0
+    }
+    
     #warning("TODO: Validate canMoveFullStack()")
     func canMoveFullStack(from fromColumn: Column, to toColumn: Column) -> Bool {
         guard let capCard = capCard(forMovingFrom: fromColumn, to: toColumn),
@@ -202,7 +207,7 @@ public class Board {
             throw FreecellError.invalidMove
         }
             
-        if canMoveSubstack(from: fromColumn, to: toColumn) {
+        if canMoveSubstack(from: fromColumn, to: toColumn) && !isFullStackMoveToEmptyColumn(from: fromColumn, to: toColumn) {
             try moveSubstack(from: fromColumn, to: toColumn)
         }
         else {
