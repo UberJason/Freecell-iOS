@@ -59,16 +59,59 @@ public struct BoardView: View {
             
         }
         .edgesIgnoringSafeArea(.all)
+        .overlayPreferenceValue(CardFrameInfoKey.self) { preferences in
+            return GeometryReader { geometry in
+                ZStack {
+                    self.createBorder(using: geometry, preferences: preferences)
+                }.frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
+            }
+        }
         .onTapGesture {
             self.boardDriver.itemTapped(self)
         }
     }
     
+    func createBorder(using geometry: GeometryProxy, preferences: [CardFrameInfo]) -> some View {
+        var bounds = CGRect.zero
+        var offset = CGSize.zero
+        /************************************/
+        for p in preferences {
+            print("\(p.card.displayTitle):")
+            print("Bounds: \(geometry[p.bounds])")
+            print("Offset: \(p.offset)")
+        }
+       /************************************/
+        if let p = preferences.last {
+            bounds = geometry[p.bounds]
+            offset = p.offset
+        }
+        return CardRectangle(foregroundColor: .blue, opacity: 0.2)
+            .frame(width: bounds.size.width, height: bounds.size.height)
+            .offset(x: bounds.minX, y: bounds.minY + offset.height)
+            .animation(.easeInOut(duration: 1.0))
+    }
+    
+    #warning("TODO: Dynamically size the cards by platform and figure out why Mac is assuming 1024x768")
     var cardSize: CGSize {
 //        return CGSize(width: 125, height: 187)  // iPad Pro
         return CGSize(width: 107, height: 160)  // iPad Mini
     }
 }
+
+struct CardFrameInfo {
+    let card: Card
+    let offset: CGSize
+    let bounds: Anchor<CGRect>
+}
+
+struct CardFrameInfoKey: PreferenceKey {
+    static var defaultValue: [CardFrameInfo] = []
+    
+    static func reduce(value: inout [CardFrameInfo], nextValue: () -> [CardFrameInfo]) {
+        value.append(contentsOf: nextValue())
+    }
+}
+
 
 struct BoardView_Previews: PreviewProvider {
     static var previews: some View {

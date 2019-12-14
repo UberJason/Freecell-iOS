@@ -28,12 +28,17 @@ public struct ColumnView: View, SelectedOverlaying {
                     .overlay(
                         self.overlayView(for: card)
                     )
-                    .offset(x: 0, y: 40*CGFloat(self.column.orderIndex(for: card)))
+                    .offset(self.offset(for: card))
                     .onTapGesture {
                         self.onTapHandler?(card)
                     }
+                    .anchorPreference(key: CardFrameInfoKey.self, value: .bounds, transform: { [CardFrameInfo(card: card, offset: self.offset(for: card), bounds: $0)] })
             }
         }
+    }
+    
+    func offset(for card: Card) -> CGSize {
+        return CGSize(width: 0, height: 40*CGFloat(self.column.orderIndex(for: card)))
     }
 }
 
