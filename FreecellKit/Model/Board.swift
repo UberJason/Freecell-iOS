@@ -211,7 +211,7 @@ public class Board {
     #warning("TODO: Write tests for moveFullStack()")
     func moveFullStack(from fromColumn: Column, to toColumn: Column) throws {
         // Remember when counting other empty columns to not count toColumn if it's empty
-        guard canMoveFullStack(from: fromColumn, to: toColumn) else {
+        guard canMoveFullStack(from: fromColumn, to: toColumn) || canMoveSubstack(from: fromColumn, to: toColumn) else {
             throw FreecellError.invalidMove
         }
             
