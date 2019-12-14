@@ -17,6 +17,7 @@
 		9625628D2381D853003C09AA /* FoundationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9625628C2381D853003C09AA /* FoundationView.swift */; };
 		9625628F2381D857003C09AA /* ColumnView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9625628E2381D857003C09AA /* ColumnView.swift */; };
 		962562912381DEEB003C09AA /* EmptySpotView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 962562902381DEEB003C09AA /* EmptySpotView.swift */; };
+		964BBF0623A47B96009B4FDE /* BackgroundColorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 964BBF0523A47B96009B4FDE /* BackgroundColorView.swift */; };
 		9661E7AC2380439C00183A99 /* CardStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9661E7AB2380439C00183A99 /* CardStack.swift */; };
 		968889382389C44A001DD34B /* SelectedOverlaying.swift in Sources */ = {isa = PBXBuildFile; fileRef = 968889372389C44A001DD34B /* SelectedOverlaying.swift */; };
 		9688893A2389CB83001DD34B /* Result+SuccessVoid.swift in Sources */ = {isa = PBXBuildFile; fileRef = 968889392389CB83001DD34B /* Result+SuccessVoid.swift */; };
@@ -209,6 +210,7 @@
 		9625628C2381D853003C09AA /* FoundationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoundationView.swift; sourceTree = "<group>"; };
 		9625628E2381D857003C09AA /* ColumnView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColumnView.swift; sourceTree = "<group>"; };
 		962562902381DEEB003C09AA /* EmptySpotView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptySpotView.swift; sourceTree = "<group>"; };
+		964BBF0523A47B96009B4FDE /* BackgroundColorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackgroundColorView.swift; sourceTree = "<group>"; };
 		9661E7AB2380439C00183A99 /* CardStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardStack.swift; sourceTree = "<group>"; };
 		968889372389C44A001DD34B /* SelectedOverlaying.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectedOverlaying.swift; sourceTree = "<group>"; };
 		968889392389CB83001DD34B /* Result+SuccessVoid.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Result+SuccessVoid.swift"; sourceTree = "<group>"; };
@@ -373,6 +375,7 @@
 				9625628C2381D853003C09AA /* FoundationView.swift */,
 				9625628E2381D857003C09AA /* ColumnView.swift */,
 				962295F323887623005D599B /* BoardView.swift */,
+				964BBF0523A47B96009B4FDE /* BackgroundColorView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -998,6 +1001,7 @@
 				962295F52388762D005D599B /* BoardView.swift in Sources */,
 				96A36479237E3408005C45FB /* Stack.swift in Sources */,
 				96A36477237E33D3005C45FB /* Board.swift in Sources */,
+				964BBF0623A47B96009B4FDE /* BackgroundColorView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

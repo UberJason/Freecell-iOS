@@ -18,7 +18,7 @@ public struct BoardView: View {
     
     public var body: some View {
         ZStack(alignment: .top) {
-            WindowView()
+            BackgroundColorView()
             .frame(maxWidth: .infinity, maxHeight: .infinity)
         
             VStack(spacing: 60.0) {
@@ -67,12 +67,6 @@ public struct BoardView: View {
     var cardSize: CGSize {
 //        return CGSize(width: 125, height: 187)  // iPad Pro
         return CGSize(width: 107, height: 160)  // iPad Mini
-    }
-}
-
-struct WindowView: View {
-    var body: some View {
-        Spacer().background(Color(red: 0, green: 127/255.0, blue: 0))
     }
 }
 
