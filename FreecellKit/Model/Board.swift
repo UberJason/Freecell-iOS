@@ -134,7 +134,7 @@ public class Board {
         var currentIndex = 0
         var currentCard = largestValidSubstack.item(at: currentIndex)
         
-        while currentIndex < largestValidSubstack.stack.count {
+        while currentIndex < largestValidSubstack.items.count {
             if let card = currentCard, toColumn.canReceive(card) {
                 return card
             }
@@ -154,7 +154,7 @@ public class Board {
         
         guard toColumn.canReceive(capCard) else { return false }
         
-        return substack.stack.count <= availableFreecellCount + 1
+        return substack.items.count <= maximumMoveableSubstackSize
     }
     
     func moveSubstack(from fromColumn: Column, to toColumn: Column) throws {
@@ -166,7 +166,7 @@ public class Board {
                 throw FreecellError.invalidMove
         }
 
-        if substack.stack.count == 1 || availableFreecellCount == 0 {
+        if substack.items.count == 1 || availableFreecellCount == 0 {
             try move(card, to: toColumn, deferringAutoUpdate: true)
         }
         else {
@@ -183,9 +183,15 @@ public class Board {
         }
     }
 
-    // Edge case: Need to know if we are attempting a full stack movement to an empty column, i.e. other free columns are available.
+    // Edge case: Need to know if we are attempting a full stack movement to an empty column, i.e.
+    // - Moving a stack to an empty column
+    // - At least 1 other free column is available
+    // - The stack we're trying to move is larger than could move using substack movement alone
     func isFullStackMoveToEmptyColumn(from fromColumn: Column, to toColumn: Column) -> Bool {
-        return toColumn.isEmpty && availableFreeColumnCount(excluding: toColumn) > 0
+        guard let capCard = capCard(forMovingFrom: fromColumn, to: toColumn),
+        let substack = fromColumn.validSubstack(cappedBy: capCard) else { return false }
+        
+        return toColumn.isEmpty && availableFreeColumnCount(excluding: toColumn) > 0 && substack.items.count > maximumMoveableSubstackSize
     }
     
     #warning("TODO: Write tests for canMoveFullStack()")
@@ -199,7 +205,7 @@ public class Board {
         
         let availableFreeColumnCount = self.availableFreeColumnCount(excluding: toColumn)
         
-        return substack.stack.count <= (availableFreecellCount + 1)*(availableFreeColumnCount+1)
+        return substack.items.count <= (availableFreecellCount + 1)*(availableFreeColumnCount+1)
     }
     
     #warning("TODO: Write tests for moveFullStack()")
@@ -243,6 +249,10 @@ extension Board {
     
     public var nextAvailableFreecell: FreeCell? {
         return freecells.filter({ !$0.isOccupied }).first
+    }
+    
+    public var maximumMoveableSubstackSize: Int {
+        return availableFreecellCount + 1
     }
     
     /// Return lowest outstanding card for a given suit. Returns nil only if the entire suit has moved up to the foundation.

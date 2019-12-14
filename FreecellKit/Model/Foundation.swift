@@ -23,6 +23,18 @@ public class Foundation: Stack, CardLocation, Identifiable, ObservableObject {
         self.suit = suit
     }
     
+    public convenience init?(id: Int, topCard: Card) {
+        self.init(id: id, suit: topCard.suit)
+        for i in 1 ... topCard.rank.value {
+            guard let rank = Rank(value: i) else { return nil }
+            do {
+                try push(Card(suit: suit, rank: rank))
+            } catch {
+                return nil
+            }
+        }
+    }
+    
     public func push(_ item: Card) throws {
         switch validate(card: item, canStackOn: topItem, foundationSuit: suit) {
         case .success:
