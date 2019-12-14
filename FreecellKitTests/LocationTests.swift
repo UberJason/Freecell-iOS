@@ -220,9 +220,7 @@ class LocationTests: XCTestCase {
        validate(for: board, from: board.columns[1], to: board.columns[0], expectedCapCard: Card.five.ofHearts)
     }
     
-    #warning("Test CardStack.validSubstack(cappedBy:)")
-    func testColumnValidSubstack() throws {
-        
+    func testColumnLargestValidSubstack() throws {
         func validate(for column: Column, expectedCount: Int, expectedTop: Card?, expectedBottom: Card?) throws {
             let largestValidSubstack = try XCTUnwrap(column.largestValidSubstack())
             
@@ -261,5 +259,15 @@ class LocationTests: XCTestCase {
         ])
         
         try validate(for: column, expectedCount: 2, expectedTop: Card.ten.ofSpades, expectedBottom: Card.jack.ofDiamonds)
+    }
+    
+    func testColumnValidSubstackCappedBy() throws {
+        let column = Column.sampleStackColumn
+        
+        let cappedSubstack = try XCTUnwrap(column.validSubstack(cappedBy: Card.jack.ofHearts))
+        
+        XCTAssertEqual(cappedSubstack.items.count, 3)
+        XCTAssertEqual(cappedSubstack.topItem, Card.nine.ofHearts)
+        XCTAssertEqual(cappedSubstack.bottomItem, Card.jack.ofHearts)
     }
 }

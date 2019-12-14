@@ -194,7 +194,6 @@ public class Board {
         return toColumn.isEmpty && availableFreeColumnCount(excluding: toColumn) > 0 && substack.items.count > maximumMoveableSubstackSize
     }
     
-    #warning("TODO: Write tests for canMoveFullStack()")
     func canMoveFullStack(from fromColumn: Column, to toColumn: Column) -> Bool {
         if isFullStackMoveToEmptyColumn(from: fromColumn, to: toColumn) { return true }
         
@@ -208,7 +207,6 @@ public class Board {
         return substack.items.count <= (availableFreecellCount + 1)*(availableFreeColumnCount+1)
     }
     
-    #warning("TODO: Write tests for moveFullStack()")
     func moveFullStack(from fromColumn: Column, to toColumn: Column) throws {
         // Remember when counting other empty columns to not count toColumn if it's empty
         guard canMoveFullStack(from: fromColumn, to: toColumn) || canMoveSubstack(from: fromColumn, to: toColumn) else {

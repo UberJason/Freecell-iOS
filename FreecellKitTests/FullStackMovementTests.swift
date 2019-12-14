@@ -142,6 +142,4 @@ class FullStackMovementTests: XCTestCase {
         XCTAssertEqual(board.columns[7].items, [])
         
     }
-
-    #warning("Test canMoveFullStack(from:to:) and moveFullStack(from:to:) using screenshot examples")
 }
