@@ -188,8 +188,10 @@ public class Board {
         return toColumn.isEmpty && availableFreeColumnCount(excluding: toColumn) > 0
     }
     
-    #warning("TODO: Validate canMoveFullStack()")
+    #warning("TODO: Write tests for canMoveFullStack()")
     func canMoveFullStack(from fromColumn: Column, to toColumn: Column) -> Bool {
+        if isFullStackMoveToEmptyColumn(from: fromColumn, to: toColumn) { return true }
+        
         guard let capCard = capCard(forMovingFrom: fromColumn, to: toColumn),
             let substack = fromColumn.validSubstack(cappedBy: capCard) else { return false }
         
@@ -200,7 +202,7 @@ public class Board {
         return substack.stack.count <= (availableFreecellCount + 1)*(availableFreeColumnCount+1)
     }
     
-    #warning("TODO: Validate moveFullStack()")
+    #warning("TODO: Write tests for moveFullStack()")
     func moveFullStack(from fromColumn: Column, to toColumn: Column) throws {
         // Remember when counting other empty columns to not count toColumn if it's empty
         guard canMoveFullStack(from: fromColumn, to: toColumn) else {
@@ -221,11 +223,16 @@ public class Board {
     func performValidStackMovement(from fromColumn: Column, to toColumn: Column) throws {
         if canMoveFullStack(from: fromColumn, to: toColumn) {
             try moveFullStack(from: fromColumn, to: toColumn)
+            try autoUpdateFoundations()
         }
         else if canMoveSubstack(from: fromColumn, to: toColumn) {
             try moveSubstack(from: fromColumn, to: toColumn)
+            try autoUpdateFoundations()
         }
-        try autoUpdateFoundations()
+        else {
+            try autoUpdateFoundations()
+            throw FreecellError.invalidMove
+        }
     }
 }
 

@@ -8,6 +8,9 @@
 
 import Foundation
 import DeckKit
+#if os(macOS)
+import Cocoa
+#endif
 
 enum SelectionState {
     case idle, selected(card: Card)
@@ -54,6 +57,10 @@ public class BoardDriver: ObservableObject {
                 try board.performValidMove(from: card, to: location)
                 selectedCard = nil
             } catch {
+                #if os(macOS)
+                NSSound.beep()
+                #endif
+                selectedCard = nil
                 print(error.localizedDescription)
             }
         }
