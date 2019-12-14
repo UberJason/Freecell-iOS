@@ -41,6 +41,52 @@ class FullStackMovementTests: XCTestCase {
         ])
     }
     
+    func testFullStackMovement2() throws {
+        let board = Board.fullStackBoard2
+        try board.moveFullStack(from: board.columns[5], to: board.columns[6])
+        
+        XCTAssertEqual(board.columns[5].items, [
+            Card.king.ofDiamonds
+        ])
+        
+        XCTAssertEqual(board.columns[6].items, [
+            Card.four.ofHearts,
+            Card.king.ofHearts,
+            Card.queen.ofClubs,
+            Card.jack.ofHearts,
+            Card.ten.ofSpades,
+            Card.nine.ofDiamonds,
+            Card.eight.ofSpades
+        ])
+    }
+    
+    func testFullStackMovement3() throws {
+        let board = Board.fullStackBoard3
+        try board.moveFullStack(from: board.columns[6], to: board.columns[3])
+        
+        XCTAssertEqual(board.columns[6].items, [
+            Card.seven.ofClubs,
+            Card.four.ofClubs,
+            Card.two.ofHearts,
+            Card.king.ofHearts,
+            Card.queen.ofSpades
+        ])
+        
+        XCTAssertEqual(board.columns[3].items, [
+            Card.king.ofDiamonds,
+            Card.queen.ofClubs,
+            Card.jack.ofHearts,
+            Card.ten.ofClubs,
+            Card.nine.ofHearts,
+            Card.eight.ofSpades,
+            Card.seven.ofDiamonds,
+            Card.six.ofSpades,
+            Card.five.ofHearts,
+            Card.four.ofSpades,
+            Card.three.ofHearts
+        ])
+    }
+    
     func testFullStackMovementBug4() throws {
         let board = Board.fullStackBugBoard4
         try board.moveFullStack(from: board.columns[1], to: board.columns[0])
