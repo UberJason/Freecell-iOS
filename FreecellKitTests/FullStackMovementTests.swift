@@ -10,7 +10,7 @@ import XCTest
 @testable import FreecellKit
 import DeckKit
 
-class StackMovementTests: XCTestCase {
+class FullStackMovementTests: XCTestCase {
 
     override func setUp() {
         // Put setup code here. This method is called before the invocation of each test method in the class.
@@ -55,4 +55,5 @@ class StackMovementTests: XCTestCase {
         
     }
 
+    #warning("Test canMoveFullStack(from:to:) and moveFullStack(from:to:) using screenshot examples")
 }

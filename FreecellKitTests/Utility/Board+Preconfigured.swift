@@ -11,6 +11,20 @@ import Foundation
 import DeckKit
 
 extension Board {
+    static var empty: Board {
+        let board = Board()
+        board.freecells = (0...3).map { i in FreeCell(id: i) }
+        board.columns = (0...7).map { i in Column(id: i) }
+        board.foundations = [
+            Foundation(id: 0, suit: .diamonds),
+            Foundation(id: 1, suit: .clubs),
+            Foundation(id: 2, suit: .hearts),
+            Foundation(id: 3, suit: .spades)
+        ]
+        
+        return board
+    }
+
     static var fullStackBugBoard5: Board {
         let freecells: [FreeCell] = [
             FreeCell(id: 0, card: Card.four.ofSpades),
