@@ -26,6 +26,7 @@
 		964BBF1623A48A88009B4FDE /* Column+Sample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 964BBF1523A48A88009B4FDE /* Column+Sample.swift */; };
 		964BBF1823A48B0B009B4FDE /* SubstackMovementTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 964BBF1723A48B0B009B4FDE /* SubstackMovementTests.swift */; };
 		964BBF1A23A48B39009B4FDE /* BoardTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 964BBF1923A48B39009B4FDE /* BoardTests.swift */; };
+		964BBF1D23A6D9C3009B4FDE /* StackOffsetting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 964BBF1C23A6D9C3009B4FDE /* StackOffsetting.swift */; };
 		9661E7AC2380439C00183A99 /* CardStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9661E7AB2380439C00183A99 /* CardStack.swift */; };
 		968889382389C44A001DD34B /* SelectedOverlaying.swift in Sources */ = {isa = PBXBuildFile; fileRef = 968889372389C44A001DD34B /* SelectedOverlaying.swift */; };
 		9688893A2389CB83001DD34B /* Result+SuccessVoid.swift in Sources */ = {isa = PBXBuildFile; fileRef = 968889392389CB83001DD34B /* Result+SuccessVoid.swift */; };
@@ -227,6 +228,7 @@
 		964BBF1523A48A88009B4FDE /* Column+Sample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Column+Sample.swift"; sourceTree = "<group>"; };
 		964BBF1723A48B0B009B4FDE /* SubstackMovementTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubstackMovementTests.swift; sourceTree = "<group>"; };
 		964BBF1923A48B39009B4FDE /* BoardTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoardTests.swift; sourceTree = "<group>"; };
+		964BBF1C23A6D9C3009B4FDE /* StackOffsetting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StackOffsetting.swift; sourceTree = "<group>"; };
 		9661E7AB2380439C00183A99 /* CardStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardStack.swift; sourceTree = "<group>"; };
 		968889372389C44A001DD34B /* SelectedOverlaying.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectedOverlaying.swift; sourceTree = "<group>"; };
 		968889392389CB83001DD34B /* Result+SuccessVoid.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Result+SuccessVoid.swift"; sourceTree = "<group>"; };
@@ -375,6 +377,7 @@
 				96CA9ACF238CC4F000C34A60 /* Card+Id.swift */,
 				962295F72388936C005D599B /* CardTapHandler.swift */,
 				968889372389C44A001DD34B /* SelectedOverlaying.swift */,
+				964BBF1C23A6D9C3009B4FDE /* StackOffsetting.swift */,
 				968889392389CB83001DD34B /* Result+SuccessVoid.swift */,
 				9688893B238B679A001DD34B /* Suit+Color.swift */,
 				964BBF0723A4861C009B4FDE /* Board+Convenience.swift */,
@@ -1035,6 +1038,7 @@
 				9627FED023AB19CF00F8F63B /* CustomDebugStrings.swift in Sources */,
 				96A36479237E3408005C45FB /* Stack.swift in Sources */,
 				96A36477237E33D3005C45FB /* Board.swift in Sources */,
+				964BBF1D23A6D9C3009B4FDE /* StackOffsetting.swift in Sources */,
 				964BBF0623A47B96009B4FDE /* BackgroundColorView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

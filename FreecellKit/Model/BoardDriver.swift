@@ -17,7 +17,7 @@ enum SelectionState {
 }
 
 public class BoardDriver: ObservableObject {
-    public var board = Board(deck: Deck(shuffled: true))
+    public var board = Board(deck: Deck(shuffled: false))
     
     public var freecells: [FreeCell] { return board.freecells }
     public var foundations: [Foundation] { return board.foundations }
@@ -28,6 +28,10 @@ public class BoardDriver: ObservableObject {
     }
     
     @Published public var selectedCard: Card?
+    
+    /******************************************************/
+    public let __debug__TwoOfClubs = Card.two.ofClubs
+    /******************************************************/
     
     public init() {
         

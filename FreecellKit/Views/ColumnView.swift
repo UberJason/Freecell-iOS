@@ -9,7 +9,7 @@
 import SwiftUI
 import DeckKit
 
-public struct ColumnView: View, SelectedOverlaying {
+public struct ColumnView: View, SelectedOverlaying, StackOffsetting {
     @ObservedObject var column: Column
     @Binding var selectedCard: Card?
     var onTapHandler: CardTapHandler?
@@ -28,17 +28,12 @@ public struct ColumnView: View, SelectedOverlaying {
                     .overlay(
                         self.overlayView(for: card)
                     )
-                    .offset(self.offset(for: card))
+                    .offset(self.offset(for: card, orderIndex: self.column.orderIndex(for: card)))
                     .onTapGesture {
                         self.onTapHandler?(card)
                     }
-                    .anchorPreference(key: CardFrameInfoKey.self, value: .bounds, transform: { [CardFrameInfo(card: card, offset: self.offset(for: card), bounds: $0)] })
             }
         }
-    }
-    
-    func offset(for card: Card) -> CGSize {
-        return CGSize(width: 0, height: 40*CGFloat(self.column.orderIndex(for: card)))
     }
 }
 

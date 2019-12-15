@@ -27,3 +27,7 @@ public extension CardLocation where Self: Stack, T == Card {
         try push(card)
     }
 }
+
+public enum CardLocationType {
+    case freecell, foundation, column
+}

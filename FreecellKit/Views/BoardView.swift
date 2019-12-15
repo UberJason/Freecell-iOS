@@ -9,7 +9,7 @@
 import SwiftUI
 import DeckKit
 
-public struct BoardView: View {
+public struct BoardView: View, StackOffsetting {
     @ObservedObject var boardDriver: BoardDriver
     
     public init(boardDriver: BoardDriver) {
@@ -30,6 +30,7 @@ public struct BoardView: View {
                                 .onTapGesture {
                                     self.boardDriver.itemTapped(freeCell)
                                 }
+                            .anchorPreference(key: CardLocationInfoKey.self, value: .bounds, transform: { [CardLocationInfo(location: freeCell, type: .freecell, bounds: $0)] })
                         }
                     }
                     
@@ -42,6 +43,7 @@ public struct BoardView: View {
                                 .onTapGesture {
                                     self.boardDriver.itemTapped(foundation)
                                 }
+                                .anchorPreference(key: CardLocationInfoKey.self, value: .bounds, transform: { [CardLocationInfo(location: foundation, type: .foundation, bounds: $0)] })
                         }
                     }
                 }
@@ -53,16 +55,17 @@ public struct BoardView: View {
                             .onTapGesture {
                                 self.boardDriver.itemTapped(column)
                             }
+                            .anchorPreference(key: CardLocationInfoKey.self, value: .bounds, transform: { [CardLocationInfo(location: column, type: .column, bounds: $0)] })
                     }
                 }
             }.padding(EdgeInsets(top: 40, leading: 20, bottom: 40, trailing: 20))
             
         }
         .edgesIgnoringSafeArea(.all)
-        .overlayPreferenceValue(CardFrameInfoKey.self) { preferences in
+        .overlayPreferenceValue(CardLocationInfoKey.self) { preferences in
             return GeometryReader { geometry in
                 ZStack {
-                    self.createBorder(using: geometry, preferences: preferences)
+                    self.createBorder(using: geometry, cardLocations: preferences)
                 }.frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
             }
         }
@@ -71,20 +74,29 @@ public struct BoardView: View {
         }
     }
     
-    func createBorder(using geometry: GeometryProxy, preferences: [CardFrameInfo]) -> some View {
+    func createBorder(using geometry: GeometryProxy, cardLocations: [CardLocationInfo]) -> some View {
+        let card = boardDriver.__debug__TwoOfClubs
+        
         var bounds = CGRect.zero
         var offset = CGSize.zero
         /************************************/
-        for p in preferences {
-            print("\(p.card.displayTitle):")
-            print("Bounds: \(geometry[p.bounds])")
-            print("Offset: \(p.offset)")
+        for p in cardLocations {
+            print("\(p.location) - id=\(p.location.id) - \(p.type):")
+            print(geometry[p.bounds])
         }
        /************************************/
-        if let p = preferences.last {
+        
+        let containingLocation = boardDriver.board.location(containing: card)
+        if let p = cardLocations.filter({
+            $0.location.id == containingLocation.id &&
+            type(of: containingLocation) == type(of: $0.location)
+        }).first {
             bounds = geometry[p.bounds]
-            offset = p.offset
+            if p.type == .column, let column = containingLocation as? Column {
+                offset = self.offset(for: card, orderIndex: column.orderIndex(for: card))
+            }
         }
+
         return CardRectangle(foregroundColor: .blue, opacity: 0.2)
             .frame(width: bounds.size.width, height: bounds.size.height)
             .offset(x: bounds.minX, y: bounds.minY + offset.height)
@@ -98,16 +110,16 @@ public struct BoardView: View {
     }
 }
 
-struct CardFrameInfo {
-    let card: Card
-    let offset: CGSize
+struct CardLocationInfo {
+    let location: CardLocation
+    let type: CardLocationType
     let bounds: Anchor<CGRect>
 }
 
-struct CardFrameInfoKey: PreferenceKey {
-    static var defaultValue: [CardFrameInfo] = []
+struct CardLocationInfoKey: PreferenceKey {
+    static var defaultValue: [CardLocationInfo] = []
     
-    static func reduce(value: inout [CardFrameInfo], nextValue: () -> [CardFrameInfo]) {
+    static func reduce(value: inout [CardLocationInfo], nextValue: () -> [CardLocationInfo]) {
         value.append(contentsOf: nextValue())
     }
 }
