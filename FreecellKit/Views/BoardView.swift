@@ -25,7 +25,7 @@ public struct BoardView: View, StackOffsetting {
                 HStack {
                     HStack {
                         ForEach(boardDriver.freecells) { freeCell in
-                            FreeCellView(freeCell: freeCell, selected: self.$boardDriver.selectedCard, hidden: self.$boardDriver.inFlightCard, onTapHandler: self.boardDriver.itemTapped(_:))
+                            FreeCellView(freeCell: freeCell, selected: self.$boardDriver.selectedCard, hidden: self.$boardDriver.hiddenCard, onTapHandler: self.boardDriver.itemTapped(_:))
                                 .frame(width: self.cardSize.width, height: self.cardSize.height)
                                 .onTapGesture {
                                     self.boardDriver.itemTapped(freeCell)
@@ -38,7 +38,7 @@ public struct BoardView: View, StackOffsetting {
                     
                     HStack {
                         ForEach(boardDriver.foundations) { foundation in
-                            FoundationView(foundation: foundation, hidden: self.$boardDriver.inFlightCard)
+                            FoundationView(foundation: foundation, hidden: self.$boardDriver.hiddenCard)
                                 .frame(width: self.cardSize.width, height: self.cardSize.height)
                                 .onTapGesture {
                                     self.boardDriver.itemTapped(foundation)
@@ -50,7 +50,7 @@ public struct BoardView: View, StackOffsetting {
                 
                 HStack(spacing: 20.0) {
                     ForEach(boardDriver.columns) { column in
-                        ColumnView(column: column, selected: self.$boardDriver.selectedCard, hidden: self.$boardDriver.inFlightCard, onTapHandler: self.boardDriver.itemTapped(_:))
+                        ColumnView(column: column, selected: self.$boardDriver.selectedCard, hidden: self.$boardDriver.hiddenCard, onTapHandler: self.boardDriver.itemTapped(_:))
                             .frame(width: self.cardSize.width, height: self.cardSize.height)
                             .onTapGesture {
                                 self.boardDriver.itemTapped(column)
@@ -75,29 +75,37 @@ public struct BoardView: View, StackOffsetting {
     }
     
     func renderInFlightCard(using geometry: GeometryProxy, cardLocations: [CardLocationInfo]) -> some View {
-        let card = boardDriver.inFlightCard!
-        
         var bounds = CGRect.zero
         var offset = CGSize.zero
 
-        let containingLocation = boardDriver.board.location(containing: card)
+        guard let inFlightMove = boardDriver.inFlightMove else {
+            return AnyView(
+                CardRectangle().frame(width: bounds.size.width, height: bounds.size.height)
+            )
+        }
+        
+        print("renderInFlightCard - \(inFlightMove.card) at \(inFlightMove.location)")
+        
+        let containingLocation = inFlightMove.location
         if let p = cardLocations.filter({
             $0.location.id == containingLocation.id &&
             type(of: containingLocation) == type(of: $0.location)
         }).first {
             bounds = geometry[p.bounds]
             if p.type == .column, let column = containingLocation as? Column {
-                offset = self.offset(for: card, orderIndex: column.orderIndex(for: card))
+                offset = self.offset(for: inFlightMove.card, orderIndex: column.orderIndex(for: inFlightMove.card))
             }
         }
 
-        return CardView(card: card)
+        return AnyView(
+            CardView(card: inFlightMove.card)
             .overlay(
                 CardRectangle(foregroundColor: Color.blue, opacity: 0.2)
             )
             .frame(width: bounds.size.width, height: bounds.size.height)
             .offset(x: bounds.minX, y: bounds.minY + offset.height)
-            .animation(.easeInOut(duration: 1.0))
+                .animation(.easeInOut(duration: Double(self.boardDriver.animationTimeMilliseconds)/1000.0))
+        )
     }
     
     #warning("TODO: Dynamically size the cards by platform and figure out why Mac is assuming 1024x768")

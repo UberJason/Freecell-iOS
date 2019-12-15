@@ -34,3 +34,10 @@ public class Column: CardStack, CardLocation {
     
     public var isEmpty: Bool { return topItem == nil }
 }
+
+extension Column: NSCopying {
+    public func copy(with zone: NSZone? = nil) -> Any {
+        let copy = Column(id: id, cards: items)
+        return copy
+    }
+}

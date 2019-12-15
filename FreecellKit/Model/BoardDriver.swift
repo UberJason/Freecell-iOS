@@ -6,6 +6,7 @@
 //  Copyright © 2019 Jason Ji. All rights reserved.
 //
 
+import Combine
 import Foundation
 import DeckKit
 #if os(macOS)
@@ -14,6 +15,11 @@ import Cocoa
 
 enum SelectionState {
     case idle, selected(card: Card)
+}
+
+public struct MoveState {
+    let card: Card
+    let location: CardLocation
 }
 
 public class BoardDriver: ObservableObject {
@@ -28,9 +34,30 @@ public class BoardDriver: ObservableObject {
     }
     
     @Published public var selectedCard: Card?
-    @Published public var inFlightCard: Card? = Card.two.ofClubs
+    @Published public var hiddenCard: Card?
+    @Published public var inFlightMove: MoveState? = nil
     
+    public var animationTimeMilliseconds = 50
+    
+    private var moveEventSubscriber: AnyCancellable?
     public init() {
+        moveEventSubscriber = board.movePublisher.sink { [weak self] move in
+            print("Received move event: \(move.card) moved from \(move.fromLocation) to \(move.toLocation)")
+            self?.animateMove(move)
+        }
+    }
+    
+    private func animateMove(_ move: MoveEvent) {
+        hiddenCard = move.card
+        inFlightMove = MoveState(card: move.card, location: move.fromLocation)
+        DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(1)) { [weak self] in
+            guard let strongSelf = self else { return }
+            strongSelf.inFlightMove = MoveState(card: move.card, location: move.toLocation)
+            DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(strongSelf.animationTimeMilliseconds)) {
+                strongSelf.inFlightMove = nil
+                strongSelf.hiddenCard = nil
+            }
+        }
         
     }
     

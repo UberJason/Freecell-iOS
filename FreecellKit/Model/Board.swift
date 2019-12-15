@@ -15,6 +15,9 @@ public struct Board {
     public var foundations: [Foundation]
     public var columns: [Column]
     
+    public lazy var movePublisher: AnyPublisher<MoveEvent, Never> = _movePublisher.eraseToAnyPublisher()
+    private var _movePublisher = PassthroughSubject<MoveEvent, Never>()
+    
     public init(deck: Deck = Deck(shuffled: false)) {
         freecells = (0...3).map { i in FreeCell(id: i) }
         foundations = [
@@ -76,12 +79,16 @@ public struct Board {
     ///   - deferringAutoUpdate: If false, the board will attempt to auto-update foundations after a successful move.
     ///    When in the middle of a stack movement, this value may be preferred to be true to avoid putting the board in an unexpected state.
     func move(_ card: Card, to location: CardLocation, deferringAutoUpdate: Bool = false) throws {
-        let containingLocation = self.location(containing: card)
+        let fromCopy = self.location(containing: card).copy() as! CardLocation,
+        toCopy = location.copy() as! CardLocation
+        
         guard location.canReceive(card) else { throw FreecellError.invalidMove }
         
-        if let card = containingLocation.pop() {
+        if let card = self.location(containing: card).pop() {
             try location.receive(card)
         }
+        
+        _movePublisher.send(MoveEvent(card: card, fromLocation: fromCopy, toLocation: toCopy))
         
         if !deferringAutoUpdate {
             try autoUpdateFoundations()
@@ -293,4 +300,10 @@ extension Board {
     public func availableFreeColumnCount(excluding excludedColumn: Column?) -> Int {
         return freeColumns(excluding: excludedColumn).count
     }
+}
+
+public struct MoveEvent {
+    let card: Card
+    let fromLocation: CardLocation
+    let toLocation: CardLocation
 }

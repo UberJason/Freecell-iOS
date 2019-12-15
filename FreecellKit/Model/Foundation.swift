@@ -87,3 +87,14 @@ public class Foundation: Stack, CardLocation, Identifiable, ObservableObject {
         return nil
     }
 }
+
+extension Foundation: NSCopying {
+    public func copy(with zone: NSZone? = nil) -> Any {
+        if let topItem = topItem {
+            return Foundation(id: id, topCard: topItem) ?? fatalError("Error copying Foundation")
+        }
+        else {
+            return Foundation(id: id, suit: suit)
+        }
+    }
+}

@@ -9,7 +9,7 @@
 import Foundation
 import DeckKit
 
-public protocol CardLocation {
+public protocol CardLocation: NSCopying {
     var id: Int { get }
     func contains(_ card: Card) -> Bool
     func pop() -> Card?

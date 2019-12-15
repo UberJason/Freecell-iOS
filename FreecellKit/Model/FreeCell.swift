@@ -63,3 +63,8 @@ public class FreeCell: Stack, CardLocation, Identifiable, ObservableObject {
     }
 }
 
+extension FreeCell: NSCopying {
+    public func copy(with zone: NSZone? = nil) -> Any {
+        return FreeCell(id: id, card: item)
+    }
+}
