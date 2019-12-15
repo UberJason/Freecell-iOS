@@ -28,10 +28,7 @@ public class BoardDriver: ObservableObject {
     }
     
     @Published public var selectedCard: Card?
-    
-    /******************************************************/
-    public let __debug__TwoOfClubs = Card.two.ofClubs
-    /******************************************************/
+    @Published public var inFlightCard: Card? = Card.two.ofClubs
     
     public init() {
         

@@ -12,11 +12,13 @@ import DeckKit
 public struct FreeCellView: View, SelectedOverlaying {
     @ObservedObject var freeCell: FreeCell
     @Binding var selectedCard: Card?
+    @Binding var hiddenCard: Card?
     var onTapHandler: CardTapHandler?
     
-    public init(freeCell: FreeCell, selected: Binding<Card?>, onTapHandler: CardTapHandler? = nil) {
+    public init(freeCell: FreeCell, selected: Binding<Card?>, hidden: Binding<Card?>, onTapHandler: CardTapHandler? = nil) {
         self.freeCell = freeCell
         self._selectedCard = selected
+        self._hiddenCard = hidden
         self.onTapHandler = onTapHandler
     }
     
@@ -28,6 +30,7 @@ public struct FreeCellView: View, SelectedOverlaying {
                     .overlay(
                         self.overlayView(for: card)
                     )
+                    .opacity(card == self.hiddenCard ? 0.0 : 1.0)
                     .onTapGesture {
                         self.onTapHandler?(card)
                     }
@@ -45,10 +48,11 @@ struct FreeCellView_Previews: PreviewProvider {
         return f
     }()
     @State static var selected: Card? = Card.ace.ofSpades
+    @State static var hidden: Card? = nil
     
     static var previews: some View {
         ForEach([emptyFreeCell, occupiedFreeCell]) { freeCell in
-            FreeCellView(freeCell: freeCell, selected: $selected)
+            FreeCellView(freeCell: freeCell, selected: $selected, hidden: $hidden)
                 .frame(width: 125, height: 187)
                 .frame(width: 200, height: 262)
                 .background(Color.green)

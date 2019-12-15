@@ -11,9 +11,11 @@ import DeckKit
 
 public struct FoundationView: View {
     @ObservedObject var foundation: Foundation
+    @Binding var hiddenCard: Card?
     
-    public init(foundation: Foundation) {
+    public init(foundation: Foundation, hidden: Binding<Card?>) {
         self.foundation = foundation
+        self._hiddenCard = hidden
     }
     
     public var body: some View {
@@ -21,6 +23,7 @@ public struct FoundationView: View {
             EmptySpotView(suit: foundation.suit)
             ForEach(foundation.items) { card in
                 CardView(card: card)
+                    .opacity(card == self.hiddenCard ? 0.0 : 1.0)
             }
         }
     }
@@ -37,9 +40,11 @@ struct FoundationView_Previews: PreviewProvider {
         return f
     }()
     
+    @State static var hidden: Card? = nil
+    
     static var previews: some View {
         ForEach([filledFoundation]) { foundation in
-            FoundationView(foundation: foundation)
+            FoundationView(foundation: foundation, hidden: $hidden)
                 .frame(width: 125, height: 187)
                 .frame(width: 200, height: 262)
                 .background(Color.green)

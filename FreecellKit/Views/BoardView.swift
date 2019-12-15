@@ -25,7 +25,7 @@ public struct BoardView: View, StackOffsetting {
                 HStack {
                     HStack {
                         ForEach(boardDriver.freecells) { freeCell in
-                            FreeCellView(freeCell: freeCell, selected: self.$boardDriver.selectedCard, onTapHandler: self.boardDriver.itemTapped(_:))
+                            FreeCellView(freeCell: freeCell, selected: self.$boardDriver.selectedCard, hidden: self.$boardDriver.inFlightCard, onTapHandler: self.boardDriver.itemTapped(_:))
                                 .frame(width: self.cardSize.width, height: self.cardSize.height)
                                 .onTapGesture {
                                     self.boardDriver.itemTapped(freeCell)
@@ -38,7 +38,7 @@ public struct BoardView: View, StackOffsetting {
                     
                     HStack {
                         ForEach(boardDriver.foundations) { foundation in
-                            FoundationView(foundation: foundation)
+                            FoundationView(foundation: foundation, hidden: self.$boardDriver.inFlightCard)
                                 .frame(width: self.cardSize.width, height: self.cardSize.height)
                                 .onTapGesture {
                                     self.boardDriver.itemTapped(foundation)
@@ -50,7 +50,7 @@ public struct BoardView: View, StackOffsetting {
                 
                 HStack(spacing: 20.0) {
                     ForEach(boardDriver.columns) { column in
-                        ColumnView(column: column, selected: self.$boardDriver.selectedCard, onTapHandler: self.boardDriver.itemTapped(_:))
+                        ColumnView(column: column, selected: self.$boardDriver.selectedCard, hidden: self.$boardDriver.inFlightCard, onTapHandler: self.boardDriver.itemTapped(_:))
                             .frame(width: self.cardSize.width, height: self.cardSize.height)
                             .onTapGesture {
                                 self.boardDriver.itemTapped(column)
@@ -65,7 +65,7 @@ public struct BoardView: View, StackOffsetting {
         .overlayPreferenceValue(CardLocationInfoKey.self) { preferences in
             return GeometryReader { geometry in
                 ZStack {
-                    self.createBorder(using: geometry, cardLocations: preferences)
+                    self.renderInFlightCard(using: geometry, cardLocations: preferences)
                 }.frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
             }
         }
@@ -74,18 +74,12 @@ public struct BoardView: View, StackOffsetting {
         }
     }
     
-    func createBorder(using geometry: GeometryProxy, cardLocations: [CardLocationInfo]) -> some View {
-        let card = boardDriver.__debug__TwoOfClubs
+    func renderInFlightCard(using geometry: GeometryProxy, cardLocations: [CardLocationInfo]) -> some View {
+        let card = boardDriver.inFlightCard!
         
         var bounds = CGRect.zero
         var offset = CGSize.zero
-        /************************************/
-        for p in cardLocations {
-            print("\(p.location) - id=\(p.location.id) - \(p.type):")
-            print(geometry[p.bounds])
-        }
-       /************************************/
-        
+
         let containingLocation = boardDriver.board.location(containing: card)
         if let p = cardLocations.filter({
             $0.location.id == containingLocation.id &&
@@ -97,7 +91,10 @@ public struct BoardView: View, StackOffsetting {
             }
         }
 
-        return CardRectangle(foregroundColor: .blue, opacity: 0.2)
+        return CardView(card: card)
+            .overlay(
+                CardRectangle(foregroundColor: Color.blue, opacity: 0.2)
+            )
             .frame(width: bounds.size.width, height: bounds.size.height)
             .offset(x: bounds.minX, y: bounds.minY + offset.height)
             .animation(.easeInOut(duration: 1.0))
