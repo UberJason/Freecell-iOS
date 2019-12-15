@@ -10,7 +10,7 @@ import Foundation
 import DeckKit
 import Combine
 
-public class Board {
+public struct Board {
     public var freecells: [FreeCell]
     public var foundations: [Foundation]
     public var columns: [Column]

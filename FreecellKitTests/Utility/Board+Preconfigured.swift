@@ -12,7 +12,7 @@ import DeckKit
 
 extension Board {
     static var empty: Board {
-        let board = Board()
+        var board = Board()
         board.freecells = (0...3).map { i in FreeCell(id: i) }
         board.columns = (0...7).map { i in Column(id: i) }
         board.foundations = [

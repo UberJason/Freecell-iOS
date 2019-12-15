@@ -187,7 +187,7 @@ class LocationTests: XCTestCase {
        }
 
        // Test cap card expected to be a larger stack
-       let board = Board.empty
+       var board = Board.empty
        board.columns[0] = Column(id: 0, cards: [
            Card.four.ofSpades,
            Card.seven.ofClubs,

@@ -21,7 +21,7 @@ class SubstackMovementTests: XCTestCase {
     }
     
     func testCanMoveSubstack() throws {
-        let board = Board.empty
+        var board = Board.empty
         board.columns[0] = Column.sampleStackColumn
         board.columns[1] = Column(id: 1, cards: [])
         

@@ -110,7 +110,7 @@ class BoardTests: XCTestCase {
     }
     
     func testMoveCard() throws {
-        let board = Board.empty
+        var board = Board.empty
         board.columns[0] = Column.sampleStackColumn
         
         try board.move(board.columns[0].topItem!, to: board.columns[1])

@@ -10,7 +10,7 @@ import Foundation
 
 extension Board {
     static func preconfigured(withFreecells freecells: [FreeCell], foundations: [Foundation], columns: [Column]) -> Board {
-        let board = Board()
+        var board = Board()
         board.freecells = freecells
         board.foundations = foundations
         board.columns = columns
