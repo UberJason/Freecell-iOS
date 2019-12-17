@@ -34,6 +34,16 @@ public struct Board {
         }
     }
     
+    public init(freecells: [FreeCell], foundations: [Foundation], columns: [Column]) {
+        self.freecells = freecells
+        self.foundations = foundations
+        self.columns = columns
+    }
+    
+    public var copy: Board {
+        return Board(freecells: freecells.map { $0.copy() as! FreeCell }, foundations: foundations.map { $0.copy() as! Foundation }, columns: columns.map { $0.copy() as! Column })
+    }
+    
     func location(containing card: Card) -> CardLocation {
         let allLocations: [[CardLocation]] = [freecells, foundations, columns]
         
@@ -79,8 +89,7 @@ public struct Board {
     ///   - deferringAutoUpdate: If false, the board will attempt to auto-update foundations after a successful move.
     ///    When in the middle of a stack movement, this value may be preferred to be true to avoid putting the board in an unexpected state.
     func move(_ card: Card, to location: CardLocation, deferringAutoUpdate: Bool = false) throws {
-        let fromCopy = self.location(containing: card).copy() as! CardLocation,
-        toCopy = location.copy() as! CardLocation
+        let beforeBoard = self.copy
         
         guard location.canReceive(card) else { throw FreecellError.invalidMove }
         
@@ -88,7 +97,9 @@ public struct Board {
             try location.receive(card)
         }
         
-        _movePublisher.send(MoveEvent(card: card, fromLocation: fromCopy, toLocation: toCopy))
+        let afterBoard = self.copy
+        
+        _movePublisher.send(MoveEvent(card: card, beforeBoard: beforeBoard, afterBoard: afterBoard))
         
         if !deferringAutoUpdate {
             try autoUpdateFoundations()
@@ -304,6 +315,6 @@ extension Board {
 
 public struct MoveEvent {
     let card: Card
-    let fromLocation: CardLocation
-    let toLocation: CardLocation
+    let beforeBoard: Board
+    let afterBoard: Board
 }

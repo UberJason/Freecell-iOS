@@ -37,7 +37,7 @@ public class BoardDriver: ObservableObject {
     @Published public var hiddenCard: Card?
     @Published public var inFlightMove: MoveState? = nil
     
-    public var animationTimeMilliseconds = 750
+    public var animationTimeMilliseconds = 75
     
     private var moveEventSubscriber: AnyCancellable?
     private var assignHiddenCardSubscriber: AnyCancellable?
@@ -57,14 +57,14 @@ public class BoardDriver: ObservableObject {
             .assign(to: \.hiddenCard, on: self)
         
         assignInFlightMoveSubscriber = board.movePublisher
-            .map { MoveState(card: $0.card, location: $0.fromLocation) }
+            .map { MoveState(card: $0.card, location: $0.beforeBoard.location(containing: $0.card)) }
             .receive(on: RunLoop.main)
             .print("assign inFlight - fromLocation")
             .assign(to: \.inFlightMove, on: self)
         
         assignDelayedInFlightMoveSubscriber = board.movePublisher
             .delay(for: .milliseconds(5), scheduler: RunLoop.main)
-            .map { MoveState(card: $0.card, location: $0.toLocation) }
+            .map { MoveState(card: $0.card, location: $0.afterBoard.location(containing: $0.card)) }
             .print("assign inFlight - toLocation")
             .assign(to: \.inFlightMove, on: self)
     
