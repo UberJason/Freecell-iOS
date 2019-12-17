@@ -104,7 +104,8 @@ public struct BoardView: View, StackOffsetting {
             )
             .frame(width: bounds.size.width, height: bounds.size.height)
             .offset(x: bounds.minX, y: bounds.minY + offset.height)
-                .animation(.easeInOut(duration: Double(self.boardDriver.animationTimeMilliseconds)/1000.0))
+//                .animation(Animation.spring().speed(4.0))
+                .animation(.easeOut(duration: Double(self.boardDriver.animationTimeMilliseconds)/1000.0))
         )
     }
     

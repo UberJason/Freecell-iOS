@@ -37,29 +37,58 @@ public class BoardDriver: ObservableObject {
     @Published public var hiddenCard: Card?
     @Published public var inFlightMove: MoveState? = nil
     
-    public var animationTimeMilliseconds = 50
+    public var animationTimeMilliseconds = 750
     
     private var moveEventSubscriber: AnyCancellable?
+    private var assignHiddenCardSubscriber: AnyCancellable?
+    private var assignInFlightMoveSubscriber: AnyCancellable?
+    private var assignDelayedInFlightMoveSubscriber: AnyCancellable?
+    private var animationCompleteSubscriber: AnyCancellable?
+    
     public init() {
-        moveEventSubscriber = board.movePublisher.sink { [weak self] move in
-            print("Received move event: \(move.card) moved from \(move.fromLocation) to \(move.toLocation)")
-            self?.animateMove(move)
-        }
+        configureSubscribers()
     }
     
-    private func animateMove(_ move: MoveEvent) {
-        hiddenCard = move.card
-        inFlightMove = MoveState(card: move.card, location: move.fromLocation)
-        DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(1)) { [weak self] in
-            guard let strongSelf = self else { return }
-            strongSelf.inFlightMove = MoveState(card: move.card, location: move.toLocation)
-            DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(strongSelf.animationTimeMilliseconds)) {
-                strongSelf.inFlightMove = nil
-                strongSelf.hiddenCard = nil
-            }
-        }
+    private func configureSubscribers() {
+        assignHiddenCardSubscriber = board.movePublisher
+            .map { $0.card }
+            .receive(on: RunLoop.main)
+            .print("assign hidden card")
+            .assign(to: \.hiddenCard, on: self)
         
+        assignInFlightMoveSubscriber = board.movePublisher
+            .map { MoveState(card: $0.card, location: $0.fromLocation) }
+            .receive(on: RunLoop.main)
+            .print("assign inFlight - fromLocation")
+            .assign(to: \.inFlightMove, on: self)
+        
+        assignDelayedInFlightMoveSubscriber = board.movePublisher
+            .delay(for: .milliseconds(5), scheduler: RunLoop.main)
+            .map { MoveState(card: $0.card, location: $0.toLocation) }
+            .print("assign inFlight - toLocation")
+            .assign(to: \.inFlightMove, on: self)
+    
+        animationCompleteSubscriber = board.movePublisher
+            .delay(for: .milliseconds(animationTimeMilliseconds + 5), scheduler: RunLoop.main)
+            .print("animation complete, nil out inFlightMove and hiddenCard")
+            .sink { [weak self] _ in
+                self?.inFlightMove = nil
+                self?.hiddenCard = nil
+            }
     }
+    
+//    private func animateMove(_ move: MoveEvent) {
+//        hiddenCard = move.card
+//        inFlightMove = MoveState(card: move.card, location: move.fromLocation)
+//        DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(1)) { [weak self] in
+//            guard let strongSelf = self else { return }
+//            strongSelf.inFlightMove = MoveState(card: move.card, location: move.toLocation)
+//            DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(strongSelf.animationTimeMilliseconds)) {
+//                strongSelf.inFlightMove = nil
+//                strongSelf.hiddenCard = nil
+//            }
+//        }
+//    }
     
     public func itemTapped<T>(_ item: T) {
         switch item {
