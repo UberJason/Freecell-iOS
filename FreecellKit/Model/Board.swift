@@ -313,7 +313,13 @@ extension Board {
     }
 }
 
-public struct MoveEvent {
+public struct MoveEvent: Equatable {
+    public static func == (lhs: MoveEvent, rhs: MoveEvent) -> Bool {
+        return lhs.id == rhs.id
+    }
+    
+    // Create a unique identifier for a move, to compare it to other moves.
+    let id = UUID()
     let card: Card
     let beforeBoard: Board
     let afterBoard: Board

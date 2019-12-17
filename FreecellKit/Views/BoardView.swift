@@ -99,6 +99,7 @@ public struct BoardView: View, StackOffsetting {
 
         return AnyView(
             CardView(card: inFlightMove.card)
+                .id(inFlightMove.card)
             .overlay(
                 CardRectangle(foregroundColor: Color.blue, opacity: 0.2)
             )

@@ -37,7 +37,7 @@ public class BoardDriver: ObservableObject {
     @Published public var hiddenCard: Card?
     @Published public var inFlightMove: MoveState? = nil
     
-    public var animationTimeMilliseconds = 75
+    public var animationTimeMilliseconds = 750
     
     private var moveEventSubscriber: AnyCancellable?
     private var assignHiddenCardSubscriber: AnyCancellable?
@@ -50,25 +50,27 @@ public class BoardDriver: ObservableObject {
     }
     
     private func configureSubscribers() {
-        assignHiddenCardSubscriber = board.movePublisher
+        let movePublisher = board.movePublisher
+        
+        assignHiddenCardSubscriber = movePublisher
             .map { $0.card }
             .receive(on: RunLoop.main)
             .print("assign hidden card")
             .assign(to: \.hiddenCard, on: self)
         
-        assignInFlightMoveSubscriber = board.movePublisher
+        assignInFlightMoveSubscriber = movePublisher
             .map { MoveState(card: $0.card, location: $0.beforeBoard.location(containing: $0.card)) }
             .receive(on: RunLoop.main)
             .print("assign inFlight - fromLocation")
             .assign(to: \.inFlightMove, on: self)
         
-        assignDelayedInFlightMoveSubscriber = board.movePublisher
+        assignDelayedInFlightMoveSubscriber = movePublisher
             .delay(for: .milliseconds(5), scheduler: RunLoop.main)
             .map { MoveState(card: $0.card, location: $0.afterBoard.location(containing: $0.card)) }
             .print("assign inFlight - toLocation")
             .assign(to: \.inFlightMove, on: self)
     
-        animationCompleteSubscriber = board.movePublisher
+        animationCompleteSubscriber = movePublisher
             .delay(for: .milliseconds(animationTimeMilliseconds + 5), scheduler: RunLoop.main)
             .print("animation complete, nil out inFlightMove and hiddenCard")
             .sink { [weak self] _ in
@@ -76,6 +78,21 @@ public class BoardDriver: ObservableObject {
                 self?.hiddenCard = nil
             }
     }
+    
+//    private func __playground__CollectingPublisher() {
+//        var moves = [MoveEvent]()
+//        let interval: TimeInterval = 750
+//        
+//        // Create a timer publisher that publishes 0 every <interval>
+//        let timerPublisher = Timer.publish(every: interval, on: RunLoop.main, in: .common).autoconnect().map { _ in 0 }.eraseToAnyPublisher()
+//        let movePublisher = board.movePublisher.buffer(size: 1000, prefetch: .byRequest, whenFull: .dropOldest).sink { event in
+//            print("buffer sink method called")
+//        }
+//        
+//        let combined = Publishers.CombineLatest(timerPublisher, movePublisher).removeDuplicates()
+//        
+//        let
+//    }
     
 //    private func animateMove(_ move: MoveEvent) {
 //        hiddenCard = move.card

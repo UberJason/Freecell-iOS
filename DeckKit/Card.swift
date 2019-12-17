@@ -13,7 +13,7 @@ public protocol CardProtocol {
     var rank: Rank { get }
 }
 
-public struct Card: CardProtocol, Equatable {
+public struct Card: CardProtocol, Hashable {
     public let suit: Suit
     public let rank: Rank
     
