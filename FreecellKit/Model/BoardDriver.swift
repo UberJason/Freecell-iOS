@@ -23,11 +23,13 @@ public struct MoveState {
 }
 
 public class BoardDriver: ObservableObject {
-    public var board = Board(deck: Deck(shuffled: false))
+    private var _board = Board(deck: Deck(shuffled: false))
     
-    public var freecells: [FreeCell] { return board.freecells }
-    public var foundations: [Foundation] { return board.foundations }
-    public var columns: [Column] { return board.columns }
+    public var currentBoardToRender: Board
+    
+    public var freecells: [FreeCell] { return currentBoardToRender.freecells }
+    public var foundations: [Foundation] { return currentBoardToRender.foundations }
+    public var columns: [Column] { return currentBoardToRender.columns }
     
     var selectionState: SelectionState {
         return selectedCard.map { .selected(card: $0) } ?? .idle
@@ -46,53 +48,43 @@ public class BoardDriver: ObservableObject {
     private var animationCompleteSubscriber: AnyCancellable?
     
     public init() {
+        currentBoardToRender = _board
         configureSubscribers()
     }
     
     private func configureSubscribers() {
-        let movePublisher = board.movePublisher
+        let movePublisher = _board.movePublisher.modulated(.milliseconds(800), scheduler: RunLoop.main)
+        
+        moveEventSubscriber = movePublisher
+            .map { $0.afterBoard }
+            .assign(to: \.currentBoardToRender, on: self)
         
         assignHiddenCardSubscriber = movePublisher
             .map { $0.card }
             .receive(on: RunLoop.main)
-            .print("assign hidden card")
+//            .print("assign hidden card")
             .assign(to: \.hiddenCard, on: self)
         
         assignInFlightMoveSubscriber = movePublisher
             .map { MoveState(card: $0.card, location: $0.beforeBoard.location(containing: $0.card)) }
             .receive(on: RunLoop.main)
-            .print("assign inFlight - fromLocation")
+//            .print("assign inFlight - fromLocation")
             .assign(to: \.inFlightMove, on: self)
         
         assignDelayedInFlightMoveSubscriber = movePublisher
             .delay(for: .milliseconds(5), scheduler: RunLoop.main)
             .map { MoveState(card: $0.card, location: $0.afterBoard.location(containing: $0.card)) }
-            .print("assign inFlight - toLocation")
+//            .print("assign inFlight - toLocation")
             .assign(to: \.inFlightMove, on: self)
     
         animationCompleteSubscriber = movePublisher
             .delay(for: .milliseconds(animationTimeMilliseconds + 5), scheduler: RunLoop.main)
-            .print("animation complete, nil out inFlightMove and hiddenCard")
+//            .print("animation complete, nil out inFlightMove and hiddenCard")
             .sink { [weak self] _ in
                 self?.inFlightMove = nil
                 self?.hiddenCard = nil
             }
     }
-    
-//    private func __playground__CollectingPublisher() {
-//        var moves = [MoveEvent]()
-//        let interval: TimeInterval = 750
-//        
-//        // Create a timer publisher that publishes 0 every <interval>
-//        let timerPublisher = Timer.publish(every: interval, on: RunLoop.main, in: .common).autoconnect().map { _ in 0 }.eraseToAnyPublisher()
-//        let movePublisher = board.movePublisher.buffer(size: 1000, prefetch: .byRequest, whenFull: .dropOldest).sink { event in
-//            print("buffer sink method called")
-//        }
-//        
-//        let combined = Publishers.CombineLatest(timerPublisher, movePublisher).removeDuplicates()
-//        
-//        let
-//    }
     
 //    private func animateMove(_ move: MoveEvent) {
 //        hiddenCard = move.card
@@ -110,9 +102,9 @@ public class BoardDriver: ObservableObject {
     public func itemTapped<T>(_ item: T) {
         switch item {
         case let card as Card:
-            handleTap(in: board.location(containing: card))
+            handleTap(in: _board.location(containing: card))
         case let location as CardLocation:
-            handleTap(in: location)
+            handleTap(in: _board.location(id: location.id, locationType: type(of: location)))
         case _ as BoardView:
             selectedCard = nil
         default:
@@ -128,7 +120,7 @@ public class BoardDriver: ObservableObject {
             selectedCard = location.selectableCard()
         case .selected(let card):
             do {
-                try board.performValidMove(from: card, to: location)
+                try _board.performValidMove(from: card, to: location)
                 selectedCard = nil
             } catch {
                 #if os(macOS)

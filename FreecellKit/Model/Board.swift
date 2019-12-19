@@ -57,6 +57,18 @@ public struct Board {
         return containingLocation
     }
     
+    func location(id: Int, locationType: CardLocation.Type) -> CardLocation {
+        let allLocations: [[CardLocation]] = [freecells, foundations, columns]
+        let allLocationsFlat = allLocations.flatMap({ $0 })
+        guard let containingLocation = allLocationsFlat
+            .filter({ location in
+                location.id == id && type(of: location) == locationType
+            })
+            .first else { fatalError("Fatal error! This location doesn't exist: \(id), \(locationType)")}
+        
+        return containingLocation
+    }
+    
     /// Finds and attempts to perform a valid move using the selected card and the destination location.
     ///
     /// - Parameters:
