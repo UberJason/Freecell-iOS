@@ -23,14 +23,12 @@ public struct MoveState {
 }
 
 public class BoardDriver: ObservableObject {
-    private var _board = Board(deck: Deck(shuffled: true))
+    private var board = Board(deck: Deck(shuffled: true))
     
-    public var currentBoardToRender: Board
-    
-    public var freecells: [FreeCell] { return currentBoardToRender.freecells }
-    public var foundations: [Foundation] { return currentBoardToRender.foundations }
-    public var columns: [Column] { return currentBoardToRender.columns }
-    
+    public var freecells: [FreeCell] { return board.freecells }
+    public var foundations: [Foundation] { return board.foundations }
+    public var columns: [Column] { return board.columns }
+
     var selectionState: SelectionState {
         return selectedCard.map { .selected(card: $0) } ?? .idle
     }
@@ -48,16 +46,11 @@ public class BoardDriver: ObservableObject {
     private var animationCompleteSubscriber: AnyCancellable?
     
     public init() {
-        currentBoardToRender = _board
-        configureSubscribers()
+//        configureSubscribers()
     }
     
     private func configureSubscribers() {
-        let movePublisher = _board.movePublisher.modulated(.milliseconds(animationTimeMilliseconds + 10), scheduler: RunLoop.main)
-        
-        moveEventSubscriber = movePublisher
-            .map { $0.afterBoard }
-            .assign(to: \.currentBoardToRender, on: self)
+        let movePublisher = board.movePublisher.modulated(.milliseconds(animationTimeMilliseconds + 10), scheduler: RunLoop.main)
         
         assignHiddenCardSubscriber = movePublisher
             .map { $0.card }
@@ -102,9 +95,9 @@ public class BoardDriver: ObservableObject {
     public func itemTapped<T>(_ item: T) {
         switch item {
         case let card as Card:
-            handleTap(in: _board.location(containing: card))
+            handleTap(in: board.location(containing: card))
         case let location as CardLocation:
-            handleTap(in: _board.location(id: location.id, locationType: type(of: location)))
+            handleTap(in: board.location(id: location.id, locationType: type(of: location)))
         case _ as BoardView:
             selectedCard = nil
         default:
@@ -120,7 +113,7 @@ public class BoardDriver: ObservableObject {
             selectedCard = location.selectableCard()
         case .selected(let card):
             do {
-                try _board.performValidMove(from: card, to: location)
+                try board.performValidMove(from: card, to: location)
                 selectedCard = nil
             } catch {
                 #if os(macOS)
