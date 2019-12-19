@@ -51,6 +51,10 @@ public class BoardDriver: ObservableObject {
                 columns.flatMap({ $0.items })
     }
     
+    public func location(containing card: Card) -> CardLocation {
+        return board.location(containing: card)
+    }
+    
     public init() {
 //        configureSubscribers()
     }

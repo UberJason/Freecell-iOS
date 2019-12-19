@@ -21,10 +21,10 @@ public struct FoundationView: View {
     public var body: some View {
         ZStack {
             EmptySpotView(suit: foundation.suit)
-            ForEach(foundation.items) { card in
-                CardView(card: card)
-                    .opacity(card == self.hiddenCard ? 0.0 : 1.0)
-            }
+//            ForEach(foundation.items) { card in
+//                CardView(card: card)
+//                    .opacity(card == self.hiddenCard ? 0.0 : 1.0)
+//            }
         }
     }
 }

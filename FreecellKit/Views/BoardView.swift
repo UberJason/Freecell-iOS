@@ -65,13 +65,42 @@ public struct BoardView: View, StackOffsetting {
         .overlayPreferenceValue(CardLocationInfoKey.self) { preferences in
             return GeometryReader { geometry in
                 ZStack {
-                    self.renderInFlightCard(using: geometry, cardLocations: preferences)
+//                    self.renderInFlightCard(using: geometry, cardLocations: preferences)
+                    self.renderAllCards(using: geometry, cardLocations: preferences)
                 }.frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
             }
         }
         .onTapGesture {
             self.boardDriver.itemTapped(self)
         }
+    }
+    
+    func renderAllCards(using geometry: GeometryProxy, cardLocations: [CardLocationInfo]) -> some View {
+        ForEach(boardDriver.allCards) { card in
+            self.render(card, using: geometry, cardLocations: cardLocations)
+        }
+    }
+    
+    func render(_ card: Card, using geometry: GeometryProxy, cardLocations: [CardLocationInfo]) -> some View {
+        var bounds = CGRect.zero
+        var offset = CGSize.zero
+        
+        let containingLocation = boardDriver.location(containing: card)
+        if let p = cardLocations.filter({
+            $0.location.id == containingLocation.id &&
+            type(of: containingLocation) == type(of: $0.location)
+        }).first {
+            bounds = geometry[p.bounds]
+            if p.type == .column, let column = containingLocation as? Column {
+                offset = self.offset(for: card, orderIndex: column.orderIndex(for: card))
+            }
+        }
+        
+        return CardView(card: card)
+            .id(card)
+            .frame(width: bounds.size.width, height: bounds.size.height)
+            .offset(x: bounds.minX, y: bounds.minY + offset.height)
+                .animation(.spring(response: 0.10, dampingFraction: 0.95, blendDuration: 0.0))
     }
     
     func renderInFlightCard(using geometry: GeometryProxy, cardLocations: [CardLocationInfo]) -> some View {
@@ -100,13 +129,9 @@ public struct BoardView: View, StackOffsetting {
         return AnyView(
             CardView(card: inFlightMove.card)
                 .id(inFlightMove.card)
-//            .overlay(
-//                CardRectangle(foregroundColor: Color.blue, opacity: 0.2)
-//            )
             .frame(width: bounds.size.width, height: bounds.size.height)
             .offset(x: bounds.minX, y: bounds.minY + offset.height)
                 .animation(.spring(response: 0.10, dampingFraction: 0.95, blendDuration: 0.0))
-//                .animation(.easeOut(duration: Double(self.boardDriver.animationTimeMilliseconds)/1000.0))
         )
     }
     
