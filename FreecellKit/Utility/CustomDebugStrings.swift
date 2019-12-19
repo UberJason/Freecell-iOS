@@ -41,3 +41,9 @@ extension Board: CustomDebugStringConvertible {
     
     
 }
+
+let debugDateFormatter: DateFormatter = {
+    let f = DateFormatter()
+    f.dateFormat = "h:mm:ss.ssss"
+    return f
+}()

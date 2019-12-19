@@ -39,7 +39,7 @@ public class BoardDriver: ObservableObject {
     @Published public var hiddenCard: Card?
     @Published public var inFlightMove: MoveState? = nil
     
-    public var animationTimeMilliseconds = 750
+    public var animationTimeMilliseconds = 250
     
     private var moveEventSubscriber: AnyCancellable?
     private var assignHiddenCardSubscriber: AnyCancellable?
@@ -53,7 +53,7 @@ public class BoardDriver: ObservableObject {
     }
     
     private func configureSubscribers() {
-        let movePublisher = _board.movePublisher.modulated(.milliseconds(800), scheduler: RunLoop.main)
+        let movePublisher = _board.movePublisher.modulated(.milliseconds(animationTimeMilliseconds + 10), scheduler: RunLoop.main)
         
         moveEventSubscriber = movePublisher
             .map { $0.afterBoard }

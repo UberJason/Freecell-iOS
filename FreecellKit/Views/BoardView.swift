@@ -100,9 +100,9 @@ public struct BoardView: View, StackOffsetting {
         return AnyView(
             CardView(card: inFlightMove.card)
                 .id(inFlightMove.card)
-            .overlay(
-                CardRectangle(foregroundColor: Color.blue, opacity: 0.2)
-            )
+//            .overlay(
+//                CardRectangle(foregroundColor: Color.blue, opacity: 0.2)
+//            )
             .frame(width: bounds.size.width, height: bounds.size.height)
             .offset(x: bounds.minX, y: bounds.minY + offset.height)
 //                .animation(Animation.spring().speed(4.0))
