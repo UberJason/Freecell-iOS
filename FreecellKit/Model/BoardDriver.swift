@@ -23,7 +23,7 @@ public struct MoveState {
 }
 
 public class BoardDriver: ObservableObject {
-    private var _board = Board(deck: Deck(shuffled: false))
+    private var _board = Board(deck: Deck(shuffled: true))
     
     public var currentBoardToRender: Board
     
@@ -39,7 +39,7 @@ public class BoardDriver: ObservableObject {
     @Published public var hiddenCard: Card?
     @Published public var inFlightMove: MoveState? = nil
     
-    public var animationTimeMilliseconds = 250
+    public var animationTimeMilliseconds = 400
     
     private var moveEventSubscriber: AnyCancellable?
     private var assignHiddenCardSubscriber: AnyCancellable?
