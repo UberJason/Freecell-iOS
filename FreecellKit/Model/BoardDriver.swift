@@ -45,6 +45,12 @@ public class BoardDriver: ObservableObject {
     private var assignDelayedInFlightMoveSubscriber: AnyCancellable?
     private var animationCompleteSubscriber: AnyCancellable?
     
+    public var allCards: [Card] {
+        return freecells.flatMap({ $0.items }) +
+                foundations.flatMap({ $0.items }) +
+                columns.flatMap({ $0.items })
+    }
+    
     public init() {
 //        configureSubscribers()
     }
