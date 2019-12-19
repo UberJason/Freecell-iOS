@@ -30,6 +30,8 @@ public struct FreeCellView: View, SelectedOverlaying {
                     .overlay(
                         self.overlayView(for: card)
                     )
+                    .scaleEffect(card == self.selectedCard ? 1.05 : 1.0, anchor: .top)
+                    .animation(.spring(response: 0.10, dampingFraction: 0.95, blendDuration: 0.0))
                     .opacity(card == self.hiddenCard ? 0.0 : 1.0)
                     .onTapGesture {
                         self.onTapHandler?(card)

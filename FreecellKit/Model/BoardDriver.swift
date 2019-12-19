@@ -39,7 +39,7 @@ public class BoardDriver: ObservableObject {
     @Published public var hiddenCard: Card?
     @Published public var inFlightMove: MoveState? = nil
     
-    public var animationTimeMilliseconds = 400
+    public var animationTimeMilliseconds = 250
     
     private var moveEventSubscriber: AnyCancellable?
     private var assignHiddenCardSubscriber: AnyCancellable?

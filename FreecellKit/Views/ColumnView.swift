@@ -22,6 +22,7 @@ public struct ColumnView: View, SelectedOverlaying, StackOffsetting {
         self.onTapHandler = onTapHandler
     }
     
+    #warning("TODO: scale effect should be a custom view modifier that applies to both ColumnView and FreeCellView")
     public var body: some View {
         ZStack {
             EmptySpotView()
@@ -30,8 +31,10 @@ public struct ColumnView: View, SelectedOverlaying, StackOffsetting {
                     .overlay(
                         self.overlayView(for: card)
                     )
-                    .offset(self.offset(for: card, orderIndex: self.column.orderIndex(for: card)))
+                    .scaleEffect(card == self.selectedCard ? 1.05 : 1.0, anchor: .top)
+                    .animation(.spring(response: 0.10, dampingFraction: 0.95, blendDuration: 0.0))
                     .opacity(card == self.hiddenCard ? 0.0 : 1.0)
+                    .offset(self.offset(for: card, orderIndex: self.column.orderIndex(for: card)))
                     .onTapGesture {
                         self.onTapHandler?(card)
                     }
