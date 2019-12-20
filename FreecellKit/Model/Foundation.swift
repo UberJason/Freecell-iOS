@@ -9,11 +9,11 @@
 import Foundation
 import DeckKit
 
-public class Foundation: Stack, CardLocation, Identifiable, ObservableObject {
+public class Foundation: Stack, CardLocation, Identifiable {
     
     public let id: Int
     public let suit: Suit
-    @Published var stack = [Card]()
+    var stack = [Card]()
     
     public var maxSize: Int { return 13 }
     public var topItem: Card? { return stack.last ?? nil }

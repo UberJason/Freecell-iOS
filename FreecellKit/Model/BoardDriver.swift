@@ -34,8 +34,6 @@ public class BoardDriver: ObservableObject {
     }
     
     @Published public var selectedCard: Card?
-    @Published public var hiddenCard: Card?
-    @Published public var inFlightMove: MoveState? = nil
     
     public var animationTimeMilliseconds = 250
     
@@ -61,47 +59,8 @@ public class BoardDriver: ObservableObject {
     
     private func configureSubscribers() {
         let movePublisher = board.movePublisher.modulated(.milliseconds(animationTimeMilliseconds + 10), scheduler: RunLoop.main)
-        
-        assignHiddenCardSubscriber = movePublisher
-            .map { $0.card }
-            .receive(on: RunLoop.main)
-//            .print("assign hidden card")
-            .assign(to: \.hiddenCard, on: self)
-        
-        assignInFlightMoveSubscriber = movePublisher
-            .map { MoveState(card: $0.card, location: $0.beforeBoard.location(containing: $0.card)) }
-            .receive(on: RunLoop.main)
-//            .print("assign inFlight - fromLocation")
-            .assign(to: \.inFlightMove, on: self)
-        
-        assignDelayedInFlightMoveSubscriber = movePublisher
-            .delay(for: .milliseconds(5), scheduler: RunLoop.main)
-            .map { MoveState(card: $0.card, location: $0.afterBoard.location(containing: $0.card)) }
-//            .print("assign inFlight - toLocation")
-            .assign(to: \.inFlightMove, on: self)
-    
-        animationCompleteSubscriber = movePublisher
-            .delay(for: .milliseconds(animationTimeMilliseconds + 5), scheduler: RunLoop.main)
-//            .print("animation complete, nil out inFlightMove and hiddenCard")
-            .sink { [weak self] _ in
-                self?.inFlightMove = nil
-                self?.hiddenCard = nil
-            }
     }
-    
-//    private func animateMove(_ move: MoveEvent) {
-//        hiddenCard = move.card
-//        inFlightMove = MoveState(card: move.card, location: move.fromLocation)
-//        DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(1)) { [weak self] in
-//            guard let strongSelf = self else { return }
-//            strongSelf.inFlightMove = MoveState(card: move.card, location: move.toLocation)
-//            DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(strongSelf.animationTimeMilliseconds)) {
-//                strongSelf.inFlightMove = nil
-//                strongSelf.hiddenCard = nil
-//            }
-//        }
-//    }
-    
+
     public func itemTapped<T>(_ item: T) {
         switch item {
         case let card as Card:

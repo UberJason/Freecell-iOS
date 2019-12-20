@@ -9,35 +9,16 @@
 import SwiftUI
 import DeckKit
 
-public struct FreeCellView: View, SelectedOverlaying {
-    @ObservedObject var freeCell: FreeCell
-    @Binding var selectedCard: Card?
-    @Binding var hiddenCard: Card?
-    var onTapHandler: CardTapHandler?
+public struct FreeCellView: View {
+    let freeCell: FreeCell
     
-    public init(freeCell: FreeCell, selected: Binding<Card?>, hidden: Binding<Card?>, onTapHandler: CardTapHandler? = nil) {
+    public init(freeCell: FreeCell) {
         self.freeCell = freeCell
-        self._selectedCard = selected
-        self._hiddenCard = hidden
-        self.onTapHandler = onTapHandler
     }
     
     public var body: some View {
         ZStack {
             EmptySpotView()
-//            freeCell.item.map { card in
-//                CardView(card: card)
-//                    .overlay(
-//                        self.overlayView(for: card)
-//                    )
-//                    .scaleEffect(card == self.selectedCard ? 1.05 : 1.0, anchor: .top)
-//                    .animation(.spring(response: 0.10, dampingFraction: 0.95, blendDuration: 0.0))
-//                    .opacity(card == self.hiddenCard ? 0.0 : 1.0)
-//                    .onTapGesture {
-//                        self.onTapHandler?(card)
-//                    }
-//            }
-            
         }
     }
 }
@@ -49,12 +30,10 @@ struct FreeCellView_Previews: PreviewProvider {
         try! f.push(Card.ace.ofSpades)
         return f
     }()
-    @State static var selected: Card? = Card.ace.ofSpades
-    @State static var hidden: Card? = nil
     
     static var previews: some View {
         ForEach([emptyFreeCell, occupiedFreeCell]) { freeCell in
-            FreeCellView(freeCell: freeCell, selected: $selected, hidden: $hidden)
+            FreeCellView(freeCell: freeCell)
                 .frame(width: 125, height: 187)
                 .frame(width: 200, height: 262)
                 .background(Color.green)

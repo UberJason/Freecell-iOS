@@ -9,9 +9,9 @@
 import Foundation
 import DeckKit
 
-public class CardStack: Stack, Identifiable, ObservableObject {
+public class CardStack: Stack, Identifiable {
     
-    @Published var stack = [Card]()
+    var stack = [Card]()
     public var maxSize: Int { return Deck.maxCardCount }
     public var topItem: Card? { return stack.last }
     

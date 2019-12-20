@@ -27,12 +27,14 @@ public struct BoardView: View, SelectedOverlaying, StackOffsetting {
                 HStack {
                     HStack {
                         ForEach(boardDriver.freecells) { freeCell in
-                            FreeCellView(freeCell: freeCell, selected: self.$boardDriver.selectedCard, hidden: self.$boardDriver.hiddenCard, onTapHandler: self.boardDriver.itemTapped(_:))
+                            FreeCellView(freeCell: freeCell)
                                 .frame(width: self.cardSize.width, height: self.cardSize.height)
                                 .onTapGesture {
                                     self.boardDriver.itemTapped(freeCell)
                                 }
-                            .anchorPreference(key: CardLocationInfoKey.self, value: .bounds, transform: { [CardLocationInfo(location: freeCell, type: .freecell, bounds: $0)] })
+                            .anchorPreference(key: CardLocationInfoKey.self, value: .bounds, transform: { bounds in
+                                [CardLocationInfo(location: freeCell, type: .freecell, bounds: bounds)]
+                            })
                         }
                     }
                     
@@ -40,24 +42,28 @@ public struct BoardView: View, SelectedOverlaying, StackOffsetting {
                     
                     HStack {
                         ForEach(boardDriver.foundations) { foundation in
-                            FoundationView(foundation: foundation, hidden: self.$boardDriver.hiddenCard)
+                            FoundationView(foundation: foundation)
                                 .frame(width: self.cardSize.width, height: self.cardSize.height)
                                 .onTapGesture {
                                     self.boardDriver.itemTapped(foundation)
                                 }
-                                .anchorPreference(key: CardLocationInfoKey.self, value: .bounds, transform: { [CardLocationInfo(location: foundation, type: .foundation, bounds: $0)] })
+                                .anchorPreference(key: CardLocationInfoKey.self, value: .bounds, transform: { bounds in
+                                    [CardLocationInfo(location: foundation, type: .foundation, bounds: bounds)]
+                                })
                         }
                     }
                 }
                 
                 HStack(spacing: 20.0) {
                     ForEach(boardDriver.columns) { column in
-                        ColumnView(column: column, selected: self.$boardDriver.selectedCard, hidden: self.$boardDriver.hiddenCard, onTapHandler: self.boardDriver.itemTapped(_:))
+                        ColumnView(column: column)
                             .frame(width: self.cardSize.width, height: self.cardSize.height)
                             .onTapGesture {
                                 self.boardDriver.itemTapped(column)
                             }
-                            .anchorPreference(key: CardLocationInfoKey.self, value: .bounds, transform: { [CardLocationInfo(location: column, type: .column, bounds: $0)] })
+                            .anchorPreference(key: CardLocationInfoKey.self, value: .bounds, transform: { bounds in
+                                [CardLocationInfo(location: column, type: .column, bounds: bounds)]
+                            })
                     }
                 }
             }.padding(EdgeInsets(top: 40, leading: 20, bottom: 40, trailing: 20))
@@ -67,7 +73,6 @@ public struct BoardView: View, SelectedOverlaying, StackOffsetting {
         .overlayPreferenceValue(CardLocationInfoKey.self) { preferences in
             return GeometryReader { geometry in
                 ZStack {
-//                    self.renderInFlightCard(using: geometry, cardLocations: preferences)
                     self.allCardsView(using: geometry, cardLocations: preferences)
                 }.frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
             }
@@ -98,6 +103,7 @@ public struct BoardView: View, SelectedOverlaying, StackOffsetting {
             }
         }
         
+        #warning("TODO: scale effect should be a custom view modifier that applies to both ColumnView and FreeCellView")
         return CardView(card: card)
             .id(card)
             .frame(width: bounds.size.width, height: bounds.size.height)
@@ -111,38 +117,6 @@ public struct BoardView: View, SelectedOverlaying, StackOffsetting {
             }
             .offset(x: bounds.minX, y: bounds.minY + offset.height)
             .animation(.spring(response: 0.10, dampingFraction: 0.95, blendDuration: 0.0))
-    }
-    
-    func renderInFlightCard(using geometry: GeometryProxy, cardLocations: [CardLocationInfo]) -> some View {
-        var bounds = CGRect.zero
-        var offset = CGSize.zero
-
-        guard let inFlightMove = boardDriver.inFlightMove else {
-            return AnyView(
-                CardRectangle().frame(width: bounds.size.width, height: bounds.size.height)
-            )
-        }
-        
-        print("renderInFlightCard - \(inFlightMove.card) at \(inFlightMove.location)")
-        
-        let containingLocation = inFlightMove.location
-        if let p = cardLocations.filter({
-            $0.location.id == containingLocation.id &&
-            type(of: containingLocation) == type(of: $0.location)
-        }).first {
-            bounds = geometry[p.bounds]
-            if p.type == .column, let column = containingLocation as? Column {
-                offset = self.offset(for: inFlightMove.card, orderIndex: column.orderIndex(for: inFlightMove.card))
-            }
-        }
-
-        return AnyView(
-            CardView(card: inFlightMove.card)
-                .id(inFlightMove.card)
-            .frame(width: bounds.size.width, height: bounds.size.height)
-            .offset(x: bounds.minX, y: bounds.minY + offset.height)
-                .animation(.spring(response: 0.10, dampingFraction: 0.95, blendDuration: 0.0))
-        )
     }
     
     #warning("TODO: Dynamically size the cards by platform and figure out why Mac is assuming 1024x768")
