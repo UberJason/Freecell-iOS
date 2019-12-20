@@ -9,10 +9,8 @@
 import SwiftUI
 import DeckKit
 
-public struct BoardView: View, SelectedOverlaying, StackOffsetting {
+public struct BoardView: View, StackOffsetting {
     @ObservedObject var boardDriver: BoardDriver
-    
-    var selectedCard: Card? { return boardDriver.selectedCard }
     
     public init(boardDriver: BoardDriver) {
         self.boardDriver = boardDriver
@@ -74,7 +72,9 @@ public struct BoardView: View, SelectedOverlaying, StackOffsetting {
             return GeometryReader { geometry in
                 ZStack {
                     self.allCardsView(using: geometry, cardLocations: preferences)
-                }.frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
+                }
+                .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
+                .drawingGroup()
             }
         }
         .onTapGesture {
@@ -111,12 +111,17 @@ public struct BoardView: View, SelectedOverlaying, StackOffsetting {
                 self.overlayView(for: card)
             )
             .scaleEffect(card == boardDriver.selectedCard ? 1.05 : 1.0, anchor: .top)
-            .animation(.spring(response: 0.10, dampingFraction: 0.95, blendDuration: 0.0))
+            .animation(.spring(response: 0.08, dampingFraction: 0.95, blendDuration: 0.0))
             .onTapGesture {
                 self.boardDriver.itemTapped(card)
             }
             .offset(x: bounds.minX, y: bounds.minY + offset.height)
-            .animation(.spring(response: 0.10, dampingFraction: 0.95, blendDuration: 0.0))
+            .animation(.spring(response: 0.08, dampingFraction: 0.95, blendDuration: 0.0))
+    }
+    
+    func overlayView(for card: Card) -> some View {
+        let color: Color = boardDriver.selectedCard == card ? .yellow : .clear
+        return CardRectangle(foregroundColor: color, opacity: 0.3)
     }
     
     #warning("TODO: Dynamically size the cards by platform and figure out why Mac is assuming 1024x768")

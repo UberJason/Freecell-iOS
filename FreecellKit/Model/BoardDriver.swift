@@ -23,27 +23,14 @@ public struct MoveState {
 }
 
 public class BoardDriver: ObservableObject {
-    private var _board = Board(deck: Deck(shuffled: false))
+    private var _board = Board(deck: Deck(shuffled: true))
     
-    public var currentBoardToRender: Board
+    public var freecells: [FreeCell] { return currentRenderedBoard.freecells }
+    public var foundations: [Foundation] { return currentRenderedBoard.foundations }
+    public var columns: [Column] { return currentRenderedBoard.columns }
     
-    public var freecells: [FreeCell] { return currentBoardToRender.freecells }
-    public var foundations: [Foundation] { return currentBoardToRender.foundations }
-    public var columns: [Column] { return currentBoardToRender.columns }
-    
-    var selectionState: SelectionState {
-        return selectedCard.map { .selected(card: $0) } ?? .idle
-    }
-    
+    @Published public var currentRenderedBoard: Board
     @Published public var selectedCard: Card?
-    
-    public var animationTimeMilliseconds = 250
-    
-    private var moveEventSubscriber: AnyCancellable?
-    private var assignHiddenCardSubscriber: AnyCancellable?
-    private var assignInFlightMoveSubscriber: AnyCancellable?
-    private var assignDelayedInFlightMoveSubscriber: AnyCancellable?
-    private var animationCompleteSubscriber: AnyCancellable?
     
     public var allCards: [Card] {
         return freecells.flatMap({ $0.items }) +
@@ -51,24 +38,26 @@ public class BoardDriver: ObservableObject {
                 columns.flatMap({ $0.items })
     }
     
-    public func location(containing card: Card) -> CardLocation {
-        return _board.location(containing: card)
-    }
+    private var selectionState: SelectionState { selectedCard.map { .selected(card: $0) } ?? .idle }
+    private var animationOffsetInterval = 75
+    private var moveEventSubscriber: AnyCancellable?
     
     public init() {
-        currentBoardToRender = _board
+        currentRenderedBoard = _board.copy
         configureSubscribers()
     }
     
     private func configureSubscribers() {
-        let movePublisher = _board.movePublisher.modulated(.milliseconds(animationTimeMilliseconds + 10), scheduler: RunLoop.main)
-        
-        moveEventSubscriber = movePublisher
-            .map {
-                $0.afterBoard
-        }
-            .assign(to: \.currentBoardToRender, on: self)
+        moveEventSubscriber = _board.movePublisher
+            .modulated(.milliseconds(animationOffsetInterval), scheduler: RunLoop.main)
+            .map { $0.afterBoard }
+            .assign(to: \.currentRenderedBoard, on: self)
     }
+    
+    public func location(containing card: Card) -> CardLocation {
+        return currentRenderedBoard.location(containing: card)
+    }
+    
 
     public func itemTapped<T>(_ item: T) {
         switch item {
