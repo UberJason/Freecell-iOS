@@ -9,8 +9,10 @@
 import SwiftUI
 import DeckKit
 
-public struct BoardView: View, StackOffsetting {
+public struct BoardView: View, SelectedOverlaying, StackOffsetting {
     @ObservedObject var boardDriver: BoardDriver
+    
+    var selectedCard: Card? { return boardDriver.selectedCard }
     
     public init(boardDriver: BoardDriver) {
         self.boardDriver = boardDriver
@@ -66,7 +68,7 @@ public struct BoardView: View, StackOffsetting {
             return GeometryReader { geometry in
                 ZStack {
 //                    self.renderInFlightCard(using: geometry, cardLocations: preferences)
-                    self.renderAllCards(using: geometry, cardLocations: preferences)
+                    self.allCardsView(using: geometry, cardLocations: preferences)
                 }.frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
             }
         }
@@ -75,13 +77,13 @@ public struct BoardView: View, StackOffsetting {
         }
     }
     
-    func renderAllCards(using geometry: GeometryProxy, cardLocations: [CardLocationInfo]) -> some View {
+    func allCardsView(using geometry: GeometryProxy, cardLocations: [CardLocationInfo]) -> some View {
         ForEach(boardDriver.allCards) { card in
-            self.render(card, using: geometry, cardLocations: cardLocations)
+            self.renderedCardView(card, using: geometry, cardLocations: cardLocations)
         }
     }
     
-    func render(_ card: Card, using geometry: GeometryProxy, cardLocations: [CardLocationInfo]) -> some View {
+    func renderedCardView(_ card: Card, using geometry: GeometryProxy, cardLocations: [CardLocationInfo]) -> some View {
         var bounds = CGRect.zero
         var offset = CGSize.zero
         
@@ -99,8 +101,16 @@ public struct BoardView: View, StackOffsetting {
         return CardView(card: card)
             .id(card)
             .frame(width: bounds.size.width, height: bounds.size.height)
+            .overlay(
+                self.overlayView(for: card)
+            )
+            .scaleEffect(card == boardDriver.selectedCard ? 1.05 : 1.0, anchor: .top)
+            .animation(.spring(response: 0.10, dampingFraction: 0.95, blendDuration: 0.0))
+            .onTapGesture {
+                self.boardDriver.itemTapped(card)
+            }
             .offset(x: bounds.minX, y: bounds.minY + offset.height)
-                .animation(.spring(response: 0.10, dampingFraction: 0.95, blendDuration: 0.0))
+            .animation(.spring(response: 0.10, dampingFraction: 0.95, blendDuration: 0.0))
     }
     
     func renderInFlightCard(using geometry: GeometryProxy, cardLocations: [CardLocationInfo]) -> some View {

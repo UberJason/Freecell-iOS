@@ -10,7 +10,7 @@ import SwiftUI
 import DeckKit
 
 protocol SelectedOverlaying {
-    var selectedCard: Card? { get set }
+    var selectedCard: Card? { get }
 }
 
 extension SelectedOverlaying {
