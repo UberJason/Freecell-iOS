@@ -74,7 +74,6 @@ public struct BoardView: View, StackOffsetting {
                     self.allCardsView(using: geometry, cardLocations: preferences)
                 }
                 .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
-                .drawingGroup()
             }
         }
         .onTapGesture {

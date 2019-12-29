@@ -276,7 +276,7 @@
 		96A36487237E3894005C45FB /* FreecellError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FreecellError.swift; sourceTree = "<group>"; };
 		96A36489237F51BA005C45FB /* Convenience.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Convenience.swift; sourceTree = "<group>"; };
 		96CA9ACF238CC4F000C34A60 /* Card+Id.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Card+Id.swift"; sourceTree = "<group>"; };
-		96CA9AD5238F0E4900C34A60 /* Freecell-Mac.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Freecell-Mac.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		96CA9AD5238F0E4900C34A60 /* Freecell.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Freecell.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		96CA9AD7238F0E4900C34A60 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		96CA9AD9238F0E4900C34A60 /* GameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameView.swift; sourceTree = "<group>"; };
 		96CA9ADB238F0E4B00C34A60 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -466,7 +466,7 @@
 				96A36432237CF138005C45FB /* DeckKitTests.xctest */,
 				96A36459237E33BF005C45FB /* FreecellKit.framework */,
 				96A36461237E33C0005C45FB /* FreecellKitTests.xctest */,
-				96CA9AD5238F0E4900C34A60 /* Freecell-Mac.app */,
+				96CA9AD5238F0E4900C34A60 /* Freecell.app */,
 				96CA9AE9238F0E4B00C34A60 /* Freecell-MacTests.xctest */,
 				96CA9AF4238F0E4B00C34A60 /* Freecell-MacUITests.xctest */,
 			);
@@ -782,7 +782,7 @@
 			);
 			name = "Freecell-Mac";
 			productName = "Freecell-Mac";
-			productReference = 96CA9AD5238F0E4900C34A60 /* Freecell-Mac.app */;
+			productReference = 96CA9AD5238F0E4900C34A60 /* Freecell.app */;
 			productType = "com.apple.product-type.application";
 		};
 		96CA9AE8238F0E4B00C34A60 /* Freecell-MacTests */ = {
@@ -1583,6 +1583,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
 				SUPPORTED_PLATFORMS = "iphonesimulator iphoneos macosx";
+				SWIFT_COMPILATION_MODE = singlefile;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
@@ -1648,7 +1649,7 @@
 				);
 				MACOSX_DEPLOYMENT_TARGET = 10.15;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.JYJApps.Freecell-Mac";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = Freecell;
 				SDKROOT = macosx;
 				SWIFT_VERSION = 5.0;
 			};
@@ -1672,7 +1673,7 @@
 				);
 				MACOSX_DEPLOYMENT_TARGET = 10.15;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.JYJApps.Freecell-Mac";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = Freecell;
 				SDKROOT = macosx;
 				SWIFT_VERSION = 5.0;
 			};
