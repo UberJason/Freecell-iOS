@@ -145,7 +145,8 @@ public struct BoardView: View, StackOffsetting {
     #warning("TODO: Dynamically size the cards by platform")
     var cardSize: CGSize {
 //        return CGSize(width: 125, height: 187)  // iPad Pro
-        return CGSize(width: 107, height: 160)  // iPad Mini
+//        return CGSize(width: 107, height: 160)  // iPad Mini
+        return CGSize(width: 90, height: 134)   // Mac
     }
     
     var cardSpringAnimation: Animation? {

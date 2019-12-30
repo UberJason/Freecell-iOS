@@ -20,7 +20,7 @@ public struct CardView: View {
         ZStack {
             CardRectangle()
                 .overlay(
-                    RoundedRectangle(cornerRadius: 8)
+                    RoundedRectangle(cornerRadius: 6)
                         .stroke(Color.black, lineWidth: 0.5)
                 )
 
@@ -51,10 +51,10 @@ struct CardTabView: View {
     var body: some View {
         VStack(alignment: .center, spacing: -2) {
             Text(card.rank.displayTitle)
-                .font(.system(size: 22, weight: .semibold, design: .default))
+                .font(.system(size: 18, weight: .semibold, design: .default))
                 .foregroundColor(card.suit.swiftUIColor)
             Text(card.suit.displayTitle)
-                .font(.system(size: 11, weight: .semibold, design: .default))
+                .font(.system(size: 9, weight: .semibold, design: .default))
         }
     }
 }
