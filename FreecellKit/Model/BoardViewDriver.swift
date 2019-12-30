@@ -38,7 +38,7 @@ public class BoardViewDriver: ObservableObject {
                 columns.flatMap({ $0.items })
     }
     
-    private var selectionState: SelectionState { selectedCard.map { .selected(card: $0) } ?? .idle }
+    var selectionState: SelectionState { selectedCard.map { .selected(card: $0) } ?? .idle }
     private var animationOffsetInterval = 75
     private var moveEventSubscriber: AnyCancellable?
     
