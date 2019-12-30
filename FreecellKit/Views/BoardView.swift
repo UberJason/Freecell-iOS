@@ -102,7 +102,6 @@ public struct BoardView: View, StackOffsetting {
             }
         }
         
-        #warning("TODO: scale effect should be a custom view modifier that applies to both ColumnView and FreeCellView")
         return CardView(card: card)
             .id(card)
             .frame(width: bounds.size.width, height: bounds.size.height)
@@ -110,12 +109,12 @@ public struct BoardView: View, StackOffsetting {
                 self.overlayView(for: card)
             )
             .scaleEffect(card == boardDriver.selectedCard ? 1.05 : 1.0, anchor: .top)
-            .animation(.spring(response: 0.08, dampingFraction: 0.95, blendDuration: 0.0))
+            .animation(cardSpringAnimation)
             .onTapGesture {
                 self.boardDriver.itemTapped(card)
             }
             .offset(x: bounds.minX, y: bounds.minY + offset.height)
-            .animation(.spring(response: 0.08, dampingFraction: 0.95, blendDuration: 0.0))
+            .animation(cardSpringAnimation)
     }
     
     func overlayView(for card: Card) -> some View {
@@ -127,6 +126,10 @@ public struct BoardView: View, StackOffsetting {
     var cardSize: CGSize {
 //        return CGSize(width: 125, height: 187)  // iPad Pro
         return CGSize(width: 107, height: 160)  // iPad Mini
+    }
+    
+    var cardSpringAnimation: Animation {
+        return Animation.spring(response: 0.08, dampingFraction: 0.95, blendDuration: 0.0)
     }
 }
 

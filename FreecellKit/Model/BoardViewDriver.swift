@@ -72,7 +72,6 @@ public class BoardViewDriver: ObservableObject {
         }
     }
     
-    #warning("TODO: Quality of life - if tap on selected Freecell card, de-select it.")
     #warning("TODO: Quality of life - if tap on a Freecell card when another Freecell card is selected, select new Freecell card.")
     private func handleTap(in location: CardLocation) {
         switch selectionState {
