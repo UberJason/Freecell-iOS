@@ -38,19 +38,6 @@ public struct CardView: View {
                     .padding(5.0)
             }
         }
-                    
-//            .shadow(color: .black, radius: 0.2, x: 0, y: 0)
-    }
-}
-
-struct CardView_Previews: PreviewProvider {
-    static var previews: some View {
-        CardView(card: Card.ace.ofSpades)
-            .frame(width: 125, height: 187)
-            .frame(width: 200, height: 300)
-            .background(Color.green)
-            .previewLayout(.fixed(width: 200, height: 300))
-        
     }
 }
 
@@ -69,5 +56,18 @@ struct CardTabView: View {
             Text(card.suit.displayTitle)
                 .font(.system(size: 11, weight: .semibold, design: .default))
         }
+    }
+}
+
+
+struct CardView_Previews: PreviewProvider {
+    static var previews: some View {
+        CardView(card: Card.ace.ofSpades)
+//            .frame(width: 125, height: 187)
+            .frame(width: 90, height: 134)
+            .frame(width: 200, height: 300)
+            .background(Color.green)
+            .previewLayout(.fixed(width: 200, height: 300))
+        
     }
 }
