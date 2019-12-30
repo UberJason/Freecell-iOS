@@ -45,7 +45,7 @@ class BoardTests: XCTestCase {
     }
     
     func testBoardSelectionState() {
-        let boardDriver = BoardDriver()
+        let boardDriver = BoardViewDriver()
         
         switch boardDriver.selectionState {
         case .idle: break

@@ -10,9 +10,9 @@ import SwiftUI
 import DeckKit
 
 public struct BoardView: View, StackOffsetting {
-    @ObservedObject var boardDriver: BoardDriver
+    @ObservedObject var boardDriver: BoardViewDriver
     
-    public init(boardDriver: BoardDriver) {
+    public init(boardDriver: BoardViewDriver) {
         self.boardDriver = boardDriver
     }
     
@@ -147,7 +147,7 @@ struct CardLocationInfoKey: PreferenceKey {
 
 struct BoardView_Previews: PreviewProvider {
     static var previews: some View {
-        BoardView(boardDriver: BoardDriver())
+        BoardView(boardDriver: BoardViewDriver())
             .previewDevice("iPad Pro 11")
             .previewLayout(.fixed(width: 1194, height: 834))
     }

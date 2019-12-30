@@ -1,5 +1,5 @@
 //
-//  BoardDriver.swift
+//  BoardViewDriver.swift
 //  FreecellKit
 //
 //  Created by Jason Ji on 11/30/19.
@@ -22,7 +22,7 @@ public struct MoveState {
     let location: CardLocation
 }
 
-public class BoardDriver: ObservableObject {
+public class BoardViewDriver: ObservableObject {
     private var _board = Board(deck: Deck(shuffled: true))
     
     public var freecells: [FreeCell] { return currentRenderedBoard.freecells }
