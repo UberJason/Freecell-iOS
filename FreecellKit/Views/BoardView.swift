@@ -11,6 +11,7 @@ import DeckKit
 
 public struct BoardView: View, StackOffsetting {
     @ObservedObject var boardDriver: BoardViewDriver
+    @Environment(\.undoManager) var undoManager
     
     public init(boardDriver: BoardViewDriver) {
         self.boardDriver = boardDriver
@@ -78,6 +79,9 @@ public struct BoardView: View, StackOffsetting {
         }
         .onTapGesture {
             self.boardDriver.itemTapped(self)
+        }
+        .onAppear() {
+            self.boardDriver.undoManager = self.undoManager
         }
     }
     

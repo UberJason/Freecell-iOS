@@ -77,6 +77,7 @@
 		96CA9B09238F0E5C00C34A60 /* FreecellKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 96A36459237E33BF005C45FB /* FreecellKit.framework */; };
 		96CA9B0A238F0E5C00C34A60 /* FreecellKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 96A36459237E33BF005C45FB /* FreecellKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		96CA9B0E239300C300C34A60 /* BoardViewDriver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96CA9B0D239300C300C34A60 /* BoardViewDriver.swift */; };
+		96E188B923BBF301008129AF /* FirstResponderHostingController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96E188B823BBF301008129AF /* FirstResponderHostingController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -291,6 +292,7 @@
 		96CA9AF8238F0E4B00C34A60 /* Freecell_MacUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Freecell_MacUITests.swift; sourceTree = "<group>"; };
 		96CA9AFA238F0E4B00C34A60 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		96CA9B0D239300C300C34A60 /* BoardViewDriver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoardViewDriver.swift; sourceTree = "<group>"; };
+		96E188B823BBF301008129AF /* FirstResponderHostingController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstResponderHostingController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -393,6 +395,7 @@
 		962562862381D824003C09AA /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				964BBF0523A47B96009B4FDE /* BackgroundColorView.swift */,
 				962295F123884563005D599B /* CardRectangle.swift */,
 				962562902381DEEB003C09AA /* EmptySpotView.swift */,
 				962562882381D846003C09AA /* CardView.swift */,
@@ -400,7 +403,6 @@
 				9625628C2381D853003C09AA /* FoundationView.swift */,
 				9625628E2381D857003C09AA /* ColumnView.swift */,
 				962295F323887623005D599B /* BoardView.swift */,
-				964BBF0523A47B96009B4FDE /* BackgroundColorView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -478,6 +480,7 @@
 			children = (
 				96A363F5237CF0FC005C45FB /* AppDelegate.swift */,
 				96A363F7237CF0FC005C45FB /* SceneDelegate.swift */,
+				96E188B823BBF301008129AF /* FirstResponderHostingController.swift */,
 				96A363F9237CF0FC005C45FB /* GameView.swift */,
 				96A363FB237CF0FD005C45FB /* Assets.xcassets */,
 				96A36400237CF0FD005C45FB /* LaunchScreen.storyboard */,
@@ -984,6 +987,7 @@
 			files = (
 				96A363F6237CF0FC005C45FB /* AppDelegate.swift in Sources */,
 				9622959C238393BA005D599B /* GameView.swift in Sources */,
+				96E188B923BBF301008129AF /* FirstResponderHostingController.swift in Sources */,
 				96A363F8237CF0FC005C45FB /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

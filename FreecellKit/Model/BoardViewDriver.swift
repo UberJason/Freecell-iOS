@@ -26,11 +26,11 @@ public class BoardViewDriver: ObservableObject {
     private var _board = Board(deck: Deck(shuffled: true))
     private var previousBoards = [Board]()
     
-    public var freecells: [FreeCell] { return currentRenderedBoard.freecells }
-    public var foundations: [Foundation] { return currentRenderedBoard.foundations }
-    public var columns: [Column] { return currentRenderedBoard.columns }
+    public var freecells: [FreeCell] { return renderingBoard.freecells }
+    public var foundations: [Foundation] { return renderingBoard.foundations }
+    public var columns: [Column] { return renderingBoard.columns }
     
-    @Published public var currentRenderedBoard: Board
+    @Published public var renderingBoard: Board
     @Published public var selectedCard: Card?
     
     public var allCards: [Card] {
@@ -43,22 +43,24 @@ public class BoardViewDriver: ObservableObject {
     private var animationOffsetInterval = 75
     private var moveEventSubscriber: AnyCancellable?
     
+    var undoManager: UndoManager?
+    
     public init() {
-        currentRenderedBoard = _board.copy
+        renderingBoard = _board.copy
         configureRendering()
     }
     
     private func configureRendering() {
-        currentRenderedBoard = _board.copy
+        renderingBoard = _board.copy
         
         moveEventSubscriber = _board.movePublisher
         .modulated(.milliseconds(animationOffsetInterval), scheduler: RunLoop.main)
         .map { $0.afterBoard }
-        .assign(to: \.currentRenderedBoard, on: self)
+        .assign(to: \.renderingBoard, on: self)
     }
     
     public func location(containing card: Card) -> CardLocation {
-        return currentRenderedBoard.location(containing: card)
+        return renderingBoard.location(containing: card)
     }
 
     public func itemTapped<T>(_ item: T) {
@@ -81,7 +83,7 @@ public class BoardViewDriver: ObservableObject {
             selectedCard = location.selectableCard()
         case .selected(let card):
             do {
-                previousBoards.append(_board.copy)
+                registerMove()
                 try _board.performValidMove(from: card, to: location)
                 selectedCard = nil
             } catch {
@@ -95,7 +97,16 @@ public class BoardViewDriver: ObservableObject {
         }
     }
     
+    private func registerMove() {
+        previousBoards.append(_board.copy)
+        undoManager?.registerUndo(withTarget: self, selector: #selector(performUndo), object: nil)
+    }
+    
     public func undo() {
+        undoManager?.undo()
+    }
+    
+    @objc private func performUndo() {
         guard previousBoards.count > 0 else { return }
         
         _board = previousBoards.removeLast()
