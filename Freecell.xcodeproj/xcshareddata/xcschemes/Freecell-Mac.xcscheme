@@ -15,7 +15,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "96CA9AD4238F0E4900C34A60"
-               BuildableName = "Freecell-Mac.app"
+               BuildableName = "Freecell.app"
                BlueprintName = "Freecell-Mac"
                ReferencedContainer = "container:Freecell.xcodeproj">
             </BuildableReference>
@@ -65,7 +65,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "96CA9AD4238F0E4900C34A60"
-            BuildableName = "Freecell-Mac.app"
+            BuildableName = "Freecell.app"
             BlueprintName = "Freecell-Mac"
             ReferencedContainer = "container:Freecell.xcodeproj">
          </BuildableReference>
@@ -94,7 +94,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "96CA9AD4238F0E4900C34A60"
-            BuildableName = "Freecell-Mac.app"
+            BuildableName = "Freecell.app"
             BlueprintName = "Freecell-Mac"
             ReferencedContainer = "container:Freecell.xcodeproj">
          </BuildableReference>

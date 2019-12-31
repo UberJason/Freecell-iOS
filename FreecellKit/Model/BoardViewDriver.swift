@@ -24,6 +24,7 @@ public struct MoveState {
 
 public class BoardViewDriver: ObservableObject {
     private var _board = Board(deck: Deck(shuffled: true))
+    private var previousBoards = [Board]()
     
     public var freecells: [FreeCell] { return currentRenderedBoard.freecells }
     public var foundations: [Foundation] { return currentRenderedBoard.foundations }
@@ -44,20 +45,21 @@ public class BoardViewDriver: ObservableObject {
     
     public init() {
         currentRenderedBoard = _board.copy
-        configureSubscribers()
+        configureRendering()
     }
     
-    private func configureSubscribers() {
+    private func configureRendering() {
+        currentRenderedBoard = _board.copy
+        
         moveEventSubscriber = _board.movePublisher
-            .modulated(.milliseconds(animationOffsetInterval), scheduler: RunLoop.main)
-            .map { $0.afterBoard }
-            .assign(to: \.currentRenderedBoard, on: self)
+        .modulated(.milliseconds(animationOffsetInterval), scheduler: RunLoop.main)
+        .map { $0.afterBoard }
+        .assign(to: \.currentRenderedBoard, on: self)
     }
     
     public func location(containing card: Card) -> CardLocation {
         return currentRenderedBoard.location(containing: card)
     }
-    
 
     public func itemTapped<T>(_ item: T) {
         switch item {
@@ -79,9 +81,11 @@ public class BoardViewDriver: ObservableObject {
             selectedCard = location.selectableCard()
         case .selected(let card):
             do {
+                previousBoards.append(_board.copy)
                 try _board.performValidMove(from: card, to: location)
                 selectedCard = nil
             } catch {
+                previousBoards.removeLast()
                 #if os(macOS)
                 NSSound.beep()
                 #endif
@@ -89,5 +93,12 @@ public class BoardViewDriver: ObservableObject {
                 print(error.localizedDescription)
             }
         }
+    }
+    
+    public func undo() {
+        guard previousBoards.count > 0 else { return }
+        
+        _board = previousBoards.removeLast()
+        configureRendering()
     }
 }

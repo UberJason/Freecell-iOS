@@ -22,7 +22,7 @@ class Game: ObservableObject {
             case .newGame:
                 self?.boardDriver = BoardViewDriver()
             case .undo:
-                print("Undo event received")
+                self?.boardDriver.undo()
             case .redo:
                 print("Redo event received")
             }
