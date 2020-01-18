@@ -71,11 +71,3 @@ public class PaceSubscription<S: Subscriber>: Subscription {
         subscriber = nil
     }
 }
-
-extension Publisher {
-    func step(with stepper: @escaping (SteppingSubscriber<Output, Failure>.Event) -> ()) -> AnyCancellable {
-        let subscriber = SteppingSubscriber<Output, Failure>(stepper: stepper)
-        self.subscribe(subscriber)
-        return .init(subscriber)
-    }
-}
