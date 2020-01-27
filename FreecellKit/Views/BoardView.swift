@@ -10,8 +10,14 @@ import SwiftUI
 import DeckKit
 
 public struct BoardView: View, StackOffsetting {
+    enum DragState {
+        case inactive, active(translation: CGSize)
+    }
+    
     @ObservedObject var boardDriver: BoardViewDriver
     @Environment(\.undoManager) var undoManager
+    
+    @GestureState var dragState: DragState = .inactive
     
     public init(boardDriver: BoardViewDriver) {
         self.boardDriver = boardDriver
@@ -106,6 +112,21 @@ public struct BoardView: View, StackOffsetting {
             }
         }
         
+        let dragGesture = {
+            DragGesture()
+                .updating(self.$dragState) { (value, state, _) in
+                    if case .inactive = state {
+                        print("Drag was inactive, detach a stack")
+                    }
+                    state = .active(translation: value.translation)
+                        
+                    print("state: \(state)")
+                }
+                .onEnded { value in
+                    print("Ended: \(value)")
+                }
+            }
+        
         return CardView(card: card)
             .id(card)
             .frame(width: bounds.size.width, height: bounds.size.height)
@@ -117,8 +138,16 @@ public struct BoardView: View, StackOffsetting {
             .onTapGesture {
                 self.boardDriver.itemTapped(card)
             }
-            .offset(x: bounds.minX, y: bounds.minY + offset.height)
+            .offset(x: bounds.minX + dragTranslation().width, y: bounds.minY + offset.height + dragTranslation().height)
             .animation(cardSpringAnimation)
+            .gesture(dragGesture())
+    }
+    
+    func dragTranslation() -> CGSize {
+        switch dragState {
+        case .inactive: return .zero
+        case .active(let translation): return translation
+        }
     }
     
     func overlayView(for card: Card) -> some View {
