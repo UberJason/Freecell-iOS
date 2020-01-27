@@ -17,11 +17,6 @@ enum SelectionState {
     case idle, selected(card: Card)
 }
 
-public struct MoveState {
-    let card: Card
-    let location: CardLocation
-}
-
 public class BoardViewDriver: ObservableObject {
     private var _board = Board(deck: Deck(shuffled: true))
     private var previousBoards = [Board]()
