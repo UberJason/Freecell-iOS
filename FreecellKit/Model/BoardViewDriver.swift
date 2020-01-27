@@ -19,9 +19,6 @@ enum SelectionState {
 }
 
 public class BoardViewDriver: ObservableObject {
-    internal var _board = Board(deck: Deck(shuffled: true))
-    internal var previousBoards = [Board]()
-
     public var freecells: [FreeCell] { return renderingBoard.freecells }
     public var foundations: [Foundation] { return renderingBoard.foundations }
     public var columns: [Column] { return renderingBoard.columns }
@@ -34,8 +31,9 @@ public class BoardViewDriver: ObservableObject {
     
     internal var animationOffsetInterval = 75
     internal var moveEventSubscriber: AnyCancellable?
-    
-    var undoManager: UndoManager?
+    internal var undoManager: UndoManager?
+    internal var _board = Board(deck: Deck(shuffled: true))
+    internal var previousBoards = [Board]()
     
     public init() {
         renderingBoard = _board.copy
@@ -71,9 +69,7 @@ public class BoardViewDriver: ObservableObject {
         fatalError("Implement in subclass")
     }
     
-    public func itemTapped<T>(_ item: T) {
-        fatalError("Implement in subclass")
-    }
+    public func itemTapped<T>(_ item: T) {}
     
     public func scale(for card: Card) -> CGFloat {
         fatalError("Implement in subclass")
@@ -82,10 +78,18 @@ public class BoardViewDriver: ObservableObject {
     public func cardOverlayColor(for card: Card) -> Color {
         fatalError("Implement in subclass")
     }
+    
+    public func dragStarted(from card: Card) {}
+    
+    public func dragEnded() {}
+    
+    #warning("cardOffset(for:relativeTo:stackOffset:dragState:) is leaking details about drag to boards that don't have drag. How can I fix this?")
+    public func cardOffset(for card: Card, relativeTo bounds: CGRect, stackOffset: CGSize, dragState: BoardView.DragState? = nil) -> CGSize {
+        fatalError("Implement in subclass")
+    }
 }
 
 public class ClassicViewDriver: BoardViewDriver {
-    
     // Because selectedCard isn't directly referenced in BoardView, we have to manually send the change notification.
     // @Published apparently doesn't do the trick.
     public var selectedCard: Card? {
@@ -147,6 +151,10 @@ public class ClassicViewDriver: BoardViewDriver {
     public override func cardOverlayColor(for card: Card) -> Color {
         return selectedCard == card ? .yellow : .clear
     }
+    
+    public override func cardOffset(for card: Card, relativeTo bounds: CGRect, stackOffset: CGSize, dragState: BoardView.DragState? = nil) -> CGSize {
+        return CGSize(width: bounds.minX, height: bounds.minY + stackOffset.height)
+    }
 }
 
 public class ModernViewDriver: BoardViewDriver {
@@ -156,12 +164,23 @@ public class ModernViewDriver: BoardViewDriver {
             columns.flatMap({ $0.items })
     }
     
+    public var draggingStack: CardStack?
+    
     public override func location(containing card: Card) -> CardLocation {
         return renderingBoard.location(containing: card)
     }
 
     public override func itemTapped<T>(_ item: T) {
-        print("itemTapped, I do nothing")
+        // HACK - quick - move card to a valid location
+        if let card = item as? Card {
+            for column in _board.columns {
+                if column.canReceive(card) {
+                    registerMove()
+                    try! _board.move(card, to: column)
+                    return
+                }
+            }
+        }
     }
     
     public override func scale(for card: Card) -> CGFloat {
@@ -170,5 +189,26 @@ public class ModernViewDriver: BoardViewDriver {
     
     public override func cardOverlayColor(for card: Card) -> Color {
         return .clear
+    }
+    
+    public override func dragStarted(from card: Card) {
+        if let origin = location(containing: card) as? Column,
+            let substack = origin.validSubstack(cappedBy: card) {
+            draggingStack = substack
+        }
+    }
+    
+    public override func dragEnded() {
+        draggingStack = nil
+    }
+    
+    public override func cardOffset(for card: Card, relativeTo bounds: CGRect, stackOffset: CGSize, dragState: BoardView.DragState? = nil) -> CGSize {
+        var dragOffset = CGSize.zero
+        
+        if case .active(let translation) = dragState, let draggingStack = draggingStack, draggingStack.items.contains(card) {
+            dragOffset = translation
+        }
+        
+        return CGSize(width: bounds.minX + dragOffset.width, height: bounds.minY + stackOffset.height + dragOffset.height)
     }
 }

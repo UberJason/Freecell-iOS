@@ -10,8 +10,8 @@ import SwiftUI
 import DeckKit
 
 public struct BoardView: View, StackOffsetting {
-    enum DragState {
-        case inactive, active(translation: CGSize, card: Card)
+    public enum DragState {
+        case inactive, active(translation: CGSize)
     }
     
     @ObservedObject var boardDriver: BoardViewDriver
@@ -108,18 +108,21 @@ public struct BoardView: View, StackOffsetting {
             }
         }
         
+        #warning("Is there a way I can conditionally create this drag gesture and handlers, only in the case where my board driver is a modern board driver?")
         let dragGesture = {
             DragGesture()
                 .updating(self.$dragState) { (value, state, _) in
                     if case .inactive = state {
                         print("Drag was inactive, detach a stack")
+                        self.boardDriver.dragStarted(from: card)
                     }
-                    state = .active(translation: value.translation, card: card)
+                    state = .active(translation: value.translation)
                         
                     print("state: \(state)")
                 }
                 .onEnded { value in
                     print("Ended: \(value)")
+                    self.boardDriver.dragEnded()
                 }
             }
         
@@ -134,19 +137,9 @@ public struct BoardView: View, StackOffsetting {
             .onTapGesture {
                 self.boardDriver.itemTapped(card)
             }
-            .offset(cardOffset(for: card, bounds: bounds, stackOffset: offset))
+            .offset(boardDriver.cardOffset(for: card, relativeTo: bounds, stackOffset: offset, dragState: dragState))
             .animation(cardSpringAnimation)
-            .gesture(dragGesture())
-    }
-
-    func cardOffset(for card: Card, bounds: CGRect, stackOffset offset: CGSize) -> CGSize {
-        var dragOffset = CGSize.zero
-        
-        if case .active(let translation, let draggedCard) = dragState, draggedCard == card {
-            dragOffset = translation
-        }
-        
-        return CGSize(width: bounds.minX + dragOffset.width, height: bounds.minY + offset.height + dragOffset.height)
+            .simultaneousGesture(dragGesture())
     }
    
     #warning("TODO: Dynamically size the cards by platform and figure out why Mac is assuming 1024x768")

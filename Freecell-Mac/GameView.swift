@@ -12,7 +12,7 @@ import FreecellKit
 import Combine
 
 class Game: ObservableObject {
-    @Published var boardDriver = ModernViewDriver()
+    @Published var boardDriver: BoardViewDriver = ModernViewDriver()
     
     var cancellable: AnyCancellable?
     
