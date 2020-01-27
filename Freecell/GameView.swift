@@ -12,7 +12,7 @@ import FreecellKit
 import Combine
 
 class Game {
-    var boardDriver = BoardViewDriver()
+    var boardDriver = ClassicViewDriver()
 }
 
 struct GameView: View {

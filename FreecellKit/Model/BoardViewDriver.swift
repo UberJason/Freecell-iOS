@@ -18,9 +18,9 @@ enum SelectionState {
 }
 
 public class BoardViewDriver: ObservableObject {
-    private var _board = Board(deck: Deck(shuffled: true))
-    private var previousBoards = [Board]()
-    
+    internal var _board = Board(deck: Deck(shuffled: true))
+    internal var previousBoards = [Board]()
+
     public var freecells: [FreeCell] { return renderingBoard.freecells }
     public var foundations: [Foundation] { return renderingBoard.foundations }
     public var columns: [Column] { return renderingBoard.columns }
@@ -29,14 +29,12 @@ public class BoardViewDriver: ObservableObject {
     @Published public var selectedCard: Card?
     
     public var allCards: [Card] {
-        return freecells.flatMap({ $0.items }) +
-                foundations.flatMap({ $0.items }) +
-                columns.flatMap({ $0.items })
+        fatalError("implement in subclass")
     }
     
     var selectionState: SelectionState { selectedCard.map { .selected(card: $0) } ?? .idle }
-    private var animationOffsetInterval = 75
-    private var moveEventSubscriber: AnyCancellable?
+    internal var animationOffsetInterval = 75
+    internal var moveEventSubscriber: AnyCancellable?
     
     var undoManager: UndoManager?
     
@@ -45,7 +43,7 @@ public class BoardViewDriver: ObservableObject {
         configureRendering()
     }
     
-    private func configureRendering() {
+    internal func configureRendering() {
         renderingBoard = _board.copy
         
         moveEventSubscriber = _board.movePublisher
@@ -55,10 +53,43 @@ public class BoardViewDriver: ObservableObject {
     }
     
     public func location(containing card: Card) -> CardLocation {
+        fatalError("Implement in subclass")
+    }
+    
+    public func itemTapped<T>(_ item: T) {
+        fatalError("Implement in subclass")
+    }
+    
+    internal func registerMove() {
+        previousBoards.append(_board.copy)
+        undoManager?.registerUndo(withTarget: self, selector: #selector(performUndo), object: nil)
+    }
+    
+    public func undo() {
+        undoManager?.undo()
+    }
+    
+    @objc internal func performUndo() {
+        guard previousBoards.count > 0 else { return }
+        
+        _board = previousBoards.removeLast()
+        configureRendering()
+    }
+}
+
+public class ClassicViewDriver: BoardViewDriver {
+    
+    public override var allCards: [Card] {
+        return freecells.flatMap({ $0.items }) +
+            foundations.flatMap({ $0.items }) +
+            columns.flatMap({ $0.items })
+    }
+    
+    public override func location(containing card: Card) -> CardLocation {
         return renderingBoard.location(containing: card)
     }
 
-    public func itemTapped<T>(_ item: T) {
+    public override func itemTapped<T>(_ item: T) {
         switch item {
         case let card as Card:
             handleTap(in: _board.location(containing: card))
@@ -90,21 +121,5 @@ public class BoardViewDriver: ObservableObject {
                 print(error.localizedDescription)
             }
         }
-    }
-    
-    private func registerMove() {
-        previousBoards.append(_board.copy)
-        undoManager?.registerUndo(withTarget: self, selector: #selector(performUndo), object: nil)
-    }
-    
-    public func undo() {
-        undoManager?.undo()
-    }
-    
-    @objc private func performUndo() {
-        guard previousBoards.count > 0 else { return }
-        
-        _board = previousBoards.removeLast()
-        configureRendering()
     }
 }
