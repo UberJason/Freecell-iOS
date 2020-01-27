@@ -11,7 +11,7 @@ import DeckKit
 
 public struct BoardView: View, StackOffsetting {
     enum DragState {
-        case inactive, active(translation: CGSize)
+        case inactive, active(translation: CGSize, card: Card)
     }
     
     @ObservedObject var boardDriver: BoardViewDriver
@@ -118,7 +118,7 @@ public struct BoardView: View, StackOffsetting {
                     if case .inactive = state {
                         print("Drag was inactive, detach a stack")
                     }
-                    state = .active(translation: value.translation)
+                    state = .active(translation: value.translation, card: card)
                         
                     print("state: \(state)")
                 }
@@ -138,16 +138,19 @@ public struct BoardView: View, StackOffsetting {
             .onTapGesture {
                 self.boardDriver.itemTapped(card)
             }
-            .offset(x: bounds.minX + dragTranslation().width, y: bounds.minY + offset.height + dragTranslation().height)
+            .offset(cardOffset(for: card, bounds: bounds, stackOffset: offset))
             .animation(cardSpringAnimation)
             .gesture(dragGesture())
     }
-    
-    func dragTranslation() -> CGSize {
-        switch dragState {
-        case .inactive: return .zero
-        case .active(let translation): return translation
+
+    func cardOffset(for card: Card, bounds: CGRect, stackOffset offset: CGSize) -> CGSize {
+        var dragOffset = CGSize.zero
+        
+        if case .active(let translation, let draggedCard) = dragState, draggedCard == card {
+            dragOffset = translation
         }
+        
+        return CGSize(width: bounds.minX + dragOffset.width, height: bounds.minY + offset.height + dragOffset.height)
     }
     
     func overlayView(for card: Card) -> some View {
