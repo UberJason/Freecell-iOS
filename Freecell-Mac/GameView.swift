@@ -12,7 +12,7 @@ import FreecellKit
 import Combine
 
 class Game: ObservableObject {
-    @Published var boardDriver = ClassicViewDriver()
+    @Published var boardDriver = ModernViewDriver()
     
     var cancellable: AnyCancellable?
     
@@ -20,7 +20,7 @@ class Game: ObservableObject {
         cancellable = publisher.sink { [weak self] event in
             switch event {
             case .newGame:
-                self?.boardDriver = ClassicViewDriver()
+                self?.boardDriver = ModernViewDriver()
             case .undo:
                 self?.boardDriver.undo()
             case .redo:

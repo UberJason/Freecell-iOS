@@ -123,3 +123,19 @@ public class ClassicViewDriver: BoardViewDriver {
         }
     }
 }
+
+public class ModernViewDriver: BoardViewDriver {
+    public override var allCards: [Card] {
+        return freecells.flatMap({ $0.items }) +
+            foundations.flatMap({ $0.items }) +
+            columns.flatMap({ $0.items })
+    }
+    
+    public override func location(containing card: Card) -> CardLocation {
+        return renderingBoard.location(containing: card)
+    }
+
+    public override func itemTapped<T>(_ item: T) {
+        print("itemTapped, I do nothing")
+    }
+}
