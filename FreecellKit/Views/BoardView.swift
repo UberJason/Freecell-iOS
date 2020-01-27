@@ -102,7 +102,7 @@ public struct BoardView: View, StackOffsetting {
         }).first {
             bounds = geometry[p.bounds]
             if p.type == .column, let column = containingLocation as? Column {
-                offset = self.offset(for: card, orderIndex: column.orderIndex(for: card))
+                offset = self.stackOffset(for: card, orderIndex: column.orderIndex(for: card))
             }
         }
         
