@@ -9,6 +9,7 @@
 import Combine
 import Foundation
 import DeckKit
+import SwiftUI
 #if os(macOS)
 import Cocoa
 #endif
@@ -26,13 +27,11 @@ public class BoardViewDriver: ObservableObject {
     public var columns: [Column] { return renderingBoard.columns }
     
     @Published public var renderingBoard: Board
-    @Published public var selectedCard: Card?
     
     public var allCards: [Card] {
         fatalError("implement in subclass")
     }
     
-    var selectionState: SelectionState { selectedCard.map { .selected(card: $0) } ?? .idle }
     internal var animationOffsetInterval = 75
     internal var moveEventSubscriber: AnyCancellable?
     
@@ -52,14 +51,6 @@ public class BoardViewDriver: ObservableObject {
         .assign(to: \.renderingBoard, on: self)
     }
     
-    public func location(containing card: Card) -> CardLocation {
-        fatalError("Implement in subclass")
-    }
-    
-    public func itemTapped<T>(_ item: T) {
-        fatalError("Implement in subclass")
-    }
-    
     internal func registerMove() {
         previousBoards.append(_board.copy)
         undoManager?.registerUndo(withTarget: self, selector: #selector(performUndo), object: nil)
@@ -75,9 +66,35 @@ public class BoardViewDriver: ObservableObject {
         _board = previousBoards.removeLast()
         configureRendering()
     }
+    
+    public func location(containing card: Card) -> CardLocation {
+        fatalError("Implement in subclass")
+    }
+    
+    public func itemTapped<T>(_ item: T) {
+        fatalError("Implement in subclass")
+    }
+    
+    public func scale(for card: Card) -> CGFloat {
+        fatalError("Implement in subclass")
+    }
+    
+    public func cardOverlayColor(for card: Card) -> Color {
+        fatalError("Implement in subclass")
+    }
 }
 
 public class ClassicViewDriver: BoardViewDriver {
+    
+    // Because selectedCard isn't directly referenced in BoardView, we have to manually send the change notification.
+    // @Published apparently doesn't do the trick.
+    public var selectedCard: Card? {
+        willSet {
+            objectWillChange.send()
+        }
+    }
+    
+    var selectionState: SelectionState { selectedCard.map { .selected(card: $0) } ?? .idle }
     
     public override var allCards: [Card] {
         return freecells.flatMap({ $0.items }) +
@@ -122,6 +139,14 @@ public class ClassicViewDriver: BoardViewDriver {
             }
         }
     }
+    
+    public override func scale(for card: Card) -> CGFloat {
+        return card == selectedCard ? 1.05 : 1.0
+    }
+    
+    public override func cardOverlayColor(for card: Card) -> Color {
+        return selectedCard == card ? .yellow : .clear
+    }
 }
 
 public class ModernViewDriver: BoardViewDriver {
@@ -137,5 +162,13 @@ public class ModernViewDriver: BoardViewDriver {
 
     public override func itemTapped<T>(_ item: T) {
         print("itemTapped, I do nothing")
+    }
+    
+    public override func scale(for card: Card) -> CGFloat {
+        return 1.0
+    }
+    
+    public override func cardOverlayColor(for card: Card) -> Color {
+        return .clear
     }
 }

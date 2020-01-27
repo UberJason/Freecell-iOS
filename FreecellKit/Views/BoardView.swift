@@ -78,7 +78,9 @@ public struct BoardView: View, StackOffsetting {
         .overlayPreferenceValue(CardLocationInfoKey.self) { preferences in
             return GeometryReader { geometry in
                 ZStack {
-                    self.allCardsView(using: geometry, cardLocations: preferences)
+                    ForEach(self.boardDriver.allCards) { card in
+                        self.renderedCardView(card, using: geometry, cardLocations: preferences)
+                    }
                 }
                 .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
             }
@@ -88,12 +90,6 @@ public struct BoardView: View, StackOffsetting {
         }
         .onAppear() {
             self.boardDriver.undoManager = self.undoManager
-        }
-    }
-    
-    func allCardsView(using geometry: GeometryProxy, cardLocations: [CardLocationInfo]) -> some View {
-        ForEach(boardDriver.allCards) { card in
-            self.renderedCardView(card, using: geometry, cardLocations: cardLocations)
         }
     }
     
@@ -131,9 +127,9 @@ public struct BoardView: View, StackOffsetting {
             .id(card)
             .frame(width: bounds.size.width, height: bounds.size.height)
             .overlay(
-                self.overlayView(for: card)
+                CardRectangle(foregroundColor: boardDriver.cardOverlayColor(for: card), opacity: 0.3)
             )
-            .scaleEffect(card == boardDriver.selectedCard ? 1.05 : 1.0, anchor: .top)
+            .scaleEffect(boardDriver.scale(for: card), anchor: .top)
             .animation(cardSpringAnimation)
             .onTapGesture {
                 self.boardDriver.itemTapped(card)
@@ -152,12 +148,7 @@ public struct BoardView: View, StackOffsetting {
         
         return CGSize(width: bounds.minX + dragOffset.width, height: bounds.minY + offset.height + dragOffset.height)
     }
-    
-    func overlayView(for card: Card) -> some View {
-        let color: Color = boardDriver.selectedCard == card ? .yellow : .clear
-        return CardRectangle(foregroundColor: color, opacity: 0.3)
-    }
-    
+   
     #warning("TODO: Dynamically size the cards by platform and figure out why Mac is assuming 1024x768")
     var cardSize: CGSize {
 //        return CGSize(width: 125, height: 187)  // iPad Pro
