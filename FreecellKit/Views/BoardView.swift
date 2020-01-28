@@ -95,7 +95,7 @@ public struct BoardView: View, StackOffsetting {
     
     func renderedCardView(_ card: Card, using geometry: GeometryProxy, cardLocations: [CardLocationInfo]) -> some View {
         var bounds = CGRect.zero
-        var offset = CGSize.zero
+        var stackOffset = CGSize.zero
         
         let containingLocation = boardDriver.location(containing: card)
         if let p = cardLocations.filter({
@@ -104,28 +104,11 @@ public struct BoardView: View, StackOffsetting {
         }).first {
             bounds = geometry[p.bounds]
             if p.type == .column, let column = containingLocation as? Column {
-                offset = self.stackOffset(for: card, orderIndex: column.orderIndex(for: card))
+                stackOffset = self.stackOffset(for: card, orderIndex: column.orderIndex(for: card))
             }
         }
         
         #warning("Is there a way I can conditionally create this drag gesture and handlers, only in the case where my board driver is a modern board driver?")
-        let dragGesture = {
-            DragGesture()
-                .updating(self.$dragState) { (value, state, _) in
-                    if case .inactive = state {
-                        print("Drag was inactive, detach a stack")
-                        self.boardDriver.dragStarted(from: card)
-                    }
-                    state = .active(translation: value.translation)
-                        
-                    print("state: \(state)")
-                }
-                .onEnded { value in
-                    print("Ended: \(value)")
-                    self.boardDriver.dragEnded()
-                }
-            }
-        
         return CardView(card: card)
             .id(card)
             .frame(width: bounds.size.width, height: bounds.size.height)
@@ -137,9 +120,31 @@ public struct BoardView: View, StackOffsetting {
             .onTapGesture {
                 self.boardDriver.itemTapped(card)
             }
-            .offset(boardDriver.cardOffset(for: card, relativeTo: bounds, stackOffset: offset, dragState: dragState))
+//            .offset(boardDriver.cardOffset(for: card, relativeTo: bounds, stackOffset: offset, dragState: dragState))
+            .position(x: bounds.midX, y: bounds.midY + stackOffset.height)
             .animation(cardSpringAnimation)
-            .simultaneousGesture(dragGesture())
+            .simultaneousGesture(
+                createDragGesture(for: card)
+            )
+    }
+    
+    func createDragGesture(for card: Card) -> some Gesture {
+        let gesture = DragGesture()
+            .updating(self.$dragState) { (value, state, _) in
+                if case .inactive = state {
+                    print("Drag was inactive, detach a stack")
+                    self.boardDriver.dragStarted(from: card)
+                }
+                state = .active(translation: value.translation)
+                    
+                print("state: \(state)")
+            }
+            .onEnded { value in
+                print("Ended: \(value)")
+                self.boardDriver.dragEnded()
+            }
+        
+        return boardDriver is ModernViewDriver ? gesture : nil
     }
    
     #warning("TODO: Dynamically size the cards by platform and figure out why Mac is assuming 1024x768")
