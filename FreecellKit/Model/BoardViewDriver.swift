@@ -81,7 +81,7 @@ public class BoardViewDriver: ObservableObject {
     
     public func dragStarted(from card: Card) {}
     
-    public func dragEnded() {}
+    public func dragEnded(with translation: CGSize) {}
     
     #warning("cardOffset(for:relativeTo:stackOffset:dragState:) is leaking details about drag to boards that don't have drag. How can I fix this?")
     public func cardOffset(for card: Card, relativeTo bounds: CGRect, stackOffset: CGSize, dragState: BoardView.DragState? = nil) -> CGSize {
@@ -199,7 +199,7 @@ public class ModernViewDriver: BoardViewDriver {
         }
     }
     
-    public override func dragEnded() {
+    public override func dragEnded(with translation: CGSize) {
         draggingStack = nil
     }
     

@@ -93,7 +93,11 @@ public struct BoardView: View, StackOffsetting {
         }
     }
     
-    func renderedCardView(_ card: Card, using geometry: GeometryProxy, cardLocations: [CardLocationInfo]) -> some View {
+    func renderedCardView(_ card: Card, using geometry: GeometryProxy, cardLocations: [CardSeatInfo]) -> some View {
+        if let boardDriver = boardDriver as? ModernViewDriver {
+            boardDriver.storeCardSeats(cardLocations)
+        }
+            
         var bounds = CGRect.zero
         var stackOffset = CGSize.zero
         
@@ -141,7 +145,7 @@ public struct BoardView: View, StackOffsetting {
             }
             .onEnded { value in
                 print("Ended: \(value)")
-                self.boardDriver.dragEnded()
+                self.boardDriver.dragEnded(with: value.translation)
             }
         
         return boardDriver is ModernViewDriver ? gesture : nil
