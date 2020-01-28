@@ -84,7 +84,7 @@ public class BoardViewDriver: ObservableObject {
     public func dragEnded(with translation: CGSize) {}
     
     #warning("cardOffset(for:relativeTo:stackOffset:dragState:) is leaking details about drag to boards that don't have drag. How can I fix this?")
-    public func cardOffset(for card: Card, relativeTo bounds: CGRect, stackOffset: CGSize, dragState: BoardView.DragState? = nil) -> CGSize {
+    public func cardOffset(for card: Card, relativeTo bounds: CGRect, dragState: BoardView.DragState? = nil) -> CGSize {
         fatalError("Implement in subclass")
     }
 }
@@ -152,8 +152,8 @@ public class ClassicViewDriver: BoardViewDriver {
         return selectedCard == card ? .yellow : .clear
     }
     
-    public override func cardOffset(for card: Card, relativeTo bounds: CGRect, stackOffset: CGSize, dragState: BoardView.DragState? = nil) -> CGSize {
-        return CGSize(width: bounds.minX, height: bounds.minY + stackOffset.height)
+    public override func cardOffset(for card: Card, relativeTo bounds: CGRect, dragState: BoardView.DragState? = nil) -> CGSize {
+        return .zero
     }
 }
 
@@ -203,14 +203,14 @@ public class ModernViewDriver: BoardViewDriver {
         draggingStack = nil
     }
     
-    public override func cardOffset(for card: Card, relativeTo bounds: CGRect, stackOffset: CGSize, dragState: BoardView.DragState? = nil) -> CGSize {
+    public override func cardOffset(for card: Card, relativeTo bounds: CGRect, dragState: BoardView.DragState? = nil) -> CGSize {
         var dragOffset = CGSize.zero
         
         if case .active(let translation) = dragState, let draggingStack = draggingStack, draggingStack.items.contains(card) {
             dragOffset = translation
         }
         
-        return CGSize(width: bounds.minX + dragOffset.width, height: bounds.minY + stackOffset.height + dragOffset.height)
+        return CGSize(width: dragOffset.width, height: dragOffset.height)
     }
     
     public func storeCardSeats(_ seats: [CardSeatInfo]) {

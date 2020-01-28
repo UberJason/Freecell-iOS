@@ -124,8 +124,8 @@ public struct BoardView: View, StackOffsetting {
             .onTapGesture {
                 self.boardDriver.itemTapped(card)
             }
-//            .offset(boardDriver.cardOffset(for: card, relativeTo: bounds, stackOffset: offset, dragState: dragState))
             .position(x: bounds.midX, y: bounds.midY + stackOffset.height)
+            .offset(boardDriver.cardOffset(for: card, relativeTo: bounds, dragState: dragState))
             .animation(cardSpringAnimation)
             .simultaneousGesture(
                 createDragGesture(for: card)
