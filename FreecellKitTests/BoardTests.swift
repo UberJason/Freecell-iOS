@@ -63,7 +63,7 @@ class BoardTests: XCTestCase {
     
     func testBoardLocationContainingMethod() throws {
         
-        func validateLocation(for board: Board, card: Card, expectedLocation: CardLocation) {
+        func validateLocation(for board: Board, card: Card, expectedLocation: CardSeat) {
             let location = board.location(containing: card)
             guard type(of: location) == type(of: expectedLocation) else {
                 XCTFail("board containing \(Card.ace.ofSpades.displayTitle) should be a \(type(of: expectedLocation))")

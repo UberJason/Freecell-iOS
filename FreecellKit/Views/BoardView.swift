@@ -37,8 +37,8 @@ public struct BoardView: View, StackOffsetting {
                                 .onTapGesture {
                                     self.boardDriver.itemTapped(freeCell)
                                 }
-                            .anchorPreference(key: CardLocationInfoKey.self, value: .bounds, transform: { bounds in
-                                [CardLocationInfo(location: freeCell, type: .freecell, bounds: bounds)]
+                            .anchorPreference(key: CardSeatInfoKey.self, value: .bounds, transform: { bounds in
+                                [CardSeatInfo(location: freeCell, type: .freecell, bounds: bounds)]
                             })
                         }
                     }
@@ -52,8 +52,8 @@ public struct BoardView: View, StackOffsetting {
                                 .onTapGesture {
                                     self.boardDriver.itemTapped(foundation)
                                 }
-                                .anchorPreference(key: CardLocationInfoKey.self, value: .bounds, transform: { bounds in
-                                    [CardLocationInfo(location: foundation, type: .foundation, bounds: bounds)]
+                                .anchorPreference(key: CardSeatInfoKey.self, value: .bounds, transform: { bounds in
+                                    [CardSeatInfo(location: foundation, type: .foundation, bounds: bounds)]
                                 })
                         }
                     }
@@ -66,8 +66,8 @@ public struct BoardView: View, StackOffsetting {
                             .onTapGesture {
                                 self.boardDriver.itemTapped(column)
                             }
-                            .anchorPreference(key: CardLocationInfoKey.self, value: .bounds, transform: { bounds in
-                                [CardLocationInfo(location: column, type: .column, bounds: bounds)]
+                            .anchorPreference(key: CardSeatInfoKey.self, value: .bounds, transform: { bounds in
+                                [CardSeatInfo(location: column, type: .column, bounds: bounds)]
                             })
                     }
                 }
@@ -75,7 +75,7 @@ public struct BoardView: View, StackOffsetting {
             
         }
         .edgesIgnoringSafeArea(.all)
-        .overlayPreferenceValue(CardLocationInfoKey.self) { preferences in
+        .overlayPreferenceValue(CardSeatInfoKey.self) { preferences in
             return GeometryReader { geometry in
                 ZStack {
                     ForEach(self.boardDriver.allCards) { card in

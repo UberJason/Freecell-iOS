@@ -9,7 +9,7 @@
 import Foundation
 import DeckKit
 
-public class Foundation: Stack, CardLocation, Identifiable {
+public class Foundation: Stack, CardSeat, Identifiable {
     
     public let id: Int
     public let suit: Suit
