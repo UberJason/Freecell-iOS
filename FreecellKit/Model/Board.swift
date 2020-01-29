@@ -44,7 +44,7 @@ public struct Board {
         return Board(freecells: freecells.map { $0.copy() as! FreeCell }, foundations: foundations.map { $0.copy() as! Foundation }, columns: columns.map { $0.copy() as! Column })
     }
     
-    func location(containing card: Card) -> Cell {
+    func cell(containing card: Card) -> Cell {
         let allLocations: [[Cell]] = [freecells, foundations, columns]
         
         guard let containingLocation = allLocations
@@ -84,7 +84,7 @@ public struct Board {
 
         // If user attempts a column-to-column move, search for and attempt a stack movement.
         // In any other case, attempt a single-card move.
-        let fromLocation = self.location(containing: card)
+        let fromLocation = self.cell(containing: card)
         
         switch(fromLocation, toLocation) {
         case (let fromColumn as Column, let toColumn as Column):
@@ -105,7 +105,7 @@ public struct Board {
         
         guard location.canReceive(card) else { throw FreecellError.invalidMove }
         
-        if let card = self.location(containing: card).pop() {
+        if let card = self.cell(containing: card).pop() {
             try location.receive(card)
         }
         

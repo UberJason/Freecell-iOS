@@ -38,7 +38,7 @@ public struct BoardView: View, StackOffsetting {
                                     self.boardDriver.itemTapped(freeCell)
                                 }
                             .anchorPreference(key: CellInfoKey.self, value: .bounds, transform: { bounds in
-                                [CellInfo(location: freeCell, bounds: bounds)]
+                                [CellInfo(cell: freeCell, bounds: bounds)]
                             })
                         }
                     }
@@ -53,7 +53,7 @@ public struct BoardView: View, StackOffsetting {
                                     self.boardDriver.itemTapped(foundation)
                                 }
                                 .anchorPreference(key: CellInfoKey.self, value: .bounds, transform: { bounds in
-                                    [CellInfo(location: foundation, bounds: bounds)]
+                                    [CellInfo(cell: foundation, bounds: bounds)]
                                 })
                         }
                     }
@@ -67,7 +67,7 @@ public struct BoardView: View, StackOffsetting {
                                 self.boardDriver.itemTapped(column)
                             }
                             .anchorPreference(key: CellInfoKey.self, value: .bounds, transform: { bounds in
-                                [CellInfo(location: column, bounds: bounds)]
+                                [CellInfo(cell: column, bounds: bounds)]
                             })
                     }
                 }
@@ -102,9 +102,9 @@ public struct BoardView: View, StackOffsetting {
         var bounds = CGRect.zero
         var stackOffset = CGSize.zero
         
-        let containingLocation = boardDriver.location(containing: card)
+        let containingLocation = boardDriver.cell(containing: card)
         if let p = cells.filter({
-            $0.location.id == containingLocation.id
+            $0.cell.id == containingLocation.id
         }).first {
             bounds = geometry[p.bounds]
             if let column = containingLocation as? Column {

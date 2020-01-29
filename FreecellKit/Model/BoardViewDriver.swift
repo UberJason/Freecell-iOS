@@ -65,7 +65,7 @@ public class BoardViewDriver: ObservableObject {
         configureRendering()
     }
     
-    public func location(containing card: Card) -> Cell {
+    public func cell(containing card: Card) -> Cell {
         fatalError("Implement in subclass")
     }
     
@@ -106,14 +106,14 @@ public class ClassicViewDriver: BoardViewDriver {
             columns.flatMap({ $0.items })
     }
     
-    public override func location(containing card: Card) -> Cell {
-        return renderingBoard.location(containing: card)
+    public override func cell(containing card: Card) -> Cell {
+        return renderingBoard.cell(containing: card)
     }
 
     public override func itemTapped<T>(_ item: T) {
         switch item {
         case let card as Card:
-            handleTap(in: _board.location(containing: card))
+            handleTap(in: _board.cell(containing: card))
         case let location as Cell:
             handleTap(in: _board.location(id: location.id, locationType: type(of: location)))
         case _ as BoardView:
@@ -167,8 +167,8 @@ public class ModernViewDriver: BoardViewDriver {
     public var draggingStack: CardStack?
     private var cells = [CellInfo]()
     
-    public override func location(containing card: Card) -> Cell {
-        return renderingBoard.location(containing: card)
+    public override func cell(containing card: Card) -> Cell {
+        return renderingBoard.cell(containing: card)
     }
 
     public override func itemTapped<T>(_ item: T) {
@@ -193,7 +193,7 @@ public class ModernViewDriver: BoardViewDriver {
     }
     
     public override func dragStarted(from card: Card) {
-        if let origin = location(containing: card) as? Column,
+        if let origin = cell(containing: card) as? Column,
             let substack = origin.validSubstack(cappedBy: card) {
             draggingStack = substack
         }

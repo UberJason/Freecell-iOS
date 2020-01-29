@@ -9,7 +9,7 @@
 import SwiftUI
 
 public struct CellInfo {
-    let location: Cell
+    let cell: Cell
     let bounds: Anchor<CGRect>
 }
 
