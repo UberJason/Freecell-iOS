@@ -19,14 +19,14 @@ public struct Board {
     private var _movePublisher = PassthroughSubject<MoveEvent, Never>()
     
     public init(deck: Deck = Deck(shuffled: false)) {
-        freecells = (0...3).map { i in FreeCell(id: i) }
+        freecells = (0...3).map { _ in FreeCell() }
         foundations = [
-            Foundation(id: 0, suit: .diamonds),
-            Foundation(id: 1, suit: .clubs),
-            Foundation(id: 2, suit: .hearts),
-            Foundation(id: 3, suit: .spades)
+            Foundation(suit: .diamonds),
+            Foundation(suit: .clubs),
+            Foundation(suit: .hearts),
+            Foundation(suit: .spades)
         ]
-        columns = (0...7).map { i in Column(id: i) }
+        columns = (0...7).map { i in Column() }
         
         for i in 0 ..< Deck.maxCardCount {
             guard let card = deck.draw() else { fatalError("Deck empty during new game setup") }
@@ -57,7 +57,7 @@ public struct Board {
         return containingLocation
     }
     
-    func location(id: Int, locationType: Cell.Type) -> Cell {
+    func location(id: UUID, locationType: Cell.Type) -> Cell {
         let allLocations: [[Cell]] = [freecells, foundations, columns]
         let allLocationsFlat = allLocations.flatMap({ $0 })
         guard let containingLocation = allLocationsFlat

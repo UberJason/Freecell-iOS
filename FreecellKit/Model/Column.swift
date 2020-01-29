@@ -10,14 +10,14 @@ import Foundation
 import DeckKit
 
 public class Column: CardStack, Cell {
-    public let id: Int
+    public let id: UUID
     
-    public init(id: Int) {
+    public init(id: UUID = UUID()) {
         self.id = id
         super.init()
     }
     
-    public init(id: Int, cards: [Card]) {
+    public init(id: UUID = UUID(), cards: [Card]) {
         self.id = id
         super.init(cards: cards)
     }

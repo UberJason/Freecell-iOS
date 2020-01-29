@@ -10,7 +10,7 @@ import Foundation
 import DeckKit
 
 public protocol Cell: NSCopying {
-    var id: Int { get }
+    var id: UUID { get }
     func contains(_ card: Card) -> Bool
     func pop() -> Card?
     func canReceive(_ card: Card) -> Bool

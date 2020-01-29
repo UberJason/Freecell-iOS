@@ -45,7 +45,7 @@ class BoardTests: XCTestCase {
     }
     
     func testBoardSelectionState() {
-        let boardDriver = BoardViewDriver()
+        let boardDriver = ClassicViewDriver()
         
         switch boardDriver.selectionState {
         case .idle: break
@@ -126,7 +126,7 @@ class BoardTests: XCTestCase {
         XCTAssertEqual(board.columns[1].stack, [Card.nine.ofHearts])
         
         board.columns[0] = Column.sampleStackColumn
-        board.columns[1] = Column(id: 1,cards: [Card.four.ofHearts])
+        board.columns[1] = Column(cards: [Card.four.ofHearts])
         
         do {
             try board.move(board.columns[0].topItem!, to: board.columns[1])

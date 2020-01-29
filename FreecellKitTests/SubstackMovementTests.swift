@@ -23,7 +23,7 @@ class SubstackMovementTests: XCTestCase {
     func testCanMoveSubstack() throws {
         var board = Board.empty
         board.columns[0] = Column.sampleStackColumn
-        board.columns[1] = Column(id: 1, cards: [])
+        board.columns[1] = Column(cards: [])
         
         XCTAssertTrue(board.canMoveSubstack(from: board.columns[0], to: board.columns[1]), "Should be able to move a 4-card substack into an empty column with 4 free cells")
         
@@ -33,15 +33,15 @@ class SubstackMovementTests: XCTestCase {
         try! board.freecells[1].push(Card.two.ofClubs)
         XCTAssertTrue(board.canMoveSubstack(from: board.columns[0], to: board.columns[1]), "Should be able to move a 3 out of the 4 cards in a 4-card substack into an empty column with 2 free cells")
         
-        board.freecells = (0...3).map { i in FreeCell(id: i) }
+        board.freecells = (0...3).map { i in FreeCell() }
         
-        board.columns[2] = Column(id: 2, cards: [Card.ace.ofSpades])
+        board.columns[2] = Column(cards: [Card.ace.ofSpades])
 
         XCTAssertFalse(board.canMoveSubstack(from: board.columns[0], to: board.columns[2]), "Should not be able to move a substack with bottom card \(board.columns[0].largestValidSubstack()!.bottomItem!.displayTitle) to sit on the \(Card.ace.ofSpades.displayTitle)")
         
         XCTAssertFalse(board.canMoveSubstack(from: board.columns[3], to: board.columns[0]), "Should not be able to move an empty column onto another column")
         
-        board.columns[3] = Column(id: 3, cards: [Card.ten.ofSpades])
+        board.columns[3] = Column(cards: [Card.ten.ofSpades])
         XCTAssertTrue(board.canMoveSubstack(from: board.columns[0], to: board.columns[3]), "Should be able to move at least the single card from one stack to another")
     }
     
@@ -69,7 +69,7 @@ class SubstackMovementTests: XCTestCase {
         // Test moving a substack which is smaller than the largest valid substack
         board = Board.empty
         board.columns[0] = Column.sampleStackColumn
-        board.columns[1] = Column(id: 1, cards: [Card.jack.ofDiamonds])
+        board.columns[1] = Column(cards: [Card.jack.ofDiamonds])
         
         try board.moveSubstack(from: board.columns[0], to: board.columns[1])
         
@@ -115,7 +115,7 @@ class SubstackMovementTests: XCTestCase {
         // Test moving a substack while avoiding an auto-update in the middle of the movement to avoid an
         // unexpected board state and subsequent crash.
         board = Board.empty
-        board.columns[0] = Column(id: 0, cards: [
+        board.columns[0] = Column(cards: [
             Card.three.ofHearts,
             Card.three.ofDiamonds,
             Card.queen.ofSpades,
@@ -124,7 +124,7 @@ class SubstackMovementTests: XCTestCase {
             Card.three.ofSpades,
             Card.two.ofDiamonds
         ])
-        board.columns[1] = Column(id: 1, cards: [
+        board.columns[1] = Column(cards: [
             Card.eight.ofSpades,
             Card.eight.ofClubs,
             Card.king.ofSpades,

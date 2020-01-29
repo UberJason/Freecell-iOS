@@ -10,7 +10,7 @@ import Foundation
 import DeckKit
 
 public class FreeCell: Stack, Cell, Identifiable {
-    public let id: Int
+    public let id: UUID
     public var item: Card?
     
     public var maxSize: Int { return 1 }
@@ -24,7 +24,7 @@ public class FreeCell: Stack, Cell, Identifiable {
     
     public var isOccupied: Bool { return item != nil }
     
-    init(id: Int, card: Card? = nil) {
+    init(id: UUID = UUID(), card: Card? = nil) {
         self.id = id
         self.item = card
     }

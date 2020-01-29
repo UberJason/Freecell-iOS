@@ -12,7 +12,7 @@ import DeckKit
 
 extension Column {
     static var sampleStackColumn: Column {
-        return Column(id: 0, cards: [
+        return Column(cards: [
             Card.four.ofSpades,
             Card.seven.ofClubs,
             Card.king.ofClubs,
