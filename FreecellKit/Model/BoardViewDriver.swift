@@ -200,6 +200,17 @@ public class ModernViewDriver: BoardViewDriver {
     }
     
     public override func dragEnded(with translation: CGSize) {
+        // Algorithm:
+        // - Use draggingStack's bottomItem
+        // - Find cell(containing:) that item
+        // - Get that cell's center from cellPositions
+        // - Use translation to determine dragged card's final position
+        // - PRINT dragged card's final position
+        // - Compute distance from every cell's position and sort; closest cell is intended target
+        // - PRINT intended target
+        // - Model updates to try to move the draggingStack to the intended target
+        
+        
         draggingStack = nil
     }
     
