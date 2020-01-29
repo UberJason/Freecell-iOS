@@ -6,7 +6,7 @@
 //  Copyright © 2020 Jason Ji. All rights reserved.
 //
 
-import Foundation
+import CoreGraphics
 
 public extension CGRect {
     var center: CGPoint {

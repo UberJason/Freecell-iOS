@@ -45,28 +45,28 @@ public struct Board {
     }
     
     func cell(containing card: Card) -> Cell {
-        let allLocations: [[Cell]] = [freecells, foundations, columns]
+        let allCells: [[Cell]] = [freecells, foundations, columns]
         
-        guard let containingLocation = allLocations
+        guard let cell = allCells
             .flatMap({ $0 })
-            .filter({ location in
-                location.contains(card)
+            .filter({
+                $0.contains(card)
             })
             .first else { fatalError("Fatal error! Nobody seems to have the card: \(card.displayTitle)") }
         
-        return containingLocation
+        return cell
     }
     
-    func location(id: UUID, locationType: Cell.Type) -> Cell {
-        let allLocations: [[Cell]] = [freecells, foundations, columns]
-        let allLocationsFlat = allLocations.flatMap({ $0 })
-        guard let containingLocation = allLocationsFlat
+    func cell(for id: UUID) -> Cell {
+        let allCells: [[Cell]] = [freecells, foundations, columns]
+        let allCellsFlat = allCells.flatMap({ $0 })
+        guard let cell = allCellsFlat
             .filter({ location in
-                location.id == id && type(of: location) == locationType
+                location.id == id
             })
-            .first else { fatalError("Fatal error! This location doesn't exist: \(id), \(locationType)")}
+            .first else { fatalError("Fatal error! This location doesn't exist: \(id)") }
         
-        return containingLocation
+        return cell
     }
     
     /// Finds and attempts to perform a valid move using the selected card and the destination location.

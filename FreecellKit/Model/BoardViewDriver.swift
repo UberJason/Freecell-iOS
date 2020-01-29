@@ -115,7 +115,7 @@ public class ClassicViewDriver: BoardViewDriver {
         case let card as Card:
             handleTap(in: _board.cell(containing: card))
         case let location as Cell:
-            handleTap(in: _board.location(id: location.id, locationType: type(of: location)))
+            handleTap(in: _board.cell(for: location.id))
         case _ as BoardView:
             selectedCard = nil
         default:
@@ -210,7 +210,33 @@ public class ModernViewDriver: BoardViewDriver {
         // - PRINT intended target
         // - Model updates to try to move the draggingStack to the intended target
         
+        guard let baseCard = draggingStack?.bottomItem else { return }
+        let containingCell = _board.cell(containing: baseCard)
         
+        guard let containingCellPosition = cellPositions.filter({ $0.cellId == containingCell.id }).first?.position else { return }
+        let baseCardPosition = containingCellPosition.position(byAdding: translation)
+        
+        let relativeDistances = cellPositions
+            .map { CellDistance(cellId: $0.cellId, distance: $0.position.distance(from: baseCardPosition)) }
+            .sorted { $0.distance < $1.distance }
+        
+        guard let closestCellId = relativeDistances.first?.cellId else { return }
+        let closestCell = _board.cell(for: closestCellId)
+        
+        //****************************************************//
+        
+        if let closestCell = closestCell as? FreeCell {
+            print("Freecell: \(_board.freecells.firstIndex(where: { $0.id == closestCell.id })!)")
+        }
+        if let closestCell = closestCell as? Foundation {
+            print("Foundation: \(_board.foundations.firstIndex(where: { $0.id == closestCell.id })!)")
+        }
+        if let closestCell = closestCell as? Column {
+            print("Closest cell: \(closestCell)")
+        }
+        
+//        try! _board.move(baseCard, to: closestCell)
+        //****************************************************//
         draggingStack = nil
     }
     

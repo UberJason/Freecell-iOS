@@ -25,3 +25,9 @@ public struct CellPosition {
     let cellId: UUID
     let position: CGPoint
 }
+
+public struct CellDistance {
+    let cellId: UUID
+    let distance: CGFloat
+}
+
