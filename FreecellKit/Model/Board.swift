@@ -44,8 +44,8 @@ public struct Board {
         return Board(freecells: freecells.map { $0.copy() as! FreeCell }, foundations: foundations.map { $0.copy() as! Foundation }, columns: columns.map { $0.copy() as! Column })
     }
     
-    func location(containing card: Card) -> CardSeat {
-        let allLocations: [[CardSeat]] = [freecells, foundations, columns]
+    func location(containing card: Card) -> Cell {
+        let allLocations: [[Cell]] = [freecells, foundations, columns]
         
         guard let containingLocation = allLocations
             .flatMap({ $0 })
@@ -57,8 +57,8 @@ public struct Board {
         return containingLocation
     }
     
-    func location(id: Int, locationType: CardSeat.Type) -> CardSeat {
-        let allLocations: [[CardSeat]] = [freecells, foundations, columns]
+    func location(id: Int, locationType: Cell.Type) -> Cell {
+        let allLocations: [[Cell]] = [freecells, foundations, columns]
         let allLocationsFlat = allLocations.flatMap({ $0 })
         guard let containingLocation = allLocationsFlat
             .filter({ location in
@@ -74,7 +74,7 @@ public struct Board {
     /// - Parameters:
     ///   - card: Current user selected card. Will be moved or part of the move, if a stack movement.
     ///   - toLocation: Destination to receive the card and/or stack.
-    func performValidMove(from card: Card, to toLocation: CardSeat) throws {
+    func performValidMove(from card: Card, to toLocation: Cell) throws {
         
         // Edge case: If user taps selected card twice, move card to available freecell.
         if toLocation.contains(card), toLocation is Column {
@@ -100,7 +100,7 @@ public struct Board {
     ///   - location: Location to receive the card.
     ///   - deferringAutoUpdate: If false, the board will attempt to auto-update foundations after a successful move.
     ///    When in the middle of a stack movement, this value may be preferred to be true to avoid putting the board in an unexpected state.
-    func move(_ card: Card, to location: CardSeat, deferringAutoUpdate: Bool = false) throws {
+    func move(_ card: Card, to location: Cell, deferringAutoUpdate: Bool = false) throws {
         let beforeBoard = self.copy
         
         guard location.canReceive(card) else { throw FreecellError.invalidMove }

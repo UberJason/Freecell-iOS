@@ -9,7 +9,7 @@
 import Foundation
 import DeckKit
 
-public class FreeCell: Stack, CardSeat, Identifiable {
+public class FreeCell: Stack, Cell, Identifiable {
     public let id: Int
     public var item: Card?
     

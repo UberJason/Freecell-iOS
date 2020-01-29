@@ -1,5 +1,5 @@
 //
-//  CardSeat.swift
+//  Cell.swift
 //  FreecellKit
 //
 //  Created by Jason Ji on 11/18/19.
@@ -9,25 +9,25 @@
 import Foundation
 import DeckKit
 
-public protocol CardSeat: NSCopying {
+public protocol Cell: NSCopying {
     var id: Int { get }
     func contains(_ card: Card) -> Bool
     func pop() -> Card?
     func canReceive(_ card: Card) -> Bool
     func receive(_ card: Card) throws
     
-    /// Returns card at this CardSeat that can be selected, if exists.
+    /// Returns card at this Cell that can be selected, if exists.
     /// Foundations always return nil, FreeCells return the item if exists, and
     /// Columns return the top card if exists.
     func selectableCard() -> Card?
 }
 
-public extension CardSeat where Self: Stack, T == Card {
+public extension Cell where Self: Stack, T == Card {
     func receive(_ card: Card) throws {
         try push(card)
     }
 }
 
-public enum CardSeatType {
+public enum CellType {
     case freecell, foundation, column
 }

@@ -9,7 +9,7 @@
 import Foundation
 import DeckKit
 
-public class Column: CardStack, CardSeat {
+public class Column: CardStack, Cell {
     public let id: Int
     
     public init(id: Int) {

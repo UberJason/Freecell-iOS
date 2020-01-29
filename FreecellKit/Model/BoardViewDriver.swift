@@ -65,7 +65,7 @@ public class BoardViewDriver: ObservableObject {
         configureRendering()
     }
     
-    public func location(containing card: Card) -> CardSeat {
+    public func location(containing card: Card) -> Cell {
         fatalError("Implement in subclass")
     }
     
@@ -106,7 +106,7 @@ public class ClassicViewDriver: BoardViewDriver {
             columns.flatMap({ $0.items })
     }
     
-    public override func location(containing card: Card) -> CardSeat {
+    public override func location(containing card: Card) -> Cell {
         return renderingBoard.location(containing: card)
     }
 
@@ -114,7 +114,7 @@ public class ClassicViewDriver: BoardViewDriver {
         switch item {
         case let card as Card:
             handleTap(in: _board.location(containing: card))
-        case let location as CardSeat:
+        case let location as Cell:
             handleTap(in: _board.location(id: location.id, locationType: type(of: location)))
         case _ as BoardView:
             selectedCard = nil
@@ -124,7 +124,7 @@ public class ClassicViewDriver: BoardViewDriver {
     }
     
     #warning("TODO: Quality of life - if tap on a Freecell card when another Freecell card is selected, select new Freecell card.")
-    private func handleTap(in location: CardSeat) {
+    private func handleTap(in location: Cell) {
         switch selectionState {
         case .idle:
             selectedCard = location.selectableCard()
@@ -165,9 +165,9 @@ public class ModernViewDriver: BoardViewDriver {
     }
     
     public var draggingStack: CardStack?
-    private var cardSeats = [CardSeatInfo]()
+    private var cells = [CellInfo]()
     
-    public override func location(containing card: Card) -> CardSeat {
+    public override func location(containing card: Card) -> Cell {
         return renderingBoard.location(containing: card)
     }
 
@@ -213,9 +213,13 @@ public class ModernViewDriver: BoardViewDriver {
         return CGSize(width: dragOffset.width, height: dragOffset.height)
     }
     
-    public func storeCardSeats(_ seats: [CardSeatInfo]) {
-        if cardSeats.isEmpty {
-            cardSeats = seats
+    public func storeCells(_ seats: [CellInfo]) {
+        if cells.isEmpty {
+            cells = seats
         }
     }
+}
+
+struct CellPosition {
+    
 }
