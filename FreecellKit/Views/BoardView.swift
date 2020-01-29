@@ -38,7 +38,7 @@ public struct BoardView: View, StackOffsetting {
                                     self.boardDriver.itemTapped(freeCell)
                                 }
                             .anchorPreference(key: CellInfoKey.self, value: .bounds, transform: { bounds in
-                                [CellInfo(cell: freeCell, bounds: bounds)]
+                                [CellInfo(cellId: freeCell.id, bounds: bounds)]
                             })
                         }
                     }
@@ -53,7 +53,7 @@ public struct BoardView: View, StackOffsetting {
                                     self.boardDriver.itemTapped(foundation)
                                 }
                                 .anchorPreference(key: CellInfoKey.self, value: .bounds, transform: { bounds in
-                                    [CellInfo(cell: foundation, bounds: bounds)]
+                                    [CellInfo(cellId: foundation.id, bounds: bounds)]
                                 })
                         }
                     }
@@ -67,7 +67,7 @@ public struct BoardView: View, StackOffsetting {
                                 self.boardDriver.itemTapped(column)
                             }
                             .anchorPreference(key: CellInfoKey.self, value: .bounds, transform: { bounds in
-                                [CellInfo(cell: column, bounds: bounds)]
+                                [CellInfo(cellId: column.id, bounds: bounds)]
                             })
                     }
                 }
@@ -95,8 +95,7 @@ public struct BoardView: View, StackOffsetting {
     
     func renderedCardView(_ card: Card, using geometry: GeometryProxy, cells: [CellInfo]) -> some View {
         if let boardDriver = boardDriver as? ModernViewDriver {
-            cells.map { geometry[$0.bounds] }
-            boardDriver.storeCells(cells)
+            boardDriver.storeCellPositions(cells, using: geometry)
         }
             
         var bounds = CGRect.zero
@@ -104,7 +103,7 @@ public struct BoardView: View, StackOffsetting {
         
         let containingLocation = boardDriver.cell(containing: card)
         if let p = cells.filter({
-            $0.cell.id == containingLocation.id
+            $0.cellId == containingLocation.id
         }).first {
             bounds = geometry[p.bounds]
             if let column = containingLocation as? Column {

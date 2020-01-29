@@ -165,7 +165,7 @@ public class ModernViewDriver: BoardViewDriver {
     }
     
     public var draggingStack: CardStack?
-    private var cells = [CellInfo]()
+    private var cellPositions = [CellPosition]()
     
     public override func cell(containing card: Card) -> Cell {
         return renderingBoard.cell(containing: card)
@@ -213,13 +213,9 @@ public class ModernViewDriver: BoardViewDriver {
         return CGSize(width: dragOffset.width, height: dragOffset.height)
     }
     
-    public func storeCells(_ seats: [CellInfo]) {
-        if cells.isEmpty {
-            cells = seats
+    public func storeCellPositions(_ anchors: [CellInfo], using geometry: GeometryProxy) {
+        if cellPositions.isEmpty {
+            cellPositions = anchors.map { CellPosition(cellId: $0.cellId, position: geometry[$0.bounds].center) }
         }
     }
-}
-
-struct CellPosition {
-    
 }

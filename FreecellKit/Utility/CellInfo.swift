@@ -9,7 +9,7 @@
 import SwiftUI
 
 public struct CellInfo {
-    let cell: Cell
+    let cellId: UUID
     let bounds: Anchor<CGRect>
 }
 
@@ -19,4 +19,9 @@ public struct CellInfoKey: PreferenceKey {
     public static func reduce(value: inout [CellInfo], nextValue: () -> [CellInfo]) {
         value.append(contentsOf: nextValue())
     }
+}
+
+public struct CellPosition {
+    let cellId: UUID
+    let position: CGPoint
 }
