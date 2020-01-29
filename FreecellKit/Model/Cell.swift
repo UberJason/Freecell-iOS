@@ -27,7 +27,3 @@ public extension Cell where Self: Stack, T == Card {
         try push(card)
     }
 }
-
-public enum CellType {
-    case freecell, foundation, column
-}

@@ -38,7 +38,7 @@ public struct BoardView: View, StackOffsetting {
                                     self.boardDriver.itemTapped(freeCell)
                                 }
                             .anchorPreference(key: CellInfoKey.self, value: .bounds, transform: { bounds in
-                                [CellInfo(location: freeCell, type: .freecell, bounds: bounds)]
+                                [CellInfo(location: freeCell, bounds: bounds)]
                             })
                         }
                     }
@@ -53,7 +53,7 @@ public struct BoardView: View, StackOffsetting {
                                     self.boardDriver.itemTapped(foundation)
                                 }
                                 .anchorPreference(key: CellInfoKey.self, value: .bounds, transform: { bounds in
-                                    [CellInfo(location: foundation, type: .foundation, bounds: bounds)]
+                                    [CellInfo(location: foundation, bounds: bounds)]
                                 })
                         }
                     }
@@ -67,7 +67,7 @@ public struct BoardView: View, StackOffsetting {
                                 self.boardDriver.itemTapped(column)
                             }
                             .anchorPreference(key: CellInfoKey.self, value: .bounds, transform: { bounds in
-                                [CellInfo(location: column, type: .column, bounds: bounds)]
+                                [CellInfo(location: column, bounds: bounds)]
                             })
                     }
                 }
@@ -104,11 +104,10 @@ public struct BoardView: View, StackOffsetting {
         
         let containingLocation = boardDriver.location(containing: card)
         if let p = cells.filter({
-            $0.location.id == containingLocation.id &&
-            type(of: containingLocation) == type(of: $0.location)
+            $0.location.id == containingLocation.id
         }).first {
             bounds = geometry[p.bounds]
-            if p.type == .column, let column = containingLocation as? Column {
+            if let column = containingLocation as? Column {
                 stackOffset = self.stackOffset(for: card, orderIndex: column.orderIndex(for: card))
             }
         }
