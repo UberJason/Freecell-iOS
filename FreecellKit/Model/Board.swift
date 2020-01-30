@@ -175,16 +175,21 @@ public struct Board {
         
         return nil
     }
-
+    
+    func canMoveSubstack(_ substack: CardStack, to toColumn: Column) -> Bool {
+        guard let capCard = substack.bottomItem,
+            toColumn.canReceive(capCard) else { return false }
+        
+        return substack.items.count <= maximumMoveableSubstackSize
+    }
+    
     func canMoveSubstack(from fromColumn: Column, to toColumn: Column) -> Bool {
         if toColumn.isEmpty && !fromColumn.isEmpty { return true }
         
         guard let capCard = capCard(forMovingFrom: fromColumn, to: toColumn),
             let substack = fromColumn.validSubstack(cappedBy: capCard) else { return false }
         
-        guard toColumn.canReceive(capCard) else { return false }
-        
-        return substack.items.count <= maximumMoveableSubstackSize
+        return canMoveSubstack(substack, to: toColumn)
     }
     
     func moveSubstack(from fromColumn: Column, to toColumn: Column) throws {
@@ -221,7 +226,16 @@ public struct Board {
         guard let capCard = capCard(forMovingFrom: fromColumn, to: toColumn),
         let substack = fromColumn.validSubstack(cappedBy: capCard) else { return false }
         
-        return toColumn.isEmpty && availableFreeColumnCount(excluding: toColumn) > 0 && substack.items.count > maximumMoveableSubstackSize
+        return toColumn.isEmpty && availableFreeColumnCount(excluding: toColumn) > 0 && !canMoveSubstack(substack, to: toColumn)
+    }
+    
+    func canMoveFullStack(_ substack: CardStack, to toColumn: Column) -> Bool {
+        guard let capCard = substack.bottomItem,
+            toColumn.canReceive(capCard) else { return false }
+        
+        let availableFreeColumnCount = self.availableFreeColumnCount(excluding: toColumn)
+        
+        return substack.items.count <= (availableFreecellCount + 1)*(availableFreeColumnCount+1)
     }
     
     func canMoveFullStack(from fromColumn: Column, to toColumn: Column) -> Bool {
@@ -230,11 +244,7 @@ public struct Board {
         guard let capCard = capCard(forMovingFrom: fromColumn, to: toColumn),
             let substack = fromColumn.validSubstack(cappedBy: capCard) else { return false }
         
-        guard toColumn.canReceive(capCard) else { return false }
-        
-        let availableFreeColumnCount = self.availableFreeColumnCount(excluding: toColumn)
-        
-        return substack.items.count <= (availableFreecellCount + 1)*(availableFreeColumnCount+1)
+        return canMoveFullStack(substack, to: toColumn)
     }
     
     func moveFullStack(from fromColumn: Column, to toColumn: Column) throws {

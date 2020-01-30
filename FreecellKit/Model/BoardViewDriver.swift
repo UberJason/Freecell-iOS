@@ -54,6 +54,7 @@ public class BoardViewDriver: ObservableObject {
         undoManager?.registerUndo(withTarget: self, selector: #selector(performUndo), object: nil)
     }
     
+    #warning("Undo doesn't work after new game?")
     public func undo() {
         undoManager?.undo()
     }
