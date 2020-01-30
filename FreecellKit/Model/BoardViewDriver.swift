@@ -219,33 +219,45 @@ public class ModernViewDriver: BoardViewDriver {
         // - Model updates to try to move the draggingStack to the intended target
         
         guard let baseCard = draggingStack?.bottomItem else { return }
-        let containingCell = _board.cell(containing: baseCard)
         
-        guard let containingCellPosition = cellPositions.filter({ $0.cellId == containingCell.id }).first?.position else { return }
-        let baseCardPosition = containingCellPosition.position(byAdding: translation)
+        // Find the absolute position of the base card of the dragging stack given the translation.
+        let baseCardPosition = position(for: baseCard, translatedBy: translation)
         
-        let relativeDistances = cellPositions
-            .map { CellDistance(cellId: $0.cellId, distance: $0.position.distance(from: baseCardPosition)) }
-            .sorted { $0.distance < $1.distance }
-        
-        guard let closestCellId = relativeDistances.first?.cellId else { return }
-        let closestCell = _board.cell(for: closestCellId)
+        // The target cell is the cell whose position is closest to the base card position.
+        let targetCell = closestCell(to: baseCardPosition)
         
         //****************************************************//
         
-        if let closestCell = closestCell as? FreeCell {
-            print("Freecell: \(_board.freecells.firstIndex(where: { $0.id == closestCell.id })!)")
+        if let targetCell = targetCell as? FreeCell {
+            print("Freecell: \(_board.freecells.firstIndex(where: { $0.id == targetCell.id })!)")
         }
-        if let closestCell = closestCell as? Foundation {
-            print("Foundation: \(_board.foundations.firstIndex(where: { $0.id == closestCell.id })!)")
+        if let targetCell = targetCell as? Foundation {
+            print("Foundation: \(_board.foundations.firstIndex(where: { $0.id == targetCell.id })!)")
         }
-        if let closestCell = closestCell as? Column {
-            print("Closest cell: \(closestCell)")
+        if let targetCell = targetCell as? Column {
+            print("Closest column: \(targetCell)")
         }
         
-        try! _board.move(baseCard, to: closestCell)
+        try! _board.move(baseCard, to: targetCell)
         //****************************************************//
         draggingStack = nil
+    }
+    
+    private func position(for card: Card, translatedBy translation: CGSize) -> CGPoint {
+        let containingCell = _board.cell(containing: card)
+        
+        guard let containingCellPosition = cellPositions.filter({ $0.cellId == containingCell.id }).first?.position else { return .zero }
+        
+        return containingCellPosition.position(byAdding: translation)
+    }
+    
+    private func closestCell(to position: CGPoint) -> Cell {
+        let relativeDistances = cellPositions
+            .map { CellDistance(cellId: $0.cellId, distance: $0.position.distance(from: position)) }
+            .sorted { $0.distance < $1.distance }
+        
+        guard let closestCellId = relativeDistances.first?.cellId else { fatalError("No cell found") }
+        return _board.cell(for: closestCellId)
     }
     
     public override func cardOffset(for card: Card, relativeTo bounds: CGRect, dragState: BoardView.DragState? = nil) -> CGSize {

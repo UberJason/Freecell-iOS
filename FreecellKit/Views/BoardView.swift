@@ -136,15 +136,11 @@ public struct BoardView: View, StackOffsetting {
         let gesture = DragGesture()
             .updating(self.$dragState) { (value, state, _) in
                 if case .inactive = state {
-                    print("Drag was inactive, detach a stack")
                     self.boardDriver.dragStarted(from: card)
                 }
                 state = .active(translation: value.translation)
-                    
-                print("state: \(state)")
             }
             .onEnded { value in
-                print("Ended: \(value)")
                 self.boardDriver.dragEnded(with: value.translation)
             }
         
