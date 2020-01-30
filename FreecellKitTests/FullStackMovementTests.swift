@@ -20,14 +20,32 @@ class FullStackMovementTests: XCTestCase {
         // Put teardown code here. This method is called after the invocation of each test method in the class.
     }
     
-    func testCanMoveFullStackBoard1() throws {
+    func testCanMoveFullStackBoard7() throws {
         // This full stack movement check should be false.
+        let board = Board.fullStackShouldNotMoveBoard7
+        guard let substack = board.columns[0].validSubstack(cappedBy: Card.six.ofClubs) else {
+            return XCTFail("Couldn't get substack at column 0")
+        }
+        var canMove = board.canMoveFullStack(substack, to: board.columns[2])
+        XCTAssertFalse(canMove)
         
+        // This smaller stack movement should be true.
+        guard let smallerSubstack = board.columns[0].validSubstack(cappedBy: Card.three.ofDiamonds) else {
+            return XCTFail("Couldn't get substack at column 0")
+        }
+        canMove = board.canMoveFullStack(smallerSubstack, to: board.columns[2])
+        XCTAssertTrue(canMove)
     }
     
-    func testCanMoveFullStackBoard2() throws {
+    func testCanMoveFullStackBoard8() throws {
         // This full stack movement check should be false.
+        let board = Board.fullStackShouldNotMoveBoard8
+        guard let substack = board.columns[3].validSubstack(cappedBy: Card.eight.ofSpades) else {
+            return XCTFail("Couldn't get substack at column 3")
+        }
+        let canMove = board.canMoveFullStack(substack, to: board.columns[2])
         
+        XCTAssertFalse(canMove)
     }
 
     func testFullStackMovement1() throws {

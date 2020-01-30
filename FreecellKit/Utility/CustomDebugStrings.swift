@@ -21,7 +21,7 @@ extension Foundation: CustomDebugStringConvertible {
     }
 }
 
-extension Column: CustomDebugStringConvertible {
+extension CardStack: CustomDebugStringConvertible {
     public var debugDescription: String {
         return "[ " + items.map({ $0.displayTitle }).joined(separator: ", ") + "]"
     }
