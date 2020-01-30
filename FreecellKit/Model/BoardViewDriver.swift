@@ -31,6 +31,7 @@ public class BoardViewDriver: ObservableObject {
     
     internal var animationOffsetInterval = 75
     internal var moveEventSubscriber: AnyCancellable?
+    internal var cancellable = Set<AnyCancellable>()
     internal var undoManager: UndoManager?
     internal var _board = Board(deck: Deck(shuffled: true))
     internal var previousBoards = [Board]()
@@ -43,10 +44,15 @@ public class BoardViewDriver: ObservableObject {
     internal func configureRendering() {
         renderingBoard = _board.copy
         
-        moveEventSubscriber = _board.movePublisher
-        .modulated(.milliseconds(animationOffsetInterval), scheduler: RunLoop.main)
-        .map { $0.afterBoard }
-        .assign(to: \.renderingBoard, on: self)
+        
+        // Assign seems to cause a memory leak, so I'm using sink instead:
+        // https://forums.swift.org/t/does-assign-to-produce-memory-leaks/29546
+        _board.movePublisher
+            .modulated(.milliseconds(animationOffsetInterval), scheduler: RunLoop.main)
+            .map { $0.afterBoard }
+//            .assign(to: \.renderingBoard, on: self)
+            .sink { [weak self] in self?.renderingBoard = $0 }
+            .store(in: &cancellable)
     }
     
     internal func registerMove() {
@@ -56,7 +62,7 @@ public class BoardViewDriver: ObservableObject {
     
     #warning("Undo doesn't work after new game?")
     public func undo() {
-        undoManager?.undo()
+        performUndo()
     }
     
     @objc internal func performUndo() {

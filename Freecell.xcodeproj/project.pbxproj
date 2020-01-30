@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		9613245023E12A0600982898 /* CGRect+Center.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9613244F23E12A0600982898 /* CGRect+Center.swift */; };
 		9613245223E23D4000982898 /* CGPoint+Translation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9613245123E23D4000982898 /* CGPoint+Translation.swift */; };
+		961AC2A823E374AC003341B0 /* Notification+NewGame.swift in Sources */ = {isa = PBXBuildFile; fileRef = 961AC2A723E374AC003341B0 /* Notification+NewGame.swift */; };
 		9622959A23835A7B005D599B /* Cell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9622959923835A7B005D599B /* Cell.swift */; };
 		9622959C238393BA005D599B /* GameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96A363F9237CF0FC005C45FB /* GameView.swift */; };
 		962295F223884563005D599B /* CardRectangle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 962295F123884563005D599B /* CardRectangle.swift */; };
@@ -218,6 +219,7 @@
 /* Begin PBXFileReference section */
 		9613244F23E12A0600982898 /* CGRect+Center.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CGRect+Center.swift"; sourceTree = "<group>"; };
 		9613245123E23D4000982898 /* CGPoint+Translation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CGPoint+Translation.swift"; sourceTree = "<group>"; };
+		961AC2A723E374AC003341B0 /* Notification+NewGame.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Notification+NewGame.swift"; sourceTree = "<group>"; };
 		9622959923835A7B005D599B /* Cell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Cell.swift; sourceTree = "<group>"; };
 		962295F123884563005D599B /* CardRectangle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardRectangle.swift; sourceTree = "<group>"; };
 		962295F323887623005D599B /* BoardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = BoardView.swift; path = FreecellKit/Views/BoardView.swift; sourceTree = SOURCE_ROOT; };
@@ -445,6 +447,7 @@
 			children = (
 				9689E18923AB0BA4008B960B /* ModulatedPublisher.swift */,
 				9689E18823AB0BA4008B960B /* SteppingSubscriber.swift */,
+				961AC2A723E374AC003341B0 /* Notification+NewGame.swift */,
 			);
 			path = Publisher;
 			sourceTree = "<group>";
@@ -1044,6 +1047,7 @@
 				9625628F2381D857003C09AA /* ColumnView.swift in Sources */,
 				962295F223884563005D599B /* CardRectangle.swift in Sources */,
 				9613245023E12A0600982898 /* CGRect+Center.swift in Sources */,
+				961AC2A823E374AC003341B0 /* Notification+NewGame.swift in Sources */,
 				9688893C238B679A001DD34B /* Suit+Color.swift in Sources */,
 				9661E7AC2380439C00183A99 /* CardStack.swift in Sources */,
 				962562892381D846003C09AA /* CardView.swift in Sources */,

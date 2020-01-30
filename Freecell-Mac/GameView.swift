@@ -12,7 +12,7 @@ import FreecellKit
 import Combine
 
 class Game: ObservableObject {
-    @Published var boardDriver: BoardViewDriver = ModernViewDriver()
+    @Published var boardDriver: BoardViewDriver = ClassicViewDriver()
     
     var cancellable: AnyCancellable?
     
@@ -20,7 +20,8 @@ class Game: ObservableObject {
         cancellable = publisher.sink { [weak self] event in
             switch event {
             case .newGame:
-                self?.boardDriver = ModernViewDriver()
+                self?.boardDriver = ClassicViewDriver()
+                NotificationCenter.default.post(name: .newGame, object: nil)
             case .undo:
                 self?.boardDriver.undo()
             case .redo:
@@ -34,8 +35,8 @@ class Game: ObservableObject {
 struct GameView: View {
     @ObservedObject var game = Game()
     
-    init(newGamePublisher: AnyPublisher<GameEvent, Never>) {
-        game.connect(newGamePublisher)
+    init(gameEventPublisher: AnyPublisher<GameEvent, Never>) {
+        game.connect(gameEventPublisher)
     }
     
     var body: some View {
@@ -45,7 +46,7 @@ struct GameView: View {
 
 struct GameView_Previews: PreviewProvider {
     static var previews: some View {
-        GameView(newGamePublisher: PassthroughSubject<GameEvent, Never>().eraseToAnyPublisher())
+        GameView(gameEventPublisher: PassthroughSubject<GameEvent, Never>().eraseToAnyPublisher())
             .previewDevice("iPad Pro 11")
             .previewLayout(.fixed(width: 1194, height: 834))
     }
