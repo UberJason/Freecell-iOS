@@ -508,4 +508,170 @@ extension Board {
         
         return Board.preconfigured(withFreecells: freecells, foundations: foundations, columns: columns)
     }
+    
+    static var fullStackShouldNotMoveBoard7: Board {
+        let freecells: [FreeCell] = [
+            FreeCell(),
+            FreeCell(card: Card.jack.ofClubs),
+            FreeCell(card: Card.king.ofDiamonds),
+            FreeCell(card: Card.eight.ofSpades)
+        ]
+        
+        let foundations: [Foundation] = [
+            Foundation(topCard: Card.two.ofDiamonds)!,
+            Foundation(topCard: Card.two.ofClubs)!,
+            Foundation(suit: .hearts),
+            Foundation(suit: .spades)
+        ]
+        
+        let columns: [Column] = [
+            Column(cards: [
+                Card.ace.ofHearts,
+                Card.seven.ofClubs,
+                Card.seven.ofHearts,
+                Card.queen.ofHearts,
+                Card.two.ofHearts,
+                Card.six.ofClubs,
+                Card.five.ofDiamonds,
+                Card.four.ofClubs,
+                Card.three.ofDiamonds,
+                Card.two.ofSpades
+            ]),
+            Column(cards: [
+                Card.eight.ofDiamonds,
+                Card.king.ofHearts,
+                Card.king.ofSpades,
+                Card.ace.ofSpades,
+                Card.three.ofHearts,
+                Card.queen.ofSpades,
+                Card.six.ofHearts,
+                Card.five.ofSpades,
+                Card.four.ofDiamonds,
+                Card.three.ofSpades
+            ]),
+            Column(cards: [
+                
+            ]),
+            Column(cards: [
+                Card.six.ofSpades,
+                Card.four.ofSpades,
+                Card.nine.ofDiamonds,
+                Card.ten.ofDiamonds,
+                Card.nine.ofSpades
+            ]),
+            Column(cards: [
+                Card.six.ofDiamonds,
+                Card.five.ofClubs,
+                Card.four.ofHearts
+            ]),
+            Column(cards: [
+                Card.seven.ofDiamonds,
+                Card.seven.ofSpades,
+                Card.three.ofClubs,
+                Card.queen.ofClubs,
+                Card.king.ofClubs,
+                Card.queen.ofDiamonds,
+                Card.jack.ofSpades,
+                Card.ten.ofHearts,
+                Card.nine.ofClubs,
+                Card.eight.ofHearts
+            ]),
+            Column(cards: [
+                Card.jack.ofHearts,
+                Card.ten.ofSpades,
+                Card.nine.ofHearts,
+                Card.eight.ofClubs
+            ]),
+            Column(cards: [
+                Card.ten.ofClubs,
+                Card.jack.ofDiamonds,
+                Card.five.ofHearts
+            ])
+        ]
+        
+        return Board.preconfigured(withFreecells: freecells, foundations: foundations, columns: columns)
+    }
+    static var fullStackShouldNotMoveBoard8: Board {
+        let freecells: [FreeCell] = [
+            FreeCell(card: Card.king.ofHearts),
+            FreeCell(card: Card.six.ofDiamonds),
+            FreeCell(card: Card.queen.ofDiamonds),
+            FreeCell()
+        ]
+        
+        let foundations: [Foundation] = [
+            Foundation(suit: .diamonds),
+            Foundation(topCard: Card.ace.ofClubs)!,
+            Foundation(topCard: Card.ace.ofHearts)!,
+            Foundation(topCard: Card.ace.ofSpades)!
+        ]
+        
+        let columns: [Column] = [
+            Column(cards: [
+                Card.ten.ofDiamonds,
+                Card.two.ofHearts,
+                Card.two.ofDiamonds,
+                Card.king.ofClubs,
+                Card.jack.ofHearts,
+                Card.nine.ofClubs,
+                Card.eight.ofHearts,
+                Card.seven.ofClubs
+            ]),
+            Column(cards: [
+                Card.three.ofSpades,
+                Card.jack.ofSpades,
+                Card.four.ofSpades
+            ]),
+            Column(cards: [
+                Card.five.ofSpades,
+                Card.ten.ofSpades,
+                Card.seven.ofHearts,
+                Card.nine.ofHearts
+            ]),
+            Column(cards: [
+                Card.jack.ofClubs,
+                Card.ten.ofHearts,
+                Card.six.ofHearts,
+                Card.three.ofDiamonds,
+                Card.ace.ofDiamonds,
+                Card.two.ofClubs,
+                Card.nine.ofDiamonds,
+                Card.eight.ofSpades,
+                Card.seven.ofDiamonds,
+                Card.six.ofClubs,
+                Card.five.ofHearts,
+                Card.four.ofClubs,
+                Card.three.ofHearts
+            ]),
+            Column(cards: [
+                Card.two.ofSpades,
+                Card.queen.ofHearts,
+                Card.three.ofClubs,
+                Card.five.ofClubs,
+                Card.eight.ofClubs,
+                Card.king.ofDiamonds,
+                Card.queen.ofClubs,
+                Card.jack.ofDiamonds
+            ]),
+            Column(cards: [
+                Card.five.ofDiamonds,
+                Card.queen.ofSpades,
+                Card.four.ofHearts,
+                Card.six.ofSpades
+            ]),
+            Column(cards: [
+                
+            ]),
+            Column(cards: [
+                Card.king.ofSpades,
+                Card.nine.ofSpades,
+                Card.seven.ofSpades,
+                Card.eight.ofDiamonds,
+                Card.ten.ofClubs,
+                Card.four.ofDiamonds
+            ])
+        ]
+        
+        return Board.preconfigured(withFreecells: freecells, foundations: foundations, columns: columns)
+    }
 }

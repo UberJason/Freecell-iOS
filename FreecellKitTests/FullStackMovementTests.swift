@@ -20,7 +20,13 @@ class FullStackMovementTests: XCTestCase {
         // Put teardown code here. This method is called after the invocation of each test method in the class.
     }
     
-    func testCanMoveFullStack() throws {
+    func testCanMoveFullStackBoard1() throws {
+        // This full stack movement check should be false.
+        
+    }
+    
+    func testCanMoveFullStackBoard2() throws {
+        // This full stack movement check should be false.
         
     }
 
