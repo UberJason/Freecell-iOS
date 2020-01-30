@@ -129,6 +129,7 @@ public struct BoardView: View, StackOffsetting {
             .simultaneousGesture(
                 createDragGesture(for: card)
             )
+            .zIndex(boardDriver.zIndex(for: card))
     }
     
     func createDragGesture(for card: Card) -> some Gesture {

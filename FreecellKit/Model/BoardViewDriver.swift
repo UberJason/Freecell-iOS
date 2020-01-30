@@ -87,6 +87,10 @@ public class BoardViewDriver: ObservableObject {
     public func cardOffset(for card: Card, relativeTo bounds: CGRect, dragState: BoardView.DragState? = nil) -> CGSize {
         fatalError("Implement in subclass")
     }
+    
+    public func zIndex(for card: Card) -> Double {
+        fatalError("Implement in subclass")
+    }
 }
 
 public class ClassicViewDriver: BoardViewDriver {
@@ -154,6 +158,10 @@ public class ClassicViewDriver: BoardViewDriver {
     
     public override func cardOffset(for card: Card, relativeTo bounds: CGRect, dragState: BoardView.DragState? = nil) -> CGSize {
         return .zero
+    }
+    
+    public override func zIndex(for card: Card) -> Double {
+        return 0
     }
 }
 
@@ -235,7 +243,7 @@ public class ModernViewDriver: BoardViewDriver {
             print("Closest cell: \(closestCell)")
         }
         
-//        try! _board.move(baseCard, to: closestCell)
+        try! _board.move(baseCard, to: closestCell)
         //****************************************************//
         draggingStack = nil
     }
@@ -248,6 +256,11 @@ public class ModernViewDriver: BoardViewDriver {
         }
         
         return CGSize(width: dragOffset.width, height: dragOffset.height)
+    }
+    
+    public override func zIndex(for card: Card) -> Double {
+        guard let draggingStack = draggingStack else { return 0 }
+        return draggingStack.contains(card) ? 1 : 0
     }
     
     public func storeCellPositions(_ anchors: [CellInfo], using geometry: GeometryProxy) {
