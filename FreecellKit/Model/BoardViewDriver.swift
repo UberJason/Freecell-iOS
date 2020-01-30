@@ -208,17 +208,8 @@ public class ModernViewDriver: BoardViewDriver {
     }
     
     public override func dragEnded(with translation: CGSize) {
-        // Algorithm:
-        // - Use draggingStack's bottomItem
-        // - Find cell(containing:) that item
-        // - Get that cell's center from cellPositions
-        // - Use translation to determine dragged card's final position
-        // - PRINT dragged card's final position
-        // - Compute distance from every cell's position and sort; closest cell is intended target
-        // - PRINT intended target
-        // - Model updates to try to move the draggingStack to the intended target
-        
-        guard let baseCard = draggingStack?.bottomItem else { return }
+        guard let draggingStack = draggingStack,
+            let baseCard = draggingStack.bottomItem else { return }
         
         // Find the absolute position of the base card of the dragging stack given the translation.
         let baseCardPosition = position(for: baseCard, translatedBy: translation)
@@ -237,10 +228,20 @@ public class ModernViewDriver: BoardViewDriver {
         if let targetCell = targetCell as? Column {
             print("Closest column: \(targetCell)")
         }
-        
-        try! _board.move(baseCard, to: targetCell)
         //****************************************************//
-        draggingStack = nil
+        
+        do {
+            registerMove()
+            try _board.moveDirectStack(draggingStack, to: targetCell)
+        } catch {
+            previousBoards.removeLast()
+            #if os(macOS)
+            NSSound.beep()
+            #endif
+            print(error.localizedDescription)
+        }
+        
+        self.draggingStack = nil
     }
     
     private func position(for card: Card, translatedBy translation: CGSize) -> CGPoint {

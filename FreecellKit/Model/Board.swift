@@ -268,6 +268,18 @@ public struct Board {
             throw FreecellError.invalidMove
         }
     }
+    
+    #warning("TODO: write moveDirectStack(_:to:)")
+    func moveDirectStack(_ stack: CardStack, to cell: Cell) throws {
+        // If cell is freecell, foundation: accept only if stack.count == 1 and canReceive(card)
+        // If cell is column:
+        //   - check if movement is valid (canMoveFullStack might need to be refactored)
+        //   - if so, detach stack from its containing location and attach stack to new location
+        //        - write detachStack(cappedBy:) and appendStack(_:) methods with proper validation
+        // Afteward, try autoUpdateFoundations()
+        
+        throw FreecellError.invalidMove
+    }
 }
 
 extension Board {
