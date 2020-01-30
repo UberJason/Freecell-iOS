@@ -15,13 +15,10 @@ public struct BoardView: View, StackOffsetting {
     }
     
     @ObservedObject var boardDriver: BoardViewDriver
-    @Environment(\.undoManager) var undoManager
-    
     @GestureState var dragState: DragState = .inactive
     
     public init(boardDriver: BoardViewDriver) {
         self.boardDriver = boardDriver
-        boardDriver.undoManager = self.undoManager
     }
     
     public var body: some View {
@@ -88,12 +85,6 @@ public struct BoardView: View, StackOffsetting {
         }
         .onTapGesture {
             self.boardDriver.itemTapped(self)
-        }
-        .onAppear() {
-            self.boardDriver.undoManager = self.undoManager
-        }
-        .onReceive(NotificationCenter.default.publisher(for: .newGame)) { _ in
-            self.boardDriver.undoManager = self.undoManager
         }
     }
     

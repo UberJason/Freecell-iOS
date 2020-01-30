@@ -12,31 +12,44 @@ import FreecellKit
 import Combine
 
 class Game: ObservableObject {
-    @Published var boardDriver: BoardViewDriver = ClassicViewDriver()
+    var undoManager: UndoManager?
+    @Published var boardDriver: BoardViewDriver
     
-    var cancellable: AnyCancellable?
+    var cancellables = Set<AnyCancellable>()
     
-    func connect(_ publisher: AnyPublisher<GameEvent, Never>) {
-        cancellable = publisher.sink { [weak self] event in
-            switch event {
-            case .newGame:
-                self?.boardDriver = ClassicViewDriver()
-                NotificationCenter.default.post(name: .newGame, object: nil)
-            case .undo:
-                self?.boardDriver.undo()
-            case .redo:
-                print("Redo event received")
+    init(undoManager: UndoManager? = nil) {
+        self.undoManager = undoManager
+        self.boardDriver = ClassicViewDriver(undoManager: undoManager)
+        
+        NotificationCenter.default
+            .publisher(for: .newGame)
+            .sink { [weak self] _ in
+                self?.boardDriver = ClassicViewDriver(undoManager: undoManager)
             }
-            
+            .store(in: &cancellables)
+        
+        NotificationCenter.default
+        .publisher(for: .performUndo)
+        .sink { [weak self] _ in
+            self?.boardDriver.undo()
         }
+        .store(in: &cancellables)
+        
+        NotificationCenter.default
+        .publisher(for: .performRedo)
+        .sink { [weak self] _ in
+            print("Redo...")
+//            self?.boardDriver.redo()
+        }
+        .store(in: &cancellables)
     }
 }
 
 struct GameView: View {
-    @ObservedObject var game = Game()
+    @ObservedObject var game: Game
     
-    init(gameEventPublisher: AnyPublisher<GameEvent, Never>) {
-        game.connect(gameEventPublisher)
+    init(game: Game) {
+        self.game = game
     }
     
     var body: some View {
@@ -46,7 +59,7 @@ struct GameView: View {
 
 struct GameView_Previews: PreviewProvider {
     static var previews: some View {
-        GameView(gameEventPublisher: PassthroughSubject<GameEvent, Never>().eraseToAnyPublisher())
+        GameView(game: Game())
             .previewDevice("iPad Pro 11")
             .previewLayout(.fixed(width: 1194, height: 834))
     }

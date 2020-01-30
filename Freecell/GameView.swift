@@ -11,12 +11,19 @@ import DeckKit
 import FreecellKit
 import Combine
 
-class Game {
-    var boardDriver = ClassicViewDriver()
+#warning("CMD+Z on iPad causes two undo actions")
+class Game: ObservableObject {
+    var undoManager: UndoManager?
+    @Published var boardDriver: BoardViewDriver
+    
+    init(undoManager: UndoManager? = nil) {
+        self.undoManager = undoManager
+        self.boardDriver = ClassicViewDriver(undoManager: undoManager)
+    }
 }
 
 struct GameView: View {
-    var game = Game()
+    @ObservedObject var game: Game
     
     var body: some View {
         BoardView(boardDriver: game.boardDriver)
@@ -25,7 +32,7 @@ struct GameView: View {
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
-        GameView()
+        GameView(game: Game())
             .previewDevice("iPad Pro 11")
             .previewLayout(.fixed(width: 1194, height: 834))
     }

@@ -15,11 +15,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
     var window: NSWindow!
 
-    var gameEventPublisher = PassthroughSubject<GameEvent, Never>()
-
     func applicationDidFinishLaunching(_ aNotification: Notification) {
-        // Create the SwiftUI view that provides the window contents.
-        let contentView = GameView(gameEventPublisher: gameEventPublisher.eraseToAnyPublisher())
 
         // Create the window and set the content view. 
         window = NSWindow(
@@ -28,6 +24,10 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             backing: .buffered, defer: false)
         window.center()
         window.setFrameAutosaveName("Main Window")
+        
+        // Create the SwiftUI view that provides the window contents.
+        let contentView = GameView(game: Game(undoManager: window.undoManager))
+        
         window.contentView = NSHostingView(rootView: contentView)
         window.makeKeyAndOrderFront(nil)
     }
@@ -37,18 +37,14 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     }
 
     @IBAction func newGame(_ sender: Any) {
-        gameEventPublisher.send(.newGame)
+        NotificationCenter.default.post(name: .newGame, object: nil)
     }
     
     @IBAction func undoMove(_ sender: Any) {
-        gameEventPublisher.send(.undo)
+        NotificationCenter.default.post(name: .performUndo, object: nil)
     }
     
     @IBAction func redoMove(_ sender: Any) {
-        gameEventPublisher.send(.redo)
+        NotificationCenter.default.post(name: .performRedo, object: nil)
     }
-}
-
-enum GameEvent {
-    case newGame, undo, redo
 }

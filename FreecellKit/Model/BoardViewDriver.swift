@@ -36,7 +36,8 @@ public class BoardViewDriver: ObservableObject {
     internal var _board = Board(deck: Deck(shuffled: true))
     internal var previousBoards = [Board]()
     
-    public init() {
+    public init(undoManager: UndoManager? = nil) {
+        self.undoManager = undoManager
         renderingBoard = _board.copy
         configureRendering()
     }
@@ -60,9 +61,8 @@ public class BoardViewDriver: ObservableObject {
         undoManager?.registerUndo(withTarget: self, selector: #selector(performUndo), object: nil)
     }
     
-    #warning("Undo doesn't work after new game?")
     public func undo() {
-        performUndo()
+        undoManager?.undo()
     }
     
     @objc internal func performUndo() {
