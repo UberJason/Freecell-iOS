@@ -329,31 +329,35 @@ public struct Board {
         
         //***********************************************//
         // Improvements to algorithm:
-        // - Best suitable column is non-empty
         // - If both open freecells and open columns, prefer freecells
         //        let acceptingColumns = columns.filter { canMoveFullStack(stack, to: $0) }
         //***********************************************//
         
         let validDestinationColumns = columns.filter { canMoveFullStack(stack, to: $0) }
+        
+        // Edge case: if both freecells and empty columns are available, and the stack only has 1 card,
+        // perfer a non-empty column first, then freecells.
+        if validDestinationColumns.count > 0, let availableFreecell = nextAvailableFreecell, stack.items.count == 1 {
+            return validDestinationColumns.filter({ $0.items.count > 0 }).first ?? availableFreecell
+        }
+        
+        // Edge case: if multiple open columns are available, prefer a non-empty column.
         if validDestinationColumns.count > 1,
             let nonEmptyDestinationColumn = validDestinationColumns.filter({$0.items.count > 0 }).first {
             return nonEmptyDestinationColumn
         }
+        // First preference: if there's a valid column available, prefer it.
         else if let column = validDestinationColumns.first {
             return column
         }
         
-        for column in columns {
-            if canMoveFullStack(stack, to: column) {
-                return column
-            }
-        }
-        
+        // Second preference: freecell available and stack is 1 card.
         guard stack.items.count == 1, let card = stack.bottomItem else { return nil }
         if let freecell = nextAvailableFreecell {
             return freecell
         }
         
+        // Last option: only if all freecells are taken, consider a foundation move.
         let foundation = self.foundation(for: card.suit)
         if foundation.canReceive(card) {
             return foundation
