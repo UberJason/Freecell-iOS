@@ -321,16 +321,9 @@ public struct Board {
     /// Searches for a valid destination to move the CardStack.
     /// - Parameter stack: Card stack looking for a home.
     func findValidDestination(for stack: CardStack) -> Cell? {
-        // ALGORITHM:
-        // - First search for a valid Column.
-        // - If no valid column, stack movement only legal if the stack is 1 card.
-        // - Next find first available Freecell.
-        // - Only in the last case, a manual movement to Foundation.
-        
         //***********************************************//
-        // Improvements to algorithm:
-        // - If both open freecells and open columns, prefer freecells
-        //        let acceptingColumns = columns.filter { canMoveFullStack(stack, to: $0) }
+        // Future improvements to algorithm:
+        // - If origin is freecell, prefer an empty column to a freecell.
         //***********************************************//
         
         let validDestinationColumns = columns.filter { canMoveFullStack(stack, to: $0) }
