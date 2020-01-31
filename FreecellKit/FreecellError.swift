@@ -16,6 +16,7 @@ enum FreecellError: Error, LocalizedError {
     case invalidSuitForColumn(baseCard: Card, newCard: Card)
     case invalidRankForColumn(baseCard: Card, newCard: Card)
     case invalidMove
+    case noValidMoveAvailable
     
     var errorDescription: String? {
         let description: String
@@ -33,6 +34,8 @@ enum FreecellError: Error, LocalizedError {
             description = "Attempted to push a card of the wrong rank onto a column (\(newCard.displayTitle) onto \(baseCard.displayTitle))"
         case .invalidMove:
             description = "Attempted card movement was invalid."
+        case .noValidMoveAvailable:
+            description = "No valid move was found."
         }
         
         return "FreecellError: \(description)"

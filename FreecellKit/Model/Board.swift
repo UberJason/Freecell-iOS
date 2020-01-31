@@ -94,6 +94,17 @@ public struct Board {
         }
     }
     
+    /// Finds and attempts to perform a valid direct move from the provided card.
+    /// - Parameter card: Card tapped by the user.
+    func performValidDirectMove(from card: Card) throws {
+        guard let tappedStack = substack(cappedBy: card),
+            let validDestination = findValidDestination(for: tappedStack)
+        else { throw FreecellError.noValidMoveAvailable }
+        
+        let containingCell = cell(containing: card)
+        try performDirectStackMovement(of: tappedStack, from: containingCell, to: validDestination)
+    }
+    
     /// The single call site for mutating the board. move(_:to:) and moveDirectStack(_:from:to:) both call into this method. This method takes a snapshot of the board before and after the update, and publishes out a move event with the change.
     /// - Parameters:
     ///   - update: A synchronous (non-escaping) closure that performs the board update.
@@ -309,7 +320,7 @@ public struct Board {
     
     /// Searches for a valid destination to move the CardStack.
     /// - Parameter stack: Card stack looking for a home.
-    func findDestination(for stack: CardStack) -> Cell? {
+    func findValidDestination(for stack: CardStack) -> Cell? {
         // ALGORITHM:
         // - First search for a valid Column.
         // - If no valid column, stack movement only legal if the stack is 1 card.
@@ -322,6 +333,15 @@ public struct Board {
         // - If both open freecells and open columns, prefer freecells
         //        let acceptingColumns = columns.filter { canMoveFullStack(stack, to: $0) }
         //***********************************************//
+        
+        let validDestinationColumns = columns.filter { canMoveFullStack(stack, to: $0) }
+        if validDestinationColumns.count > 1,
+            let nonEmptyDestinationColumn = validDestinationColumns.filter({$0.items.count > 0 }).first {
+            return nonEmptyDestinationColumn
+        }
+        else if let column = validDestinationColumns.first {
+            return column
+        }
         
         for column in columns {
             if canMoveFullStack(stack, to: column) {

@@ -195,16 +195,11 @@ public class ModernViewDriver: BoardViewDriver {
     }
 
     public override func itemTapped<T>(_ item: T) {
-        guard let card = item as? Card,
-            let tappedStack = _board.substack(cappedBy: card),
-            let validDestination = _board.findDestination(for: tappedStack)
-        else { return }
-        
-        let containingCell = _board.cell(containing: card)
-        
+        guard let card = item as? Card else { return }
+  
         do {
             registerMove()
-            try _board.performDirectStackMovement(of: tappedStack, from: containingCell, to: validDestination)
+            try _board.performValidDirectMove(from: card)
         } catch {
             rollbackFailedMove(with: error)
         }
@@ -223,6 +218,8 @@ public class ModernViewDriver: BoardViewDriver {
     }
     
     public override func dragEnded(with translation: CGSize) {
+        defer { self.draggingStack = nil }
+        
         guard let draggingStack = draggingStack,
             let baseCard = draggingStack.bottomItem else { return }
         
@@ -241,8 +238,6 @@ public class ModernViewDriver: BoardViewDriver {
         } catch {
             rollbackFailedMove(with: error)
         }
-        
-        self.draggingStack = nil
     }
     
     private func position(for card: Card, translatedBy translation: CGSize = .zero) -> CGPoint {
