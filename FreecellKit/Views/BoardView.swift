@@ -149,7 +149,8 @@ public struct BoardView: View, StackOffsetting {
     }
     
     var cardSpringAnimation: Animation {
-        return Animation.spring(response: 0.08, dampingFraction: 0.95, blendDuration: 0.0)
+//        return Animation.spring(response: 0.08, dampingFraction: 0.95, blendDuration: 0.0)
+        return .spring(response: 0.10, dampingFraction: 0.90, blendDuration: 0.0)
     }
 }
 
