@@ -307,39 +307,91 @@ public struct Board {
         }
     }
     
-    #warning("TODO: write moveDirectStack(_:to:)")
-    func performDirectStackMovement(of stack: CardStack, from origin: Cell, to cell: Cell) throws {
-        // If cell is freecell, foundation: accept only if stack.count == 1 and canReceive(card)
-        // If cell is column:
-        //   - check if movement is valid (canMoveFullStack might need to be refactored)
-        //   - if so, detach stack from its containing location and attach stack to new location
-        //        - write detachStack(cappedBy:) and appendStack(_:) methods with proper validation
-        // Afteward, try autoUpdateFoundations()
+    /// Searches for a valid destination to move the CardStack.
+    /// - Parameter stack: Card stack looking for a home.
+    func findDestination(for stack: CardStack) -> Cell? {
+        // ALGORITHM:
+        // - First search for a valid Column.
+        // - If no valid column, stack movement only legal if the stack is 1 card.
+        // - Next find first available Freecell.
+        // - Only in the last case, a manual movement to Foundation.
         
-        switch cell {
+        //***********************************************//
+        // Improvements to algorithm:
+        // - Best suitable column is non-empty
+        // - If both open freecells and open columns, prefer freecells
+        //        let acceptingColumns = columns.filter { canMoveFullStack(stack, to: $0) }
+        //***********************************************//
+        
+        for column in columns {
+            if canMoveFullStack(stack, to: column) {
+                return column
+            }
+        }
+        
+        guard stack.items.count == 1, let card = stack.bottomItem else { return nil }
+        if let freecell = nextAvailableFreecell {
+            return freecell
+        }
+        
+        let foundation = self.foundation(for: card.suit)
+        if foundation.canReceive(card) {
+            return foundation
+        }
+        
+        return nil
+    }
+    
+    /// Find and attempt the direct stack movement of the stack to the destination.
+    /// If the destination is FreeCell or Foundation, the move only succeeds if the stack is 1 card.
+    /// Otherwise, attempt a direct stack movement to the destination column if valid.
+    /// - Parameters:
+    ///   - stack: Stack to move.
+    ///   - origin: Origin cell that the stack currently resides in.
+    ///   - destination: Destination cell to attempt the movement of the card stack.
+    func performDirectStackMovement(of stack: CardStack, from origin: Cell, to destination: Cell) throws {
+        switch destination {
         case is FreeCell, is Foundation:
             guard let card = stack.topItem,
-                stack.items.count == 1 && cell.canReceive(card)
+                stack.items.count == 1 && destination.canReceive(card)
             else { throw FreecellError.invalidMove }
             
-            try move(card, to: cell)
+            try move(card, to: destination)
         case let column as Column:
             try moveDirectStack(stack, from: origin, to: column)
         default: throw FreecellError.invalidMove
         }
     }
+    
+    func substack(cappedBy capCard: Card) -> CardStack? {
+        let origin = cell(containing: capCard)
+        
+        switch origin {
+        case let column as Column:
+            if let substack = column.validSubstack(cappedBy: capCard) {
+                return substack
+            }
+        case is FreeCell:
+            let substack = CardStack(cards: [capCard])
+            return substack
+        default:
+            break
+        }
+        
+        return nil
+    }
 }
 
 extension Board {
-    public var availableFreecellCount: Int {
+    var availableFreecellCount: Int {
         return freecells.filter({ !$0.isOccupied }).count
     }
     
-    public var nextAvailableFreecell: FreeCell? {
+    var nextAvailableFreecell: FreeCell? {
         return freecells.filter({ !$0.isOccupied }).first
     }
     
-    public var maximumMoveableSubstackSize: Int {
+    var maximumMoveableSubstackSize: Int {
         return availableFreecellCount + 1
     }
     
@@ -380,18 +432,13 @@ extension Board {
         return columns.filter { $0.isEmpty && $0.id != excludedColumn?.id }
     }
     
-    public func availableFreeColumnCount(excluding excludedColumn: Column?) -> Int {
+    func availableFreeColumnCount(excluding excludedColumn: Column?) -> Int {
         return freeColumns(excluding: excludedColumn).count
     }
-}
-
-public struct MoveEvent: Equatable {
-    public static func == (lhs: MoveEvent, rhs: MoveEvent) -> Bool {
-        return lhs.id == rhs.id
-    }
     
-    // Create a unique identifier for a move, to compare it to other moves.
-    let id = UUID()
-    let beforeBoard: Board
-    let afterBoard: Board
+    func foundation(for suit: Suit) -> Foundation {
+        guard let foundation = foundations.filter({ $0.suit == suit }).first else { fatalError("Couldn't find a Foundation for the suit, which is impossible") }
+        
+        return foundation
+    }
 }

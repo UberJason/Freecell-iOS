@@ -18,7 +18,7 @@ class Game: ObservableObject {
     
     init(undoManager: UndoManager? = nil) {
         self.undoManager = undoManager
-        self.boardDriver = ClassicViewDriver(undoManager: undoManager)
+        self.boardDriver = ModernViewDriver(undoManager: undoManager)
     }
 }
 

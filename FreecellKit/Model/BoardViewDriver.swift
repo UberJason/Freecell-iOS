@@ -76,6 +76,14 @@ public class BoardViewDriver: ObservableObject, StackOffsetting {
         configureRendering()
     }
     
+    func rollbackFailedMove(with error: Error) {
+        previousBoards.removeLast()
+        #if os(macOS)
+        NSSound.beep()
+        #endif
+        print(error.localizedDescription)
+    }
+    
     public func cell(containing card: Card) -> Cell {
         fatalError("Implement in subclass")
     }
@@ -149,12 +157,8 @@ public class ClassicViewDriver: BoardViewDriver {
                 try _board.performValidMove(from: card, to: location)
                 selectedCard = nil
             } catch {
-                previousBoards.removeLast()
-                #if os(macOS)
-                NSSound.beep()
-                #endif
+                rollbackFailedMove(with: error)
                 selectedCard = nil
-                print(error.localizedDescription)
             }
         }
     }
@@ -191,15 +195,18 @@ public class ModernViewDriver: BoardViewDriver {
     }
 
     public override func itemTapped<T>(_ item: T) {
-        // HACK - quick - move card to a valid location
-        if let card = item as? Card {
-            for column in _board.columns {
-                if column.canReceive(card) {
-                    registerMove()
-                    try! _board.move(card, to: column)
-                    return
-                }
-            }
+        guard let card = item as? Card,
+            let tappedStack = _board.substack(cappedBy: card),
+            let validDestination = _board.findDestination(for: tappedStack)
+        else { return }
+        
+        let containingCell = _board.cell(containing: card)
+        
+        do {
+            registerMove()
+            try _board.performDirectStackMovement(of: tappedStack, from: containingCell, to: validDestination)
+        } catch {
+            rollbackFailedMove(with: error)
         }
     }
     
@@ -212,18 +219,7 @@ public class ModernViewDriver: BoardViewDriver {
     }
     
     public override func dragStarted(from card: Card) {
-        let origin = cell(containing: card)
-        
-        switch origin {
-        case let column as Column:
-            if let substack = column.validSubstack(cappedBy: card) {
-                draggingStack = substack
-            }
-        case is FreeCell:
-            let substack = CardStack(cards: [card])
-            draggingStack = substack
-        default: break
-        }
+        draggingStack = _board.substack(cappedBy: card)
     }
     
     public override func dragEnded(with translation: CGSize) {
@@ -237,29 +233,13 @@ public class ModernViewDriver: BoardViewDriver {
         // The target cell is the cell whose position is closest to the base card position.
         let targetCell = closestCell(to: baseCardPosition)
         
-        #warning("If target cell is the same as the origin cell, don't bother trying a move")
-        //****************************************************//
-        
-        if let targetCell = targetCell as? FreeCell {
-            print("Freecell: \(_board.freecells.firstIndex(where: { $0.id == targetCell.id })!)")
-        }
-        if let targetCell = targetCell as? Foundation {
-            print("Foundation: \(_board.foundations.firstIndex(where: { $0.id == targetCell.id })!)")
-        }
-        if let targetCell = targetCell as? Column {
-            print("Closest column: \(targetCell)")
-        }
-        //****************************************************//
-        
+        guard targetCell.id != containingCell.id else { return }
+
         do {
             registerMove()
             try _board.performDirectStackMovement(of: draggingStack, from: containingCell, to: targetCell)
         } catch {
-            previousBoards.removeLast()
-            #if os(macOS)
-            NSSound.beep()
-            #endif
-            print(error.localizedDescription)
+            rollbackFailedMove(with: error)
         }
         
         self.draggingStack = nil
