@@ -65,6 +65,10 @@ public class BoardViewDriver: ObservableObject {
         undoManager?.undo()
     }
     
+    public func redo() {
+        print("Redo...")
+    }
+    
     @objc internal func performUndo() {
         guard previousBoards.count > 0 else { return }
         

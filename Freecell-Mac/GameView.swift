@@ -38,8 +38,7 @@ class Game: ObservableObject {
         NotificationCenter.default
         .publisher(for: .performRedo)
         .sink { [weak self] _ in
-            print("Redo...")
-//            self?.boardDriver.redo()
+            self?.boardDriver.redo()
         }
         .store(in: &cancellables)
     }
