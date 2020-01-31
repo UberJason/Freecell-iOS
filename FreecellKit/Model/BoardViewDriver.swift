@@ -208,9 +208,17 @@ public class ModernViewDriver: BoardViewDriver {
     }
     
     public override func dragStarted(from card: Card) {
-        if let origin = cell(containing: card) as? Column,
-            let substack = origin.validSubstack(cappedBy: card) {
+        let origin = cell(containing: card)
+        
+        switch origin {
+        case let column as Column:
+            if let substack = column.validSubstack(cappedBy: card) {
+                draggingStack = substack
+            }
+        case is FreeCell:
+            let substack = CardStack(cards: [card])
             draggingStack = substack
+        default: break
         }
     }
     
@@ -219,11 +227,13 @@ public class ModernViewDriver: BoardViewDriver {
             let baseCard = draggingStack.bottomItem else { return }
         
         // Find the absolute position of the base card of the dragging stack given the translation.
-        let baseCardPosition = position(for: baseCard, translatedBy: translation)
+        let containingCell = _board.cell(containing: baseCard)
+        let baseCardPosition = position(forCardFrom: containingCell, translatedBy: translation)
         
         // The target cell is the cell whose position is closest to the base card position.
         let targetCell = closestCell(to: baseCardPosition)
         
+        #warning("If target cell is the same as the origin cell, don't bother trying a move")
         //****************************************************//
         
         if let targetCell = targetCell as? FreeCell {
@@ -239,7 +249,7 @@ public class ModernViewDriver: BoardViewDriver {
         
         do {
             registerMove()
-            try _board.moveDirectStack(draggingStack, to: targetCell)
+            try _board.performDirectStackMovement(of: draggingStack, from: containingCell, to: targetCell)
         } catch {
             previousBoards.removeLast()
             #if os(macOS)
@@ -251,9 +261,7 @@ public class ModernViewDriver: BoardViewDriver {
         self.draggingStack = nil
     }
     
-    private func position(for card: Card, translatedBy translation: CGSize) -> CGPoint {
-        let containingCell = _board.cell(containing: card)
-        
+    private func position(forCardFrom containingCell: Cell, translatedBy translation: CGSize) -> CGPoint {
         guard let containingCellPosition = cellPositions.filter({ $0.cellId == containingCell.id }).first?.position else { return .zero }
         
         return containingCellPosition.position(byAdding: translation)

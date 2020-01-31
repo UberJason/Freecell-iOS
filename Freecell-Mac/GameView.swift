@@ -19,12 +19,12 @@ class Game: ObservableObject {
     
     init(undoManager: UndoManager? = nil) {
         self.undoManager = undoManager
-        self.boardDriver = ClassicViewDriver(undoManager: undoManager)
+        self.boardDriver = ModernViewDriver(undoManager: undoManager)
         
         NotificationCenter.default
             .publisher(for: .newGame)
             .sink { [weak self] _ in
-                self?.boardDriver = ClassicViewDriver(undoManager: undoManager)
+                self?.boardDriver = ModernViewDriver(undoManager: undoManager)
             }
             .store(in: &cancellables)
         

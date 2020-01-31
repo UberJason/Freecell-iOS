@@ -86,6 +86,10 @@ public class Foundation: Stack, Cell, Identifiable {
     public func selectableCard() -> Card? {
         return nil
     }
+    
+    public func detachStack(cappedBy capCard: Card) throws {
+        throw FreecellError.invalidMove
+    }
 }
 
 extension Foundation: NSCopying {

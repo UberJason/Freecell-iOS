@@ -94,6 +94,23 @@ public struct Board {
         }
     }
     
+    /// The single call site for mutating the board. move(_:to:) and moveDirectStack(_:from:to:) both call into this method. This method takes a snapshot of the board before and after the update, and publishes out a move event with the change.
+    /// - Parameters:
+    ///   - update: A synchronous (non-escaping) closure that performs the board update.
+    ///   - deferringAutoUpdate: If false, the board will attempt to auto-update foundations after a successful move.
+    ///    When in the middle of a stack movement, this value may be preferred to be true to avoid putting the board in an unexpected state.
+    private func _performBoardUpdate(_ update: () throws -> (), deferringAutoUpdate: Bool = false) throws {
+        let beforeBoard = self.copy
+        try update()
+        let afterBoard = self.copy
+        
+        _movePublisher.send(MoveEvent(beforeBoard: beforeBoard, afterBoard: afterBoard))
+        
+        if !deferringAutoUpdate {
+            try autoUpdateFoundations()
+        }
+    }
+    
     /// Moves card to the given location. Assumes the card is in a valid location and has not yet been removed - do not call pop() prior to calling move(_:to:).
     /// - Parameters:
     ///   - card: Card to move to the given location.
@@ -101,21 +118,32 @@ public struct Board {
     ///   - deferringAutoUpdate: If false, the board will attempt to auto-update foundations after a successful move.
     ///    When in the middle of a stack movement, this value may be preferred to be true to avoid putting the board in an unexpected state.
     func move(_ card: Card, to location: Cell, deferringAutoUpdate: Bool = false) throws {
-        let beforeBoard = self.copy
-        
-        guard location.canReceive(card) else { throw FreecellError.invalidMove }
-        
-        if let card = self.cell(containing: card).pop() {
-            try location.receive(card)
-        }
-        
-        let afterBoard = self.copy
-        
-        _movePublisher.send(MoveEvent(card: card, beforeBoard: beforeBoard, afterBoard: afterBoard))
-        
-        if !deferringAutoUpdate {
-            try autoUpdateFoundations()
-        }
+        try _performBoardUpdate({
+            guard location.canReceive(card) else { throw FreecellError.invalidMove }
+            
+            if let card = self.cell(containing: card).pop() {
+                try location.receive(card)
+            }
+        }, deferringAutoUpdate: deferringAutoUpdate)
+    }
+    
+    /// Moves the card stack from its origin to the given column. Assumes the stack has not yet been detached from its origin - do not call detachStack(cappedBy:) prior to calling moveDirectStack(_:from:to:).
+    /// - Parameters:
+    ///   - stack: Stack to move to the new column.
+    ///   - origin: Origin of the stack.
+    ///   - column: Destination column for the stack move.
+    ///   - deferringAutoUpdate: If false, the board will attempt to auto-update foundations after a successful move.
+    ///    When in the middle of a stack movement, this value may be preferred to be true to avoid putting the board in an unexpected state.
+    func moveDirectStack(_ stack: CardStack, from origin: Cell, to column: Column, deferringAutoUpdate: Bool = false) throws {
+        try _performBoardUpdate({
+            guard canMoveFullStack(stack, to: column), let capCard = stack.bottomItem else {
+                throw FreecellError.invalidMove
+            }
+
+            try origin.detachStack(cappedBy: capCard)
+            try column.appendStack(stack)
+            
+        }, deferringAutoUpdate: deferringAutoUpdate)
     }
     
     /// Convenience method to attempt to move card to the first available freecell. Throws invalidMove if all freecells are occupied.
@@ -280,7 +308,7 @@ public struct Board {
     }
     
     #warning("TODO: write moveDirectStack(_:to:)")
-    func moveDirectStack(_ stack: CardStack, to cell: Cell) throws {
+    func performDirectStackMovement(of stack: CardStack, from origin: Cell, to cell: Cell) throws {
         // If cell is freecell, foundation: accept only if stack.count == 1 and canReceive(card)
         // If cell is column:
         //   - check if movement is valid (canMoveFullStack might need to be refactored)
@@ -288,7 +316,17 @@ public struct Board {
         //        - write detachStack(cappedBy:) and appendStack(_:) methods with proper validation
         // Afteward, try autoUpdateFoundations()
         
-        throw FreecellError.invalidMove
+        switch cell {
+        case is FreeCell, is Foundation:
+            guard let card = stack.topItem,
+                stack.items.count == 1 && cell.canReceive(card)
+            else { throw FreecellError.invalidMove }
+            
+            try move(card, to: cell)
+        case let column as Column:
+            try moveDirectStack(stack, from: origin, to: column)
+        default: throw FreecellError.invalidMove
+        }
     }
 }
 
@@ -354,7 +392,6 @@ public struct MoveEvent: Equatable {
     
     // Create a unique identifier for a move, to compare it to other moves.
     let id = UUID()
-    let card: Card
     let beforeBoard: Board
     let afterBoard: Board
 }

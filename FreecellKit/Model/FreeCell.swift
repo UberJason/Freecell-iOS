@@ -61,6 +61,11 @@ public class FreeCell: Stack, Cell, Identifiable {
     public func selectableCard() -> Card? {
         return item
     }
+    
+    public func detachStack(cappedBy capCard: Card) throws {
+        guard capCard == item else { throw FreecellError.invalidMove }
+        let _ = pop()
+    }
 }
 
 extension FreeCell: NSCopying {
