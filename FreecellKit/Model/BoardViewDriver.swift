@@ -18,7 +18,7 @@ enum SelectionState {
     case idle, selected(card: Card)
 }
 
-public class BoardViewDriver: ObservableObject {
+public class BoardViewDriver: ObservableObject, StackOffsetting {
     public var freecells: [FreeCell] { return renderingBoard.freecells }
     public var foundations: [Foundation] { return renderingBoard.foundations }
     public var columns: [Column] { return renderingBoard.columns }
@@ -232,7 +232,7 @@ public class ModernViewDriver: BoardViewDriver {
         
         // Find the absolute position of the base card of the dragging stack given the translation.
         let containingCell = _board.cell(containing: baseCard)
-        let baseCardPosition = position(forCardFrom: containingCell, translatedBy: translation)
+        let baseCardPosition = position(for: baseCard, translatedBy: translation)
         
         // The target cell is the cell whose position is closest to the base card position.
         let targetCell = closestCell(to: baseCardPosition)
@@ -265,10 +265,17 @@ public class ModernViewDriver: BoardViewDriver {
         self.draggingStack = nil
     }
     
-    private func position(forCardFrom containingCell: Cell, translatedBy translation: CGSize) -> CGPoint {
+    private func position(for card: Card, translatedBy translation: CGSize = .zero) -> CGPoint {
+        let containingCell = _board.cell(containing: card)
         guard let containingCellPosition = cellPositions.filter({ $0.cellId == containingCell.id }).first?.position else { return .zero }
         
-        return containingCellPosition.position(byAdding: translation)
+        var cardPosition = containingCellPosition
+        if let column = containingCell as? Column {
+            let stackOffset = self.stackOffset(for: card, orderIndex: column.orderIndex(for: card))
+            cardPosition = cardPosition.position(byAdding: stackOffset)
+        }
+        
+        return cardPosition.position(byAdding: translation)
     }
     
     private func closestCell(to position: CGPoint) -> Cell {
