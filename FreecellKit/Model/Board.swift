@@ -97,11 +97,13 @@ public struct Board {
     /// Finds and attempts to perform a valid direct move from the provided card.
     /// - Parameter card: Card tapped by the user.
     func performValidDirectMove(from card: Card) throws {
-        guard let tappedStack = substack(cappedBy: card),
-            let validDestination = findValidDestination(for: tappedStack)
-        else { throw FreecellError.noValidMoveAvailable }
-        
         let containingCell = cell(containing: card)
+        
+        guard let tappedStack = substack(cappedBy: card),
+            let validDestination = findValidDestination(for: tappedStack, origin: containingCell) else {
+            throw FreecellError.noValidMoveAvailable
+        }
+        
         try performDirectStackMovement(of: tappedStack, from: containingCell, to: validDestination)
     }
     
@@ -320,43 +322,48 @@ public struct Board {
     
     /// Searches for a valid destination to move the CardStack.
     /// - Parameter stack: Card stack looking for a home.
-    func findValidDestination(for stack: CardStack) -> Cell? {
-        //***********************************************//
-        // Future improvements to algorithm:
-        // - If origin is freecell, prefer an empty column to a freecell.
-        //***********************************************//
+    func findValidDestination(for stack: CardStack, origin: Cell) -> Cell? {
+        guard let card = stack.bottomItem else { return nil }
         
-        let validDestinationColumns = columns.filter { canMoveFullStack(stack, to: $0) }
+        // We compile all valid destination options, order them by preference,
+        // and select the first available one.
         
-        // Edge case: if both freecells and empty columns are available, and the stack only has 1 card,
-        // perfer a non-empty column first, then freecells.
-        if validDestinationColumns.count > 0, let availableFreecell = nextAvailableFreecell, stack.items.count == 1 {
-            return validDestinationColumns.filter({ $0.items.count > 0 }).first ?? availableFreecell
+        let anyValidDestinationColumns = columns.filter { canMoveFullStack(stack, to: $0) }
+        let nonEmptyColumns = anyValidDestinationColumns.filter({ $0.items.count > 0 })
+        let availableFreecell = nextAvailableFreecell
+        let availableFoundation: Cell? = {
+            let f = foundation(for: card.suit)
+            return f.canReceive(card) ? f : nil
+        }()
+
+        let choices: [Cell]
+        switch origin {
+        case is FreeCell:
+            choices = [
+                nonEmptyColumns.first,
+                anyValidDestinationColumns.first,
+                availableFoundation
+            ].compactMap { $0 }
+        case is Column:
+            if stack.isSingleCard {
+                choices = [
+                    nonEmptyColumns.first,
+                    availableFreecell,
+                    anyValidDestinationColumns.first,
+                    availableFoundation
+                ].compactMap { $0 }
+            }
+            else {
+                choices = [
+                    nonEmptyColumns.first,
+                    anyValidDestinationColumns.first
+                ].compactMap { $0 }
+            }
+        default:
+            choices = []
         }
         
-        // Edge case: if multiple open columns are available, prefer a non-empty column.
-        if validDestinationColumns.count > 1,
-            let nonEmptyDestinationColumn = validDestinationColumns.filter({$0.items.count > 0 }).first {
-            return nonEmptyDestinationColumn
-        }
-        // First preference: if there's a valid column available, prefer it.
-        else if let column = validDestinationColumns.first {
-            return column
-        }
-        
-        // Second preference: freecell available and stack is 1 card.
-        guard stack.items.count == 1, let card = stack.bottomItem else { return nil }
-        if let freecell = nextAvailableFreecell {
-            return freecell
-        }
-        
-        // Last option: only if all freecells are taken, consider a foundation move.
-        let foundation = self.foundation(for: card.suit)
-        if foundation.canReceive(card) {
-            return foundation
-        }
-        
-        return nil
+        return choices.first
     }
     
     /// Find and attempt the direct stack movement of the stack to the destination.

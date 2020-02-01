@@ -142,7 +142,7 @@ public struct BoardView: View, StackOffsetting {
         return boardDriver is ModernViewDriver ? gesture : nil
     }
    
-    #warning("TODO: Dynamically size the cards by platform and figure out why Mac is assuming 1024x768")
+    #warning("TODO: Dynamically size the cards by platform")
     var cardSize: CGSize {
 //        return CGSize(width: 125, height: 187)  // iPad Pro
         return CGSize(width: 107, height: 160)  // iPad Mini
