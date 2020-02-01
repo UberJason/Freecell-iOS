@@ -9,21 +9,21 @@
 import Foundation
 import DeckKit
 
-public class Foundation: Stack, CardLocation, Identifiable {
+public class Foundation: Stack, Cell, Identifiable {
     
-    public let id: Int
+    public let id: UUID
     public let suit: Suit
     var stack = [Card]()
     
     public var maxSize: Int { return 13 }
     public var topItem: Card? { return stack.last ?? nil }
 
-    public init(id: Int, suit: Suit) {
+    public init(id: UUID = UUID(), suit: Suit) {
         self.id = id
         self.suit = suit
     }
     
-    public convenience init?(id: Int, topCard: Card) {
+    public convenience init?(id: UUID = UUID(), topCard: Card) {
         self.init(id: id, suit: topCard.suit)
         for i in 1 ... topCard.rank.value {
             guard let rank = Rank(value: i) else { return nil }
@@ -85,6 +85,10 @@ public class Foundation: Stack, CardLocation, Identifiable {
     
     public func selectableCard() -> Card? {
         return nil
+    }
+    
+    public func detachStack(cappedBy capCard: Card) throws {
+        throw FreecellError.invalidMove
     }
 }
 

@@ -25,7 +25,7 @@ public struct ColumnView: View {
 
 struct ColumnView_Previews: PreviewProvider {
     static var previews: some View {
-        let column = Column(id: 0)
+        let column = Column()
         column.setupPush(Card.king.ofDiamonds)
         column.setupPush(Card.seven.ofSpades)
         column.setupPush(Card.four.ofHearts)

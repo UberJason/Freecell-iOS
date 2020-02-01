@@ -13,13 +13,13 @@ import DeckKit
 extension Board {
     static var empty: Board {
         var board = Board()
-        board.freecells = (0...3).map { i in FreeCell(id: i) }
-        board.columns = (0...7).map { i in Column(id: i) }
+        board.freecells = (0...3).map { i in FreeCell() }
+        board.columns = (0...7).map { i in Column() }
         board.foundations = [
-            Foundation(id: 0, suit: .diamonds),
-            Foundation(id: 1, suit: .clubs),
-            Foundation(id: 2, suit: .hearts),
-            Foundation(id: 3, suit: .spades)
+            Foundation(suit: .diamonds),
+            Foundation(suit: .clubs),
+            Foundation(suit: .hearts),
+            Foundation(suit: .spades)
         ]
         
         return board
@@ -27,21 +27,21 @@ extension Board {
     
     static var fullStackBoard1: Board {
         let freecells: [FreeCell] = [
-            FreeCell(id: 0, card: Card.six.ofDiamonds),
-            FreeCell(id: 1, card: Card.four.ofHearts),
-            FreeCell(id: 2),
-            FreeCell(id: 3)
+            FreeCell(card: Card.six.ofDiamonds),
+            FreeCell(card: Card.four.ofHearts),
+            FreeCell(),
+            FreeCell()
         ]
         
         let foundations: [Foundation] = [
-            Foundation(id: 0, topCard: Card.three.ofDiamonds)!,
-            Foundation(id: 1, suit: .clubs),
-            Foundation(id: 2, topCard: Card.ace.ofHearts)!,
-            Foundation(id: 3, topCard: Card.two.ofSpades)!
+            Foundation(topCard: Card.three.ofDiamonds)!,
+            Foundation(suit: .clubs),
+            Foundation(topCard: Card.ace.ofHearts)!,
+            Foundation(topCard: Card.two.ofSpades)!
         ]
         
         let columns: [Column] = [
-            Column(id: 0, cards: [
+            Column(cards: [
                 Card.ace.ofClubs,
                 Card.five.ofClubs,
                 Card.nine.ofHearts,
@@ -51,10 +51,10 @@ extension Board {
                 Card.five.ofSpades,
                 Card.four.ofDiamonds
             ]),
-            Column(id: 1, cards: [
+            Column(cards: [
                 
             ]),
-            Column(id: 2, cards: [
+            Column(cards: [
                 Card.four.ofSpades,
                 Card.seven.ofClubs,
                 Card.king.ofClubs,
@@ -62,7 +62,7 @@ extension Board {
                 Card.jack.ofHearts,
                 Card.ten.ofClubs
             ]),
-            Column(id: 3, cards: [
+            Column(cards: [
                 Card.jack.ofDiamonds,
                 Card.king.ofSpades,
                 Card.queen.ofDiamonds,
@@ -71,7 +71,7 @@ extension Board {
                 Card.nine.ofClubs,
                 Card.eight.ofDiamonds
             ]),
-            Column(id: 4, cards: [
+            Column(cards: [
                 Card.six.ofSpades,
                 Card.king.ofHearts,
                 Card.five.ofDiamonds,
@@ -83,17 +83,17 @@ extension Board {
                 Card.six.ofClubs,
                 Card.five.ofHearts
             ]),
-            Column(id: 5, cards: [
+            Column(cards: [
 
             ]),
-            Column(id: 6, cards: [
+            Column(cards: [
                 Card.seven.ofHearts,
                 Card.queen.ofClubs,
                 Card.four.ofClubs,
                 Card.three.ofHearts,
                 Card.two.ofClubs
             ]),
-            Column(id: 7, cards: [
+            Column(cards: [
                 Card.three.ofClubs,
                 Card.king.ofDiamonds,
                 Card.queen.ofHearts,
@@ -110,21 +110,21 @@ extension Board {
     
     static var fullStackBoard2: Board {
         let freecells: [FreeCell] = [
-            FreeCell(id: 0, card: Card.five.ofDiamonds),
-            FreeCell(id: 1, card: Card.nine.ofHearts),
-            FreeCell(id: 2),
-            FreeCell(id: 3)
+            FreeCell(card: Card.five.ofDiamonds),
+            FreeCell(card: Card.nine.ofHearts),
+            FreeCell(),
+            FreeCell()
         ]
         
         let foundations: [Foundation] = [
-            Foundation(id: 0, topCard: Card.three.ofDiamonds)!,
-            Foundation(id: 1, topCard: Card.ace.ofClubs)!,
-            Foundation(id: 2, topCard: Card.ace.ofHearts)!,
-            Foundation(id: 3, topCard: Card.two.ofSpades)!
+            Foundation(topCard: Card.three.ofDiamonds)!,
+            Foundation(topCard: Card.ace.ofClubs)!,
+            Foundation(topCard: Card.ace.ofHearts)!,
+            Foundation(topCard: Card.two.ofSpades)!
         ]
         
         let columns: [Column] = [
-            Column(id: 0, cards: [
+            Column(cards: [
                 Card.seven.ofHearts,
                 Card.six.ofSpades,
                 Card.two.ofHearts,
@@ -132,15 +132,15 @@ extension Board {
                 Card.three.ofSpades,
                 Card.five.ofSpades
             ]),
-            Column(id: 1, cards: [
+            Column(cards: [
                 
             ]),
-            Column(id: 2, cards: [
+            Column(cards: [
                 Card.king.ofClubs,
                 Card.queen.ofDiamonds,
                 Card.jack.ofClubs
             ]),
-            Column(id: 3, cards: [
+            Column(cards: [
                 Card.two.ofClubs,
                 Card.four.ofClubs,
                 Card.queen.ofSpades,
@@ -152,7 +152,7 @@ extension Board {
                 Card.four.ofDiamonds,
                 Card.three.ofClubs
             ]),
-            Column(id: 4, cards: [
+            Column(cards: [
                 Card.eight.ofHearts,
                 Card.ten.ofDiamonds,
                 Card.jack.ofDiamonds,
@@ -164,7 +164,7 @@ extension Board {
                 Card.ten.ofHearts,
                 Card.nine.ofClubs
             ]),
-            Column(id: 5, cards: [
+            Column(cards: [
                 Card.king.ofDiamonds,
                 Card.queen.ofClubs,
                 Card.jack.ofHearts,
@@ -172,11 +172,11 @@ extension Board {
                 Card.nine.ofDiamonds,
                 Card.eight.ofSpades
             ]),
-            Column(id: 6, cards: [
+            Column(cards: [
                 Card.four.ofHearts,
                 Card.king.ofHearts
             ]),
-            Column(id: 7, cards: [
+            Column(cards: [
                 Card.seven.ofSpades,
                 Card.eight.ofClubs,
                 Card.six.ofHearts,
@@ -191,28 +191,28 @@ extension Board {
     
     static var fullStackBoard3: Board {
         let freecells: [FreeCell] = [
-            FreeCell(id: 0),
-            FreeCell(id: 1, card: Card.four.ofDiamonds),
-            FreeCell(id: 2),
-            FreeCell(id: 3)
+            FreeCell(),
+            FreeCell(card: Card.four.ofDiamonds),
+            FreeCell(),
+            FreeCell()
         ]
         
         let foundations: [Foundation] = [
-            Foundation(id: 0, topCard: Card.two.ofDiamonds)!,
-            Foundation(id: 1, topCard: Card.three.ofClubs)!,
-            Foundation(id: 2, topCard: Card.ace.ofHearts)!,
-            Foundation(id: 3, topCard: Card.three.ofSpades)!
+            Foundation(topCard: Card.two.ofDiamonds)!,
+            Foundation(topCard: Card.three.ofClubs)!,
+            Foundation(topCard: Card.ace.ofHearts)!,
+            Foundation(topCard: Card.three.ofSpades)!
         ]
         
         let columns: [Column] = [
-            Column(id: 0, cards: [
+            Column(cards: [
                 Card.ten.ofSpades,
                 Card.nine.ofDiamonds
             ]),
-            Column(id: 1, cards: [
+            Column(cards: [
                 
             ]),
-            Column(id: 2, cards: [
+            Column(cards: [
                 Card.eight.ofDiamonds,
                 Card.three.ofDiamonds,
                 Card.eight.ofClubs,
@@ -221,11 +221,11 @@ extension Board {
                 Card.six.ofClubs,
                 Card.five.ofDiamonds
             ]),
-            Column(id: 3, cards: [
+            Column(cards: [
                 Card.king.ofDiamonds,
                 Card.queen.ofClubs
             ]),
-            Column(id: 4, cards: [
+            Column(cards: [
                 Card.six.ofHearts,
                 Card.king.ofClubs,
                 Card.five.ofSpades,
@@ -235,10 +235,10 @@ extension Board {
                 Card.ten.ofDiamonds,
                 Card.nine.ofClubs
             ]),
-            Column(id: 5, cards: [
+            Column(cards: [
 
             ]),
-            Column(id: 6, cards: [
+            Column(cards: [
                 Card.seven.ofClubs,
                 Card.four.ofClubs,
                 Card.two.ofHearts,
@@ -254,7 +254,7 @@ extension Board {
                 Card.four.ofSpades,
                 Card.three.ofHearts
             ]),
-            Column(id: 7, cards: [
+            Column(cards: [
                 Card.queen.ofHearts,
                 Card.jack.ofSpades,
                 Card.ten.ofHearts,
@@ -272,24 +272,24 @@ extension Board {
     
     static var fullStackBugBoard4: Board {
         let freecells: [FreeCell] = [
-            FreeCell(id: 0, card: Card.four.ofSpades),
-            FreeCell(id: 1, card: Card.king.ofSpades),
-            FreeCell(id: 2, card: Card.nine.ofDiamonds),
-            FreeCell(id: 3)
+            FreeCell(card: Card.four.ofSpades),
+            FreeCell(card: Card.king.ofSpades),
+            FreeCell(card: Card.nine.ofDiamonds),
+            FreeCell()
         ]
         
         let foundations: [Foundation] = [
-            Foundation(id: 0, topCard: Card.two.ofDiamonds)!,
-            Foundation(id: 1, topCard: Card.ace.ofClubs)!,
-            Foundation(id: 2, topCard: Card.three.ofHearts)!,
-            Foundation(id: 3, topCard: Card.two.ofSpades)!
+            Foundation(topCard: Card.two.ofDiamonds)!,
+            Foundation(topCard: Card.ace.ofClubs)!,
+            Foundation(topCard: Card.three.ofHearts)!,
+            Foundation(topCard: Card.two.ofSpades)!
         ]
         
         let columns: [Column] = [
-            Column(id: 0, cards: [
+            Column(cards: [
 
             ]),
-            Column(id: 1, cards: [
+            Column(cards: [
                 Card.king.ofDiamonds,
                 Card.four.ofDiamonds,
                 Card.three.ofDiamonds,
@@ -301,7 +301,7 @@ extension Board {
                 Card.five.ofDiamonds,
                 Card.four.ofClubs
             ]),
-            Column(id: 2, cards: [
+            Column(cards: [
                 Card.three.ofSpades,
                 Card.ten.ofClubs,
                 Card.queen.ofClubs,
@@ -313,7 +313,7 @@ extension Board {
                 Card.nine.ofHearts,
                 Card.eight.ofSpades
             ]),
-            Column(id: 3, cards: [
+            Column(cards: [
                 Card.queen.ofDiamonds,
                 Card.two.ofClubs,
                 Card.five.ofHearts,
@@ -326,23 +326,23 @@ extension Board {
                 Card.nine.ofClubs,
                 Card.eight.ofDiamonds
             ]),
-            Column(id: 4, cards: [
+            Column(cards: [
                 Card.seven.ofHearts,
                 Card.seven.ofClubs,
                 Card.jack.ofHearts
             ]),
-            Column(id: 5, cards: [
+            Column(cards: [
                 Card.six.ofDiamonds,
                 Card.five.ofSpades
             ]),
-            Column(id: 6, cards: [
+            Column(cards: [
                 Card.eight.ofHearts,
                 Card.seven.ofSpades,
                 Card.six.ofHearts,
                 Card.five.ofClubs,
                 Card.four.ofHearts
             ]),
-            Column(id: 7, cards: [
+            Column(cards: [
                 
             ])
         ]
@@ -352,21 +352,21 @@ extension Board {
 
     static var fullStackBugBoard5: Board {
         let freecells: [FreeCell] = [
-            FreeCell(id: 0, card: Card.four.ofSpades),
-            FreeCell(id: 1, card: Card.king.ofSpades),
-            FreeCell(id: 2, card: Card.king.ofClubs),
-            FreeCell(id: 3)
+            FreeCell(card: Card.four.ofSpades),
+            FreeCell(card: Card.king.ofSpades),
+            FreeCell(card: Card.king.ofClubs),
+            FreeCell()
         ]
         
         let foundations: [Foundation] = [
-            Foundation(id: 0, topCard: Card.three.ofDiamonds)!,
-            Foundation(id: 1, topCard: Card.ace.ofClubs)!,
-            Foundation(id: 2, topCard: Card.three.ofHearts)!,
-            Foundation(id: 3, topCard: Card.two.ofSpades)!
+            Foundation(topCard: Card.three.ofDiamonds)!,
+            Foundation(topCard: Card.ace.ofClubs)!,
+            Foundation(topCard: Card.three.ofHearts)!,
+            Foundation(topCard: Card.two.ofSpades)!
         ]
         
         let columns: [Column] = [
-            Column(id: 0, cards: [
+            Column(cards: [
                 Card.five.ofDiamonds,
                 Card.six.ofDiamonds,
                 Card.six.ofSpades,
@@ -374,7 +374,7 @@ extension Board {
                 Card.nine.ofHearts,
                 Card.eight.ofClubs
             ]),
-            Column(id: 1, cards: [
+            Column(cards: [
                 Card.seven.ofClubs,
                 Card.queen.ofHearts,
                 Card.three.ofClubs,
@@ -385,7 +385,7 @@ extension Board {
                 Card.five.ofHearts,
                 Card.four.ofClubs
             ]),
-            Column(id: 2, cards: [
+            Column(cards: [
                 Card.seven.ofDiamonds,
                 Card.king.ofDiamonds,
                 Card.eight.ofHearts,
@@ -395,14 +395,14 @@ extension Board {
                 Card.nine.ofSpades,
                 Card.eight.ofDiamonds
             ]),
-            Column(id: 3, cards: [
+            Column(cards: [
                 Card.five.ofClubs,
                 Card.seven.ofSpades,
                 Card.six.ofHearts,
                 Card.five.ofSpades,
                 Card.four.ofDiamonds
             ]),
-            Column(id: 4, cards: [
+            Column(cards: [
                 Card.ten.ofClubs,
                 Card.nine.ofDiamonds,
                 Card.nine.ofClubs,
@@ -412,16 +412,16 @@ extension Board {
                 Card.queen.ofClubs,
                 Card.jack.ofHearts
             ]),
-            Column(id: 5, cards: [
+            Column(cards: [
                 
             ]),
-            Column(id: 6, cards: [
+            Column(cards: [
                 Card.queen.ofSpades,
                 Card.jack.ofDiamonds,
                 Card.ten.ofDiamonds,
                 Card.jack.ofSpades
             ]),
-            Column(id: 7, cards: [
+            Column(cards: [
                 
             ])
         ]
@@ -431,21 +431,21 @@ extension Board {
     
     static var fullStackBugBoard6: Board {
         let freecells: [FreeCell] = [
-            FreeCell(id: 0, card: Card.four.ofSpades),
-            FreeCell(id: 1, card: Card.king.ofSpades),
-            FreeCell(id: 2, card: Card.king.ofClubs),
-            FreeCell(id: 3)
+            FreeCell(card: Card.four.ofSpades),
+            FreeCell(card: Card.king.ofSpades),
+            FreeCell(card: Card.king.ofClubs),
+            FreeCell()
         ]
         
         let foundations: [Foundation] = [
-            Foundation(id: 0, topCard: Card.three.ofDiamonds)!,
-            Foundation(id: 1, topCard: Card.ace.ofClubs)!,
-            Foundation(id: 2, topCard: Card.three.ofHearts)!,
-            Foundation(id: 3, topCard: Card.two.ofSpades)!
+            Foundation(topCard: Card.three.ofDiamonds)!,
+            Foundation(topCard: Card.ace.ofClubs)!,
+            Foundation(topCard: Card.three.ofHearts)!,
+            Foundation(topCard: Card.two.ofSpades)!
         ]
         
         let columns: [Column] = [
-            Column(id: 0, cards: [
+            Column(cards: [
                 Card.five.ofDiamonds,
                 Card.six.ofDiamonds,
                 Card.six.ofSpades,
@@ -453,7 +453,7 @@ extension Board {
                 Card.nine.ofHearts,
                 Card.eight.ofClubs
             ]),
-            Column(id: 1, cards: [
+            Column(cards: [
                 Card.seven.ofClubs,
                 Card.queen.ofHearts,
                 Card.three.ofClubs,
@@ -464,7 +464,7 @@ extension Board {
                 Card.five.ofHearts,
                 Card.four.ofClubs
             ]),
-            Column(id: 2, cards: [
+            Column(cards: [
                 Card.seven.ofDiamonds,
                 Card.king.ofDiamonds,
                 Card.eight.ofHearts,
@@ -474,14 +474,14 @@ extension Board {
                 Card.nine.ofSpades,
                 Card.eight.ofDiamonds
             ]),
-            Column(id: 3, cards: [
+            Column(cards: [
                 Card.five.ofClubs,
                 Card.seven.ofSpades,
                 Card.six.ofHearts,
                 Card.five.ofSpades,
                 Card.four.ofDiamonds
             ]),
-            Column(id: 4, cards: [
+            Column(cards: [
                 Card.ten.ofClubs,
                 Card.nine.ofDiamonds,
                 Card.nine.ofClubs,
@@ -491,18 +491,184 @@ extension Board {
                 Card.queen.ofClubs,
                 Card.jack.ofHearts
             ]),
-            Column(id: 5, cards: [
+            Column(cards: [
                 
             ]),
-            Column(id: 6, cards: [
+            Column(cards: [
                 Card.queen.ofSpades,
                 Card.jack.ofDiamonds,
                 Card.jack.ofSpades,
                 Card.ten.ofDiamonds
                 
             ]),
-            Column(id: 7, cards: [
+            Column(cards: [
                 
+            ])
+        ]
+        
+        return Board.preconfigured(withFreecells: freecells, foundations: foundations, columns: columns)
+    }
+    
+    static var fullStackShouldNotMoveBoard7: Board {
+        let freecells: [FreeCell] = [
+            FreeCell(),
+            FreeCell(card: Card.jack.ofClubs),
+            FreeCell(card: Card.king.ofDiamonds),
+            FreeCell(card: Card.eight.ofSpades)
+        ]
+        
+        let foundations: [Foundation] = [
+            Foundation(topCard: Card.two.ofDiamonds)!,
+            Foundation(topCard: Card.two.ofClubs)!,
+            Foundation(suit: .hearts),
+            Foundation(suit: .spades)
+        ]
+        
+        let columns: [Column] = [
+            Column(cards: [
+                Card.ace.ofHearts,
+                Card.seven.ofClubs,
+                Card.seven.ofHearts,
+                Card.queen.ofHearts,
+                Card.two.ofHearts,
+                Card.six.ofClubs,
+                Card.five.ofDiamonds,
+                Card.four.ofClubs,
+                Card.three.ofDiamonds,
+                Card.two.ofSpades
+            ]),
+            Column(cards: [
+                Card.eight.ofDiamonds,
+                Card.king.ofHearts,
+                Card.king.ofSpades,
+                Card.ace.ofSpades,
+                Card.three.ofHearts,
+                Card.queen.ofSpades,
+                Card.six.ofHearts,
+                Card.five.ofSpades,
+                Card.four.ofDiamonds,
+                Card.three.ofSpades
+            ]),
+            Column(cards: [
+                
+            ]),
+            Column(cards: [
+                Card.six.ofSpades,
+                Card.four.ofSpades,
+                Card.nine.ofDiamonds,
+                Card.ten.ofDiamonds,
+                Card.nine.ofSpades
+            ]),
+            Column(cards: [
+                Card.six.ofDiamonds,
+                Card.five.ofClubs,
+                Card.four.ofHearts
+            ]),
+            Column(cards: [
+                Card.seven.ofDiamonds,
+                Card.seven.ofSpades,
+                Card.three.ofClubs,
+                Card.queen.ofClubs,
+                Card.king.ofClubs,
+                Card.queen.ofDiamonds,
+                Card.jack.ofSpades,
+                Card.ten.ofHearts,
+                Card.nine.ofClubs,
+                Card.eight.ofHearts
+            ]),
+            Column(cards: [
+                Card.jack.ofHearts,
+                Card.ten.ofSpades,
+                Card.nine.ofHearts,
+                Card.eight.ofClubs
+            ]),
+            Column(cards: [
+                Card.ten.ofClubs,
+                Card.jack.ofDiamonds,
+                Card.five.ofHearts
+            ])
+        ]
+        
+        return Board.preconfigured(withFreecells: freecells, foundations: foundations, columns: columns)
+    }
+    static var fullStackShouldNotMoveBoard8: Board {
+        let freecells: [FreeCell] = [
+            FreeCell(card: Card.king.ofHearts),
+            FreeCell(card: Card.six.ofDiamonds),
+            FreeCell(card: Card.queen.ofDiamonds),
+            FreeCell()
+        ]
+        
+        let foundations: [Foundation] = [
+            Foundation(suit: .diamonds),
+            Foundation(topCard: Card.ace.ofClubs)!,
+            Foundation(topCard: Card.ace.ofHearts)!,
+            Foundation(topCard: Card.ace.ofSpades)!
+        ]
+        
+        let columns: [Column] = [
+            Column(cards: [
+                Card.ten.ofDiamonds,
+                Card.two.ofHearts,
+                Card.two.ofDiamonds,
+                Card.king.ofClubs,
+                Card.jack.ofHearts,
+                Card.nine.ofClubs,
+                Card.eight.ofHearts,
+                Card.seven.ofClubs
+            ]),
+            Column(cards: [
+                Card.three.ofSpades,
+                Card.jack.ofSpades,
+                Card.four.ofSpades
+            ]),
+            Column(cards: [
+                Card.five.ofSpades,
+                Card.ten.ofSpades,
+                Card.seven.ofHearts,
+                Card.nine.ofHearts
+            ]),
+            Column(cards: [
+                Card.jack.ofClubs,
+                Card.ten.ofHearts,
+                Card.six.ofHearts,
+                Card.three.ofDiamonds,
+                Card.ace.ofDiamonds,
+                Card.two.ofClubs,
+                Card.nine.ofDiamonds,
+                Card.eight.ofSpades,
+                Card.seven.ofDiamonds,
+                Card.six.ofClubs,
+                Card.five.ofHearts,
+                Card.four.ofClubs,
+                Card.three.ofHearts
+            ]),
+            Column(cards: [
+                Card.two.ofSpades,
+                Card.queen.ofHearts,
+                Card.three.ofClubs,
+                Card.five.ofClubs,
+                Card.eight.ofClubs,
+                Card.king.ofDiamonds,
+                Card.queen.ofClubs,
+                Card.jack.ofDiamonds
+            ]),
+            Column(cards: [
+                Card.five.ofDiamonds,
+                Card.queen.ofSpades,
+                Card.four.ofHearts,
+                Card.six.ofSpades
+            ]),
+            Column(cards: [
+                
+            ]),
+            Column(cards: [
+                Card.king.ofSpades,
+                Card.nine.ofSpades,
+                Card.seven.ofSpades,
+                Card.eight.ofDiamonds,
+                Card.ten.ofClubs,
+                Card.four.ofDiamonds
             ])
         ]
         

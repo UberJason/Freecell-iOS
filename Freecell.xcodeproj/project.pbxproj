@@ -7,7 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		9622959A23835A7B005D599B /* CardLocation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9622959923835A7B005D599B /* CardLocation.swift */; };
+		9613245023E12A0600982898 /* CGRect+Center.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9613244F23E12A0600982898 /* CGRect+Center.swift */; };
+		9613245223E23D4000982898 /* CGPoint+Translation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9613245123E23D4000982898 /* CGPoint+Translation.swift */; };
+		961AC2A823E374AC003341B0 /* Notification+NewGame.swift in Sources */ = {isa = PBXBuildFile; fileRef = 961AC2A723E374AC003341B0 /* Notification+NewGame.swift */; };
+		961AC2AA23E4B661003341B0 /* MoveEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 961AC2A923E4B661003341B0 /* MoveEvent.swift */; };
+		9622959A23835A7B005D599B /* Cell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9622959923835A7B005D599B /* Cell.swift */; };
 		9622959C238393BA005D599B /* GameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96A363F9237CF0FC005C45FB /* GameView.swift */; };
 		962295F223884563005D599B /* CardRectangle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 962295F123884563005D599B /* CardRectangle.swift */; };
 		962295F52388762D005D599B /* BoardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 962295F323887623005D599B /* BoardView.swift */; };
@@ -27,7 +31,7 @@
 		964BBF1823A48B0B009B4FDE /* SubstackMovementTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 964BBF1723A48B0B009B4FDE /* SubstackMovementTests.swift */; };
 		964BBF1A23A48B39009B4FDE /* BoardTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 964BBF1923A48B39009B4FDE /* BoardTests.swift */; };
 		964BBF1D23A6D9C3009B4FDE /* StackOffsetting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 964BBF1C23A6D9C3009B4FDE /* StackOffsetting.swift */; };
-		9661BFAE23DE86A300DFC5E9 /* CardLocationInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9661BFAD23DE86A300DFC5E9 /* CardLocationInfo.swift */; };
+		9661BFAE23DE86A300DFC5E9 /* CellInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9661BFAD23DE86A300DFC5E9 /* CellInfo.swift */; };
 		9661E7AC2380439C00183A99 /* CardStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9661E7AB2380439C00183A99 /* CardStack.swift */; };
 		9688893A2389CB83001DD34B /* Result+SuccessVoid.swift in Sources */ = {isa = PBXBuildFile; fileRef = 968889392389CB83001DD34B /* Result+SuccessVoid.swift */; };
 		9688893C238B679A001DD34B /* Suit+Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9688893B238B679A001DD34B /* Suit+Color.swift */; };
@@ -214,7 +218,11 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		9622959923835A7B005D599B /* CardLocation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardLocation.swift; sourceTree = "<group>"; };
+		9613244F23E12A0600982898 /* CGRect+Center.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CGRect+Center.swift"; sourceTree = "<group>"; };
+		9613245123E23D4000982898 /* CGPoint+Translation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CGPoint+Translation.swift"; sourceTree = "<group>"; };
+		961AC2A723E374AC003341B0 /* Notification+NewGame.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Notification+NewGame.swift"; sourceTree = "<group>"; };
+		961AC2A923E4B661003341B0 /* MoveEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoveEvent.swift; sourceTree = "<group>"; };
+		9622959923835A7B005D599B /* Cell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Cell.swift; sourceTree = "<group>"; };
 		962295F123884563005D599B /* CardRectangle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardRectangle.swift; sourceTree = "<group>"; };
 		962295F323887623005D599B /* BoardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = BoardView.swift; path = FreecellKit/Views/BoardView.swift; sourceTree = SOURCE_ROOT; };
 		962295F72388936C005D599B /* CardTapHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardTapHandler.swift; sourceTree = "<group>"; };
@@ -233,7 +241,7 @@
 		964BBF1723A48B0B009B4FDE /* SubstackMovementTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubstackMovementTests.swift; sourceTree = "<group>"; };
 		964BBF1923A48B39009B4FDE /* BoardTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoardTests.swift; sourceTree = "<group>"; };
 		964BBF1C23A6D9C3009B4FDE /* StackOffsetting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StackOffsetting.swift; sourceTree = "<group>"; };
-		9661BFAD23DE86A300DFC5E9 /* CardLocationInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardLocationInfo.swift; sourceTree = "<group>"; };
+		9661BFAD23DE86A300DFC5E9 /* CellInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CellInfo.swift; sourceTree = "<group>"; };
 		9661E7AB2380439C00183A99 /* CardStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardStack.swift; sourceTree = "<group>"; };
 		968889392389CB83001DD34B /* Result+SuccessVoid.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Result+SuccessVoid.swift"; sourceTree = "<group>"; };
 		9688893B238B679A001DD34B /* Suit+Color.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Suit+Color.swift"; sourceTree = "<group>"; };
@@ -390,7 +398,9 @@
 				9688893B238B679A001DD34B /* Suit+Color.swift */,
 				964BBF0723A4861C009B4FDE /* Board+Convenience.swift */,
 				9627FECF23AB19CF00F8F63B /* CustomDebugStrings.swift */,
-				9661BFAD23DE86A300DFC5E9 /* CardLocationInfo.swift */,
+				9661BFAD23DE86A300DFC5E9 /* CellInfo.swift */,
+				9613244F23E12A0600982898 /* CGRect+Center.swift */,
+				9613245123E23D4000982898 /* CGPoint+Translation.swift */,
 			);
 			path = Utility;
 			sourceTree = "<group>";
@@ -414,7 +424,7 @@
 			isa = PBXGroup;
 			children = (
 				96A36478237E3408005C45FB /* Stack.swift */,
-				9622959923835A7B005D599B /* CardLocation.swift */,
+				9622959923835A7B005D599B /* Cell.swift */,
 				9661E7AB2380439C00183A99 /* CardStack.swift */,
 				96A36483237E3851005C45FB /* FreeCell.swift */,
 				96A36485237E385B005C45FB /* Foundation.swift */,
@@ -439,6 +449,8 @@
 			children = (
 				9689E18923AB0BA4008B960B /* ModulatedPublisher.swift */,
 				9689E18823AB0BA4008B960B /* SteppingSubscriber.swift */,
+				961AC2A723E374AC003341B0 /* Notification+NewGame.swift */,
+				961AC2A923E4B661003341B0 /* MoveEvent.swift */,
 			);
 			path = Publisher;
 			sourceTree = "<group>";
@@ -1037,6 +1049,9 @@
 			files = (
 				9625628F2381D857003C09AA /* ColumnView.swift in Sources */,
 				962295F223884563005D599B /* CardRectangle.swift in Sources */,
+				9613245023E12A0600982898 /* CGRect+Center.swift in Sources */,
+				961AC2AA23E4B661003341B0 /* MoveEvent.swift in Sources */,
+				961AC2A823E374AC003341B0 /* Notification+NewGame.swift in Sources */,
 				9688893C238B679A001DD34B /* Suit+Color.swift in Sources */,
 				9661E7AC2380439C00183A99 /* CardStack.swift in Sources */,
 				962562892381D846003C09AA /* CardView.swift in Sources */,
@@ -1051,15 +1066,16 @@
 				9625628B2381D84C003C09AA /* FreeCellView.swift in Sources */,
 				9625628D2381D853003C09AA /* FoundationView.swift in Sources */,
 				9689E18B23AB0BA4008B960B /* ModulatedPublisher.swift in Sources */,
-				9622959A23835A7B005D599B /* CardLocation.swift in Sources */,
+				9622959A23835A7B005D599B /* Cell.swift in Sources */,
 				9689E18A23AB0BA4008B960B /* SteppingSubscriber.swift in Sources */,
 				96CA9B0E239300C300C34A60 /* BoardViewDriver.swift in Sources */,
 				964BBF0823A4861C009B4FDE /* Board+Convenience.swift in Sources */,
 				96A36488237E3894005C45FB /* FreecellError.swift in Sources */,
+				9613245223E23D4000982898 /* CGPoint+Translation.swift in Sources */,
 				962295F52388762D005D599B /* BoardView.swift in Sources */,
 				9627FED023AB19CF00F8F63B /* CustomDebugStrings.swift in Sources */,
 				96A36479237E3408005C45FB /* Stack.swift in Sources */,
-				9661BFAE23DE86A300DFC5E9 /* CardLocationInfo.swift in Sources */,
+				9661BFAE23DE86A300DFC5E9 /* CellInfo.swift in Sources */,
 				96A36477237E33D3005C45FB /* Board.swift in Sources */,
 				964BBF1D23A6D9C3009B4FDE /* StackOffsetting.swift in Sources */,
 				964BBF0623A47B96009B4FDE /* BackgroundColorView.swift in Sources */,

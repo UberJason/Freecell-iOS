@@ -9,8 +9,8 @@
 import Foundation
 import DeckKit
 
-public class FreeCell: Stack, CardLocation, Identifiable {
-    public let id: Int
+public class FreeCell: Stack, Cell, Identifiable {
+    public let id: UUID
     public var item: Card?
     
     public var maxSize: Int { return 1 }
@@ -24,7 +24,7 @@ public class FreeCell: Stack, CardLocation, Identifiable {
     
     public var isOccupied: Bool { return item != nil }
     
-    init(id: Int, card: Card? = nil) {
+    init(id: UUID = UUID(), card: Card? = nil) {
         self.id = id
         self.item = card
     }
@@ -60,6 +60,11 @@ public class FreeCell: Stack, CardLocation, Identifiable {
     
     public func selectableCard() -> Card? {
         return item
+    }
+    
+    public func detachStack(cappedBy capCard: Card) throws {
+        guard capCard == item else { throw FreecellError.invalidMove }
+        let _ = pop()
     }
 }
 

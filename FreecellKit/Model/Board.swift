@@ -19,14 +19,14 @@ public struct Board {
     private var _movePublisher = PassthroughSubject<MoveEvent, Never>()
     
     public init(deck: Deck = Deck(shuffled: false)) {
-        freecells = (0...3).map { i in FreeCell(id: i) }
+        freecells = (0...3).map { _ in FreeCell() }
         foundations = [
-            Foundation(id: 0, suit: .diamonds),
-            Foundation(id: 1, suit: .clubs),
-            Foundation(id: 2, suit: .hearts),
-            Foundation(id: 3, suit: .spades)
+            Foundation(suit: .diamonds),
+            Foundation(suit: .clubs),
+            Foundation(suit: .hearts),
+            Foundation(suit: .spades)
         ]
-        columns = (0...7).map { i in Column(id: i) }
+        columns = (0...7).map { i in Column() }
         
         for i in 0 ..< Deck.maxCardCount {
             guard let card = deck.draw() else { fatalError("Deck empty during new game setup") }
@@ -44,29 +44,29 @@ public struct Board {
         return Board(freecells: freecells.map { $0.copy() as! FreeCell }, foundations: foundations.map { $0.copy() as! Foundation }, columns: columns.map { $0.copy() as! Column })
     }
     
-    func location(containing card: Card) -> CardLocation {
-        let allLocations: [[CardLocation]] = [freecells, foundations, columns]
+    func cell(containing card: Card) -> Cell {
+        let allCells: [[Cell]] = [freecells, foundations, columns]
         
-        guard let containingLocation = allLocations
+        guard let cell = allCells
             .flatMap({ $0 })
-            .filter({ location in
-                location.contains(card)
+            .filter({
+                $0.contains(card)
             })
             .first else { fatalError("Fatal error! Nobody seems to have the card: \(card.displayTitle)") }
         
-        return containingLocation
+        return cell
     }
     
-    func location(id: Int, locationType: CardLocation.Type) -> CardLocation {
-        let allLocations: [[CardLocation]] = [freecells, foundations, columns]
-        let allLocationsFlat = allLocations.flatMap({ $0 })
-        guard let containingLocation = allLocationsFlat
+    func cell(for id: UUID) -> Cell {
+        let allCells: [[Cell]] = [freecells, foundations, columns]
+        let allCellsFlat = allCells.flatMap({ $0 })
+        guard let cell = allCellsFlat
             .filter({ location in
-                location.id == id && type(of: location) == locationType
+                location.id == id
             })
-            .first else { fatalError("Fatal error! This location doesn't exist: \(id), \(locationType)")}
+            .first else { fatalError("Fatal error! This location doesn't exist: \(id)") }
         
-        return containingLocation
+        return cell
     }
     
     /// Finds and attempts to perform a valid move using the selected card and the destination location.
@@ -74,7 +74,7 @@ public struct Board {
     /// - Parameters:
     ///   - card: Current user selected card. Will be moved or part of the move, if a stack movement.
     ///   - toLocation: Destination to receive the card and/or stack.
-    func performValidMove(from card: Card, to toLocation: CardLocation) throws {
+    func performValidMove(from card: Card, to toLocation: Cell) throws {
         
         // Edge case: If user taps selected card twice, move card to available freecell.
         if toLocation.contains(card), toLocation is Column {
@@ -84,7 +84,7 @@ public struct Board {
 
         // If user attempts a column-to-column move, search for and attempt a stack movement.
         // In any other case, attempt a single-card move.
-        let fromLocation = self.location(containing: card)
+        let fromLocation = self.cell(containing: card)
         
         switch(fromLocation, toLocation) {
         case (let fromColumn as Column, let toColumn as Column):
@@ -94,28 +94,69 @@ public struct Board {
         }
     }
     
+    /// Finds and attempts to perform a valid direct move from the provided card.
+    /// - Parameter card: Card tapped by the user.
+    func performValidDirectMove(from card: Card) throws {
+        let containingCell = cell(containing: card)
+        
+        guard let tappedStack = substack(cappedBy: card),
+            let validDestination = findValidDestination(for: tappedStack, origin: containingCell) else {
+            throw FreecellError.noValidMoveAvailable
+        }
+        
+        try performDirectStackMovement(of: tappedStack, from: containingCell, to: validDestination)
+    }
+    
+    /// The single call site for mutating the board. move(_:to:) and moveDirectStack(_:from:to:) both call into this method. This method takes a snapshot of the board before and after the update, and publishes out a move event with the change.
+    /// - Parameters:
+    ///   - update: A synchronous (non-escaping) closure that performs the board update.
+    ///   - deferringAutoUpdate: If false, the board will attempt to auto-update foundations after a successful move.
+    ///    When in the middle of a stack movement, this value may be preferred to be true to avoid putting the board in an unexpected state.
+    private func _performBoardUpdate(_ update: () throws -> (), deferringAutoUpdate: Bool = false) throws {
+        let beforeBoard = self.copy
+        try update()
+        let afterBoard = self.copy
+        
+        _movePublisher.send(MoveEvent(beforeBoard: beforeBoard, afterBoard: afterBoard))
+        
+        if !deferringAutoUpdate {
+            try autoUpdateFoundations()
+        }
+    }
+    
     /// Moves card to the given location. Assumes the card is in a valid location and has not yet been removed - do not call pop() prior to calling move(_:to:).
     /// - Parameters:
     ///   - card: Card to move to the given location.
     ///   - location: Location to receive the card.
     ///   - deferringAutoUpdate: If false, the board will attempt to auto-update foundations after a successful move.
     ///    When in the middle of a stack movement, this value may be preferred to be true to avoid putting the board in an unexpected state.
-    func move(_ card: Card, to location: CardLocation, deferringAutoUpdate: Bool = false) throws {
-        let beforeBoard = self.copy
-        
-        guard location.canReceive(card) else { throw FreecellError.invalidMove }
-        
-        if let card = self.location(containing: card).pop() {
-            try location.receive(card)
-        }
-        
-        let afterBoard = self.copy
-        
-        _movePublisher.send(MoveEvent(card: card, beforeBoard: beforeBoard, afterBoard: afterBoard))
-        
-        if !deferringAutoUpdate {
-            try autoUpdateFoundations()
-        }
+    func move(_ card: Card, to location: Cell, deferringAutoUpdate: Bool = false) throws {
+        try _performBoardUpdate({
+            guard location.canReceive(card) else { throw FreecellError.invalidMove }
+            
+            if let card = self.cell(containing: card).pop() {
+                try location.receive(card)
+            }
+        }, deferringAutoUpdate: deferringAutoUpdate)
+    }
+    
+    /// Moves the card stack from its origin to the given column. Assumes the stack has not yet been detached from its origin - do not call detachStack(cappedBy:) prior to calling moveDirectStack(_:from:to:).
+    /// - Parameters:
+    ///   - stack: Stack to move to the new column.
+    ///   - origin: Origin of the stack.
+    ///   - column: Destination column for the stack move.
+    ///   - deferringAutoUpdate: If false, the board will attempt to auto-update foundations after a successful move.
+    ///    When in the middle of a stack movement, this value may be preferred to be true to avoid putting the board in an unexpected state.
+    func moveDirectStack(_ stack: CardStack, from origin: Cell, to column: Column, deferringAutoUpdate: Bool = false) throws {
+        try _performBoardUpdate({
+            guard canMoveFullStack(stack, to: column), let capCard = stack.bottomItem else {
+                throw FreecellError.invalidMove
+            }
+
+            try origin.detachStack(cappedBy: capCard)
+            try column.appendStack(stack)
+            
+        }, deferringAutoUpdate: deferringAutoUpdate)
     }
     
     /// Convenience method to attempt to move card to the first available freecell. Throws invalidMove if all freecells are occupied.
@@ -175,16 +216,21 @@ public struct Board {
         
         return nil
     }
-
+    
+    func canMoveSubstack(_ substack: CardStack, to toColumn: Column) -> Bool {
+        guard let capCard = substack.bottomItem,
+            toColumn.canReceive(capCard) else { return false }
+        
+        return substack.items.count <= maximumMoveableSubstackSize
+    }
+    
     func canMoveSubstack(from fromColumn: Column, to toColumn: Column) -> Bool {
         if toColumn.isEmpty && !fromColumn.isEmpty { return true }
         
         guard let capCard = capCard(forMovingFrom: fromColumn, to: toColumn),
             let substack = fromColumn.validSubstack(cappedBy: capCard) else { return false }
         
-        guard toColumn.canReceive(capCard) else { return false }
-        
-        return substack.items.count <= maximumMoveableSubstackSize
+        return canMoveSubstack(substack, to: toColumn)
     }
     
     func moveSubstack(from fromColumn: Column, to toColumn: Column) throws {
@@ -221,7 +267,16 @@ public struct Board {
         guard let capCard = capCard(forMovingFrom: fromColumn, to: toColumn),
         let substack = fromColumn.validSubstack(cappedBy: capCard) else { return false }
         
-        return toColumn.isEmpty && availableFreeColumnCount(excluding: toColumn) > 0 && substack.items.count > maximumMoveableSubstackSize
+        return toColumn.isEmpty && availableFreeColumnCount(excluding: toColumn) > 0 && !canMoveSubstack(substack, to: toColumn)
+    }
+    
+    func canMoveFullStack(_ substack: CardStack, to toColumn: Column) -> Bool {
+        guard let capCard = substack.bottomItem,
+            toColumn.canReceive(capCard) else { return false }
+        
+        let availableFreeColumnCount = self.availableFreeColumnCount(excluding: toColumn)
+        
+        return substack.items.count <= (availableFreecellCount + 1)*(availableFreeColumnCount+1)
     }
     
     func canMoveFullStack(from fromColumn: Column, to toColumn: Column) -> Bool {
@@ -230,11 +285,7 @@ public struct Board {
         guard let capCard = capCard(forMovingFrom: fromColumn, to: toColumn),
             let substack = fromColumn.validSubstack(cappedBy: capCard) else { return false }
         
-        guard toColumn.canReceive(capCard) else { return false }
-        
-        let availableFreeColumnCount = self.availableFreeColumnCount(excluding: toColumn)
-        
-        return substack.items.count <= (availableFreecellCount + 1)*(availableFreeColumnCount+1)
+        return canMoveFullStack(substack, to: toColumn)
     }
     
     func moveFullStack(from fromColumn: Column, to toColumn: Column) throws {
@@ -268,18 +319,103 @@ public struct Board {
             throw FreecellError.invalidMove
         }
     }
+    
+    /// Searches for a valid destination to move the CardStack.
+    /// - Parameter stack: Card stack looking for a home.
+    func findValidDestination(for stack: CardStack, origin: Cell) -> Cell? {
+        guard let card = stack.bottomItem else { return nil }
+        
+        // We compile all valid destination options, order them by preference,
+        // and select the first available one.
+        
+        let anyValidDestinationColumns = columns.filter { canMoveFullStack(stack, to: $0) }
+        let nonEmptyColumns = anyValidDestinationColumns.filter({ $0.items.count > 0 })
+        let availableFreecell = nextAvailableFreecell
+        let availableFoundation: Cell? = {
+            let f = foundation(for: card.suit)
+            return f.canReceive(card) ? f : nil
+        }()
+
+        let choices: [Cell]
+        switch origin {
+        case is FreeCell:
+            choices = [
+                nonEmptyColumns.first,
+                anyValidDestinationColumns.first,
+                availableFoundation
+            ].compactMap { $0 }
+        case is Column:
+            if stack.isSingleCard {
+                choices = [
+                    nonEmptyColumns.first,
+                    availableFreecell,
+                    anyValidDestinationColumns.first,
+                    availableFoundation
+                ].compactMap { $0 }
+            }
+            else {
+                choices = [
+                    nonEmptyColumns.first,
+                    anyValidDestinationColumns.first
+                ].compactMap { $0 }
+            }
+        default:
+            choices = []
+        }
+        
+        return choices.first
+    }
+    
+    /// Find and attempt the direct stack movement of the stack to the destination.
+    /// If the destination is FreeCell or Foundation, the move only succeeds if the stack is 1 card.
+    /// Otherwise, attempt a direct stack movement to the destination column if valid.
+    /// - Parameters:
+    ///   - stack: Stack to move.
+    ///   - origin: Origin cell that the stack currently resides in.
+    ///   - destination: Destination cell to attempt the movement of the card stack.
+    func performDirectStackMovement(of stack: CardStack, from origin: Cell, to destination: Cell) throws {
+        switch destination {
+        case is FreeCell, is Foundation:
+            guard let card = stack.topItem,
+                stack.items.count == 1 && destination.canReceive(card)
+            else { throw FreecellError.invalidMove }
+            
+            try move(card, to: destination)
+        case let column as Column:
+            try moveDirectStack(stack, from: origin, to: column)
+        default: throw FreecellError.invalidMove
+        }
+    }
+    
+    func substack(cappedBy capCard: Card) -> CardStack? {
+        let origin = cell(containing: capCard)
+        
+        switch origin {
+        case let column as Column:
+            if let substack = column.validSubstack(cappedBy: capCard) {
+                return substack
+            }
+        case is FreeCell:
+            let substack = CardStack(cards: [capCard])
+            return substack
+        default:
+            break
+        }
+        
+        return nil
+    }
 }
 
 extension Board {
-    public var availableFreecellCount: Int {
+    var availableFreecellCount: Int {
         return freecells.filter({ !$0.isOccupied }).count
     }
     
-    public var nextAvailableFreecell: FreeCell? {
+    var nextAvailableFreecell: FreeCell? {
         return freecells.filter({ !$0.isOccupied }).first
     }
     
-    public var maximumMoveableSubstackSize: Int {
+    var maximumMoveableSubstackSize: Int {
         return availableFreecellCount + 1
     }
     
@@ -320,19 +456,13 @@ extension Board {
         return columns.filter { $0.isEmpty && $0.id != excludedColumn?.id }
     }
     
-    public func availableFreeColumnCount(excluding excludedColumn: Column?) -> Int {
+    func availableFreeColumnCount(excluding excludedColumn: Column?) -> Int {
         return freeColumns(excluding: excludedColumn).count
     }
-}
-
-public struct MoveEvent: Equatable {
-    public static func == (lhs: MoveEvent, rhs: MoveEvent) -> Bool {
-        return lhs.id == rhs.id
-    }
     
-    // Create a unique identifier for a move, to compare it to other moves.
-    let id = UUID()
-    let card: Card
-    let beforeBoard: Board
-    let afterBoard: Board
+    func foundation(for suit: Suit) -> Foundation {
+        guard let foundation = foundations.filter({ $0.suit == suit }).first else { fatalError("Couldn't find a Foundation for the suit, which is impossible") }
+        
+        return foundation
+    }
 }

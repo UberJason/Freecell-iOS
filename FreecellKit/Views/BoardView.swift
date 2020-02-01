@@ -10,8 +10,12 @@ import SwiftUI
 import DeckKit
 
 public struct BoardView: View, StackOffsetting {
+    public enum DragState {
+        case inactive, active(translation: CGSize)
+    }
+    
     @ObservedObject var boardDriver: BoardViewDriver
-    @Environment(\.undoManager) var undoManager
+    @GestureState var dragState: DragState = .inactive
     
     public init(boardDriver: BoardViewDriver) {
         self.boardDriver = boardDriver
@@ -31,8 +35,8 @@ public struct BoardView: View, StackOffsetting {
                                 .onTapGesture {
                                     self.boardDriver.itemTapped(freeCell)
                                 }
-                            .anchorPreference(key: CardLocationInfoKey.self, value: .bounds, transform: { bounds in
-                                [CardLocationInfo(location: freeCell, type: .freecell, bounds: bounds)]
+                            .anchorPreference(key: CellInfoKey.self, value: .bounds, transform: { bounds in
+                                [CellInfo(cellId: freeCell.id, bounds: bounds)]
                             })
                         }
                     }
@@ -46,8 +50,8 @@ public struct BoardView: View, StackOffsetting {
                                 .onTapGesture {
                                     self.boardDriver.itemTapped(foundation)
                                 }
-                                .anchorPreference(key: CardLocationInfoKey.self, value: .bounds, transform: { bounds in
-                                    [CardLocationInfo(location: foundation, type: .foundation, bounds: bounds)]
+                                .anchorPreference(key: CellInfoKey.self, value: .bounds, transform: { bounds in
+                                    [CellInfo(cellId: foundation.id, bounds: bounds)]
                                 })
                         }
                     }
@@ -60,8 +64,8 @@ public struct BoardView: View, StackOffsetting {
                             .onTapGesture {
                                 self.boardDriver.itemTapped(column)
                             }
-                            .anchorPreference(key: CardLocationInfoKey.self, value: .bounds, transform: { bounds in
-                                [CardLocationInfo(location: column, type: .column, bounds: bounds)]
+                            .anchorPreference(key: CellInfoKey.self, value: .bounds, transform: { bounds in
+                                [CellInfo(cellId: column.id, bounds: bounds)]
                             })
                     }
                 }
@@ -69,10 +73,12 @@ public struct BoardView: View, StackOffsetting {
             
         }
         .edgesIgnoringSafeArea(.all)
-        .overlayPreferenceValue(CardLocationInfoKey.self) { preferences in
+        .overlayPreferenceValue(CellInfoKey.self) { preferences in
             return GeometryReader { geometry in
                 ZStack {
-                    self.allCardsView(using: geometry, cardLocations: preferences)
+                    ForEach(self.boardDriver.allCards) { card in
+                        self.renderedCardView(card, using: geometry, cells: preferences)
+                    }
                 }
                 .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
             }
@@ -80,60 +86,75 @@ public struct BoardView: View, StackOffsetting {
         .onTapGesture {
             self.boardDriver.itemTapped(self)
         }
-        .onAppear() {
-            self.boardDriver.undoManager = self.undoManager
-        }
     }
     
-    func allCardsView(using geometry: GeometryProxy, cardLocations: [CardLocationInfo]) -> some View {
-        ForEach(boardDriver.allCards) { card in
-            self.renderedCardView(card, using: geometry, cardLocations: cardLocations)
+    func renderedCardView(_ card: Card, using geometry: GeometryProxy, cells: [CellInfo]) -> some View {
+        if let boardDriver = boardDriver as? ModernViewDriver {
+            boardDriver.storeCellPositions(cells, using: geometry)
         }
-    }
-    
-    func renderedCardView(_ card: Card, using geometry: GeometryProxy, cardLocations: [CardLocationInfo]) -> some View {
+            
         var bounds = CGRect.zero
-        var offset = CGSize.zero
+        var stackOffset = CGSize.zero
         
-        let containingLocation = boardDriver.location(containing: card)
-        if let p = cardLocations.filter({
-            $0.location.id == containingLocation.id &&
-            type(of: containingLocation) == type(of: $0.location)
+        let containingLocation = boardDriver.cell(containing: card)
+        if let p = cells.filter({
+            $0.cellId == containingLocation.id
         }).first {
             bounds = geometry[p.bounds]
-            if p.type == .column, let column = containingLocation as? Column {
-                offset = self.stackOffset(for: card, orderIndex: column.orderIndex(for: card))
+            if let column = containingLocation as? Column {
+                stackOffset = self.stackOffset(for: card, orderIndex: column.orderIndex(for: card))
             }
         }
         
+        #warning("Is there a way I can conditionally create this drag gesture and handlers, only in the case where my board driver is a modern board driver?")
         return CardView(card: card)
             .id(card)
             .frame(width: bounds.size.width, height: bounds.size.height)
             .overlay(
-                self.overlayView(for: card)
+                CardRectangle(foregroundColor: boardDriver.cardOverlayColor(for: card), opacity: 0.3)
             )
-            .scaleEffect(card == boardDriver.selectedCard ? 1.05 : 1.0, anchor: .top)
+            .scaleEffect(boardDriver.scale(for: card), anchor: .top)
             .animation(cardSpringAnimation)
             .onTapGesture {
                 self.boardDriver.itemTapped(card)
             }
-            .offset(x: bounds.minX, y: bounds.minY + offset.height)
+            .position(x: bounds.midX, y: bounds.midY + stackOffset.height)
+            .offset(boardDriver.cardOffset(for: card, relativeTo: bounds, dragState: dragState))
             .animation(cardSpringAnimation)
+            .simultaneousGesture(
+                createDragGesture(for: card)
+            )
+            .zIndex(boardDriver.zIndex(for: card))
     }
     
-    func overlayView(for card: Card) -> some View {
-        let color: Color = boardDriver.selectedCard == card ? .yellow : .clear
-        return CardRectangle(foregroundColor: color, opacity: 0.3)
+    func createDragGesture(for card: Card) -> some Gesture {
+        let gesture = DragGesture()
+            .updating(self.$dragState) { (value, state, _) in
+                if case .inactive = state {
+                    self.boardDriver.dragStarted(from: card)
+                }
+                state = .active(translation: value.translation)
+            }
+            .onEnded { value in
+                self.boardDriver.dragEnded(with: value.translation)
+            }
+        
+        return boardDriver is ModernViewDriver ? gesture : nil
     }
-    
-    #warning("TODO: Dynamically size the cards by platform and figure out why Mac is assuming 1024x768")
+   
+    #warning("TODO: Dynamically size the cards by platform")
     var cardSize: CGSize {
 //        return CGSize(width: 125, height: 187)  // iPad Pro
         return CGSize(width: 107, height: 160)  // iPad Mini
     }
     
-    var cardSpringAnimation: Animation {
-        return Animation.spring(response: 0.08, dampingFraction: 0.95, blendDuration: 0.0)
+    var cardSpringAnimation: Animation? {
+        switch dragState {
+        case .inactive:
+//        return Animation.spring(response: 0.08, dampingFraction: 0.95, blendDuration: 0.0)
+            return .spring(response: 0.10, dampingFraction: 0.90, blendDuration: 0.0)
+        case .active(_): return nil
+        }
     }
 }
 

@@ -24,9 +24,9 @@ public struct FoundationView: View {
 }
 
 struct FoundationView_Previews: PreviewProvider {
-    static let emptyFoundation = Foundation(id: 0, suit: .spades)
+    static let emptyFoundation = Foundation(suit: .spades)
     static let filledFoundation: Foundation = {
-        let f = Foundation(id: 1, suit: .hearts)
+        let f = Foundation(suit: .hearts)
         try! f.push(Card.ace.ofHearts)
         try! f.push(Card.two.ofHearts)
         try! f.push(Card.three.ofHearts)

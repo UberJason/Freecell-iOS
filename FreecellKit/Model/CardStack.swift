@@ -128,4 +128,8 @@ public class CardStack: Stack, Identifiable {
     var isFullyValid: Bool {
         return validSubstackArraySlice?.count == stack.count
     }
+    
+    var isSingleCard: Bool {
+        return stack.count == 1
+    }
 }

@@ -30,7 +30,7 @@ class LocationTests: XCTestCase {
 
     // MARK: - Foundation Tests -
     func testFoundationPush() {
-        let foundation = Foundation(id: 0, suit: .spades)
+        let foundation = Foundation(suit: .spades)
         
         do {
             try foundation.push(aceOfSpades)
@@ -60,7 +60,7 @@ class LocationTests: XCTestCase {
             XCTFail("Should be able to push \(sevenOfSpades.displayTitle) onto \(twoOfSpades.displayTitle)")
         } catch {}
         
-        let foundation2 = Foundation(id: 1, suit: .spades)
+        let foundation2 = Foundation(suit: .spades)
         
         do {
             try foundation2.push(twoOfSpades)
@@ -69,7 +69,7 @@ class LocationTests: XCTestCase {
     }
     
     func testMultipleFoundationPush() {
-        let f = Foundation(id: 0, suit: .hearts)
+        let f = Foundation(suit: .hearts)
         do {
             try f.push(Card.ace.ofHearts)
             try f.push(Card.two.ofHearts)
@@ -82,7 +82,7 @@ class LocationTests: XCTestCase {
     }
     
     func testFoundationConvenienceInit() throws {
-        var foundation = try XCTUnwrap(Foundation(id: 0, topCard: Card.four.ofSpades))
+        var foundation = try XCTUnwrap(Foundation(topCard: Card.four.ofSpades))
         XCTAssertEqual(foundation.items, [
             Card.ace.ofSpades,
             Card.two.ofSpades,
@@ -90,7 +90,7 @@ class LocationTests: XCTestCase {
             Card.four.ofSpades
         ])
         
-        foundation = try XCTUnwrap(Foundation(id: 0, topCard: Card.ace.ofDiamonds))
+        foundation = try XCTUnwrap(Foundation(topCard: Card.ace.ofDiamonds))
         XCTAssertEqual(foundation.items, [
             Card.ace.ofDiamonds
         ])
@@ -99,19 +99,19 @@ class LocationTests: XCTestCase {
     // MARK: - FreeCell Tests -
     func testFreecellOccupied() throws {
         
-        func validate(for board: Board, expectedId: Int) {
+        func validate(for board: Board, expectedId: UUID) {
             let availableFreeCell = board.nextAvailableFreecell
             XCTAssertEqual(availableFreeCell?.id, expectedId)
         }
         
         let board = Board()
-        validate(for: board, expectedId: 0)
+        validate(for: board, expectedId: board.freecells[0].id)
         
         try? board.freecells[0].push(Card.ace.ofSpades)
-        validate(for: board, expectedId: 1)
+        validate(for: board, expectedId: board.freecells[1].id)
         
         try? board.freecells[2].push(Card.queen.ofSpades)
-        validate(for: board, expectedId: 1)
+        validate(for: board, expectedId: board.freecells[1].id)
         
         try? board.freecells[1].push(Card.two.ofSpades)
         try? board.freecells[3].push(Card.four.ofClubs)
@@ -121,7 +121,7 @@ class LocationTests: XCTestCase {
     
     // MARK: - Column / CardStack Tests -
     func testColumnPush() {
-        let column = Column(id: 0)
+        let column = Column()
         
         do {
             try column.push(sevenOfSpades)
@@ -188,7 +188,7 @@ class LocationTests: XCTestCase {
 
        // Test cap card expected to be a larger stack
        var board = Board.empty
-       board.columns[0] = Column(id: 0, cards: [
+       board.columns[0] = Column(cards: [
            Card.four.ofSpades,
            Card.seven.ofClubs,
            Card.king.ofClubs,
@@ -197,7 +197,7 @@ class LocationTests: XCTestCase {
            Card.ten.ofClubs
        ])
        
-       board.columns[1] = Column(id: 1, cards: [
+       board.columns[1] = Column(cards: [
            Card.six.ofHearts,
            Card.king.ofHearts,
            Card.five.ofDiamonds,
@@ -213,7 +213,7 @@ class LocationTests: XCTestCase {
        validate(for: board, from: board.columns[1], to: board.columns[0], expectedCapCard: Card.nine.ofDiamonds)
        
        // Test cap card expected to be just a single card
-       board.columns[0] = Column(id: 0, cards: [
+       board.columns[0] = Column(cards: [
            Card.six.ofSpades
        ])
 
@@ -233,7 +233,7 @@ class LocationTests: XCTestCase {
         
         try validate(for: column, expectedCount: 4, expectedTop: Card.nine.ofHearts, expectedBottom: Card.queen.ofSpades)
         
-        column = Column(id: 0, cards: [
+        column = Column(cards: [
             Card.four.ofSpades,
             Card.seven.ofClubs,
             Card.king.ofClubs,
@@ -243,17 +243,17 @@ class LocationTests: XCTestCase {
         
         try validate(for: column, expectedCount: 1, expectedTop: Card.nine.ofHearts, expectedBottom: Card.nine.ofHearts)
         
-        column = Column(id: 0, cards: [])
+        column = Column(cards: [])
         let nilValidSubstack = column.largestValidSubstack()
         XCTAssertNil(nilValidSubstack)
         
-        column = Column(id: 0, cards: [
+        column = Column(cards: [
             Card.four.ofSpades
         ])
         
         try validate(for: column, expectedCount: 1, expectedTop: Card.four.ofSpades, expectedBottom: Card.four.ofSpades)
         
-        column = Column(id: 0, cards: [
+        column = Column(cards: [
             Card.jack.ofDiamonds,
             Card.ten.ofSpades
         ])
@@ -269,5 +269,59 @@ class LocationTests: XCTestCase {
         XCTAssertEqual(cappedSubstack.items.count, 3)
         XCTAssertEqual(cappedSubstack.topItem, Card.nine.ofHearts)
         XCTAssertEqual(cappedSubstack.bottomItem, Card.jack.ofHearts)
+    }
+    
+    func testColumnDetachStack() throws {
+        let column = Column.sampleStackColumn
+        let detachedSubstack = column.validSubstack(cappedBy: Card.jack.ofHearts)!
+            
+        try column.detachStack(cappedBy: Card.jack.ofHearts)
+        
+        XCTAssertEqual(detachedSubstack.items.count, 3)
+        XCTAssertEqual(detachedSubstack.topItem, Card.nine.ofHearts)
+        XCTAssertEqual(detachedSubstack.bottomItem, Card.jack.ofHearts)
+        
+        XCTAssertEqual(column.items.count, 5)
+        XCTAssertEqual(column.topItem, Card.queen.ofSpades)
+        XCTAssertEqual(column.bottomItem, Card.four.ofSpades)
+    }
+    
+    func testColumnAppendStack() throws {
+        let column = Column.sampleStackColumn
+        let newStack = CardStack(cards: [
+            Card.eight.ofSpades,
+            Card.seven.ofDiamonds
+        ])
+        
+        try column.appendStack(newStack)
+        
+        XCTAssertEqual(column.items.count, 10)
+        XCTAssertEqual(column.bottomItem, Card.four.ofSpades)
+        XCTAssertEqual(column.topItem, Card.seven.ofDiamonds)
+        
+        let notFullyValidStack = CardStack(cards: [
+            Card.six.ofClubs,
+            Card.two.ofClubs
+        ])
+        
+        do {
+            try column.appendStack(notFullyValidStack)
+            XCTFail("This stack appending should not been allowed - it was not fully valid")
+        } catch {}
+        
+        let validButUnreceivableStack = CardStack(cards: [
+            Card.five.ofClubs,
+            Card.four.ofHearts,
+            Card.three.ofClubs
+        ])
+        
+        do {
+            try column.appendStack(validButUnreceivableStack)
+            XCTFail("This stack appending should not been allowed - it could not be received")
+        } catch {}
+        
+        XCTAssertEqual(column.items.count, 10)
+        XCTAssertEqual(column.bottomItem, Card.four.ofSpades)
+        XCTAssertEqual(column.topItem, Card.seven.ofDiamonds)
     }
 }

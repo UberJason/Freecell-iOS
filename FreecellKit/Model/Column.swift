@@ -9,15 +9,15 @@
 import Foundation
 import DeckKit
 
-public class Column: CardStack, CardLocation {
-    public let id: Int
+public class Column: CardStack, Cell {
+    public let id: UUID
     
-    public init(id: Int) {
+    public init(id: UUID = UUID()) {
         self.id = id
         super.init()
     }
     
-    public init(id: Int, cards: [Card]) {
+    public init(id: UUID = UUID(), cards: [Card]) {
         self.id = id
         super.init(cards: cards)
     }
@@ -33,6 +33,24 @@ public class Column: CardStack, CardLocation {
     }
     
     public var isEmpty: Bool { return topItem == nil }
+    
+    public func detachStack(cappedBy capCard: Card) throws {
+        guard let index = stack.firstIndex(of: capCard),
+            let _ = validSubstack(cappedBy: capCard) else { throw FreecellError.invalidMove }
+        
+        stack.removeSubrange(index...)
+    }
+    
+    /// Appends a fully-valid card stack to this column, if the move is valid.
+    /// - Parameter newStack: Card stack to append to this column.
+    public func appendStack(_ newStack: CardStack) throws {
+        guard newStack.isFullyValid,
+            let capCard = newStack.bottomItem,
+            canReceive(capCard)
+            else { throw FreecellError.invalidMove }
+        
+        stack.append(contentsOf: newStack.items)
+    }
 }
 
 extension Column: NSCopying {
