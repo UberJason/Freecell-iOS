@@ -148,9 +148,13 @@ public struct BoardView: View, StackOffsetting {
         return CGSize(width: 107, height: 160)  // iPad Mini
     }
     
-    var cardSpringAnimation: Animation {
+    var cardSpringAnimation: Animation? {
+        switch dragState {
+        case .inactive:
 //        return Animation.spring(response: 0.08, dampingFraction: 0.95, blendDuration: 0.0)
-        return .spring(response: 0.10, dampingFraction: 0.90, blendDuration: 0.0)
+            return .spring(response: 0.10, dampingFraction: 0.90, blendDuration: 0.0)
+        case .active(_): return nil
+        }
     }
 }
 
