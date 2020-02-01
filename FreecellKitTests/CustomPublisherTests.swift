@@ -35,31 +35,31 @@ class CustomPublisherTests: XCTestCase {
         let upstream = PassthroughSubject<Int, Never>()
         cancellable = upstream
             .buffer(size: 1000, prefetch: .byRequest, whenFull: .dropOldest)
-            .modulated(.seconds(1), scheduler: DispatchQueue.main)
+            .modulated(.seconds(0.5), scheduler: DispatchQueue.main)
             .sink { value in
                 events.append(Event(value: value, date: Date()))
                 print("value received: \(value) at \(self.dateFormatter.string(from: Date()))")
             }
 
-        // WHEN I send 3 events, wait 6 seconds, and send 3 more events
+        // WHEN I send 3 events, wait 3 seconds, and send 3 more events
         upstream.send(1)
         upstream.send(2)
         upstream.send(3)
 
-        DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(6800)) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(3000)) {
             upstream.send(4)
             upstream.send(5)
             upstream.send(6)
 
-            DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(4000)) {
+            DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(3000)) {
 
-                // THEN I expect the stored events to be no closer together in time than the interval of 1.0s
+                // THEN I expect the stored events to be no closer together in time than the interval of 0.5s
                 for i in 1 ..< events.count {
                     let interval = events[i].date.timeIntervalSince(events[i-1].date)
                     print("Interval: \(interval)")
 
-                    // There's some small error in the interval but it should be about 1 second since I'm using a 1s modulated publisher.
-                    XCTAssertTrue(interval > 0.90)
+                    // There's some small error in the interval but it should be about 0.5 second since I'm using a 0.5s modulated publisher.
+                    XCTAssertTrue(interval > 0.49)
                 }
                 expectation.fulfill()
             }
