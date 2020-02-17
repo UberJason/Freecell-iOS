@@ -26,50 +26,54 @@ public struct BoardView: View, StackOffsetting {
             BackgroundColorView()
             .frame(maxWidth: .infinity, maxHeight: .infinity)
         
-            VStack(spacing: 60.0) {
-                HStack {
+            HStack {
+                Spacer()
+                VStack(spacing: 60.0) {
                     HStack {
-                        ForEach(boardDriver.freecells) { freeCell in
-                            FreeCellView(freeCell: freeCell)
-                                .frame(width: self.cardSize.width, height: self.cardSize.height)
-                                .onTapGesture {
-                                    self.boardDriver.itemTapped(freeCell)
+                        HStack {
+                            ForEach(boardDriver.freecells) { freeCell in
+                                FreeCellView(freeCell: freeCell)
+                                    .frame(width: self.cardSize.width, height: self.cardSize.height)
+                                    .onTapGesture {
+                                        self.boardDriver.itemTapped(freeCell)
                                 }
-                            .anchorPreference(key: CellInfoKey.self, value: .bounds, transform: { bounds in
-                                [CellInfo(cellId: freeCell.id, bounds: bounds)]
-                            })
+                                .anchorPreference(key: CellInfoKey.self, value: .bounds, transform: { bounds in
+                                    [CellInfo(cellId: freeCell.id, bounds: bounds)]
+                                })
+                            }
                         }
-                    }
-                    
-                    Spacer()
-                    
-                    HStack {
-                        ForEach(boardDriver.foundations) { foundation in
-                            FoundationView(foundation: foundation)
-                                .frame(width: self.cardSize.width, height: self.cardSize.height)
-                                .onTapGesture {
-                                    self.boardDriver.itemTapped(foundation)
+                        
+                        Spacer()
+                        
+                        HStack {
+                            ForEach(boardDriver.foundations) { foundation in
+                                FoundationView(foundation: foundation)
+                                    .frame(width: self.cardSize.width, height: self.cardSize.height)
+                                    .onTapGesture {
+                                        self.boardDriver.itemTapped(foundation)
                                 }
                                 .anchorPreference(key: CellInfoKey.self, value: .bounds, transform: { bounds in
                                     [CellInfo(cellId: foundation.id, bounds: bounds)]
                                 })
+                            }
                         }
                     }
-                }
-                
-                HStack(spacing: 20.0) {
-                    ForEach(boardDriver.columns) { column in
-                        ColumnView(column: column)
-                            .frame(width: self.cardSize.width, height: self.cardSize.height)
-                            .onTapGesture {
-                                self.boardDriver.itemTapped(column)
+                    
+                    HStack(spacing: 20.0) {
+                        ForEach(boardDriver.columns) { column in
+                            ColumnView(column: column)
+                                .frame(width: self.cardSize.width, height: self.cardSize.height)
+                                .onTapGesture {
+                                    self.boardDriver.itemTapped(column)
                             }
                             .anchorPreference(key: CellInfoKey.self, value: .bounds, transform: { bounds in
                                 [CellInfo(cellId: column.id, bounds: bounds)]
                             })
+                        }
                     }
-                }
-            }.padding(EdgeInsets(top: 40, leading: 20, bottom: 40, trailing: 20))
+                }.padding(EdgeInsets(top: 40, leading: 20, bottom: 40, trailing: 20))
+                Spacer()
+            }.padding([.leading, .trailing], 200)
             
         }
         .edgesIgnoringSafeArea(.all)
@@ -160,8 +164,8 @@ public struct BoardView: View, StackOffsetting {
 
 struct BoardView_Previews: PreviewProvider {
     static var previews: some View {
-        BoardView(boardDriver: BoardViewDriver())
-            .previewDevice("iPad Pro 11")
-            .previewLayout(.fixed(width: 1194, height: 834))
+        BoardView(boardDriver: ClassicViewDriver())
+//            .previewLayout(.fixed(width: 1194, height: 834))
+            .previewLayout(.fixed(width: 1024, height: 768))
     }
 }
