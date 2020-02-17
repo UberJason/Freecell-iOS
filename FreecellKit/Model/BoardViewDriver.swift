@@ -146,7 +146,6 @@ public class ClassicViewDriver: BoardViewDriver {
         }
     }
     
-    #warning("TODO: Quality of life - if tap on a Freecell card when another Freecell card is selected, select new Freecell card.")
     private func handleTap(in location: Cell) {
         switch selectionState {
         case .idle:
