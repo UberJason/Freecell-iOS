@@ -49,12 +49,16 @@ struct CardTabView: View {
     }
     
     var body: some View {
-        VStack(alignment: .center, spacing: -2) {
+        VStack(alignment: .leading, spacing: 0) {
             Text(card.rank.displayTitle)
                 .font(.system(size: 22, weight: .semibold, design: .default))
                 .foregroundColor(card.suit.swiftUIColor)
-            Text(card.suit.displayTitle)
-                .font(.system(size: 11, weight: .semibold, design: .default))
+                .alignmentGuide(.leading) { d in d[.leading] + 1.0 }
+//            Text(card.suit.displayTitle)
+//            .font(.system(size: 11, weight: .regular, design: .default))
+            card.suit.displayImage
+                .font(.system(size: 14, weight: .regular, design: .default))
+                
         }
     }
 }

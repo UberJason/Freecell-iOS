@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		9613245023E12A0600982898 /* CGRect+Center.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9613244F23E12A0600982898 /* CGRect+Center.swift */; };
 		9613245223E23D4000982898 /* CGPoint+Translation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9613245123E23D4000982898 /* CGPoint+Translation.swift */; };
+		9616A1D723FB7176007CABA1 /* ControlsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9616A1D623FB7176007CABA1 /* ControlsView.swift */; };
 		961AC2A823E374AC003341B0 /* Notification+NewGame.swift in Sources */ = {isa = PBXBuildFile; fileRef = 961AC2A723E374AC003341B0 /* Notification+NewGame.swift */; };
 		961AC2AA23E4B661003341B0 /* MoveEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 961AC2A923E4B661003341B0 /* MoveEvent.swift */; };
 		9622959A23835A7B005D599B /* Cell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9622959923835A7B005D599B /* Cell.swift */; };
@@ -85,7 +86,7 @@
 		96CA9B09238F0E5C00C34A60 /* FreecellKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 96A36459237E33BF005C45FB /* FreecellKit.framework */; };
 		96CA9B0A238F0E5C00C34A60 /* FreecellKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 96A36459237E33BF005C45FB /* FreecellKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		96CA9B0E239300C300C34A60 /* BoardViewDriver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96CA9B0D239300C300C34A60 /* BoardViewDriver.swift */; };
-		96E188B923BBF301008129AF /* FirstResponderHostingController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96E188B823BBF301008129AF /* FirstResponderHostingController.swift */; };
+		96E188B923BBF301008129AF /* StatusBarHidingFirstResponderHostingController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96E188B823BBF301008129AF /* StatusBarHidingFirstResponderHostingController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -223,6 +224,7 @@
 /* Begin PBXFileReference section */
 		9613244F23E12A0600982898 /* CGRect+Center.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CGRect+Center.swift"; sourceTree = "<group>"; };
 		9613245123E23D4000982898 /* CGPoint+Translation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CGPoint+Translation.swift"; sourceTree = "<group>"; };
+		9616A1D623FB7176007CABA1 /* ControlsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ControlsView.swift; sourceTree = "<group>"; };
 		961AC2A723E374AC003341B0 /* Notification+NewGame.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Notification+NewGame.swift"; sourceTree = "<group>"; };
 		961AC2A923E4B661003341B0 /* MoveEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoveEvent.swift; sourceTree = "<group>"; };
 		9622959923835A7B005D599B /* Cell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Cell.swift; sourceTree = "<group>"; };
@@ -308,7 +310,7 @@
 		96CA9AF8238F0E4B00C34A60 /* Freecell_MacUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Freecell_MacUITests.swift; sourceTree = "<group>"; };
 		96CA9AFA238F0E4B00C34A60 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		96CA9B0D239300C300C34A60 /* BoardViewDriver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoardViewDriver.swift; sourceTree = "<group>"; };
-		96E188B823BBF301008129AF /* FirstResponderHostingController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstResponderHostingController.swift; sourceTree = "<group>"; };
+		96E188B823BBF301008129AF /* StatusBarHidingFirstResponderHostingController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusBarHidingFirstResponderHostingController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -419,6 +421,7 @@
 				962295F123884563005D599B /* CardRectangle.swift */,
 				962562902381DEEB003C09AA /* EmptySpotView.swift */,
 				962562882381D846003C09AA /* CardView.swift */,
+				9616A1D623FB7176007CABA1 /* ControlsView.swift */,
 				9625628A2381D84C003C09AA /* FreeCellView.swift */,
 				9625628C2381D853003C09AA /* FoundationView.swift */,
 				9625628E2381D857003C09AA /* ColumnView.swift */,
@@ -512,7 +515,7 @@
 				96416DC623F9CAEF000197E0 /* Freecell.entitlements */,
 				96A363F5237CF0FC005C45FB /* AppDelegate.swift */,
 				96A363F7237CF0FC005C45FB /* SceneDelegate.swift */,
-				96E188B823BBF301008129AF /* FirstResponderHostingController.swift */,
+				96E188B823BBF301008129AF /* StatusBarHidingFirstResponderHostingController.swift */,
 				96A363F9237CF0FC005C45FB /* GameView.swift */,
 				96A363FB237CF0FD005C45FB /* Assets.xcassets */,
 				96A36400237CF0FD005C45FB /* LaunchScreen.storyboard */,
@@ -1026,7 +1029,7 @@
 			files = (
 				96A363F6237CF0FC005C45FB /* AppDelegate.swift in Sources */,
 				9622959C238393BA005D599B /* GameView.swift in Sources */,
-				96E188B923BBF301008129AF /* FirstResponderHostingController.swift in Sources */,
+				96E188B923BBF301008129AF /* StatusBarHidingFirstResponderHostingController.swift in Sources */,
 				96A363F8237CF0FC005C45FB /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1099,6 +1102,7 @@
 				9613245223E23D4000982898 /* CGPoint+Translation.swift in Sources */,
 				962295F52388762D005D599B /* BoardView.swift in Sources */,
 				9627FED023AB19CF00F8F63B /* CustomDebugStrings.swift in Sources */,
+				9616A1D723FB7176007CABA1 /* ControlsView.swift in Sources */,
 				9683E0A423F89D6F00B6C114 /* GameRecord.swift in Sources */,
 				96A36479237E3408005C45FB /* Stack.swift in Sources */,
 				9661BFAE23DE86A300DFC5E9 /* CellInfo.swift in Sources */,

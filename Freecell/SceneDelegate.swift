@@ -26,7 +26,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             let game = Game(undoManager: window.undoManager)
             let contentView = GameView(game: game)
 
-            window.rootViewController = FirstResponderHostingController(rootView: contentView)
+            window.rootViewController = StatusBarHidingFirstResponderHostingController(rootView: contentView)
             self.window = window
             window.makeKeyAndVisible()
         }

@@ -44,6 +44,8 @@ public struct BoardView: View, StackOffsetting {
                         }
                         
                         Spacer()
+                        ControlsView()
+                        Spacer()
                         
                         HStack {
                             ForEach(boardDriver.foundations) { foundation in
@@ -59,7 +61,7 @@ public struct BoardView: View, StackOffsetting {
                         }
                     }
                     
-                    HStack(spacing: 20.0) {
+                    HStack(spacing: 22.0) {
                         ForEach(boardDriver.columns) { column in
                             ColumnView(column: column)
                                 .frame(width: self.cardSize.width, height: self.cardSize.height)
@@ -149,7 +151,8 @@ public struct BoardView: View, StackOffsetting {
     #warning("TODO: Dynamically size the cards by platform")
     var cardSize: CGSize {
 //        return CGSize(width: 125, height: 187)  // iPad Pro
-        return CGSize(width: 107, height: 160)  // iPad Mini
+//        return CGSize(width: 107, height: 160)  // iPad Mini
+        return CGSize(width: 100, height: 149)  // iPad Mini, reduced
     }
     
     var cardSpringAnimation: Animation? {
