@@ -9,16 +9,20 @@
 import SwiftUI
 
 struct ControlsView: View {
+    let timeString: String
+    let moves: Int
+    @EnvironmentObject var boardDriver: BoardViewDriver
+    
     var body: some View {
         VStack(spacing: 30) {
             VStack(alignment: .leading, spacing: 0) {
-                Text("1:27")
-                Text("84 moves")
+                Text(timeString)
+                Text("\(moves) \(movesText())")
             }.font(.system(size: 15, weight: .semibold))
             HStack(spacing: 8) {
                 VStack {
                     Button(action: {
-                        print("Undo")
+                        self.boardDriver.undo()
                     }) {
                         Image(systemName: "arrow.uturn.left.circle")
                             .font(.system(size: 30))
@@ -37,11 +41,15 @@ struct ControlsView: View {
             }.font(.system(size: 11, weight: .semibold))
         }.foregroundColor(.white)
     }
+    
+    func movesText() -> String {
+        return moves == 1 ? "move" : "moves"
+    }
 }
 
 struct ControlsView_Previews: PreviewProvider {
     static var previews: some View {
-        ControlsView()
+        ControlsView(timeString: "0:04", moves: 4)
             .frame(width: 150, height: 300)
             .background(Color.green)
             .previewLayout(.fixed(width: 150, height: 300))

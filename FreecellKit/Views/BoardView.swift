@@ -44,7 +44,7 @@ public struct BoardView: View, StackOffsetting {
                         }
                         
                         Spacer()
-                        ControlsView()
+                        ControlsView(timeString: boardDriver.moveTimeString, moves: boardDriver.moves).environmentObject(boardDriver)
                         Spacer()
                         
                         HStack {

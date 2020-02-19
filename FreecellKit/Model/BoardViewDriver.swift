@@ -24,6 +24,18 @@ public class BoardViewDriver: ObservableObject, StackOffsetting {
     public var columns: [Column] { return renderingBoard.columns }
     
     @Published public var renderingBoard: Board
+    @Published private var elapsedTime: TimeInterval = 0.0
+    
+    var moveTimerFormatter: DateComponentsFormatter = {
+        let f = DateComponentsFormatter()
+        f.allowedUnits = [.minute, .second]
+        f.zeroFormattingBehavior = .pad
+        f.unitsStyle = .positional
+        return f
+    }()
+    
+    @Published public var moveTimeString: String = "0:00"
+    @Published public var moves: Int = 0
     
     public var allCards: [Card] {
         fatalError("implement in subclass")
@@ -40,8 +52,21 @@ public class BoardViewDriver: ObservableObject, StackOffsetting {
         self.undoManager = undoManager
         renderingBoard = _board.copy
         configureRendering()
+        configureTimers()
     }
     
+    
+    internal func configureTimers() {
+        Timer.publish(every: 1.0, on: .main, in: .common)
+            .autoconnect()
+            .sink { [weak self] _ in self?.elapsedTime += 1.0 }
+            .store(in: &cancellable)
+        
+        $elapsedTime
+            .map { [weak self] in self?.moveTimerFormatter.string(from: $0) ?? "" }
+            .sink { [weak self] in self?.moveTimeString = $0 }
+            .store(in: &cancellable)
+    }
     internal func configureRendering() {
         renderingBoard = _board.copy
         
@@ -57,6 +82,7 @@ public class BoardViewDriver: ObservableObject, StackOffsetting {
     }
     
     internal func registerMove() {
+        moves += 1
         previousBoards.append(_board.copy)
         undoManager?.registerUndo(withTarget: self, selector: #selector(performUndo), object: nil)
     }
@@ -71,6 +97,7 @@ public class BoardViewDriver: ObservableObject, StackOffsetting {
     
     @objc internal func performUndo() {
         guard previousBoards.count > 0 else { return }
+        moves -= 1
         
         _board = previousBoards.removeLast()
         configureRendering()

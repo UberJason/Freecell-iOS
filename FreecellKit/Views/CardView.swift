@@ -53,25 +53,25 @@ struct CardTabView: View {
             Text(card.rank.displayTitle)
                 .font(.system(size: 22, weight: .semibold, design: .default))
                 .foregroundColor(card.suit.swiftUIColor)
+                .frame(minWidth: 15, minHeight: 15)
                 .alignmentGuide(.leading) { d in d[.leading] + 1.0 }
-//            Text(card.suit.displayTitle)
-//            .font(.system(size: 11, weight: .regular, design: .default))
             card.suit.displayImage
                 .font(.system(size: 14, weight: .regular, design: .default))
-                
+                .frame(minWidth: 15, alignment: .leading)
         }
     }
 }
 
 
 struct CardView_Previews: PreviewProvider {
+    static let cards = [Card.seven.ofHearts, Card.ten.ofSpades, Card.jack.ofDiamonds, Card.queen.ofClubs]
     static var previews: some View {
-        CardView(card: Card.ace.ofSpades)
-//            .frame(width: 125, height: 187)
-            .frame(width: 90, height: 134)
-            .frame(width: 200, height: 300)
-            .background(Color.green)
-            .previewLayout(.fixed(width: 200, height: 300))
-        
+        ForEach(cards) {
+            CardView(card: $0)
+                .frame(width: 90, height: 134)
+                .frame(width: 200, height: 300)
+                .background(Color.green)
+                .previewLayout(.fixed(width: 200, height: 300))
+        }
     }
 }
