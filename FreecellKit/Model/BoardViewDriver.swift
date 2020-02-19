@@ -24,7 +24,6 @@ public class BoardViewDriver: ObservableObject, StackOffsetting {
     public var columns: [Column] { return renderingBoard.columns }
     
     @Published public var renderingBoard: Board
-    @Published private var elapsedTime: TimeInterval = 0.0
     
     var moveTimerFormatter: DateComponentsFormatter = {
         let f = DateComponentsFormatter()
@@ -34,7 +33,7 @@ public class BoardViewDriver: ObservableObject, StackOffsetting {
         return f
     }()
     
-    @Published public var moveTimeString: String = "0:00"
+    @Published public var moveTimeString: String = "00:00"
     @Published public var moves: Int = 0
     
     public var allCards: [Card] {
@@ -52,17 +51,16 @@ public class BoardViewDriver: ObservableObject, StackOffsetting {
         self.undoManager = undoManager
         renderingBoard = _board.copy
         configureRendering()
-        configureTimers()
+        configureMoveTimer()
     }
     
     
-    internal func configureTimers() {
+    internal func configureMoveTimer() {
         Timer.publish(every: 1.0, on: .main, in: .common)
             .autoconnect()
-            .sink { [weak self] _ in self?.elapsedTime += 1.0 }
-            .store(in: &cancellable)
-        
-        $elapsedTime
+            .scan(0.0, { (value, _) in
+                value + 1.0
+            })
             .map { [weak self] in self?.moveTimerFormatter.string(from: $0) ?? "" }
             .sink { [weak self] in self?.moveTimeString = $0 }
             .store(in: &cancellable)
