@@ -54,7 +54,7 @@ public class BoardViewDriver: ObservableObject, StackOffsetting {
         configureMoveTimer()
     }
     
-    
+    #warning("TODO: Timer doesn't stop when you win")
     internal func configureMoveTimer() {
         Timer.publish(every: 1.0, on: .main, in: .common)
             .autoconnect()
