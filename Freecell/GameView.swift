@@ -11,7 +11,6 @@ import DeckKit
 import FreecellKit
 import Combine
 
-#warning("CMD+Z on iPad causes two undo actions")
 class Game: ObservableObject {
     var undoManager: UndoManager?
     @Published var boardDriver: BoardViewDriver
