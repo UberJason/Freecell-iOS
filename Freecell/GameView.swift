@@ -25,7 +25,12 @@ struct GameView: View {
     @ObservedObject var game: Game
     
     var body: some View {
-        BoardView(boardDriver: game.boardDriver)
+        ZStack {
+            BoardView(boardDriver: game.boardDriver)
+            EmojiBombView()
+                .frame(width: 500, height: 500)
+                .allowsHitTesting(false)
+        }.edgesIgnoringSafeArea(.all)
     }
 }
 

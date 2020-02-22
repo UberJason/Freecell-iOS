@@ -73,6 +73,8 @@
 		96A36486237E385B005C45FB /* Foundation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96A36485237E385B005C45FB /* Foundation.swift */; };
 		96A36488237E3894005C45FB /* FreecellError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96A36487237E3894005C45FB /* FreecellError.swift */; };
 		96A3648A237F51BA005C45FB /* Convenience.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96A36489237F51BA005C45FB /* Convenience.swift */; };
+		96A7223C2401814C004F7F47 /* EmojiBombAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96A7223B2401814C004F7F47 /* EmojiBombAnimator.swift */; };
+		96A7223E240181DB004F7F47 /* EmojiBombView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96A7223D240181DB004F7F47 /* EmojiBombView.swift */; };
 		96CA9AD0238CC4F000C34A60 /* Card+Id.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96CA9ACF238CC4F000C34A60 /* Card+Id.swift */; };
 		96CA9AD8238F0E4900C34A60 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96CA9AD7238F0E4900C34A60 /* AppDelegate.swift */; };
 		96CA9ADA238F0E4900C34A60 /* GameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96CA9AD9238F0E4900C34A60 /* GameView.swift */; };
@@ -294,6 +296,8 @@
 		96A36485237E385B005C45FB /* Foundation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Foundation.swift; sourceTree = "<group>"; };
 		96A36487237E3894005C45FB /* FreecellError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FreecellError.swift; sourceTree = "<group>"; };
 		96A36489237F51BA005C45FB /* Convenience.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Convenience.swift; sourceTree = "<group>"; };
+		96A7223B2401814C004F7F47 /* EmojiBombAnimator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EmojiBombAnimator.swift; sourceTree = "<group>"; };
+		96A7223D240181DB004F7F47 /* EmojiBombView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmojiBombView.swift; sourceTree = "<group>"; };
 		96CA9ACF238CC4F000C34A60 /* Card+Id.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Card+Id.swift"; sourceTree = "<group>"; };
 		96CA9AD5238F0E4900C34A60 /* Freecell.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Freecell.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		96CA9AD7238F0E4900C34A60 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -399,6 +403,8 @@
 			isa = PBXGroup;
 			children = (
 				9689E18723AB0B8F008B960B /* Publisher */,
+				96A7223B2401814C004F7F47 /* EmojiBombAnimator.swift */,
+				96A7223D240181DB004F7F47 /* EmojiBombView.swift */,
 				96A36452237CF490005C45FB /* Rank+FreecellValue.swift */,
 				96CA9ACF238CC4F000C34A60 /* Card+Id.swift */,
 				962295F72388936C005D599B /* CardTapHandler.swift */,
@@ -1081,6 +1087,7 @@
 				961AC2A823E374AC003341B0 /* Notification+NewGame.swift in Sources */,
 				9688893C238B679A001DD34B /* Suit+Color.swift in Sources */,
 				9661E7AC2380439C00183A99 /* CardStack.swift in Sources */,
+				96A7223E240181DB004F7F47 /* EmojiBombView.swift in Sources */,
 				962562892381D846003C09AA /* CardView.swift in Sources */,
 				96A36486237E385B005C45FB /* Foundation.swift in Sources */,
 				9688893A2389CB83001DD34B /* Result+SuccessVoid.swift in Sources */,
@@ -1107,6 +1114,7 @@
 				96A36479237E3408005C45FB /* Stack.swift in Sources */,
 				9661BFAE23DE86A300DFC5E9 /* CellInfo.swift in Sources */,
 				96A36477237E33D3005C45FB /* Board.swift in Sources */,
+				96A7223C2401814C004F7F47 /* EmojiBombAnimator.swift in Sources */,
 				964BBF1D23A6D9C3009B4FDE /* StackOffsetting.swift in Sources */,
 				964BBF0623A47B96009B4FDE /* BackgroundColorView.swift in Sources */,
 			);

@@ -52,6 +52,10 @@ public class BoardViewDriver: ObservableObject, StackOffsetting {
         renderingBoard = _board.copy
         configureRendering()
         configureMoveTimer()
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(500)) {
+            NotificationCenter.default.post(name: .performBombAnimation, object: nil)
+        }
     }
     
     #warning("TODO: Timer doesn't stop when you win")
