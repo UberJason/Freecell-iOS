@@ -46,7 +46,3 @@ public struct EmojiBombView: UIViewRepresentable {
         
     }
 }
-
-extension Notification.Name {
-    static let performBombAnimation = Notification.Name("performBombAnimation")
-}

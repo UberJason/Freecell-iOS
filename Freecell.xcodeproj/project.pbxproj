@@ -10,7 +10,7 @@
 		9613245023E12A0600982898 /* CGRect+Center.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9613244F23E12A0600982898 /* CGRect+Center.swift */; };
 		9613245223E23D4000982898 /* CGPoint+Translation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9613245123E23D4000982898 /* CGPoint+Translation.swift */; };
 		9616A1D723FB7176007CABA1 /* ControlsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9616A1D623FB7176007CABA1 /* ControlsView.swift */; };
-		961AC2A823E374AC003341B0 /* Notification+NewGame.swift in Sources */ = {isa = PBXBuildFile; fileRef = 961AC2A723E374AC003341B0 /* Notification+NewGame.swift */; };
+		961AC2A823E374AC003341B0 /* Notification+Freecell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 961AC2A723E374AC003341B0 /* Notification+Freecell.swift */; };
 		961AC2AA23E4B661003341B0 /* MoveEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 961AC2A923E4B661003341B0 /* MoveEvent.swift */; };
 		9622959A23835A7B005D599B /* Cell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9622959923835A7B005D599B /* Cell.swift */; };
 		9622959C238393BA005D599B /* GameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96A363F9237CF0FC005C45FB /* GameView.swift */; };
@@ -227,7 +227,7 @@
 		9613244F23E12A0600982898 /* CGRect+Center.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CGRect+Center.swift"; sourceTree = "<group>"; };
 		9613245123E23D4000982898 /* CGPoint+Translation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CGPoint+Translation.swift"; sourceTree = "<group>"; };
 		9616A1D623FB7176007CABA1 /* ControlsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ControlsView.swift; sourceTree = "<group>"; };
-		961AC2A723E374AC003341B0 /* Notification+NewGame.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Notification+NewGame.swift"; sourceTree = "<group>"; };
+		961AC2A723E374AC003341B0 /* Notification+Freecell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Notification+Freecell.swift"; sourceTree = "<group>"; };
 		961AC2A923E4B661003341B0 /* MoveEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoveEvent.swift; sourceTree = "<group>"; };
 		9622959923835A7B005D599B /* Cell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Cell.swift; sourceTree = "<group>"; };
 		962295F123884563005D599B /* CardRectangle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardRectangle.swift; sourceTree = "<group>"; };
@@ -402,9 +402,8 @@
 		962295F623889359005D599B /* Utility */ = {
 			isa = PBXGroup;
 			children = (
+				96D5BBFE2401877B00550326 /* Emoji Bomb */,
 				9689E18723AB0B8F008B960B /* Publisher */,
-				96A7223B2401814C004F7F47 /* EmojiBombAnimator.swift */,
-				96A7223D240181DB004F7F47 /* EmojiBombView.swift */,
 				96A36452237CF490005C45FB /* Rank+FreecellValue.swift */,
 				96CA9ACF238CC4F000C34A60 /* Card+Id.swift */,
 				962295F72388936C005D599B /* CardTapHandler.swift */,
@@ -474,7 +473,7 @@
 			children = (
 				9689E18923AB0BA4008B960B /* ModulatedPublisher.swift */,
 				9689E18823AB0BA4008B960B /* SteppingSubscriber.swift */,
-				961AC2A723E374AC003341B0 /* Notification+NewGame.swift */,
+				961AC2A723E374AC003341B0 /* Notification+Freecell.swift */,
 				961AC2A923E4B661003341B0 /* MoveEvent.swift */,
 			);
 			path = Publisher;
@@ -654,6 +653,15 @@
 				96CA9AFA238F0E4B00C34A60 /* Info.plist */,
 			);
 			path = "Freecell-MacUITests";
+			sourceTree = "<group>";
+		};
+		96D5BBFE2401877B00550326 /* Emoji Bomb */ = {
+			isa = PBXGroup;
+			children = (
+				96A7223B2401814C004F7F47 /* EmojiBombAnimator.swift */,
+				96A7223D240181DB004F7F47 /* EmojiBombView.swift */,
+			);
+			path = "Emoji Bomb";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -1084,7 +1092,7 @@
 				962295F223884563005D599B /* CardRectangle.swift in Sources */,
 				9613245023E12A0600982898 /* CGRect+Center.swift in Sources */,
 				961AC2AA23E4B661003341B0 /* MoveEvent.swift in Sources */,
-				961AC2A823E374AC003341B0 /* Notification+NewGame.swift in Sources */,
+				961AC2A823E374AC003341B0 /* Notification+Freecell.swift in Sources */,
 				9688893C238B679A001DD34B /* Suit+Color.swift in Sources */,
 				9661E7AC2380439C00183A99 /* CardStack.swift in Sources */,
 				96A7223E240181DB004F7F47 /* EmojiBombView.swift in Sources */,
