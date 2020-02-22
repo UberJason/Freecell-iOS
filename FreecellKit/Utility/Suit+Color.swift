@@ -10,26 +10,36 @@ import SwiftUI
 import DeckKit
 
 extension Suit {
-    var swiftUIColor: Color {
+    var uiColor: UIColor {
         switch color {
         case .red: return .red
         case .black: return .black
         }
     }
     
-    var displayImage: some View {
-        let image: Image
+    var swiftUIColor: Color {
+        return Color(uiColor)
+    }
+    
+    var imageSystemName: String {
         switch self {
         case .clubs:
-            image = Image(systemName: "suit.club.fill")
+            return "suit.club.fill"
         case .diamonds:
-            image = Image(systemName: "suit.diamond.fill")
+            return "suit.diamond.fill"
         case .hearts:
-            image = Image(systemName: "suit.heart.fill")
+            return "suit.heart.fill"
         case .spades:
-            image = Image(systemName: "suit.spade.fill")
+            return "suit.spade.fill"
         }
-        
-        return image.foregroundColor(swiftUIColor)
+    }
+    
+    var displayImage: some View {
+        return Image(systemName: imageSystemName).foregroundColor(swiftUIColor)
+    }
+    
+    var uiImage: UIImage {
+        guard let image = UIImage(systemName: imageSystemName) else { fatalError("No image for that systemName") }
+        return image.withTintColor(uiColor, renderingMode: .alwaysOriginal)
     }
 }

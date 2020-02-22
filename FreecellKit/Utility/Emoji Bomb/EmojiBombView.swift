@@ -7,10 +7,12 @@
 //
 
 import Combine
+import DeckKit
 import SwiftUI
 
 public class EmojiBombUIView: UIView {
-    private lazy var animator = EmojiBombAnimator(container: self)
+    private lazy var animator = EmojiBombAnimator(container: self,
+                                                  imageTemplates: Suit.allCases.map { $0.uiImage })
     private var cancellables = Set<AnyCancellable>()
     
     public override init(frame: CGRect) {

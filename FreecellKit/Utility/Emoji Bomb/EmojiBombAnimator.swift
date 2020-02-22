@@ -38,10 +38,12 @@ public class EmojiBombAnimator {
     
     public var animationParameters: EmojiBombAnimationParameters
     
-    var labels = [UILabel]()
+    var imageTemplates: [UIImage]
+    var views = [UIView]()
     
-    public init(container: UIView, animationParameters params: EmojiBombAnimationParameters = EmojiBombAnimationParameters()) {
+    public init(container: UIView, imageTemplates: [UIImage], animationParameters params: EmojiBombAnimationParameters = EmojiBombAnimationParameters()) {
         self.container = container
+        self.imageTemplates = imageTemplates
         self.animationParameters = params
         
         animator = UIDynamicAnimator(referenceView: container)
@@ -60,40 +62,39 @@ public class EmojiBombAnimator {
         
         reset()
         
-        let monkey = "🐵"
         var pushBehaviors = [UIPushBehavior]()
         
         for _ in 0 ..< animationParameters.numberOfViews {
-            let label = createEmojiLabel(emoji: monkey)
-            labels.append(label)
-            container.addSubview(label)
+            let view = createItem()
+            views.append(view)
+            container.addSubview(view)
             
             let initialVerticalRange = container.frame.height * animationParameters.variation
             let initialVerticalBaseline = container.frame.height * animationParameters.baseline
-            let forceOffsetRange = label.frame.width * animationParameters.forceOffset + 1
+            let forceOffsetRange = view.frame.width * animationParameters.forceOffset + 1
             
             let xPos = arc4random_uniform(UInt32(container.frame.width))
             let yPos = Int(arc4random_uniform(UInt32(initialVerticalRange))) - Int(initialVerticalRange/2)
-            label.center = CGPoint(x: Int(xPos), y: Int(initialVerticalBaseline) + yPos)
+            view.center = CGPoint(x: Int(xPos), y: Int(initialVerticalBaseline) + yPos)
             
             let xDirection = CGFloat(arc4random())/0xFFFFFFFF - 0.5
             let forceOffset = arc4random_uniform(UInt32(forceOffsetRange))
-            let pushBehavior = UIPushBehavior(items: [label], mode: .instantaneous)
+            let pushBehavior = UIPushBehavior(items: [view], mode: .instantaneous)
             pushBehavior.pushDirection = CGVector(dx: xDirection, dy: -1.0)
             pushBehavior.magnitude = CGFloat(arc4random())/0xFFFFFFFF * animationParameters.maximumMagnitude
-            pushBehavior.setTargetOffsetFromCenter(UIOffset(horizontal: CGFloat(forceOffset), vertical: 0), for: label)
+            pushBehavior.setTargetOffsetFromCenter(UIOffset(horizontal: CGFloat(forceOffset), vertical: 0), for: view)
             
             pushBehaviors.append(pushBehavior)
         }
         
-        gravityBehavior = UIGravityBehavior(items: labels)
+        gravityBehavior = UIGravityBehavior(items: views)
         gravityBehavior?.magnitude = animationParameters.gravity
-        collisionBehavior = UICollisionBehavior(items: labels)
+        collisionBehavior = UICollisionBehavior(items: views)
         collisionBehavior?.setTranslatesReferenceBoundsIntoBoundary(with: UIEdgeInsets(top: -1*container.frame.height, left: -1*container.frame.width, bottom: container.frame.height, right: container.frame.width))
         collisionBehavior?.collisionMode = .boundaries
         
         
-        let densityBehavior = UIDynamicItemBehavior(items: labels)
+        let densityBehavior = UIDynamicItemBehavior(items: views)
         densityBehavior.density = animationParameters.density
         
         animator.addBehavior(gravityBehavior!)
@@ -103,18 +104,14 @@ public class EmojiBombAnimator {
     }
     
     func reset() {
-        labels.forEach { $0.removeFromSuperview() }
-        labels = []
+        views.forEach { $0.removeFromSuperview() }
+        views = []
         animator.removeAllBehaviors()
     }
     
-    func createEmojiLabel(emoji: String) -> UILabel {
-        let label = UILabel(frame: .zero)
-        
-        label.font = UIFont.systemFont(ofSize: 24.0)
-        label.text = emoji
-        label.sizeToFit()
-        
-        return label
+    func createItem() -> UIView {
+        let randomIndex = Int.random(in: 0..<imageTemplates.count)
+        let image = imageTemplates[randomIndex]
+        return UIImageView(image: image)
     }
 }
