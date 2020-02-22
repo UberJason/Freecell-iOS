@@ -11,8 +11,10 @@ import DeckKit
 import SwiftUI
 
 public class EmojiBombUIView: UIView {
+    private var parameters = EmojiBombAnimationParameters(baseline: 0.5, variation: 0.1, density: 2.0, maximumMagnitude: 0.9, forceOffset: 0.2, gravity: 1.5, numberOfViews: 100)
     private lazy var animator = EmojiBombAnimator(container: self,
-                                                  imageTemplates: Suit.allCases.map { $0.uiImage })
+                                                  imageTemplates: Suit.allCases.map { $0.uiImage },
+                                                  animationParameters: parameters)
     private var cancellables = Set<AnyCancellable>()
     
     public override init(frame: CGRect) {
