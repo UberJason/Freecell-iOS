@@ -26,7 +26,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         window.setFrameAutosaveName("Main Window")
         
         // Create the SwiftUI view that provides the window contents.
-        let contentView = GameView(game: Game(undoManager: window.undoManager))
+        let contentView = ContentView(game: Game(undoManager: window.undoManager))
         
         window.contentView = NSHostingView(rootView: contentView)
         window.makeKeyAndOrderFront(nil)

@@ -20,7 +20,7 @@ struct ControlsView: View {
                 Text("\(moves) \(movesText())")
             }
             .foregroundColor(.white)
-            .font(.system(size: 15, weight: .semibold))
+            .font(.system(size: 15, weight: .semibold, design: .rounded))
             HStack(spacing: 8) {
                 VStack {
                     Button(action: {
@@ -42,7 +42,7 @@ struct ControlsView: View {
                     }
                     Text("Menu").foregroundColor(.white)
                 }
-            }.font(.system(size: 11, weight: .semibold))
+            }.font(.system(size: 11, weight: .semibold, design: .rounded))
         }.accentColor(.white)
     }
     
@@ -53,7 +53,7 @@ struct ControlsView: View {
 
 struct ControlsView_Previews: PreviewProvider {
     static var previews: some View {
-        ControlsView(timeString: "0:04", moves: 4)
+        ControlsView(timeString: "0:04", moves: 4).environmentObject(BoardViewDriver())
             .frame(width: 150, height: 300)
             .background(Color.green)
             .previewLayout(.fixed(width: 150, height: 300))

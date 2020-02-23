@@ -51,7 +51,7 @@ struct CardTabView: View {
     var body: some View {
         VStack(alignment: .leading, spacing: 0) {
             Text(card.rank.displayTitle)
-                .font(.system(size: 22, weight: .semibold, design: .default))
+                .font(.system(size: 22, weight: .semibold, design: .rounded))
                 .foregroundColor(card.suit.swiftUIColor)
                 .frame(minWidth: 15, minHeight: 15)
                 .alignmentGuide(.leading) { d in d[.leading] + 1.0 }
