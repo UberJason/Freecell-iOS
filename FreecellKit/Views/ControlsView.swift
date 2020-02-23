@@ -27,6 +27,8 @@ struct ControlsView: View {
                         Image(systemName: "arrow.uturn.left.circle")
                             .font(.system(size: 30))
                     }
+                    .disabled(boardDriver.gameState == .won)
+                    .opacity(boardDriver.gameState == .won ? 0.5 : 1.0)
                     Text("Undo")
                 }
                 VStack {
@@ -39,7 +41,7 @@ struct ControlsView: View {
                     Text("Menu")
                 }
             }.font(.system(size: 11, weight: .semibold))
-        }.foregroundColor(.white)
+        }.accentColor(.white)
     }
     
     func movesText() -> String {
