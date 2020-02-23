@@ -39,7 +39,8 @@ extension Suit {
     }
     
     var uiImage: UIImage {
-        guard let image = UIImage(systemName: imageSystemName) else { fatalError("No image for that systemName") }
+        let configuration = UIImage.SymbolConfiguration(pointSize: 25, weight: .regular, scale: .large)
+        guard let image = UIImage(systemName: imageSystemName, withConfiguration: configuration) else { fatalError("No image for that systemName") }
         return image.withTintColor(uiColor, renderingMode: .alwaysOriginal)
     }
 }

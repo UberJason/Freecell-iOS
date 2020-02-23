@@ -465,4 +465,8 @@ extension Board {
         
         return foundation
     }
+    
+    var isCompleted: Bool {
+        return foundations.flatMap({ $0.items }).count == Deck.maxCardCount
+    }
 }

@@ -18,12 +18,30 @@ enum SelectionState {
     case idle, selected(card: Card)
 }
 
+public enum GameState {
+    case new, inProgress, won
+    var title: String {
+        switch self {
+        case .new: return "New"
+        case .inProgress: return "In Progress"
+        case .won: return "Won"
+        }
+    }
+}
+
 public class BoardViewDriver: ObservableObject, StackOffsetting {
     public var freecells: [FreeCell] { return renderingBoard.freecells }
     public var foundations: [Foundation] { return renderingBoard.foundations }
     public var columns: [Column] { return renderingBoard.columns }
     
     @Published public var renderingBoard: Board
+    public var gameState = GameState.new {
+        didSet {
+            if gameState == .won {
+                handleWinState()
+            }
+        }
+    }
     
     var moveTimerFormatter: DateComponentsFormatter = {
         let f = DateComponentsFormatter()
@@ -43,6 +61,7 @@ public class BoardViewDriver: ObservableObject, StackOffsetting {
     internal var animationOffsetInterval = 75
     internal var moveEventSubscriber: AnyCancellable?
     internal var cancellable = Set<AnyCancellable>()
+    internal var timerCancellable: AnyCancellable?
     internal var undoManager: UndoManager?
     internal var _board = Board(deck: Deck(shuffled: true))
     internal var previousBoards = [Board]()
@@ -52,34 +71,31 @@ public class BoardViewDriver: ObservableObject, StackOffsetting {
         renderingBoard = _board.copy
         configureRendering()
         configureMoveTimer()
-        
-        DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(500)) {
-            NotificationCenter.default.post(name: .performBombAnimation, object: nil)
-        }
     }
     
-    #warning("TODO: Timer doesn't stop when you win")
     internal func configureMoveTimer() {
-        Timer.publish(every: 1.0, on: .main, in: .common)
+        timerCancellable = Timer.publish(every: 1.0, on: .main, in: .common)
             .autoconnect()
             .scan(0.0, { (value, _) in
                 value + 1.0
             })
             .map { [weak self] in self?.moveTimerFormatter.string(from: $0) ?? "" }
             .sink { [weak self] in self?.moveTimeString = $0 }
-            .store(in: &cancellable)
     }
+    
     internal func configureRendering() {
         renderingBoard = _board.copy
-        
         
         // Assign seems to cause a memory leak, so I'm using sink instead:
         // https://forums.swift.org/t/does-assign-to-produce-memory-leaks/29546
         _board.movePublisher
             .modulated(.milliseconds(animationOffsetInterval), scheduler: RunLoop.main)
             .map { $0.afterBoard }
-//            .assign(to: \.renderingBoard, on: self)
-            .sink { [weak self] in self?.renderingBoard = $0 }
+            .sink { [weak self] in
+                guard let self = self else { return }
+                self.renderingBoard = $0
+                self.gameState = $0.isCompleted ? .won : .inProgress
+            }
             .store(in: &cancellable)
     }
     
@@ -103,6 +119,11 @@ public class BoardViewDriver: ObservableObject, StackOffsetting {
         
         _board = previousBoards.removeLast()
         configureRendering()
+    }
+    
+    internal func handleWinState() {
+        NotificationCenter.default.post(name: .performBombAnimation, object: nil)
+        timerCancellable?.cancel()
     }
     
     func rollbackFailedMove(with error: Error) {
