@@ -27,8 +27,17 @@ struct GameView: View {
     var body: some View {
         ZStack {
             BoardView(boardDriver: game.boardDriver)
-            EmojiBombView()
-                .frame(width: 500, height: 500)
+            HStack {
+                EmojiBombView()
+                    .frame(width: 300, height: 200)
+                    .offset(x: 0, y: 70)
+                EmojiBombView()
+                    .frame(width: 300, height: 200)
+                    .offset(x: 0, y: -70)
+                EmojiBombView()
+                    .frame(width: 300, height: 200)
+                    .offset(x: 0, y: 70)
+                }.offset(x: 0, y: -50)
                 .allowsHitTesting(false)
         }.edgesIgnoringSafeArea(.all)
     }

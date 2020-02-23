@@ -18,7 +18,9 @@ struct ControlsView: View {
             VStack(alignment: .leading, spacing: 0) {
                 Text(timeString)
                 Text("\(moves) \(movesText())")
-            }.font(.system(size: 15, weight: .semibold))
+            }
+            .foregroundColor(.white)
+            .font(.system(size: 15, weight: .semibold))
             HStack(spacing: 8) {
                 VStack {
                     Button(action: {
@@ -29,7 +31,7 @@ struct ControlsView: View {
                     }
                     .disabled(boardDriver.gameState == .won)
                     .opacity(boardDriver.gameState == .won ? 0.5 : 1.0)
-                    Text("Undo")
+                    Text("Undo").foregroundColor(.white)
                 }
                 VStack {
                     Button(action: {
@@ -38,7 +40,7 @@ struct ControlsView: View {
                         Image(systemName: "gear")
                         .font(.system(size: 30))
                     }
-                    Text("Menu")
+                    Text("Menu").foregroundColor(.white)
                 }
             }.font(.system(size: 11, weight: .semibold))
         }.accentColor(.white)

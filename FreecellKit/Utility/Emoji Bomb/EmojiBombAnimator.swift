@@ -90,7 +90,6 @@ public class EmojiBombAnimator {
         gravityBehavior = UIGravityBehavior(items: views)
         gravityBehavior?.magnitude = animationParameters.gravity
         collisionBehavior = UICollisionBehavior(items: views)
-        collisionBehavior?.setTranslatesReferenceBoundsIntoBoundary(with: UIEdgeInsets(top: -1*container.frame.height, left: -1*container.frame.width, bottom: container.frame.height, right: container.frame.width))
         collisionBehavior?.collisionMode = .boundaries
         
         

@@ -11,7 +11,7 @@ import DeckKit
 import SwiftUI
 
 public class EmojiBombUIView: UIView {
-    private var parameters = EmojiBombAnimationParameters(baseline: 0.5, variation: 0.1, density: 2.0, maximumMagnitude: 2.0, forceOffset: 0.2, gravity: 1.5, numberOfViews: 100)
+    private var parameters = EmojiBombAnimationParameters(baseline: 0.5, variation: 0.1, density: 2.0, maximumMagnitude: 5.0, forceOffset: 0.2, gravity: 5.0, numberOfViews: 40)
     private lazy var animator = EmojiBombAnimator(container: self,
                                                   imageTemplates: Suit.allCases.map { $0.uiImage },
                                                   animationParameters: parameters)
