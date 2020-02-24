@@ -6,6 +6,7 @@
 //  Copyright © 2017 Capital One Labs. All rights reserved.
 //
 
+#if os(iOS)
 import UIKit
 
 public struct EmojiBombAnimationParameters {
@@ -114,4 +115,4 @@ public class EmojiBombAnimator {
         return UIImageView(image: image)
     }
 }
-
+#endif

@@ -10,15 +10,36 @@ import SwiftUI
 import DeckKit
 
 extension Suit {
-    var uiColor: UIColor {
+    var swiftUIColor: Color {
         switch color {
         case .red: return .red
         case .black: return .black
         }
     }
     
-    var swiftUIColor: Color {
-        return Color(uiColor)
+    var displayImage: some View {
+        let image: Image
+        switch self {
+        case .clubs:
+            image = Image.clubs
+        case .diamonds:
+            image = Image.diamonds
+        case .hearts:
+            image = Image.hearts
+        case .spades:
+            image = Image.spades
+        }
+        return image.foregroundColor(swiftUIColor)
+    }
+}
+
+#if os(iOS)
+extension Suit {
+    var uiColor: UIColor {
+        switch color {
+        case .red: return .red
+        case .black: return .black
+        }
     }
     
     var imageSystemName: String {
@@ -34,13 +55,10 @@ extension Suit {
         }
     }
     
-    var displayImage: some View {
-        return Image(systemName: imageSystemName).foregroundColor(swiftUIColor)
-    }
-    
     var uiImage: UIImage {
         let configuration = UIImage.SymbolConfiguration(pointSize: 25, weight: .regular, scale: .large)
         guard let image = UIImage(systemName: imageSystemName, withConfiguration: configuration) else { fatalError("No image for that systemName") }
         return image.withTintColor(uiColor, renderingMode: .alwaysOriginal)
     }
 }
+#endif

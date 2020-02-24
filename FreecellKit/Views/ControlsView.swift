@@ -26,9 +26,11 @@ struct ControlsView: View {
                     Button(action: {
                         self.boardDriver.undo()
                     }) {
-                        Image(systemName: "arrow.uturn.left.circle")
+                        Image.undo
+                            .foregroundColor(.white)
                             .font(.system(size: 30))
                     }
+                    
                     .disabled(boardDriver.gameState == .won)
                     .opacity(boardDriver.gameState == .won ? 0.5 : 1.0)
                     Text("Undo").foregroundColor(.white)
@@ -37,13 +39,14 @@ struct ControlsView: View {
                     Button(action: {
                         print("Settings")
                     }) {
-                        Image(systemName: "gear")
-                        .font(.system(size: 30))
+                        Image.settings
+                            .foregroundColor(.white)
+                            .font(.system(size: 30))
                     }
                     Text("Menu").foregroundColor(.white)
                 }
             }.font(.system(size: 11, weight: .semibold, design: .rounded))
-        }.accentColor(.white)
+        }
     }
     
     func movesText() -> String {

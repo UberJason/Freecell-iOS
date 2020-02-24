@@ -33,6 +33,7 @@
 		964BBF1823A48B0B009B4FDE /* SubstackMovementTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 964BBF1723A48B0B009B4FDE /* SubstackMovementTests.swift */; };
 		964BBF1A23A48B39009B4FDE /* BoardTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 964BBF1923A48B39009B4FDE /* BoardTests.swift */; };
 		964BBF1D23A6D9C3009B4FDE /* StackOffsetting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 964BBF1C23A6D9C3009B4FDE /* StackOffsetting.swift */; };
+		965E210624040E01002BA1F7 /* Image+Freecell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 965E210524040E01002BA1F7 /* Image+Freecell.swift */; };
 		9661BFAE23DE86A300DFC5E9 /* CellInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9661BFAD23DE86A300DFC5E9 /* CellInfo.swift */; };
 		9661E7AC2380439C00183A99 /* CardStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9661E7AB2380439C00183A99 /* CardStack.swift */; };
 		9673834724030EE1004A4525 /* Color+Background.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9673834624030EE1004A4525 /* Color+Background.swift */; };
@@ -252,6 +253,7 @@
 		964BBF1723A48B0B009B4FDE /* SubstackMovementTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubstackMovementTests.swift; sourceTree = "<group>"; };
 		964BBF1923A48B39009B4FDE /* BoardTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoardTests.swift; sourceTree = "<group>"; };
 		964BBF1C23A6D9C3009B4FDE /* StackOffsetting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StackOffsetting.swift; sourceTree = "<group>"; };
+		965E210524040E01002BA1F7 /* Image+Freecell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Image+Freecell.swift"; sourceTree = "<group>"; };
 		9661BFAD23DE86A300DFC5E9 /* CellInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CellInfo.swift; sourceTree = "<group>"; };
 		9661E7AB2380439C00183A99 /* CardStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardStack.swift; sourceTree = "<group>"; };
 		9673834624030EE1004A4525 /* Color+Background.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+Background.swift"; sourceTree = "<group>"; };
@@ -408,20 +410,13 @@
 		962295F623889359005D599B /* Utility */ = {
 			isa = PBXGroup;
 			children = (
+				965E210424040D93002BA1F7 /* Extensions */,
 				96D5BBFE2401877B00550326 /* Emoji Bomb */,
 				9689E18723AB0B8F008B960B /* Publisher */,
-				96A36452237CF490005C45FB /* Rank+FreecellValue.swift */,
-				96CA9ACF238CC4F000C34A60 /* Card+Id.swift */,
 				962295F72388936C005D599B /* CardTapHandler.swift */,
 				964BBF1C23A6D9C3009B4FDE /* StackOffsetting.swift */,
-				968889392389CB83001DD34B /* Result+SuccessVoid.swift */,
-				9688893B238B679A001DD34B /* Suit+Color.swift */,
-				9673834624030EE1004A4525 /* Color+Background.swift */,
-				964BBF0723A4861C009B4FDE /* Convenience.swift */,
 				9627FECF23AB19CF00F8F63B /* CustomDebugStrings.swift */,
 				9661BFAD23DE86A300DFC5E9 /* CellInfo.swift */,
-				9613244F23E12A0600982898 /* CGRect+Center.swift */,
-				9613245123E23D4000982898 /* CGPoint+Translation.swift */,
 			);
 			path = Utility;
 			sourceTree = "<group>";
@@ -466,6 +461,22 @@
 				964BBF1523A48A88009B4FDE /* Column+Sample.swift */,
 			);
 			path = Utility;
+			sourceTree = "<group>";
+		};
+		965E210424040D93002BA1F7 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				96A36452237CF490005C45FB /* Rank+FreecellValue.swift */,
+				96CA9ACF238CC4F000C34A60 /* Card+Id.swift */,
+				9688893B238B679A001DD34B /* Suit+Color.swift */,
+				9673834624030EE1004A4525 /* Color+Background.swift */,
+				9613244F23E12A0600982898 /* CGRect+Center.swift */,
+				9613245123E23D4000982898 /* CGPoint+Translation.swift */,
+				968889392389CB83001DD34B /* Result+SuccessVoid.swift */,
+				964BBF0723A4861C009B4FDE /* Convenience.swift */,
+				965E210524040E01002BA1F7 /* Image+Freecell.swift */,
+			);
+			path = Extensions;
 			sourceTree = "<group>";
 		};
 		9683E09F23F87A4000B6C114 /* Core Data */ = {
@@ -1100,6 +1111,7 @@
 				9625628F2381D857003C09AA /* ColumnView.swift in Sources */,
 				962295F223884563005D599B /* CardRectangle.swift in Sources */,
 				9613245023E12A0600982898 /* CGRect+Center.swift in Sources */,
+				965E210624040E01002BA1F7 /* Image+Freecell.swift in Sources */,
 				961AC2AA23E4B661003341B0 /* MoveEvent.swift in Sources */,
 				961AC2A823E374AC003341B0 /* Notification+Freecell.swift in Sources */,
 				9688893C238B679A001DD34B /* Suit+Color.swift in Sources */,

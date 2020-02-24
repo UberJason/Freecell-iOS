@@ -38,8 +38,6 @@ extension Board: CustomDebugStringConvertible {
                 
                 """
     }
-    
-    
 }
 
 let debugDateFormatter: DateFormatter = {

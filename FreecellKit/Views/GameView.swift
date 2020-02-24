@@ -19,6 +19,7 @@ public struct GameView: View {
     public var body: some View {
         ZStack {
             BoardView(boardDriver: boardDriver)
+            #if os(iOS)
             HStack {
                 EmojiBombView()
                     .frame(width: 300, height: 200)
@@ -38,6 +39,7 @@ public struct GameView: View {
                     .animation(.default)
                     .transition(.opacity)
             }
+            #endif
 
         }.edgesIgnoringSafeArea(.all)
     }
