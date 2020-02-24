@@ -10,25 +10,24 @@ import SwiftUI
 
 #warning("Refactor and this shouldn't be public")
 public struct YouWinView: View {
-    @EnvironmentObject var boardDriver: BoardViewDriver
-    
     public init() {}
     
     public var body: some View {
         VStack(spacing: 8) {
             Text("You Win!").font(.system(size: 50, weight: .bold, design: .rounded))
             Button(action: {
-                print("New Game")
+                NotificationCenter.default.post(name: .newGame, object: nil)
             }) {
                 Text("New Game")
                     .font(.system(size: 13, weight: .bold, design: .rounded))
                     .foregroundColor(.freecellBackground)
+                    .padding([.top, .bottom], 8.0)
+                    .padding([.leading, .trailing], 12.0)
+                    .background(
+                        RoundedRectangle(cornerRadius: 20.0)
+                    )
             }
-            .padding([.top, .bottom], 8.0)
-            .padding([.leading, .trailing], 12.0)
-            .background(
-                RoundedRectangle(cornerRadius: 20.0)
-            )
+            
         }
         .foregroundColor(.white)
     }

@@ -28,7 +28,7 @@ public struct BoardView: View, StackOffsetting {
         
             HStack {
                 Spacer()
-                VStack(spacing: 60.0) {
+                VStack(spacing: 40.0) {
                     HStack {
                         HStack {
                             ForEach(boardDriver.freecells) { freeCell in

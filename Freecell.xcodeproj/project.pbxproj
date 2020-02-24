@@ -433,12 +433,12 @@
 				962295F123884563005D599B /* CardRectangle.swift */,
 				962562902381DEEB003C09AA /* EmptySpotView.swift */,
 				962562882381D846003C09AA /* CardView.swift */,
-				9616A1D623FB7176007CABA1 /* ControlsView.swift */,
-				9673834A24030F7E004A4525 /* YouWinView.swift */,
 				9625628A2381D84C003C09AA /* FreeCellView.swift */,
 				9625628C2381D853003C09AA /* FoundationView.swift */,
 				9625628E2381D857003C09AA /* ColumnView.swift */,
 				962295F323887623005D599B /* BoardView.swift */,
+				9616A1D623FB7176007CABA1 /* ControlsView.swift */,
+				9673834A24030F7E004A4525 /* YouWinView.swift */,
 				9673834C24030FF0004A4525 /* GameView.swift */,
 			);
 			path = Views;

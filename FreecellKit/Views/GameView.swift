@@ -7,6 +7,7 @@
 //
 
 import SwiftUI
+import DeckKit
 
 public struct GameView: View {
     @ObservedObject var boardDriver: BoardViewDriver
@@ -30,15 +31,42 @@ public struct GameView: View {
                     .offset(x: 0, y: 70)
                 }.offset(x: 0, y: -50)
                 .allowsHitTesting(false)
-            YouWinView()
-            .offset(x: 0, y: 300)
+            if boardDriver.gameState == .won {
+                YouWinView()
+                    .offset(x: 0, y: 100)
+                    .environmentObject(boardDriver)
+                    .animation(.default)
+                    .transition(.opacity)
+            }
 
         }.edgesIgnoringSafeArea(.all)
     }
 }
 
 struct GameView_Previews: PreviewProvider {
+    static let driver: BoardViewDriver = {
+        let d = ClassicViewDriver()
+        d._board = Board.preconfigured(withFreecells: (0..<4).map { _ in FreeCell() },
+                                       foundations: [
+                                        Foundation(topCard: Card.king.ofClubs)!,
+                                        Foundation(topCard: Card.king.ofDiamonds)!,
+                                        Foundation(topCard: Card.king.ofHearts)!,
+                                        Foundation(topCard: Card.king.ofSpades)!
+                                        ],
+                                       columns: (0...7).map { _ in Column() })
+        d.renderingBoard = d._board
+        d.gameState = .won
+        return d
+    }()
+    
     static var previews: some View {
-        GameView(boardDriver: ClassicViewDriver())
+        Group {
+        GameView(boardDriver: driver)
+            .previewDevice("iPad Mini")
+            .previewLayout(.fixed(width: 1024, height: 768))
+        GameView(boardDriver: driver)
+            .previewDevice("iPad Pro 11")
+            .previewLayout(.fixed(width: 1194, height: 834))
+        }
     }
 }

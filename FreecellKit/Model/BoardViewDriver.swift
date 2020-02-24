@@ -122,6 +122,7 @@ public class BoardViewDriver: ObservableObject, StackOffsetting {
     }
     
     internal func handleWinState() {
+        previousBoards = []
         NotificationCenter.default.post(name: .performBombAnimation, object: nil)
         timerCancellable?.cancel()
     }
