@@ -57,11 +57,20 @@ struct CardTabView: View {
                 .alignmentGuide(.leading) { d in d[.leading] + 1.0 }
             card.suit.displayImage
                 .font(.system(size: 14, weight: .regular, design: .default))
-                .frame(minWidth: 15, alignment: .leading)
+                .modifyImageForPlatform()
         }
     }
 }
 
+extension View {
+    func modifyImageForPlatform() -> some View {
+        #if os(macOS)
+        return self.frame(width: 12, height: 10, alignment: .leading)
+        #else
+        return self.frame(minWidth: 15, alignment: .leading)
+        #endif
+    }
+}
 
 struct CardView_Previews: PreviewProvider {
     static let cards = [Card.seven.ofHearts, Card.ten.ofSpades, Card.jack.ofDiamonds, Card.queen.ofClubs]

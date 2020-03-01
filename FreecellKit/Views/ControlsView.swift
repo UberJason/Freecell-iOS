@@ -8,6 +8,7 @@
 
 import SwiftUI
 
+#if !os(macOS)
 struct ControlsView: View {
     let timeString: String
     let moves: Int
@@ -62,3 +63,4 @@ struct ControlsView_Previews: PreviewProvider {
             .previewLayout(.fixed(width: 150, height: 300))
     }
 }
+#endif

@@ -44,8 +44,10 @@ public struct BoardView: View, StackOffsetting {
                         }
                         
                         Spacer()
+                        #if !os(macOS)
                         ControlsView(timeString: boardDriver.moveTimeString, moves: boardDriver.moves).environmentObject(boardDriver)
                         Spacer()
+                        #endif
                         
                         HStack {
                             ForEach(boardDriver.foundations) { foundation in
@@ -76,6 +78,7 @@ public struct BoardView: View, StackOffsetting {
                 }.padding(EdgeInsets(top: 40, leading: 20, bottom: 40, trailing: 20))
                 Spacer()
             }.padding([.leading, .trailing], 200)
+            #warning("This padding looks really bad on macOS with resizable window - look into proper alignment guide instead")
             
         }
         .edgesIgnoringSafeArea(.all)

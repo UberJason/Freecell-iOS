@@ -29,7 +29,15 @@ extension Suit {
         case .spades:
             image = Image.spades
         }
+        
+        #if os(macOS)
+        return image
+            .resizable()
+            .aspectRatio(contentMode: .fill)
+            .foregroundColor(swiftUIColor)
+        #else
         return image.foregroundColor(swiftUIColor)
+        #endif
     }
 }
 

@@ -8,6 +8,42 @@
 
 import SwiftUI
 
+#warning("Re-export images for macOS in a square aspect ratio")
+public extension Image {
+    static var clubs: Image {
+        #if os(macOS)
+        return Image("Club", bundle: Bundle.freecellKit)
+        #else
+        return Image(systemName: "suit.club.fill")
+        #endif
+    }
+    
+    static var diamonds: Image {
+        #if os(macOS)
+        return Image("Diamond", bundle: Bundle.freecellKit)
+        #else
+        return Image(systemName: "suit.diamond.fill")
+        #endif
+    }
+    
+    static var hearts: Image {
+        #if os(macOS)
+        return Image("Heart", bundle: Bundle.freecellKit)
+        #else
+        return Image(systemName: "suit.heart.fill")
+        #endif
+    }
+    
+    static var spades: Image {
+        #if os(macOS)
+        return Image("Spade", bundle: Bundle.freecellKit)
+        #else
+        return Image(systemName: "suit.spade.fill")
+        #endif
+    }
+}
+
+#if !os(macOS)
 public extension Image {
     static var undo: Image {
         return Image(systemName: "arrow.uturn.left.circle")
@@ -16,20 +52,5 @@ public extension Image {
     static var settings: Image {
         return Image(systemName: "gear")
     }
-    
-    static var clubs: Image {
-        return Image(systemName: "suit.club.fill")
-    }
-    
-    static var diamonds: Image {
-        return Image(systemName: "suit.diamond.fill")
-    }
-    
-    static var hearts: Image {
-        return Image(systemName: "suit.heart.fill")
-    }
-    
-    static var spades: Image {
-        return Image(systemName: "suit.spade.fill")
-    }
 }
+#endif
