@@ -9,6 +9,22 @@
 import SwiftUI
 import DeckKit
 
+extension HorizontalAlignment {
+    private enum MyLeadingAlignment: AlignmentID {
+        static func defaultValue(in context: ViewDimensions) -> CGFloat {
+            return context[HorizontalAlignment.center]
+        }
+    }
+    private enum MyTrailingAlignment: AlignmentID {
+        static func defaultValue(in context: ViewDimensions) -> CGFloat {
+            return context[HorizontalAlignment.center]
+        }
+    }
+    
+    static let myLeadingAlignment = HorizontalAlignment(MyLeadingAlignment.self)
+    static let myTrailingAlignment = HorizontalAlignment(MyTrailingAlignment.self)
+}
+
 public struct BoardView: View, StackOffsetting {
     public enum DragState {
         case inactive, active(translation: CGSize)
@@ -24,11 +40,10 @@ public struct BoardView: View, StackOffsetting {
     public var body: some View {
         ZStack(alignment: .top) {
             BackgroundColorView()
-            .frame(maxWidth: .infinity, maxHeight: .infinity)
-        
-            HStack {
-                Spacer()
-                VStack(spacing: 40.0) {
+                .frame(maxWidth: .infinity, maxHeight: .infinity)
+            
+            VStack(alignment: .myTrailingAlignment) {
+                VStack(alignment: .myLeadingAlignment, spacing: 40.0) {
                     HStack {
                         HStack {
                             ForEach(boardDriver.freecells) { freeCell in
@@ -41,7 +56,7 @@ public struct BoardView: View, StackOffsetting {
                                     [CellInfo(cellId: freeCell.id, bounds: bounds)]
                                 })
                             }
-                        }
+                        }.alignmentGuide(.myLeadingAlignment, computeValue: { d in d[HorizontalAlignment.leading] })
                         
                         Spacer()
                         #if !os(macOS)
@@ -60,7 +75,7 @@ public struct BoardView: View, StackOffsetting {
                                     [CellInfo(cellId: foundation.id, bounds: bounds)]
                                 })
                             }
-                        }
+                        }.alignmentGuide(.myTrailingAlignment, computeValue: { d in d[HorizontalAlignment.trailing] })
                     }
                     
                     HStack(spacing: 22.0) {
@@ -74,10 +89,10 @@ public struct BoardView: View, StackOffsetting {
                                 [CellInfo(cellId: column.id, bounds: bounds)]
                             })
                         }
-                    }
+                    }.alignmentGuide(.myLeadingAlignment, computeValue: { d in d[HorizontalAlignment.leading] })
+                    .alignmentGuide(.myTrailingAlignment, computeValue: { d in d[HorizontalAlignment.trailing] })
                 }.padding(EdgeInsets(top: 40, leading: 20, bottom: 40, trailing: 20))
-                Spacer()
-            }.padding([.leading, .trailing], 200)
+            }
             #warning("This padding looks really bad on macOS with resizable window - look into proper alignment guide instead")
             
         }
@@ -101,7 +116,7 @@ public struct BoardView: View, StackOffsetting {
         if let boardDriver = boardDriver as? ModernViewDriver {
             boardDriver.storeCellPositions(cells, using: geometry)
         }
-            
+        
         var bounds = CGRect.zero
         var stackOffset = CGSize.zero
         
@@ -121,18 +136,18 @@ public struct BoardView: View, StackOffsetting {
             .frame(width: bounds.size.width, height: bounds.size.height)
             .overlay(
                 CardRectangle(foregroundColor: boardDriver.cardOverlayColor(for: card), opacity: 0.3)
-            )
+        )
             .scaleEffect(boardDriver.scale(for: card), anchor: .top)
             .animation(cardSpringAnimation)
             .onTapGesture {
                 self.boardDriver.itemTapped(card)
-            }
-            .position(x: bounds.midX, y: bounds.midY + stackOffset.height)
-            .offset(boardDriver.cardOffset(for: card, relativeTo: bounds, dragState: dragState))
-            .animation(cardSpringAnimation)
-            .simultaneousGesture(
-                createDragGesture(for: card)
-            )
+        }
+        .position(x: bounds.midX, y: bounds.midY + stackOffset.height)
+        .offset(boardDriver.cardOffset(for: card, relativeTo: bounds, dragState: dragState))
+        .animation(cardSpringAnimation)
+        .simultaneousGesture(
+            createDragGesture(for: card)
+        )
             .zIndex(boardDriver.zIndex(for: card))
     }
     
@@ -143,24 +158,24 @@ public struct BoardView: View, StackOffsetting {
                     self.boardDriver.dragStarted(from: card)
                 }
                 state = .active(translation: value.translation)
-            }
-            .onEnded { value in
-                self.boardDriver.dragEnded(with: value.translation)
-            }
+        }
+        .onEnded { value in
+            self.boardDriver.dragEnded(with: value.translation)
+        }
         
         return boardDriver is ModernViewDriver ? gesture : nil
     }
-   
+    
     var cardSize: CGSize {
-//        return CGSize(width: 125, height: 187)  // iPad Pro
-//        return CGSize(width: 107, height: 160)  // iPad Mini
+        //        return CGSize(width: 125, height: 187)  // iPad Pro
+        //        return CGSize(width: 107, height: 160)  // iPad Mini
         return CGSize(width: 100, height: 149)  // iPad Mini, reduced
     }
     
     var cardSpringAnimation: Animation? {
         switch dragState {
         case .inactive:
-//        return Animation.spring(response: 0.08, dampingFraction: 0.95, blendDuration: 0.0)
+            //        return Animation.spring(response: 0.08, dampingFraction: 0.95, blendDuration: 0.0)
             return .spring(response: 0.10, dampingFraction: 0.90, blendDuration: 0.0)
         case .active(_): return nil
         }
@@ -170,7 +185,7 @@ public struct BoardView: View, StackOffsetting {
 struct BoardView_Previews: PreviewProvider {
     static var previews: some View {
         BoardView(boardDriver: ClassicViewDriver())
-//            .previewLayout(.fixed(width: 1194, height: 834))
-            .previewLayout(.fixed(width: 1024, height: 768))
+            .previewLayout(.fixed(width: 1194, height: 834))
+        //            .previewLayout(.fixed(width: 1024, height: 768))
     }
 }
