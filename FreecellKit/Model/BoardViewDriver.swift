@@ -129,6 +129,7 @@ public class BoardViewDriver: ObservableObject, StackOffsetting {
     
     func rollbackFailedMove(with error: Error) {
         previousBoards.removeLast()
+        moves -= 1
         #if os(macOS)
         NSSound.beep()
         #endif
