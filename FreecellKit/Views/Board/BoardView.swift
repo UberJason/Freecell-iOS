@@ -45,7 +45,7 @@ public struct BoardView: View, StackOffsetting {
                             
                             Spacer()
                             #if !os(macOS)
-                            ControlsView(timeString: self.boardDriver.moveTimeString, moves: self.boardDriver.moves).environmentObject(self.boardDriver)
+                            ControlsView(timeString: self.boardDriver.moveTimeString, moves: self.boardDriver.moves, boardDriver: self.boardDriver)
                             Spacer()
                             #endif
                             

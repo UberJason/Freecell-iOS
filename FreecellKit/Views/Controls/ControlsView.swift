@@ -12,7 +12,9 @@ import SwiftUI
 struct ControlsView: View {
     let timeString: String
     let moves: Int
-    @EnvironmentObject var boardDriver: BoardViewDriver
+    var boardDriver: BoardViewDriver
+    
+    @State var menuIsPresented = false
     
     var body: some View {
         VStack(spacing: 30) {
@@ -39,6 +41,7 @@ struct ControlsView: View {
                 VStack {
                     Button(action: {
                         print("Settings")
+                        self.menuIsPresented.toggle()
                     }) {
                         Image.settings
                             .foregroundColor(.white)
@@ -47,6 +50,9 @@ struct ControlsView: View {
                     Text("Menu").foregroundColor(.white)
                 }
             }.font(.system(size: 11, weight: .semibold, design: .rounded))
+        }
+        .sheet(isPresented: $menuIsPresented) {
+            SettingsView()
         }
     }
     
@@ -57,7 +63,7 @@ struct ControlsView: View {
 
 struct ControlsView_Previews: PreviewProvider {
     static var previews: some View {
-        ControlsView(timeString: "0:04", moves: 4).environmentObject(BoardViewDriver())
+        ControlsView(timeString: "0:04", moves: 4, boardDriver: BoardViewDriver())
             .frame(width: 150, height: 300)
             .background(Color.green)
             .previewLayout(.fixed(width: 150, height: 300))
