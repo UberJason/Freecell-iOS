@@ -55,7 +55,9 @@ public class BoardViewDriver: ObservableObject, StackOffsetting {
     @Published public var moves: Int = 0
     
     public var allCards: [Card] {
-        fatalError("implement in subclass")
+        return freecells.flatMap({ $0.items }) +
+        foundations.flatMap({ $0.items }) +
+        columns.flatMap({ $0.items })
     }
     
     internal var animationOffsetInterval = 75
@@ -150,7 +152,7 @@ public class BoardViewDriver: ObservableObject, StackOffsetting {
     }
     
     public func cell(containing card: Card) -> Cell {
-        fatalError("Implement in subclass")
+        return renderingBoard.cell(containing: card)
     }
     
     public func itemTapped<T>(_ item: T) {}
@@ -187,16 +189,6 @@ public class ClassicViewDriver: BoardViewDriver {
     }
     
     var selectionState: SelectionState { selectedCard.map { .selected(card: $0) } ?? .idle }
-    
-    public override var allCards: [Card] {
-        return freecells.flatMap({ $0.items }) +
-            foundations.flatMap({ $0.items }) +
-            columns.flatMap({ $0.items })
-    }
-    
-    public override func cell(containing card: Card) -> Cell {
-        return renderingBoard.cell(containing: card)
-    }
 
     public override func itemTapped<T>(_ item: T) {
         switch item {
@@ -245,18 +237,8 @@ public class ClassicViewDriver: BoardViewDriver {
 }
 
 public class ModernViewDriver: BoardViewDriver {
-    public override var allCards: [Card] {
-        return freecells.flatMap({ $0.items }) +
-            foundations.flatMap({ $0.items }) +
-            columns.flatMap({ $0.items })
-    }
-    
     public var draggingStack: CardStack?
     private var cellPositions = [CellPosition]()
-    
-    public override func cell(containing card: Card) -> Cell {
-        return renderingBoard.cell(containing: card)
-    }
 
     public override func itemTapped<T>(_ item: T) {
         guard let card = item as? Card else { return }
