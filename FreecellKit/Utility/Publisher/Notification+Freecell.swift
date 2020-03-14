@@ -16,4 +16,5 @@ public extension Notification.Name {
     static let performBombAnimation = Notification.Name("performBombAnimation")
     
     static let showMenu = Notification.Name(rawValue: "showMenu")
+    static let dismissMenu = Notification.Name(rawValue: "dismissMenu")
 }

@@ -23,6 +23,13 @@ class GameHostingController: StatusBarHidingFirstResponderHostingController<Cont
                 self.showMenu()
             }
             .store(in: &cancellables)
+        
+        NotificationCenter.default
+            .publisher(for: .dismissMenu)
+            .sink { [unowned self] _ in
+                self.dismiss(animated: true, completion: nil)
+            }
+            .store(in: &cancellables)
     }
     
     override init?(coder aDecoder: NSCoder, rootView: ContentView) {

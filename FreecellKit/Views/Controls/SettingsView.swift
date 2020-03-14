@@ -14,9 +14,24 @@ public struct SettingsView: View {
     public var body: some View {
         NavigationView {
             Form {
+                Section(header: Text("This Game")) {
+                    Button(action: {}) {
+                        HStack {
+                            Text("Restart Game")
+                            Spacer()
+                            Image(systemName: "arrow.uturn.left")
+                        }.foregroundColor(.freecellBackground)
+                    }
+                    Button(action: {}) {
+                        HStack {
+                            Text("New Game")
+                            Spacer()
+                            Image(systemName: "goforward.plus")
+                        }.foregroundColor(.freecellBackground)
+                    }
+                }
+                
                 Section(header: Text("Settings")) {
-                    Text("Restart Game")
-                    Text("New Game")
                     NavigationLink(destination: Text("Cool cool cool")) {
                         HStack {
                             Text("Control Scheme")
@@ -24,41 +39,24 @@ public struct SettingsView: View {
                             Text("Classic").foregroundColor(.freecellBackground)
                         }
                     }
-                    
-                }
-                
-                Section(header: Text("Statistics")) {
-                    HStack {
-                        Text("Games Won")
-                        Spacer()
-                        Text("109")
-                    }
-                    HStack {
-                        Text("Games Lost")
-                        Spacer()
-                        Text("12")
-                    }
-                    HStack {
-                        Text("Total")
-                        Spacer()
-                        Text("121")
-                    }
-                    HStack {
-                        Text("Win Percentage")
-                        Spacer()
-                        Text("90%")
-                    }
-                    Button(action: {
-                        print("Reset Statistics")
-                    }) {
-                        Text("Reset Statistics").foregroundColor(.red)
+                    NavigationLink(destination: StatisticsView()) {
+                        Text("Statistics")
                     }
                 }
             }
             .listStyle(GroupedListStyle())
             .environment(\.horizontalSizeClass, .regular)
-            .navigationBarTitle("Freecell", displayMode: .inline)
+            .navigationBarTitle("Menu", displayMode: .inline)
+            .navigationBarItems(trailing:
+                Button(action: {
+                    NotificationCenter.default.post(name: .dismissMenu, object: nil)
+                }) {
+                    Text("Done").fontWeight(.bold)
+                }
+            )
+                .background(Color(UIColor.systemGroupedBackground))
         }.environment(\.horizontalSizeClass, .compact)
+            .accentColor(.freecellBackground)
     }
 }
 
