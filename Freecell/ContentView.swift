@@ -28,6 +28,12 @@ class Game: ObservableObject {
             }
             .store(in: &cancellables)
         
+        NotificationCenter.default
+            .publisher(for: .restartGame)
+            .sink { [weak self] _ in
+                self?.boardDriver.restartGame()
+            }
+            .store(in: &cancellables)
     }
 }
 

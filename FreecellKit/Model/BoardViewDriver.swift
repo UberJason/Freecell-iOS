@@ -113,11 +113,24 @@ public class BoardViewDriver: ObservableObject, StackOffsetting {
         print("Redo...")
     }
     
+    public func restartGame() {
+        guard let first = previousBoards.first else { return }
+        previousBoards = []
+        moves = 0
+        moveTimeString = "00:00"
+        configureMoveTimer()
+        setBoard(first)
+    }
+    
     @objc internal func performUndo() {
         guard previousBoards.count > 0 else { return }
         moves -= 1
         
-        _board = previousBoards.removeLast()
+        setBoard(previousBoards.removeLast())
+    }
+    
+    internal func setBoard(_ board: Board) {
+        _board = board
         configureRendering()
     }
     
