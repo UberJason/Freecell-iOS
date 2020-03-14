@@ -8,6 +8,7 @@
 
 import SwiftUI
 
+#if os(iOS)
 public struct SettingsView: View {
     public init() {}
     
@@ -55,3 +56,4 @@ struct SettingsView_Previews: PreviewProvider {
         SettingsView()
     }
 }
+#endif

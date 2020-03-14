@@ -8,6 +8,7 @@
 
 import SwiftUI
 
+#if os(iOS)
 struct StatisticsView: View {
     var body: some View {
         Form {
@@ -42,3 +43,4 @@ struct StatisticsView_Previews: PreviewProvider {
         StatisticsView()
     }
 }
+#endif
