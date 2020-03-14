@@ -8,11 +8,8 @@
 
 import SwiftUI
 
-#warning("Refactor and this shouldn't be public")
-public struct YouWinView: View {
-    public init() {}
-    
-    public var body: some View {
+struct YouWinView: View {
+    var body: some View {
         VStack(spacing: 8) {
             Text("You Win!").font(.system(size: 50, weight: .bold, design: .rounded))
             Button(action: {
