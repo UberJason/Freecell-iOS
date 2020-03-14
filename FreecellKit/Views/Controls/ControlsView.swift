@@ -14,8 +14,6 @@ struct ControlsView: View {
     let moves: Int
     var boardDriver: BoardViewDriver
     
-    @State var menuIsPresented = false
-    
     var body: some View {
         VStack(spacing: 30) {
             VStack(alignment: .leading, spacing: 0) {
@@ -41,7 +39,7 @@ struct ControlsView: View {
                 VStack {
                     Button(action: {
                         print("Settings")
-                        self.menuIsPresented.toggle()
+                        NotificationCenter.default.post(name: .showMenu, object: nil)
                     }) {
                         Image.settings
                             .foregroundColor(.white)
@@ -50,9 +48,6 @@ struct ControlsView: View {
                     Text("Menu").foregroundColor(.white)
                 }
             }.font(.system(size: 11, weight: .semibold, design: .rounded))
-        }
-        .sheet(isPresented: $menuIsPresented) {
-            SettingsView()
         }
     }
     

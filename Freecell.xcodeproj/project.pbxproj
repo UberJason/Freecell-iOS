@@ -79,7 +79,6 @@
 		96A36486237E385B005C45FB /* Foundation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96A36485237E385B005C45FB /* Foundation.swift */; };
 		96A36488237E3894005C45FB /* FreecellError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96A36487237E3894005C45FB /* FreecellError.swift */; };
 		96A3648A237F51BA005C45FB /* Convenience.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96A36489237F51BA005C45FB /* Convenience.swift */; };
-		96A59AA8241B19E6004B8FDF /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96A59AA7241B19E6004B8FDF /* SettingsView.swift */; };
 		96A7223C2401814C004F7F47 /* EmojiBombAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96A7223B2401814C004F7F47 /* EmojiBombAnimator.swift */; };
 		96A7223E240181DB004F7F47 /* EmojiBombView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96A7223D240181DB004F7F47 /* EmojiBombView.swift */; };
 		96CA9AD0238CC4F000C34A60 /* Card+Id.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96CA9ACF238CC4F000C34A60 /* Card+Id.swift */; };
@@ -95,7 +94,9 @@
 		96CA9B09238F0E5C00C34A60 /* FreecellKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 96A36459237E33BF005C45FB /* FreecellKit.framework */; };
 		96CA9B0A238F0E5C00C34A60 /* FreecellKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 96A36459237E33BF005C45FB /* FreecellKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		96CA9B0E239300C300C34A60 /* BoardViewDriver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96CA9B0D239300C300C34A60 /* BoardViewDriver.swift */; };
-		96E188B923BBF301008129AF /* StatusBarHidingFirstResponderHostingController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96E188B823BBF301008129AF /* StatusBarHidingFirstResponderHostingController.swift */; };
+		96FBBCD8241C679C001D1088 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96A59AA7241B19E6004B8FDF /* SettingsView.swift */; };
+		96FBBCDC241C67F8001D1088 /* StatusBarHidingFirstResponderHostingController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96E188B823BBF301008129AF /* StatusBarHidingFirstResponderHostingController.swift */; };
+		96FBBCDD241C67F8001D1088 /* GameHostingController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96FBBCD5241C6409001D1088 /* GameHostingController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -329,6 +330,7 @@
 		96CA9AFA238F0E4B00C34A60 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		96CA9B0D239300C300C34A60 /* BoardViewDriver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoardViewDriver.swift; sourceTree = "<group>"; };
 		96E188B823BBF301008129AF /* StatusBarHidingFirstResponderHostingController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusBarHidingFirstResponderHostingController.swift; sourceTree = "<group>"; };
+		96FBBCD5241C6409001D1088 /* GameHostingController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameHostingController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -430,6 +432,7 @@
 		962562862381D824003C09AA /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				96FBBCD9241C67AB001D1088 /* Hosting Controllers */,
 				96A59AA9241B19EA004B8FDF /* Cards */,
 				96A59AAA241B19F5004B8FDF /* Board */,
 				96A59AAB241B1A08004B8FDF /* Controls */,
@@ -540,6 +543,7 @@
 				96A363F5237CF0FC005C45FB /* AppDelegate.swift */,
 				96A363F7237CF0FC005C45FB /* SceneDelegate.swift */,
 				96E188B823BBF301008129AF /* StatusBarHidingFirstResponderHostingController.swift */,
+				96FBBCD5241C6409001D1088 /* GameHostingController.swift */,
 				96A363F9237CF0FC005C45FB /* ContentView.swift */,
 				96A363FB237CF0FD005C45FB /* Assets.xcassets */,
 				96A36400237CF0FD005C45FB /* LaunchScreen.storyboard */,
@@ -715,6 +719,13 @@
 				96A7223D240181DB004F7F47 /* EmojiBombView.swift */,
 			);
 			path = "Emoji Bomb";
+			sourceTree = "<group>";
+		};
+		96FBBCD9241C67AB001D1088 /* Hosting Controllers */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = "Hosting Controllers";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -1096,8 +1107,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				96A363F6237CF0FC005C45FB /* AppDelegate.swift in Sources */,
+				96FBBCDD241C67F8001D1088 /* GameHostingController.swift in Sources */,
+				96FBBCDC241C67F8001D1088 /* StatusBarHidingFirstResponderHostingController.swift in Sources */,
 				9622959C238393BA005D599B /* ContentView.swift in Sources */,
-				96E188B923BBF301008129AF /* StatusBarHidingFirstResponderHostingController.swift in Sources */,
 				96A363F8237CF0FC005C45FB /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1154,7 +1166,7 @@
 				962562892381D846003C09AA /* CardView.swift in Sources */,
 				96A36486237E385B005C45FB /* Foundation.swift in Sources */,
 				9688893A2389CB83001DD34B /* Result+SuccessVoid.swift in Sources */,
-				96A59AA8241B19E6004B8FDF /* SettingsView.swift in Sources */,
+				96FBBCD8241C679C001D1088 /* SettingsView.swift in Sources */,
 				9683E0A223F87A5500B6C114 /* Freecell.xcdatamodeld in Sources */,
 				962295F92388937D005D599B /* CardTapHandler.swift in Sources */,
 				965E210A240C5B3A002BA1F7 /* Bundle+FreecellKit.swift in Sources */,

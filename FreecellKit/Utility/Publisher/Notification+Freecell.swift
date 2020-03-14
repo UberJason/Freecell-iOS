@@ -14,4 +14,6 @@ public extension Notification.Name {
     static let performRedo = Notification.Name(rawValue: "performRedo")
     
     static let performBombAnimation = Notification.Name("performBombAnimation")
+    
+    static let showMenu = Notification.Name(rawValue: "showMenu")
 }
