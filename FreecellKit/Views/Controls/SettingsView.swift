@@ -12,18 +12,25 @@ import SwiftUI
 public struct SettingsView: View {
     public init() {}
     
+    @State var newGameWarning = false
+    @State var restartGameWarning = false
+    
     public var body: some View {
         NavigationView {
             Form {
                 Section(header: Text("This Game")) {
-                    Button(action: {}) {
+                    Button(action: {
+                        self.restartGameWarning.toggle()
+                    }) {
                         CellRow(leading: Text("Restart Game"), trailing: Image(systemName: "arrow.uturn.left"))
                             .foregroundColor(.freecellBackground)
-                    }
-                    Button(action: {}) {
+                    }.alert(isPresented: $restartGameWarning) { restartGameAlert() }
+                    Button(action: {
+                        self.newGameWarning.toggle()
+                    }) {
                         CellRow(leading: Text("New Game"), trailing: Image(systemName: "goforward.plus"))
-                        .foregroundColor(.freecellBackground)
-                    }
+                            .foregroundColor(.freecellBackground)
+                    }.alert(isPresented: $newGameWarning) { newGameAlert() }
                 }
                 
                 Section(header: Text("Settings")) {
@@ -46,8 +53,27 @@ public struct SettingsView: View {
                 }
             )
                 .background(Color(UIColor.systemGroupedBackground))
-        }.environment(\.horizontalSizeClass, .compact)
-            .accentColor(.freecellBackground)
+        }
+        .accentColor(.freecellBackground)
+    }
+    
+    func restartGameAlert() -> Alert {
+        let restart = ActionSheet.Button.destructive(Text("Restart Game")) {
+            NotificationCenter.default.post(name: .restartGame, object: nil)
+            NotificationCenter.default.post(name: .dismissMenu, object: nil)
+        }
+        
+        return Alert(title: Text("Restart Game"), message: Text("Are you sure you want to restart this game?"), primaryButton: restart, secondaryButton: ActionSheet.Button.cancel())
+    }
+    
+    func newGameAlert() -> Alert {
+        let newGame = ActionSheet.Button.destructive(Text("New Game")) {
+            NotificationCenter.default.post(name: .recordLoss, object: nil)
+            NotificationCenter.default.post(name: .newGame, object: nil)
+            NotificationCenter.default.post(name: .dismissMenu, object: nil)
+        }
+        
+        return Alert(title: Text("New Game"), message: Text("Are you sure you want to start a new game? The current game will be recorded as a loss."), primaryButton: newGame, secondaryButton: ActionSheet.Button.cancel())
     }
 }
 
