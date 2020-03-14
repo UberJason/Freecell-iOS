@@ -12,50 +12,23 @@ struct StatisticsView: View {
     var body: some View {
         Form {
             Section(header: Text("Win/Loss")) {
-                HStack {
-                    Text("Games Won")
-                    Spacer()
-                    Text("109")
-                }
-                HStack {
-                    Text("Games Lost")
-                    Spacer()
-                    Text("12")
-                }
-                HStack {
-                    Text("Total")
-                    Spacer()
-                    Text("121")
-                }
-                HStack {
-                    Text("Win Percentage")
-                    Spacer()
-                    Text("90%")
-                }
+                CellRow(leading: Text("Games Won"), trailing: Text("109"))
+                CellRow(leading: Text("Games Lost"), trailing: Text("12"))
+                CellRow(leading: Text("Total"), trailing: Text("121"))
+                CellRow(leading: Text("Win Percentage"), trailing: Text("90%"))
             }
             
             Section(header: Text("Streaks")) {
-                HStack {
-                    Text("Current Streak")
-                    Spacer()
-                    Text("3 Wins")
-                }
-                HStack {
-                    Text("Longest Winning Streak")
-                    Spacer()
-                    Text("19")
-                }
-                HStack {
-                    Text("Longest Losing Streak")
-                    Spacer()
-                    Text("8")
-                }
+                CellRow(leading: Text("Current Streak"), trailing: Text("3 Wins"))
+                CellRow(leading: Text("Longest Winning Streak"), trailing: Text("19"))
+                CellRow(leading: Text("Longest Losing Streak"), trailing: Text("8"))
             }
             
             Button(action: {
                 print("Reset Statistics")
             }) {
-                Text("Reset Statistics").foregroundColor(.red)
+                CellRow(leading: Text("Reset Statistics"), trailing: Image(systemName: "trash.fill"))
+                    .foregroundColor(.red)
             }
         }
         .navigationBarTitle("Statistics")

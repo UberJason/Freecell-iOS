@@ -16,28 +16,18 @@ public struct SettingsView: View {
             Form {
                 Section(header: Text("This Game")) {
                     Button(action: {}) {
-                        HStack {
-                            Text("Restart Game")
-                            Spacer()
-                            Image(systemName: "arrow.uturn.left")
-                        }.foregroundColor(.freecellBackground)
+                        CellRow(leading: Text("Restart Game"), trailing: Image(systemName: "arrow.uturn.left"))
+                            .foregroundColor(.freecellBackground)
                     }
                     Button(action: {}) {
-                        HStack {
-                            Text("New Game")
-                            Spacer()
-                            Image(systemName: "goforward.plus")
-                        }.foregroundColor(.freecellBackground)
+                        CellRow(leading: Text("New Game"), trailing: Image(systemName: "goforward.plus"))
+                        .foregroundColor(.freecellBackground)
                     }
                 }
                 
                 Section(header: Text("Settings")) {
                     NavigationLink(destination: Text("Cool cool cool")) {
-                        HStack {
-                            Text("Control Scheme")
-                            Spacer()
-                            Text("Classic").foregroundColor(.freecellBackground)
-                        }
+                        CellRow(leading: Text("Control Scheme"), trailing: Text("Classic").foregroundColor(.freecellBackground))
                     }
                     NavigationLink(destination: StatisticsView()) {
                         Text("Statistics")
