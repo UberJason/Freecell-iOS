@@ -156,6 +156,15 @@ public class BoardViewDriver: ObservableObject {
                 self.gameState = $0.isCompleted ? .won : .inProgress
             }
             .store(in: &cancellable)
+        
+        NotificationCenter.default
+            .publisher(for: .updateControlStyle)
+            .compactMap { $0.userInfo?["controlStyle"] as? String }
+            .compactMap { ControlStyle(rawValue: $0) }
+            .sink { [unowned self] in
+                self.controlStyle = $0
+            }
+            .store(in: &cancellable)
     }
     
     public func undo() {

@@ -9,16 +9,25 @@
 import SwiftUI
 
 #if os(iOS)
+
+class ControlStyleStore: ObservableObject {
+    #warning("TODO: read controlStyle from UserDefaults")
+    var controlStyle = ControlStyle.modern {
+        didSet {
+            print("control style is now: \(controlStyle.rawValue)")
+            NotificationCenter.default.post(name: .updateControlStyle, object: nil, userInfo: ["controlStyle": controlStyle.rawValue])
+        }
+    }
+}
+
 public struct SettingsView: View {
     @State var newGameWarning = false
     @State var restartGameWarning = false
     
-    @State var controlStyle: ControlStyle = .modern
+    #warning("If/when SwiftUI 2.0 allows for formSheet presentation, rework to remove GameHostingController, present directly from BoardView, and bind controlStyle to BoardViewDriver.controlStyle directly.")
+    @ObservedObject var store = ControlStyleStore()
     
-    public init() {
-        #warning("TODO: read controlStyle from UserDefaults")
-        controlStyle = .modern
-    }
+    public init() {}
     
     public var body: some View {
         NavigationView {
@@ -40,7 +49,7 @@ public struct SettingsView: View {
                 
                 Section(header: Text("Settings")) {
                     CellRow(leading: Text("Control Scheme"), trailing:
-                        Picker(selection: $controlStyle, label: Text("Control Scheme")) {
+                        Picker(selection: $store.controlStyle, label: Text("Control Scheme")) {
                             ForEach(ControlStyle.allCases, id: \.self) { Text($0.rawValue) }
                         }
                         .pickerStyle(SegmentedPickerStyle())
