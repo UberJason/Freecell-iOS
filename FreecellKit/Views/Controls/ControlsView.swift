@@ -58,7 +58,7 @@ struct ControlsView: View {
 
 struct ControlsView_Previews: PreviewProvider {
     static var previews: some View {
-        ControlsView(timeString: "0:04", moves: 4, boardDriver: BoardViewDriver())
+        ControlsView(timeString: "0:04", moves: 4, boardDriver: BoardViewDriver(controlStyle: .modern))
             .frame(width: 150, height: 300)
             .background(Color.green)
             .previewLayout(.fixed(width: 150, height: 300))

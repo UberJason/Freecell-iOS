@@ -29,11 +29,43 @@ public enum GameState {
     }
 }
 
+protocol ControlManager {
+    func itemTapped<T>(_ item: T)
+    func scale(for card: Card) -> CGFloat
+    func cardOverlayColor(for card: Card) -> Color
+    func dragStarted(from card: Card)
+    func dragEnded(with translation: CGSize)
+    func cardOffset(for card: Card, relativeTo bounds: CGRect, dragState: BoardView.DragState?) -> CGSize
+    func zIndex(for card: Card) -> Double
+    func storeCellPositions(_ anchors: [CellInfo], using geometry: GeometryProxy)
+    
+    var boardProvider: BoardProvider? { get set }
+}
+
+extension ControlManager {
+    func cardOffset(for card: Card, relativeTo bounds: CGRect, dragState: BoardView.DragState? = nil) -> CGSize {
+        return .zero
+    }
+    
+    func dragStarted(from card: Card) {}
+    
+    func dragEnded(with translation: CGSize) {}
+    
+    func storeCellPositions(_ anchors: [CellInfo], using geometry: GeometryProxy) {}
+}
+
+protocol BoardProvider: class {
+    var board: Board { get }
+    func registerMove()
+    func rollbackFailedMove(with error: Error)
+    func performUpdate()
+}
+
 public enum ControlStyle: String, CaseIterable {
     case modern = "Modern", classic = "Classic"
 }
 
-public class BoardViewDriver: ObservableObject, StackOffsetting {
+public class BoardViewDriver: ObservableObject {
     public var freecells: [FreeCell] { return renderingBoard.freecells }
     public var foundations: [Foundation] { return renderingBoard.foundations }
     public var columns: [Column] { return renderingBoard.columns }
@@ -47,7 +79,13 @@ public class BoardViewDriver: ObservableObject, StackOffsetting {
         }
     }
     
-    public var controlStyle: ControlStyle = .modern
+    public var controlStyle: ControlStyle = .modern {
+        didSet {
+            configureControlManager()
+        }
+    }
+    
+    private lazy var controlManager: ControlManager = ModernControlManager(boardProvider: self)
     
     var moveTimerFormatter: DateComponentsFormatter = {
         let f = DateComponentsFormatter()
@@ -74,11 +112,24 @@ public class BoardViewDriver: ObservableObject, StackOffsetting {
     internal var _board = Board(deck: Deck(shuffled: true))
     internal var previousBoards = [Board]()
     
-    public init(undoManager: UndoManager? = nil) {
+    public init(controlStyle: ControlStyle, undoManager: UndoManager? = nil) {
+        self.controlStyle = controlStyle
         self.undoManager = undoManager
+        
         renderingBoard = _board.copy
+        
+        configureControlManager()
         configureRendering()
         configureMoveTimer()
+    }
+    
+    internal func configureControlManager() {
+        switch controlStyle {
+        case .classic:
+            controlManager = ClassicControlManager(boardProvider: self)
+        case .modern:
+            controlManager = ModernControlManager(boardProvider: self)
+        }
     }
     
     internal func configureMoveTimer() {
@@ -107,18 +158,19 @@ public class BoardViewDriver: ObservableObject, StackOffsetting {
             .store(in: &cancellable)
     }
     
-    internal func registerMove() {
-        moves += 1
-        previousBoards.append(_board.copy)
-        undoManager?.registerUndo(withTarget: self, selector: #selector(performUndo), object: nil)
-    }
-    
     public func undo() {
         undoManager?.undo()
     }
     
     public func redo() {
         print("Redo...")
+    }
+    
+    @objc internal func performUndo() {
+        guard previousBoards.count > 0 else { return }
+        moves -= 1
+        
+        setBoard(previousBoards.removeLast())
     }
     
     public func restartGame() {
@@ -130,22 +182,61 @@ public class BoardViewDriver: ObservableObject, StackOffsetting {
         setBoard(first)
     }
     
-    @objc internal func performUndo() {
-        guard previousBoards.count > 0 else { return }
-        moves -= 1
-        
-        setBoard(previousBoards.removeLast())
-    }
-    
-    internal func setBoard(_ board: Board) {
+    private func setBoard(_ board: Board) {
         _board = board
         configureRendering()
     }
     
-    internal func handleWinState() {
+    private func handleWinState() {
         previousBoards = []
         NotificationCenter.default.post(name: .performBombAnimation, object: nil)
         timerCancellable?.cancel()
+    }
+    
+    func cell(containing card: Card) -> Cell {
+        return renderingBoard.cell(containing: card)
+    }
+    
+    func itemTapped<T>(_ item: T) {
+        controlManager.itemTapped(item)
+    }
+    
+    func scale(for card: Card) -> CGFloat {
+        return controlManager.scale(for: card)
+    }
+    
+    func cardOverlayColor(for card: Card) -> Color {
+        return controlManager.cardOverlayColor(for: card)
+    }
+    
+    func dragStarted(from card: Card) {
+        controlManager.dragStarted(from: card)
+    }
+    
+    func dragEnded(with translation: CGSize) {
+        controlManager.dragEnded(with: translation)
+    }
+    
+    func cardOffset(for card: Card, relativeTo bounds: CGRect, dragState: BoardView.DragState? = nil) -> CGSize {
+        return controlManager.cardOffset(for: card, relativeTo: bounds, dragState: dragState)
+    }
+    
+    func zIndex(for card: Card) -> Double {
+        return controlManager.zIndex(for: card)
+    }
+    
+    func storeCellPositions(_ anchors: [CellInfo], using geometry: GeometryProxy) {
+        controlManager.storeCellPositions(anchors, using: geometry)
+    }
+}
+
+extension BoardViewDriver: BoardProvider {
+    var board: Board { return _board }
+
+    func registerMove() {
+        moves += 1
+        previousBoards.append(_board.copy)
+        undoManager?.registerUndo(withTarget: self, selector: #selector(performUndo), object: nil)
     }
     
     func rollbackFailedMove(with error: Error) {
@@ -157,51 +248,35 @@ public class BoardViewDriver: ObservableObject, StackOffsetting {
         print(error.localizedDescription)
     }
     
-    public func cell(containing card: Card) -> Cell {
-        return renderingBoard.cell(containing: card)
-    }
-    
-    public func itemTapped<T>(_ item: T) {}
-    
-    public func scale(for card: Card) -> CGFloat {
-        fatalError("Implement in subclass")
-    }
-    
-    public func cardOverlayColor(for card: Card) -> Color {
-        fatalError("Implement in subclass")
-    }
-    
-    public func dragStarted(from card: Card) {}
-    
-    public func dragEnded(with translation: CGSize) {}
-    
-    #warning("cardOffset(for:relativeTo:stackOffset:dragState:) is leaking details about drag to boards that don't have drag. How can I fix this?")
-    public func cardOffset(for card: Card, relativeTo bounds: CGRect, dragState: BoardView.DragState? = nil) -> CGSize {
-        fatalError("Implement in subclass")
-    }
-    
-    public func zIndex(for card: Card) -> Double {
-        fatalError("Implement in subclass")
+    func performUpdate() {
+        objectWillChange.send()
     }
 }
 
-public class ClassicViewDriver: BoardViewDriver {
+public class ClassicControlManager: ControlManager {
+    weak var boardProvider: BoardProvider?
+    
+    init(boardProvider: BoardProvider) {
+        self.boardProvider = boardProvider
+    }
+    
     // Because selectedCard isn't directly referenced in BoardView, we have to manually send the change notification.
     // @Published apparently doesn't do the trick.
     public var selectedCard: Card? {
         willSet {
-            objectWillChange.send()
+            boardProvider?.performUpdate()
         }
     }
     
     var selectionState: SelectionState { selectedCard.map { .selected(card: $0) } ?? .idle }
 
-    public override func itemTapped<T>(_ item: T) {
+    public func itemTapped<T>(_ item: T) {
+        guard let board = boardProvider?.board else { return }
         switch item {
         case let card as Card:
-            handleTap(in: _board.cell(containing: card))
+            handleTap(in: board.cell(containing: card))
         case let location as Cell:
-            handleTap(in: _board.cell(for: location.id))
+            handleTap(in: board.cell(for: location.id))
         case _ as BoardView:
             selectedCard = nil
         default:
@@ -210,73 +285,79 @@ public class ClassicViewDriver: BoardViewDriver {
     }
     
     private func handleTap(in location: Cell) {
+        guard let boardProvider = boardProvider else { return }
         switch selectionState {
         case .idle:
             selectedCard = location.selectableCard()
         case .selected(let card):
             do {
-                registerMove()
-                try _board.performValidMove(from: card, to: location)
+                boardProvider.registerMove()
+                try boardProvider.board.performValidMove(from: card, to: location)
                 selectedCard = nil
             } catch {
-                rollbackFailedMove(with: error)
+                boardProvider.rollbackFailedMove(with: error)
                 selectedCard = nil
             }
         }
     }
     
-    public override func scale(for card: Card) -> CGFloat {
+    public func scale(for card: Card) -> CGFloat {
         return card == selectedCard ? 1.05 : 1.0
     }
     
-    public override func cardOverlayColor(for card: Card) -> Color {
+    public func cardOverlayColor(for card: Card) -> Color {
         return selectedCard == card ? .yellow : .clear
     }
     
-    public override func cardOffset(for card: Card, relativeTo bounds: CGRect, dragState: BoardView.DragState? = nil) -> CGSize {
-        return .zero
-    }
-    
-    public override func zIndex(for card: Card) -> Double {
+    public func zIndex(for card: Card) -> Double {
         return 0
     }
 }
 
-public class ModernViewDriver: BoardViewDriver {
+public class ModernControlManager: ControlManager, StackOffsetting {
+    weak var boardProvider: BoardProvider?
+    
+    init(boardProvider: BoardProvider) {
+        self.boardProvider = boardProvider
+    }
+    
     public var draggingStack: CardStack?
     private var cellPositions = [CellPosition]()
 
-    public override func itemTapped<T>(_ item: T) {
-        guard let card = item as? Card else { return }
+    public func itemTapped<T>(_ item: T) {
+        guard let boardProvider = boardProvider,
+            let card = item as? Card else { return }
   
         do {
-            registerMove()
-            try _board.performValidDirectMove(from: card)
+            boardProvider.registerMove()
+            try boardProvider.board.performValidDirectMove(from: card)
         } catch {
-            rollbackFailedMove(with: error)
+            boardProvider.rollbackFailedMove(with: error)
         }
     }
     
-    public override func scale(for card: Card) -> CGFloat {
+    public func scale(for card: Card) -> CGFloat {
         return 1.0
     }
     
-    public override func cardOverlayColor(for card: Card) -> Color {
+    public func cardOverlayColor(for card: Card) -> Color {
         return .clear
     }
     
-    public override func dragStarted(from card: Card) {
-        draggingStack = _board.substack(cappedBy: card)
+    public func dragStarted(from card: Card) {
+        guard let boardProvider = boardProvider else { return }
+        draggingStack = boardProvider.board.substack(cappedBy: card)
     }
     
-    public override func dragEnded(with translation: CGSize) {
+    public func dragEnded(with translation: CGSize) {
         defer { self.draggingStack = nil }
         
-        guard let draggingStack = draggingStack,
+        guard let boardProvider = boardProvider,
+            let draggingStack = draggingStack,
             let baseCard = draggingStack.bottomItem else { return }
         
         // Find the absolute position of the base card of the dragging stack given the translation.
-        let containingCell = _board.cell(containing: baseCard)
+        let containingCell = boardProvider.board.cell(containing: baseCard)
         let baseCardPosition = position(for: baseCard, translatedBy: translation)
         
         // The target cell is the cell whose position is closest to the base card position.
@@ -285,15 +366,17 @@ public class ModernViewDriver: BoardViewDriver {
         guard targetCell.id != containingCell.id else { return }
 
         do {
-            registerMove()
-            try _board.performDirectStackMovement(of: draggingStack, from: containingCell, to: targetCell)
+            boardProvider.registerMove()
+            try boardProvider.board.performDirectStackMovement(of: draggingStack, from: containingCell, to: targetCell)
         } catch {
-            rollbackFailedMove(with: error)
+            boardProvider.rollbackFailedMove(with: error)
         }
     }
     
     private func position(for card: Card, translatedBy translation: CGSize = .zero) -> CGPoint {
-        let containingCell = _board.cell(containing: card)
+        guard let boardProvider = boardProvider else { return .zero }
+        
+        let containingCell = boardProvider.board.cell(containing: card)
         guard let containingCellPosition = cellPositions.filter({ $0.cellId == containingCell.id }).first?.position else { return .zero }
         
         var cardPosition = containingCellPosition
@@ -306,15 +389,16 @@ public class ModernViewDriver: BoardViewDriver {
     }
     
     private func closestCell(to position: CGPoint) -> Cell {
+        guard let boardProvider = boardProvider else { fatalError("No boardProvider") }
         let relativeDistances = cellPositions
             .map { CellDistance(cellId: $0.cellId, distance: $0.position.distance(from: position)) }
             .sorted { $0.distance < $1.distance }
         
         guard let closestCellId = relativeDistances.first?.cellId else { fatalError("No cell found") }
-        return _board.cell(for: closestCellId)
+        return boardProvider.board.cell(for: closestCellId)
     }
     
-    public override func cardOffset(for card: Card, relativeTo bounds: CGRect, dragState: BoardView.DragState? = nil) -> CGSize {
+    public func cardOffset(for card: Card, relativeTo bounds: CGRect, dragState: BoardView.DragState? = nil) -> CGSize {
         var dragOffset = CGSize.zero
         
         if case .active(let translation) = dragState, let draggingStack = draggingStack, draggingStack.items.contains(card) {
@@ -324,7 +408,7 @@ public class ModernViewDriver: BoardViewDriver {
         return CGSize(width: dragOffset.width, height: dragOffset.height)
     }
     
-    public override func zIndex(for card: Card) -> Double {
+    public func zIndex(for card: Card) -> Double {
         guard let draggingStack = draggingStack else { return 0 }
         return draggingStack.contains(card) ? 1 : 0
     }

@@ -102,9 +102,7 @@ public struct BoardView: View, StackOffsetting {
     }
     
     func renderedCardView(_ card: Card, using geometry: GeometryProxy, cells: [CellInfo]) -> some View {
-        if let boardDriver = boardDriver as? ModernViewDriver {
-            boardDriver.storeCellPositions(cells, using: geometry)
-        }
+        boardDriver.storeCellPositions(cells, using: geometry)
         
         var bounds = CGRect.zero
         var stackOffset = CGSize.zero
@@ -152,7 +150,8 @@ public struct BoardView: View, StackOffsetting {
             self.boardDriver.dragEnded(with: value.translation)
         }
         
-        return boardDriver is ModernViewDriver ? gesture : nil
+        #warning("TODO: fix hack!")
+        return boardDriver.controlStyle == .modern ? gesture : nil
     }
     
     var cardSize: CGSize {
@@ -173,7 +172,7 @@ public struct BoardView: View, StackOffsetting {
 
 struct BoardView_Previews: PreviewProvider {
     static var previews: some View {
-        BoardView(boardDriver: ClassicViewDriver())
+        BoardView(boardDriver: BoardViewDriver(controlStyle: .modern))
             .previewLayout(.fixed(width: 1400, height: 1200))
         //            .previewLayout(.fixed(width: 1194, height: 834))
         //            .previewLayout(.fixed(width: 1024, height: 768))

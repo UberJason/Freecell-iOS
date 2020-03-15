@@ -47,7 +47,7 @@ public struct GameView: View {
 
 struct GameView_Previews: PreviewProvider {
     static let driver: BoardViewDriver = {
-        let d = ClassicViewDriver()
+        let d = BoardViewDriver(controlStyle: .modern)
         d._board = Board.preconfigured(withFreecells: (0..<4).map { _ in FreeCell() },
                                        foundations: [
                                         Foundation(topCard: Card.king.ofClubs)!,
