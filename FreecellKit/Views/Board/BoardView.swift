@@ -117,7 +117,6 @@ public struct BoardView: View, StackOffsetting {
             }
         }
         
-        #warning("Is there a way I can conditionally create this drag gesture and handlers, only in the case where my board driver is a modern board driver?")
         return CardView(card: card)
             .id(card)
             .frame(width: bounds.size.width, height: bounds.size.height)
@@ -150,8 +149,7 @@ public struct BoardView: View, StackOffsetting {
             self.boardDriver.dragEnded(with: value.translation)
         }
         
-        #warning("TODO: fix hack!")
-        return boardDriver.controlStyle == .modern ? gesture : nil
+        return boardDriver.dragGestureAvailable ? gesture : nil
     }
     
     var cardSize: CGSize {

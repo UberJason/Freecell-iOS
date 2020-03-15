@@ -38,7 +38,7 @@ protocol ControlManager {
     func cardOffset(for card: Card, relativeTo bounds: CGRect, dragState: BoardView.DragState?) -> CGSize
     func zIndex(for card: Card) -> Double
     func storeCellPositions(_ anchors: [CellInfo], using geometry: GeometryProxy)
-    
+    var dragGestureAvailable: Bool { get }
     var boardProvider: BoardProvider? { get set }
 }
 
@@ -237,6 +237,8 @@ public class BoardViewDriver: ObservableObject {
     func storeCellPositions(_ anchors: [CellInfo], using geometry: GeometryProxy) {
         controlManager.storeCellPositions(anchors, using: geometry)
     }
+    
+    var dragGestureAvailable: Bool { return controlManager.dragGestureAvailable }
 }
 
 extension BoardViewDriver: BoardProvider {
@@ -264,21 +266,19 @@ extension BoardViewDriver: BoardProvider {
 
 public class ClassicControlManager: ControlManager {
     weak var boardProvider: BoardProvider?
-    
-    init(boardProvider: BoardProvider) {
-        self.boardProvider = boardProvider
-    }
-    
-    // Because selectedCard isn't directly referenced in BoardView, we have to manually send the change notification.
-    // @Published apparently doesn't do the trick.
+    public var dragGestureAvailable: Bool { return false }
+    var selectionState: SelectionState { selectedCard.map { .selected(card: $0) } ?? .idle }
+
     public var selectedCard: Card? {
         willSet {
             boardProvider?.performUpdate()
         }
     }
+        
+    init(boardProvider: BoardProvider) {
+        self.boardProvider = boardProvider
+    }
     
-    var selectionState: SelectionState { selectedCard.map { .selected(card: $0) } ?? .idle }
-
     public func itemTapped<T>(_ item: T) {
         guard let board = boardProvider?.board else { return }
         switch item {
@@ -325,14 +325,14 @@ public class ClassicControlManager: ControlManager {
 
 public class ModernControlManager: ControlManager, StackOffsetting {
     weak var boardProvider: BoardProvider?
+    public var dragGestureAvailable: Bool { return true }
+    public var draggingStack: CardStack?
+    private var cellPositions = [CellPosition]()
     
     init(boardProvider: BoardProvider) {
         self.boardProvider = boardProvider
     }
     
-    public var draggingStack: CardStack?
-    private var cellPositions = [CellPosition]()
-
     public func itemTapped<T>(_ item: T) {
         guard let boardProvider = boardProvider,
             let card = item as? Card else { return }
