@@ -22,6 +22,7 @@
 		9625628D2381D853003C09AA /* FoundationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9625628C2381D853003C09AA /* FoundationView.swift */; };
 		9625628F2381D857003C09AA /* ColumnView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9625628E2381D857003C09AA /* ColumnView.swift */; };
 		962562912381DEEB003C09AA /* EmptySpotView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 962562902381DEEB003C09AA /* EmptySpotView.swift */; };
+		962621C0241E902000B3637A /* UserDefaultPropertyWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 962621BF241E902000B3637A /* UserDefaultPropertyWrapper.swift */; };
 		9627FED023AB19CF00F8F63B /* CustomDebugStrings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9627FECF23AB19CF00F8F63B /* CustomDebugStrings.swift */; };
 		96416DE923FA2FC4000197E0 /* CoreDataStackManager in Frameworks */ = {isa = PBXBuildFile; productRef = 96416DE823FA2FC4000197E0 /* CoreDataStackManager */; };
 		964BBF0623A47B96009B4FDE /* BackgroundColorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 964BBF0523A47B96009B4FDE /* BackgroundColorView.swift */; };
@@ -248,6 +249,7 @@
 		9625628C2381D853003C09AA /* FoundationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoundationView.swift; sourceTree = "<group>"; };
 		9625628E2381D857003C09AA /* ColumnView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColumnView.swift; sourceTree = "<group>"; };
 		962562902381DEEB003C09AA /* EmptySpotView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptySpotView.swift; sourceTree = "<group>"; };
+		962621BF241E902000B3637A /* UserDefaultPropertyWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultPropertyWrapper.swift; sourceTree = "<group>"; };
 		9627FECF23AB19CF00F8F63B /* CustomDebugStrings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomDebugStrings.swift; sourceTree = "<group>"; };
 		96416DC623F9CAEF000197E0 /* Freecell.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Freecell.entitlements; sourceTree = "<group>"; };
 		964BBF0523A47B96009B4FDE /* BackgroundColorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackgroundColorView.swift; sourceTree = "<group>"; };
@@ -429,6 +431,7 @@
 				964BBF1C23A6D9C3009B4FDE /* StackOffsetting.swift */,
 				9627FECF23AB19CF00F8F63B /* CustomDebugStrings.swift */,
 				9661BFAD23DE86A300DFC5E9 /* AnchorPreferences.swift */,
+				962621BF241E902000B3637A /* UserDefaultPropertyWrapper.swift */,
 			);
 			path = Utility;
 			sourceTree = "<group>";
@@ -1182,6 +1185,7 @@
 				9622959A23835A7B005D599B /* Cell.swift in Sources */,
 				9689E18A23AB0BA4008B960B /* SteppingSubscriber.swift in Sources */,
 				96CA9B0E239300C300C34A60 /* BoardViewDriver.swift in Sources */,
+				962621C0241E902000B3637A /* UserDefaultPropertyWrapper.swift in Sources */,
 				964BBF0823A4861C009B4FDE /* Convenience.swift in Sources */,
 				96A36488237E3894005C45FB /* FreecellError.swift in Sources */,
 				9613245223E23D4000982898 /* CGPoint+Translation.swift in Sources */,

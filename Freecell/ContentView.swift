@@ -13,18 +13,21 @@ import Combine
 
 class Game: ObservableObject {
     var undoManager: UndoManager?
-    @Published var boardDriver: BoardViewDriver
+    @Published var boardDriver: BoardViewDriver = BoardViewDriver(controlStyle: .modern)
     
     var cancellables = Set<AnyCancellable>()
     
+    @UserDefault(key: "controlStyle", defaultValue: .modern)
+    var controlStyle: ControlStyle
+    
     init(undoManager: UndoManager? = nil) {
         self.undoManager = undoManager
-        self.boardDriver = BoardViewDriver(controlStyle: .classic, undoManager: undoManager)
+        self.boardDriver = BoardViewDriver(controlStyle: controlStyle, undoManager: undoManager)
         
         NotificationCenter.default
             .publisher(for: .newGame)
-            .sink { [weak self] _ in
-                self?.boardDriver = BoardViewDriver(controlStyle: .classic, undoManager: undoManager)
+            .sink { [unowned self] _ in
+                self.boardDriver = BoardViewDriver(controlStyle: self.controlStyle, undoManager: undoManager)
             }
             .store(in: &cancellables)
         

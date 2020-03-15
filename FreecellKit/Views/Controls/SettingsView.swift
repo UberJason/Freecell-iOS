@@ -11,8 +11,8 @@ import SwiftUI
 #if os(iOS)
 
 class ControlStyleStore: ObservableObject {
-    #warning("TODO: read controlStyle from UserDefaults")
-    var controlStyle = ControlStyle.modern {
+    @UserDefault(key: "controlStyle", defaultValue: .modern)
+    var controlStyle: ControlStyle {
         didSet {
             print("control style is now: \(controlStyle.rawValue)")
             NotificationCenter.default.post(name: .updateControlStyle, object: nil, userInfo: ["controlStyle": controlStyle.rawValue])
