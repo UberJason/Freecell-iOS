@@ -10,10 +10,15 @@ import SwiftUI
 
 #if os(iOS)
 public struct SettingsView: View {
-    public init() {}
-    
     @State var newGameWarning = false
     @State var restartGameWarning = false
+    
+    @State var controlStyle: ControlStyle = .modern
+    
+    public init() {
+        #warning("TODO: read controlStyle from UserDefaults")
+        controlStyle = .modern
+    }
     
     public var body: some View {
         NavigationView {
@@ -34,9 +39,13 @@ public struct SettingsView: View {
                 }
                 
                 Section(header: Text("Settings")) {
-                    NavigationLink(destination: Text("Cool cool cool")) {
-                        CellRow(leading: Text("Control Scheme"), trailing: Text("Classic").foregroundColor(.freecellBackground))
-                    }
+                    CellRow(leading: Text("Control Scheme"), trailing:
+                        Picker(selection: $controlStyle, label: Text("Control Scheme")) {
+                            ForEach(ControlStyle.allCases, id: \.self) { Text($0.rawValue) }
+                        }
+                        .pickerStyle(SegmentedPickerStyle())
+                        .frame(maxWidth: 200)
+                    )
                     NavigationLink(destination: StatisticsView()) {
                         Text("Statistics")
                     }

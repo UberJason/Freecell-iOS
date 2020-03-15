@@ -29,6 +29,10 @@ public enum GameState {
     }
 }
 
+public enum ControlStyle: String, CaseIterable {
+    case modern = "Modern", classic = "Classic"
+}
+
 public class BoardViewDriver: ObservableObject, StackOffsetting {
     public var freecells: [FreeCell] { return renderingBoard.freecells }
     public var foundations: [Foundation] { return renderingBoard.foundations }
@@ -42,6 +46,8 @@ public class BoardViewDriver: ObservableObject, StackOffsetting {
             }
         }
     }
+    
+    public var controlStyle: ControlStyle = .modern
     
     var moveTimerFormatter: DateComponentsFormatter = {
         let f = DateComponentsFormatter()
