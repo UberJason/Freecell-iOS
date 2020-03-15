@@ -41,6 +41,8 @@ struct StatisticsView: View {
 struct StatisticsView_Previews: PreviewProvider {
     static var previews: some View {
         StatisticsView()
+            .environment(\.horizontalSizeClass, .compact)
+            .previewLayout(.fixed(width: 520, height: 640))
     }
 }
 #endif

@@ -100,6 +100,7 @@
 		96EDA55D241ECF7C00C05697 /* ControlStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96EDA55C241ECF7C00C05697 /* ControlStyle.swift */; };
 		96EDA55F241ECF9800C05697 /* ClassicControlManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96EDA55E241ECF9800C05697 /* ClassicControlManager.swift */; };
 		96EDA561241ECF9E00C05697 /* ModernControlManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96EDA560241ECF9E00C05697 /* ModernControlManager.swift */; };
+		96EDA563241EE07000C05697 /* SelectControlStyleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96EDA562241EE07000C05697 /* SelectControlStyleView.swift */; };
 		96FBBCD8241C679C001D1088 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96A59AA7241B19E6004B8FDF /* SettingsView.swift */; };
 		96FBBCDC241C67F8001D1088 /* StatusBarHidingFirstResponderHostingController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96E188B823BBF301008129AF /* StatusBarHidingFirstResponderHostingController.swift */; };
 		96FBBCDD241C67F8001D1088 /* GameHostingController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96FBBCD5241C6409001D1088 /* GameHostingController.swift */; };
@@ -344,6 +345,7 @@
 		96EDA55C241ECF7C00C05697 /* ControlStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ControlStyle.swift; sourceTree = "<group>"; };
 		96EDA55E241ECF9800C05697 /* ClassicControlManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClassicControlManager.swift; sourceTree = "<group>"; };
 		96EDA560241ECF9E00C05697 /* ModernControlManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModernControlManager.swift; sourceTree = "<group>"; };
+		96EDA562241EE07000C05697 /* SelectControlStyleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectControlStyleView.swift; sourceTree = "<group>"; };
 		96FBBCD5241C6409001D1088 /* GameHostingController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameHostingController.swift; sourceTree = "<group>"; };
 		96FBBCDE241C6BF0001D1088 /* StatisticsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatisticsView.swift; sourceTree = "<group>"; };
 		96FBBCE0241C73FF001D1088 /* CellRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CellRow.swift; sourceTree = "<group>"; };
@@ -685,6 +687,7 @@
 				9616A1D623FB7176007CABA1 /* ControlsView.swift */,
 				96A59AA7241B19E6004B8FDF /* SettingsView.swift */,
 				96FBBCDE241C6BF0001D1088 /* StatisticsView.swift */,
+				96EDA562241EE07000C05697 /* SelectControlStyleView.swift */,
 				9673834A24030F7E004A4525 /* YouWinView.swift */,
 				9673834C24030FF0004A4525 /* GameView.swift */,
 			);
@@ -1194,6 +1197,7 @@
 				9688893A2389CB83001DD34B /* Result+SuccessVoid.swift in Sources */,
 				96FBBCD8241C679C001D1088 /* SettingsView.swift in Sources */,
 				96FBBCE1241C73FF001D1088 /* CellRow.swift in Sources */,
+				96EDA563241EE07000C05697 /* SelectControlStyleView.swift in Sources */,
 				9683E0A223F87A5500B6C114 /* Freecell.xcdatamodeld in Sources */,
 				965E210A240C5B3A002BA1F7 /* Bundle+FreecellKit.swift in Sources */,
 				962562912381DEEB003C09AA /* EmptySpotView.swift in Sources */,

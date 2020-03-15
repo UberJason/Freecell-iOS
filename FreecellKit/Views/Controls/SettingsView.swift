@@ -14,6 +14,7 @@ class ControlStyleStore: ObservableObject {
     @UserDefault(key: "controlStyle", defaultValue: .modern)
     var controlStyle: ControlStyle {
         didSet {
+            objectWillChange.send()
             print("control style is now: \(controlStyle.rawValue)")
             NotificationCenter.default.post(name: .updateControlStyle, object: nil, userInfo: ["controlStyle": controlStyle.rawValue])
         }
@@ -48,13 +49,9 @@ public struct SettingsView: View {
                 }
                 
                 Section(header: Text("Settings")) {
-                    CellRow(leading: Text("Control Scheme"), trailing:
-                        Picker(selection: $store.controlStyle, label: Text("Control Scheme")) {
-                            ForEach(ControlStyle.allCases, id: \.self) { Text($0.rawValue) }
-                        }
-                        .pickerStyle(SegmentedPickerStyle())
-                        .frame(maxWidth: 200)
-                    )
+                    NavigationLink(destination: SelectControlStyleView(controlStyle: $store.controlStyle)) {
+                        CellRow(leading: Text("Control Scheme"), trailing: Text(store.controlStyle.rawValue).foregroundColor(.freecellBackground))
+                    }
                     NavigationLink(destination: StatisticsView()) {
                         Text("Statistics")
                     }
@@ -98,6 +95,8 @@ public struct SettingsView: View {
 struct SettingsView_Previews: PreviewProvider {
     static var previews: some View {
         SettingsView()
+            .environment(\.horizontalSizeClass, .compact)
+            .previewLayout(.fixed(width: 520, height: 640))
     }
 }
 #endif
