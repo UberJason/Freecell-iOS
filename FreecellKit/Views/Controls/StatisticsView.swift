@@ -9,14 +9,48 @@
 import SwiftUI
 
 #if os(iOS)
+class StatisticsModel: ObservableObject {
+    let store = FreecellStore()
+    lazy var allRecords = store.allRecords()
+    lazy var formatter: NumberFormatter = {
+        let f = NumberFormatter()
+        f.numberStyle = .percent
+        return f
+    }()
+    
+    var winsCount: Int {
+        allRecords
+            .filter { $0.result == .win }
+            .count
+    }
+    
+    var lossCount: Int {
+        allRecords
+            .filter { $0.result == .loss }
+            .count
+    }
+    
+    var totalGameCount: Int {
+        allRecords.count
+    }
+    
+    var winPercentage: String {
+        return formatter.string(from: NSNumber(value: Double(winsCount) / Double(totalGameCount)))!
+    }
+    
+    init() {}
+}
+
 struct StatisticsView: View {
+    @ObservedObject var model = StatisticsModel()
+    
     var body: some View {
         Form {
             Section(header: Text("Win/Loss")) {
-                CellRow(leading: Text("Games Won"), trailing: Text("109"))
-                CellRow(leading: Text("Games Lost"), trailing: Text("12"))
-                CellRow(leading: Text("Total"), trailing: Text("121"))
-                CellRow(leading: Text("Win Percentage"), trailing: Text("90%"))
+                CellRow(leading: Text("Games Won"), trailing: Text("\(model.winsCount)"))
+                CellRow(leading: Text("Games Lost"), trailing: Text("\(model.lossCount)"))
+                CellRow(leading: Text("Total"), trailing: Text("\(model.totalGameCount)"))
+                CellRow(leading: Text("Win Percentage"), trailing: Text(model.winPercentage))
             }
             
             Section(header: Text("Streaks")) {

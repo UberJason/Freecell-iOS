@@ -13,9 +13,7 @@ public class FreecellStore {
     let container: NSPersistentContainer
     
     public init(modelName: String = "Freecell") {
-        guard let modelURL = Bundle(for: type(of: self)).url(forResource: modelName, withExtension: "momd"),
-            let model = NSManagedObjectModel(contentsOf: modelURL) else { fatalError("Invalid NSManagedObjectModel") }
-        
+        guard let model = NSManagedObjectModel.mergedModel(from: [Bundle(for: type(of: self))]) else { fatalError("Invalid NSManagedObjectModel") }
         container = NSPersistentContainer(name: modelName, managedObjectModel: model)
         container.loadPersistentStores { (storeDescription, error) in
             if let error = error {

@@ -30,6 +30,9 @@ class GameHostingController: StatusBarHidingFirstResponderHostingController<Cont
                 self.dismiss(animated: true, completion: nil)
             }
             .store(in: &cancellables)
+        
+        let store = FreecellStore()
+        print("Records: \(store.allRecords().count)")
     }
     
     override init?(coder aDecoder: NSCoder, rootView: ContentView) {
