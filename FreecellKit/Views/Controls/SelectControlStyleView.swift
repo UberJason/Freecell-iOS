@@ -8,9 +8,11 @@
 
 import SwiftUI
 
+#if os(iOS)
 struct SelectControlStyleView: View {
     @Binding var controlStyle: ControlStyle
     
+    #warning("Explain the difference between Classic and Modern control styles.")
     var body: some View {
         Form {
             Section(footer: Text("Footer goes here")) {
@@ -41,3 +43,4 @@ struct SelectControlStyleView_Previews: PreviewProvider {
             .previewLayout(.fixed(width: 520, height: 640))
     }
 }
+#endif

@@ -147,6 +147,7 @@ public class BoardViewDriver: ObservableObject {
     
     private func handleWinState() {
         previousBoards = []
+        NotificationCenter.default.post(name: .recordWin, object: nil)
         NotificationCenter.default.post(name: .performBombAnimation, object: nil)
         timerCancellable?.cancel()
     }
