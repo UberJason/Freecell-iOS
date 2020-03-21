@@ -11,6 +11,10 @@ import CoreData
 
 public enum GameResult: String {
     case win, loss
+    
+    var opposite: GameResult {
+        return self == .win ? .loss : .win
+    }
 }
 
 public protocol GameRecord {

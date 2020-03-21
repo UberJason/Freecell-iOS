@@ -8,11 +8,33 @@
 
 import SwiftUI
 
+struct Streak {
+    let type: GameResult
+    var count = 0
+    var title: String {
+        let plural = (count == 1) ? "" : type.plural
+        return "\(count) \(type.rawValue.capitalized)\(plural)"
+    }
+}
+
+extension GameResult {
+    var plural: String {
+        switch self {
+        case .win: return "s"
+        case .loss: return "es"
+        }
+    }
+}
+
 #if os(iOS)
 class StatisticsModel: ObservableObject {
     private let store = FreecellStore()
     
-    private lazy var allRecords = store.allRecords()
+    private var allRecords: [GameRecord] {
+        didSet {
+            updateStreaks()
+        }
+    }
     private lazy var formatter: NumberFormatter = {
         let f = NumberFormatter()
         f.numberStyle = .percent
@@ -40,10 +62,50 @@ class StatisticsModel: ObservableObject {
         return formatter.string(from: NSNumber(value: Double(winsCount) / Double(totalGameCount)))!
     }
     
+    var longestWinningStreak = Streak(type: .win)
+    var longestLosingStreak = Streak(type: .loss)
+    var currentStreak = Streak(type: .win)
+    
+    init() {
+        allRecords = store.allRecords()
+        updateStreaks()
+    }
+    
     func resetStatistics() {
         store.resetAllRecords()
         allRecords = store.allRecords()
         objectWillChange.send()
+    }
+    
+    func updateStreaks() {
+        let (winning, losing, current) = type(of: self).computeStreaks(for: allRecords)
+        longestWinningStreak = winning
+        longestLosingStreak = losing
+        currentStreak = current
+    }
+    
+    static func computeStreaks(for records: [GameRecord]) -> (winning: Streak, losing: Streak, current: Streak) {
+        var longestLosingStreak = Streak(type: .loss)
+        var longestWinningStreak = Streak(type: .win)
+        var currentStreak = longestWinningStreak
+        
+        for record in records {
+            if record.result == currentStreak.type {
+                currentStreak.count += 1
+            }
+            else {
+                currentStreak = Streak(type: record.result, count: 1)
+            }
+            
+            switch currentStreak.type {
+            case .win:
+                longestWinningStreak = (currentStreak.count > longestWinningStreak.count) ? currentStreak : longestWinningStreak
+            case .loss:
+                longestLosingStreak = (currentStreak.count > longestLosingStreak.count) ? currentStreak : longestLosingStreak
+            }
+        }
+        
+        return (winning: longestWinningStreak, losing: longestLosingStreak, current: currentStreak)
     }
 }
 
@@ -61,9 +123,9 @@ struct StatisticsView: View {
             }
             
             Section(header: Text("Streaks")) {
-                CellRow(leading: Text("Current Streak"), trailing: Text("3 Wins"))
-                CellRow(leading: Text("Longest Winning Streak"), trailing: Text("19"))
-                CellRow(leading: Text("Longest Losing Streak"), trailing: Text("8"))
+                CellRow(leading: Text("Current Streak"), trailing: Text(model.currentStreak.title))
+                CellRow(leading: Text("Longest Winning Streak"), trailing: Text(model.longestWinningStreak.title))
+                CellRow(leading: Text("Longest Losing Streak"), trailing: Text(model.longestLosingStreak.title))
             }
             
             Button(action: {
