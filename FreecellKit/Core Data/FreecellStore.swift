@@ -26,12 +26,7 @@ public class FreecellStore {
     public func createRecord(_ result: GameResult, moves: Int, time: TimeInterval, in managedObjectContext: NSManagedObjectContext? = nil) -> CDGameRecord {
         let context = managedObjectContext ?? container.viewContext
         
-        let record = CDGameRecord(context: context)
-        record.result = result
-        record.moves = moves
-        record.time = time
-
-        return record
+        return CDGameRecord(result: result, moves: moves, time: time, managedObjectContext: context)
     }
     
     public func createRecord(from record: JSONGameRecord) -> CDGameRecord {

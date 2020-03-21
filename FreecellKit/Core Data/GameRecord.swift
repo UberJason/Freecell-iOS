@@ -43,4 +43,11 @@ public class CDGameRecord: NSManagedObject, GameRecord {
         }
     }
     
+    public convenience init(result: GameResult, moves: Int, time: TimeInterval, managedObjectContext: NSManagedObjectContext) {
+        let entity = NSEntityDescription.entity(forEntityName: "CDGameRecord", in: managedObjectContext)!
+        self.init(entity: entity, insertInto: managedObjectContext)
+        self.result = result
+        self.moves = moves
+        self.time = time
+    }
 }
