@@ -19,12 +19,12 @@ class Game: ObservableObject {
     
     init(undoManager: UndoManager? = nil) {
         self.undoManager = undoManager
-        self.boardDriver = ClassicViewDriver(undoManager: undoManager)
+        self.boardDriver = BoardViewDriver(controlStyle: .classic, undoManager: undoManager)
         
         NotificationCenter.default
             .publisher(for: .newGame)
             .sink { [weak self] _ in
-                self?.boardDriver = ClassicViewDriver(undoManager: undoManager)
+                self?.boardDriver = BoardViewDriver(controlStyle: .classic, undoManager: undoManager)
             }
             .store(in: &cancellables)
         
@@ -44,7 +44,6 @@ class Game: ObservableObject {
     }
 }
 
-#warning("Mac app currently doesn't build because EmojiBombAnimator requires UIKit. Other UIKit stuff has crept in as well... re-think all of this!!")
 struct ContentView: View {
     @ObservedObject var game: Game
     

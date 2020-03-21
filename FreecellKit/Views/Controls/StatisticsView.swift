@@ -10,9 +10,10 @@ import SwiftUI
 
 #if os(iOS)
 class StatisticsModel: ObservableObject {
-    let store = FreecellStore()
-    lazy var allRecords = store.allRecords()
-    lazy var formatter: NumberFormatter = {
+    private let store = FreecellStore()
+    
+    private lazy var allRecords = store.allRecords()
+    private lazy var formatter: NumberFormatter = {
         let f = NumberFormatter()
         f.numberStyle = .percent
         return f
@@ -35,14 +36,20 @@ class StatisticsModel: ObservableObject {
     }
     
     var winPercentage: String {
+        guard totalGameCount > 0 else { return "--" }
         return formatter.string(from: NSNumber(value: Double(winsCount) / Double(totalGameCount)))!
     }
     
-    init() {}
+    func resetStatistics() {
+        store.resetAllRecords()
+        allRecords = store.allRecords()
+        objectWillChange.send()
+    }
 }
 
 struct StatisticsView: View {
     @ObservedObject var model = StatisticsModel()
+    @State var resetStatisticsAlertShowing = false
     
     var body: some View {
         Form {
@@ -61,14 +68,25 @@ struct StatisticsView: View {
             
             Button(action: {
                 print("Reset Statistics")
+                self.resetStatisticsAlertShowing.toggle()
             }) {
                 CellRow(leading: Text("Reset Statistics"), trailing: Image(systemName: "trash.fill"))
                     .foregroundColor(.red)
+            }.alert(isPresented: $resetStatisticsAlertShowing) {
+                resetStatisticsAlert()
             }
         }
         .navigationBarTitle("Statistics")
         .listStyle(GroupedListStyle())
         .environment(\.horizontalSizeClass, .regular)
+    }
+    
+    func resetStatisticsAlert() -> Alert {
+        let restart = ActionSheet.Button.destructive(Text("Reset")) {
+            self.model.resetStatistics()
+        }
+        
+        return Alert(title: Text("Reset Statistics"), message: Text("Are you sure you want to reset statistics? All data about wins, losses, and streaks will be reset."), primaryButton: restart, secondaryButton: ActionSheet.Button.cancel())
     }
 }
 

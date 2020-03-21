@@ -21,6 +21,7 @@ public class FreecellStore {
             }
             print(storeDescription)
         }
+        container.viewContext.automaticallyMergesChangesFromParent = true
     }
     
     public func createRecord(_ result: GameResult, moves: Int, time: TimeInterval, in managedObjectContext: NSManagedObjectContext? = nil) -> CDGameRecord {
@@ -43,6 +44,15 @@ public class FreecellStore {
             print("Failed to fetch records: \(error.localizedDescription)")
             return []
         }
+    }
+    
+    public func resetAllRecords(in managedObjectContext: NSManagedObjectContext? = nil) {
+        let context = managedObjectContext ?? container.viewContext
+        
+        let fetchRequest: NSFetchRequest<NSFetchRequestResult> = NSFetchRequest(entityName: "CDGameRecord")
+        let batchDeleteRequest = NSBatchDeleteRequest(fetchRequest: fetchRequest)
+        
+        let _ = try? context.execute(batchDeleteRequest)
     }
     
     public func save() throws {
