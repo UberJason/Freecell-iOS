@@ -17,15 +17,6 @@ struct Streak {
     }
 }
 
-extension GameResult {
-    var plural: String {
-        switch self {
-        case .win: return "s"
-        case .loss: return "es"
-        }
-    }
-}
-
 #if os(iOS)
 class StatisticsModel: ObservableObject {
     private let store = FreecellStore()
