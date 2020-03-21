@@ -83,7 +83,7 @@ public struct SettingsView: View {
     
     func newGameAlert() -> Alert {
         let newGame = ActionSheet.Button.destructive(Text("New Game")) {
-            NotificationCenter.default.post(name: .recordLoss, object: nil)
+            NotificationCenter.default.post(name: .postLoss, object: nil)
             NotificationCenter.default.post(name: .newGame, object: nil)
             NotificationCenter.default.post(name: .dismissMenu, object: nil)
         }

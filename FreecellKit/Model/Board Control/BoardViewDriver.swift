@@ -46,6 +46,7 @@ public class BoardViewDriver: ObservableObject {
     
     @Published public var moveTimeString: String = "00:00"
     @Published public var moves: Int = 0
+    private var moveTime: TimeInterval = 0.0
     
     public var allCards: [Card] {
         return freecells.flatMap({ $0.items }) +
@@ -70,9 +71,17 @@ public class BoardViewDriver: ObservableObject {
         configureControlManager()
         configureRendering()
         configureMoveTimer()
+        configureLossSubscriber()
     }
     
-    internal func configureControlManager() {
+    private func configureLossSubscriber() {
+        NotificationCenter.default
+            .publisher(for: .postLoss)
+            .sink { [weak self] _ in self?.postResult(.loss) }
+            .store(in: &cancellable)
+    }
+    
+    private func configureControlManager() {
         switch controlStyle {
         case .classic:
             controlManager = ClassicControlManager(boardProvider: self)
@@ -81,17 +90,20 @@ public class BoardViewDriver: ObservableObject {
         }
     }
     
-    internal func configureMoveTimer() {
+    private func configureMoveTimer() {
         timerCancellable = Timer.publish(every: 1.0, on: .main, in: .common)
             .autoconnect()
             .scan(0.0, { (value, _) in
                 value + 1.0
             })
-            .map { [weak self] in self?.moveTimerFormatter.string(from: $0) ?? "" }
-            .sink { [weak self] in self?.moveTimeString = $0 }
+            .map { [weak self] in (time: $0, string: self?.moveTimerFormatter.string(from: $0) ?? "") }
+            .sink { [weak self] in
+                self?.moveTime = $0.time
+                self?.moveTimeString = $0.string
+            }
     }
     
-    internal func configureRendering() {
+    private func configureRendering() {
         renderingBoard = _board.copy
         
         // Assign seems to cause a memory leak, so I'm using sink instead:
@@ -124,7 +136,7 @@ public class BoardViewDriver: ObservableObject {
         print("Redo...")
     }
     
-    @objc internal func performUndo() {
+    @objc func performUndo() {
         guard previousBoards.count > 0 else { return }
         moves -= 1
         
@@ -147,11 +159,19 @@ public class BoardViewDriver: ObservableObject {
     
     private func handleWinState() {
         previousBoards = []
-        NotificationCenter.default.post(name: .recordWin, object: nil)
+        postResult(.win)
         NotificationCenter.default.post(name: .performBombAnimation, object: nil)
         timerCancellable?.cancel()
     }
     
+    private func postResult(_ result: GameResult) {
+        let result = JSONGameRecord(result: result, moves: moves, time: moveTime)
+        try? NotificationCenter.default.post(.recordResult, value: result)
+    }
+}
+
+// MARK: - Control Manager Passthrough -
+extension BoardViewDriver {
     func cell(containing card: Card) -> Cell {
         return renderingBoard.cell(containing: card)
     }
@@ -191,6 +211,7 @@ public class BoardViewDriver: ObservableObject {
     var dragGestureAvailable: Bool { return controlManager.dragGestureAvailable }
 }
 
+// MARK: - BoardProvider -
 extension BoardViewDriver: BoardProvider {
     var board: Board { return _board }
 
@@ -212,4 +233,29 @@ extension BoardViewDriver: BoardProvider {
     func performUpdate() {
         objectWillChange.send()
     }
+}
+
+public extension NotificationCenter {
+    func post<T: Codable>(_ name: Notification.Name, value: T) throws {
+        let data = try JSONEncoder().encode(value)
+        post(name: name, object: nil, userInfo: ["data": data])
+    }
+}
+
+//public extension Publisher {
+//    func mapUserInfo(_ userInfo: [AnyHashable : Any]) -> AnyPublisher<Data, Failure> {
+//        guard let data = userInfo["data"] as? Data else { fatalError("Shit how do I fail with publishers again?") }
+//        return Just(data).eraseToAnyPublisher()
+//
+//    }
+//    func modulated<Context: Scheduler>(_ pace: Context.SchedulerTimeType.Stride, scheduler: Context) -> AnyPublisher<Output, Failure> {
+//        let upstream = buffer(size: 1000, prefetch: .byRequest, whenFull: .dropNewest).eraseToAnyPublisher()
+//        return PacePublisher<Context, AnyPublisher>(pace: pace, scheduler: scheduler, source: upstream).eraseToAnyPublisher()
+//    }
+//}
+
+public struct JSONGameRecord: GameRecord, Codable {
+    public var result: GameResult
+    public var moves: Int = 0
+    public var time: TimeInterval = 0
 }

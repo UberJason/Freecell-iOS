@@ -19,7 +19,6 @@ public class FreecellStore {
             if let error = error {
                 print("Failed to load store: \(error.localizedDescription)")
             }
-            print(storeDescription)
         }
         container.viewContext.automaticallyMergesChangesFromParent = true
     }
@@ -33,6 +32,10 @@ public class FreecellStore {
         record.time = time
 
         return record
+    }
+    
+    public func createRecord(from record: JSONGameRecord) -> CDGameRecord {
+        return createRecord(record.result, moves: record.moves, time: record.time)
     }
     
     public func allRecords() -> [GameRecord] {

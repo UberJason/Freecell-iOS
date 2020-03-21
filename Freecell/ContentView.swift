@@ -13,7 +13,8 @@ import Combine
 
 class Game: ObservableObject {
     var undoManager: UndoManager?
-    @Published var boardDriver: BoardViewDriver = BoardViewDriver(controlStyle: .modern)
+    @Published var boardDriver = BoardViewDriver(controlStyle: .modern)
+    let store = FreecellStore()
     
     var cancellables = Set<AnyCancellable>()
     
@@ -36,6 +37,16 @@ class Game: ObservableObject {
             .sink { [weak self] _ in
                 self?.boardDriver.restartGame()
             }
+            .store(in: &cancellables)
+        
+        NotificationCenter.default
+            .publisher(for: .recordResult)
+            .compactMap { $0.userInfo?["data"] as? Data }
+            .decode(type: JSONGameRecord.self, decoder: JSONDecoder())
+            .sink(receiveCompletion: { _ in }, receiveValue: { [weak self] result in
+                _ = self?.store.createRecord(from: result)
+                try? self?.store.save()
+            })
             .store(in: &cancellables)
     }
 }

@@ -8,7 +8,7 @@
 
 import Foundation
 
-public enum GameResult: String {
+public enum GameResult: String, Codable {
     case win, loss
     
     var opposite: GameResult {

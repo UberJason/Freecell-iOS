@@ -19,8 +19,8 @@ public extension Notification.Name {
     static let showMenu = Notification.Name(rawValue: "showMenu")
     static let dismissMenu = Notification.Name(rawValue: "dismissMenu")
     
-    static let recordWin = Notification.Name(rawValue: "recordWin")
-    static let recordLoss = Notification.Name(rawValue: "recordLoss")
+    static let recordResult = Notification.Name("recordResult")
+    static let postLoss = Notification.Name(rawValue: "postLoss")
     
     static let updateControlStyle = Notification.Name(rawValue: "updateControlStyle")
 }

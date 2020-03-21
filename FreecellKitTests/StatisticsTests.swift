@@ -73,9 +73,3 @@ extension Streak: Equatable {
         return lhs.count == rhs.count && lhs.type == rhs.type
     }
 }
-
-struct JSONGameRecord: GameRecord {
-    var result: GameResult
-    var moves: Int = 0
-    var time: TimeInterval = 0
-}
