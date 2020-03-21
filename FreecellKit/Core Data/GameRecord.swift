@@ -51,3 +51,9 @@ public class CDGameRecord: NSManagedObject, GameRecord {
         self.time = time
     }
 }
+
+public struct JSONGameRecord: GameRecord, Codable {
+    public var result: GameResult
+    public var moves: Int = 0
+    public var time: TimeInterval = 0
+}

@@ -41,8 +41,7 @@ class Game: ObservableObject {
         
         NotificationCenter.default
             .publisher(for: .recordResult)
-            .compactMap { $0.userInfo?["data"] as? Data }
-            .decode(type: JSONGameRecord.self, decoder: JSONDecoder())
+            .decode(to: JSONGameRecord.self)
             .sink(receiveCompletion: { _ in }, receiveValue: { [weak self] result in
                 _ = self?.store.createRecord(from: result)
                 try? self?.store.save()

@@ -235,27 +235,3 @@ extension BoardViewDriver: BoardProvider {
     }
 }
 
-public extension NotificationCenter {
-    func post<T: Codable>(_ name: Notification.Name, value: T) throws {
-        let data = try JSONEncoder().encode(value)
-        post(name: name, object: nil, userInfo: ["data": data])
-    }
-}
-
-//public extension Publisher {
-//    func mapUserInfo(_ userInfo: [AnyHashable : Any]) -> AnyPublisher<Data, Failure> {
-//        guard let data = userInfo["data"] as? Data else { fatalError("Shit how do I fail with publishers again?") }
-//        return Just(data).eraseToAnyPublisher()
-//
-//    }
-//    func modulated<Context: Scheduler>(_ pace: Context.SchedulerTimeType.Stride, scheduler: Context) -> AnyPublisher<Output, Failure> {
-//        let upstream = buffer(size: 1000, prefetch: .byRequest, whenFull: .dropNewest).eraseToAnyPublisher()
-//        return PacePublisher<Context, AnyPublisher>(pace: pace, scheduler: scheduler, source: upstream).eraseToAnyPublisher()
-//    }
-//}
-
-public struct JSONGameRecord: GameRecord, Codable {
-    public var result: GameResult
-    public var moves: Int = 0
-    public var time: TimeInterval = 0
-}

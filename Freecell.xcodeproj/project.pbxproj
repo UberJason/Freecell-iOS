@@ -96,6 +96,7 @@
 		96CA9B09238F0E5C00C34A60 /* FreecellKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 96A36459237E33BF005C45FB /* FreecellKit.framework */; };
 		96CA9B0A238F0E5C00C34A60 /* FreecellKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 96A36459237E33BF005C45FB /* FreecellKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		96CA9B0E239300C300C34A60 /* BoardViewDriver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96CA9B0D239300C300C34A60 /* BoardViewDriver.swift */; };
+		96CC08702426B76600BE2737 /* NotificationCenter+Codable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96CC086F2426B76600BE2737 /* NotificationCenter+Codable.swift */; };
 		96EDA556241ECEE200C05697 /* GameState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96EDA555241ECEE200C05697 /* GameState.swift */; };
 		96EDA559241ECF1F00C05697 /* ControlManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96EDA558241ECF1F00C05697 /* ControlManager.swift */; };
 		96EDA55B241ECF5E00C05697 /* BoardProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96EDA55A241ECF5E00C05697 /* BoardProvider.swift */; };
@@ -343,6 +344,7 @@
 		96CA9AF8238F0E4B00C34A60 /* Freecell_MacUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Freecell_MacUITests.swift; sourceTree = "<group>"; };
 		96CA9AFA238F0E4B00C34A60 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		96CA9B0D239300C300C34A60 /* BoardViewDriver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoardViewDriver.swift; sourceTree = "<group>"; };
+		96CC086F2426B76600BE2737 /* NotificationCenter+Codable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NotificationCenter+Codable.swift"; sourceTree = "<group>"; };
 		96E188B823BBF301008129AF /* StatusBarHidingFirstResponderHostingController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusBarHidingFirstResponderHostingController.swift; sourceTree = "<group>"; };
 		96EDA555241ECEE200C05697 /* GameState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameState.swift; sourceTree = "<group>"; };
 		96EDA558241ECF1F00C05697 /* ControlManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ControlManager.swift; sourceTree = "<group>"; };
@@ -522,6 +524,7 @@
 				9689E18923AB0BA4008B960B /* ModulatedPublisher.swift */,
 				9689E18823AB0BA4008B960B /* SteppingSubscriber.swift */,
 				961AC2A723E374AC003341B0 /* Notification+Freecell.swift */,
+				96CC086F2426B76600BE2737 /* NotificationCenter+Codable.swift */,
 				961AC2A923E4B661003341B0 /* MoveEvent.swift */,
 			);
 			path = Publisher;
@@ -1240,6 +1243,7 @@
 				96A36477237E33D3005C45FB /* Board.swift in Sources */,
 				96A7223C2401814C004F7F47 /* EmojiBombAnimator.swift in Sources */,
 				96FBBCDF241C6BF0001D1088 /* StatisticsView.swift in Sources */,
+				96CC08702426B76600BE2737 /* NotificationCenter+Codable.swift in Sources */,
 				964BBF1D23A6D9C3009B4FDE /* StackOffsetting.swift in Sources */,
 				964BBF0623A47B96009B4FDE /* BackgroundColorView.swift in Sources */,
 			);
