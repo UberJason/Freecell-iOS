@@ -28,7 +28,7 @@ public struct BoardView: View, StackOffsetting {
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
             GeometryReader { proxy in
                 ZStack {
-                    VStack(spacing: 40.0) {
+                    VStack(spacing: 50.0) {
                         HStack {
                             HStack {
                                 ForEach(self.boardDriver.freecells) { freeCell in

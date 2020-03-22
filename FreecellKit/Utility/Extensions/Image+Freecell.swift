@@ -46,11 +46,19 @@ public extension Image {
 #if !os(macOS)
 public extension Image {
     static var undo: Image {
-        return Image(systemName: "arrow.uturn.left.circle")
+        Image(systemName: "arrow.uturn.left.circle")
     }
     
     static var settings: Image {
-        return Image(systemName: "gear")
+        Image(systemName: "gear")
+    }
+    
+    static var expand: Image {
+        Image(systemName: "arrow.up.left.and.arrow.down.right")
+    }
+    
+    static var collapse: Image {
+        Image(systemName: "arrow.down.right.and.arrow.up.left")
     }
 }
 #endif

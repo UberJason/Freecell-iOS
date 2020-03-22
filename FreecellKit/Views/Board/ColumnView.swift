@@ -11,13 +11,16 @@ import DeckKit
 
 public struct ColumnView: View {
     let column: Column
+    @State var isCollapsed = false
     
     public init(column: Column) {
         self.column = column
     }
     
     public var body: some View {
-        ZStack {
+        ZStack(alignment: .top) {
+            ExpandCollapseButton(isCollapsed: $isCollapsed)
+                .offset(x: 0, y: -40)
             EmptySpotView()
         }
     }
