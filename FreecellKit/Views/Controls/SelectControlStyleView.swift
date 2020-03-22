@@ -12,10 +12,9 @@ import SwiftUI
 struct SelectControlStyleView: View {
     @Binding var controlStyle: ControlStyle
     
-    #warning("Explain the difference between Classic and Modern control styles.")
     var body: some View {
         Form {
-            Section(footer: Text("Footer goes here")) {
+            Section(footer: Text(footerText)) {
                 ForEach(ControlStyle.allCases, id: \.self) { style in
                     Button(action: {
                         self.controlStyle = style
@@ -33,10 +32,19 @@ struct SelectControlStyleView: View {
     func image(for style: ControlStyle) -> AnyView {
         return style == controlStyle ? AnyView(Image(systemName: "checkmark")) : AnyView(EmptyView())
     }
+    
+    var footerText: String {
+        switch controlStyle {
+        case .classic:
+            return "In Classic mode, click to select a card or column. Click again on a destination to move. Only the bottom card will ever appear selected, but valid column moves will still be performed. No dragging is possible."
+        case .modern:
+            return "In Modern mode, drag a card or stack to the desired destination to move. Or, tap on a card or stack to move automatically to a valid location."
+        }
+    }
 }
 
 struct SelectControlStyleView_Previews: PreviewProvider {
-    @State static var controlStyle = ControlStyle.classic
+    @State static var controlStyle = ControlStyle.modern
     static var previews: some View {
         SelectControlStyleView(controlStyle: $controlStyle)
             .environment(\.horizontalSizeClass, .compact)
