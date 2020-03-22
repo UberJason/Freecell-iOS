@@ -14,10 +14,20 @@ import SwiftUI
 import Cocoa
 #endif
 
+class ColumnExpansionState {
+    let id: UUID
+    var isCollapsed = false
+    
+    init(id: UUID) {
+        self.id = id
+    }
+}
+
 public class BoardViewDriver: ObservableObject {
     public var freecells: [FreeCell] { return renderingBoard.freecells }
     public var foundations: [Foundation] { return renderingBoard.foundations }
     public var columns: [Column] { return renderingBoard.columns }
+    private var columnTilingStates: [ColumnExpansionState]
     
     @Published public var renderingBoard: Board
     public var gameState = GameState.new {
@@ -67,6 +77,8 @@ public class BoardViewDriver: ObservableObject {
         self.undoManager = undoManager
         
         renderingBoard = _board.copy
+        
+        columnTilingStates = _board.columns.map { ColumnExpansionState(id: $0.id) }
         
         configureControlManager()
         configureRendering()
@@ -167,6 +179,26 @@ public class BoardViewDriver: ObservableObject {
     private func postResult(_ result: GameResult) {
         let result = JSONGameRecord(result: result, moves: moves, time: moveTime)
         try? NotificationCenter.default.post(.recordResult, value: result)
+    }
+}
+
+// MARK: - Column Expansion State -
+extension BoardViewDriver: StackOffsetting {
+    func stackOffset(for card: Card, orderIndex: Int) -> CGSize {
+        guard let column = renderingBoard.cell(containing: card) as? Column else { return .zero }
+        
+        let isCollapsed = columnIsCollapsed(column.id)
+        let offset: CGFloat = isCollapsed ? 10 : 40
+        return CGSize(width: 0, height: offset*CGFloat(orderIndex))
+    }
+    
+    func columnIsCollapsed(_ id: UUID) -> Bool {
+        return columnTilingStates.filter({ $0.id == id }).first?.isCollapsed ?? false
+    }
+    
+    func setTilingState(for columnId: UUID, isCollapsed: Bool) {
+        columnTilingStates.filter({ $0.id == columnId }).first?.isCollapsed = isCollapsed
+        objectWillChange.send()
     }
 }
 

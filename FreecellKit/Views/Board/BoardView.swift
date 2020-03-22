@@ -65,7 +65,11 @@ public struct BoardView: View, StackOffsetting {
                         
                         HStack(spacing: 22.0) {
                             ForEach(self.boardDriver.columns) { column in
-                                ColumnView(column: column)
+                                ColumnView(column: column, isCollapsed: Binding(get: {
+                                    self.boardDriver.columnIsCollapsed(column.id)
+                                }, set: { (newValue) in
+                                    self.boardDriver.setTilingState(for: column.id, isCollapsed: newValue)
+                                }))
                                     .frame(width: self.cardSize.width, height: self.cardSize.height)
                                     .onTapGesture {
                                         self.boardDriver.itemTapped(column)
@@ -113,7 +117,7 @@ public struct BoardView: View, StackOffsetting {
         }).first {
             bounds = geometry[p.bounds]
             if let column = containingLocation as? Column {
-                stackOffset = self.stackOffset(for: card, orderIndex: column.orderIndex(for: card))
+                stackOffset = boardDriver.stackOffset(for: card, orderIndex: column.orderIndex(for: card))
             }
         }
         
@@ -171,8 +175,8 @@ public struct BoardView: View, StackOffsetting {
 struct BoardView_Previews: PreviewProvider {
     static var previews: some View {
         BoardView(boardDriver: BoardViewDriver(controlStyle: .modern))
-            .previewLayout(.fixed(width: 1400, height: 1200))
+//            .previewLayout(.fixed(width: 1400, height: 1200))
         //            .previewLayout(.fixed(width: 1194, height: 834))
-        //            .previewLayout(.fixed(width: 1024, height: 768))
+                    .previewLayout(.fixed(width: 1024, height: 768))
     }
 }
