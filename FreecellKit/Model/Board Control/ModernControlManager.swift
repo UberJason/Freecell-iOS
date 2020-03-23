@@ -10,7 +10,7 @@ import DeckKit
 import Foundation
 import SwiftUI
 
-public class ModernControlManager: ControlManager, StackOffsetting {
+public class ModernControlManager: ControlManager {
     weak var boardProvider: BoardProvider?
     public var dragGestureAvailable: Bool { return true }
     public var draggingStack: CardStack?
@@ -77,7 +77,7 @@ public class ModernControlManager: ControlManager, StackOffsetting {
         
         var cardPosition = containingCellPosition
         if let column = containingCell as? Column {
-            let stackOffset = self.stackOffset(for: card, orderIndex: column.orderIndex(for: card))
+            let stackOffset = boardProvider.stackOffset(for: card, orderIndex: column.orderIndex(for: card))
             cardPosition = cardPosition.position(byAdding: stackOffset)
         }
         

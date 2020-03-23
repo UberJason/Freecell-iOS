@@ -184,6 +184,7 @@ public class BoardViewDriver: ObservableObject {
 
 // MARK: - Column Expansion State -
 extension BoardViewDriver: StackOffsetting {
+    #warning("When completing a drag, this should be re-computed somehow for columns that no longer need to be compressed")
     func stackOffset(for card: Card, orderIndex: Int) -> CGSize {
         guard let column = renderingBoard.cell(containing: card) as? Column else { return .zero }
         

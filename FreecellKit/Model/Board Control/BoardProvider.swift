@@ -8,7 +8,7 @@
 
 import Foundation
 
-protocol BoardProvider: class {
+protocol BoardProvider: AnyObject, StackOffsetting {
     var board: Board { get }
     func registerMove()
     func rollbackFailedMove(with error: Error)
