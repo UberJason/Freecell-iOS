@@ -16,13 +16,12 @@ struct ExpandCollapseButton: View {
             self.isCollapsed.toggle()
         }) {
             image()
-                .foregroundColor(.white)
-                .font(.system(size: 15))
+                .foregroundColor(.freecellBackground)
+                .font(.system(size: 15, weight: .semibold))
                 .frame(width: 22, height: 30)
-                .overlay(
-                    RoundedRectangle(cornerRadius: 4)
-                        .stroke(Color.white, lineWidth: 1.5)
-            )
+                .background(
+                    RoundedRectangle(cornerRadius: 4).fill(Color.white)
+                )
         }
     }
     
@@ -40,5 +39,8 @@ struct ExpandCollapseButton_Previews: PreviewProvider {
     @State static var isCollapsed = false
     static var previews: some View {
         ExpandCollapseButton(isCollapsed: $isCollapsed)
+            .frame(width: 100, height: 100)
+            .background(Color.freecellBackground)
+            .previewLayout(.fixed(width: 100, height: 100))
     }
 }
