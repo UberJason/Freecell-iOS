@@ -346,12 +346,17 @@ public struct Board {
             ].compactMap { $0 }
         case is Column:
             if stack.isSingleCard {
-                choices = [
-                    nonEmptyColumns.first,
-                    availableFreecell,
-                    anyValidDestinationColumns.first,
-                    availableFoundation
-                ].compactMap { $0 }
+                if card.rank == .ace {
+                    choices = [availableFoundation].compactMap { $0 }
+                }
+                else {
+                    choices = [
+                        nonEmptyColumns.first,
+                        availableFreecell,
+                        anyValidDestinationColumns.first,
+                        availableFoundation
+                    ].compactMap { $0 }
+                }
             }
             else {
                 choices = [

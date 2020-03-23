@@ -192,6 +192,10 @@ extension BoardViewDriver: StackOffsetting {
         return CGSize(width: 0, height: offset*CGFloat(orderIndex))
     }
     
+    func tilingButtonVisible(for column: Column) -> Bool {
+        return column.items.count >= 10
+    }
+    
     func columnIsCollapsed(_ id: UUID) -> Bool {
         return columnTilingStates.filter({ $0.id == id }).first?.isCollapsed ?? false
     }
