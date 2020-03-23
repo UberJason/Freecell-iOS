@@ -65,7 +65,7 @@ public struct BoardView: View, StackOffsetting {
                         
                         HStack(spacing: 22.0) {
                             ForEach(self.boardDriver.columns) { column in
-                                ColumnView(column: column, isCollapsed: Binding(get: {
+                                ColumnView(column: column, expandCollapseButtonVisible: true, isCollapsed: Binding(get: {
                                     self.boardDriver.columnIsCollapsed(column.id)
                                 }, set: { (newValue) in
                                     self.boardDriver.setTilingState(for: column.id, isCollapsed: newValue)
