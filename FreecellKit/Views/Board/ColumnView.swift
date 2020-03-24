@@ -11,19 +11,31 @@ import DeckKit
 
 public struct ColumnView: View {
     let column: Column
+    let tilingButtonVisible: Bool
+    @Binding var isCollapsed: Bool
     
-    public init(column: Column) {
+    public init(column: Column, tilingButtonVisible: Bool, isCollapsed: Binding<Bool>) {
         self.column = column
+        self.tilingButtonVisible = tilingButtonVisible
+        self._isCollapsed = isCollapsed
     }
     
     public var body: some View {
-        ZStack {
+        ZStack(alignment: .top) {
+            #if os(iOS)
+            if tilingButtonVisible {
+                ExpandCollapseButton(isCollapsed: $isCollapsed)
+                    .offset(x: 0, y: -40)
+            }
+            #endif
             EmptySpotView()
         }
     }
 }
 
 struct ColumnView_Previews: PreviewProvider {
+    @State static var isCollapsed = false
+    
     static var previews: some View {
         let column = Column()
         column.setupPush(Card.king.ofDiamonds)
@@ -31,7 +43,7 @@ struct ColumnView_Previews: PreviewProvider {
         column.setupPush(Card.four.ofHearts)
         column.setupPush(Card.ace.ofSpades)
         
-        return ColumnView(column: column)
+        return ColumnView(column: column, tilingButtonVisible: true, isCollapsed: $isCollapsed)
             .frame(width: 125, height: 187)
             .frame(width: 200, height: 700)
             .background(Color.green)

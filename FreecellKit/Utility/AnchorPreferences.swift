@@ -31,3 +31,19 @@ public struct CellDistance {
     let distance: CGFloat
 }
 
+public struct ColumnWidth: Equatable {
+    public static func == (lhs: ColumnWidth, rhs: ColumnWidth) -> Bool {
+        return lhs.uuid == rhs.uuid
+    }
+    
+    let uuid = UUID()
+    var bounds: Anchor<CGRect>? = nil
+}
+
+public struct ColumnWidthKey: PreferenceKey {
+    public static var defaultValue: ColumnWidth = ColumnWidth()
+    
+    public static func reduce(value: inout ColumnWidth, nextValue: () -> ColumnWidth) {
+        value = nextValue()
+    }
+}

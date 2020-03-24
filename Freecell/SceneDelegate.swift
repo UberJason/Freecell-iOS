@@ -24,9 +24,9 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             let window = UIWindow(windowScene: windowScene)
             // Create the SwiftUI view that provides the window contents.
             let game = Game(undoManager: window.undoManager)
-            let contentView = GameView(game: game)
+            let contentView = ContentView(game: game)
 
-            window.rootViewController = FirstResponderHostingController(rootView: contentView)
+            window.rootViewController = GameHostingController(rootView: contentView)
             self.window = window
             window.makeKeyAndVisible()
         }

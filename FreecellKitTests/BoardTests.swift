@@ -45,16 +45,17 @@ class BoardTests: XCTestCase {
     }
     
     func testBoardSelectionState() {
-        let boardDriver = ClassicViewDriver()
+        let boardViewDriver = BoardViewDriver(controlStyle: .classic)
+        let controlManager = ClassicControlManager(boardProvider: boardViewDriver)
         
-        switch boardDriver.selectionState {
+        switch controlManager.selectionState {
         case .idle: break
         case .selected(_): XCTFail("board selectionState should be idle")
         }
         
-        boardDriver.selectedCard = Card.ace.ofSpades
+        controlManager.selectedCard = Card.ace.ofSpades
         
-        switch boardDriver.selectionState {
+        switch controlManager.selectionState {
         case .idle: XCTFail("board selectionState should not be idle")
         case .selected(let card):
             XCTAssertEqual(card, Card.ace.ofSpades, "Selected card should be \(Card.ace.ofSpades.displayTitle)")

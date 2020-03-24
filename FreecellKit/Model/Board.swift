@@ -346,12 +346,17 @@ public struct Board {
             ].compactMap { $0 }
         case is Column:
             if stack.isSingleCard {
-                choices = [
-                    nonEmptyColumns.first,
-                    availableFreecell,
-                    anyValidDestinationColumns.first,
-                    availableFoundation
-                ].compactMap { $0 }
+                if card.rank == .ace {
+                    choices = [availableFoundation].compactMap { $0 }
+                }
+                else {
+                    choices = [
+                        nonEmptyColumns.first,
+                        availableFreecell,
+                        anyValidDestinationColumns.first,
+                        availableFoundation
+                    ].compactMap { $0 }
+                }
             }
             else {
                 choices = [
@@ -464,5 +469,9 @@ extension Board {
         guard let foundation = foundations.filter({ $0.suit == suit }).first else { fatalError("Couldn't find a Foundation for the suit, which is impossible") }
         
         return foundation
+    }
+    
+    var isCompleted: Bool {
+        return foundations.flatMap({ $0.items }).count == Deck.maxCardCount
     }
 }

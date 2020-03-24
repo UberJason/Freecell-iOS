@@ -19,32 +19,32 @@ class Game: ObservableObject {
     
     init(undoManager: UndoManager? = nil) {
         self.undoManager = undoManager
-        self.boardDriver = ClassicViewDriver(undoManager: undoManager)
+        self.boardDriver = BoardViewDriver(controlStyle: .classic, undoManager: undoManager)
         
         NotificationCenter.default
             .publisher(for: .newGame)
             .sink { [weak self] _ in
-                self?.boardDriver = ClassicViewDriver(undoManager: undoManager)
+                self?.boardDriver = BoardViewDriver(controlStyle: .classic, undoManager: undoManager)
             }
             .store(in: &cancellables)
         
         NotificationCenter.default
-        .publisher(for: .performUndo)
-        .sink { [weak self] _ in
-            self?.boardDriver.undo()
-        }
-        .store(in: &cancellables)
+            .publisher(for: .performUndo)
+            .sink { [weak self] _ in
+                self?.boardDriver.undo()
+            }
+            .store(in: &cancellables)
         
         NotificationCenter.default
-        .publisher(for: .performRedo)
-        .sink { [weak self] _ in
-            self?.boardDriver.redo()
-        }
-        .store(in: &cancellables)
+            .publisher(for: .performRedo)
+            .sink { [weak self] _ in
+                self?.boardDriver.redo()
+            }
+            .store(in: &cancellables)
     }
 }
 
-struct GameView: View {
+struct ContentView: View {
     @ObservedObject var game: Game
     
     init(game: Game) {
@@ -56,9 +56,9 @@ struct GameView: View {
     }
 }
 
-struct GameView_Previews: PreviewProvider {
+struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
-        GameView(game: Game())
+        ContentView(game: Game())
             .previewDevice("iPad Pro 11")
             .previewLayout(.fixed(width: 1194, height: 834))
     }
