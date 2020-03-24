@@ -77,8 +77,7 @@ public class ModernControlManager: ControlManager {
         
         var cardPosition = containingCellPosition
         if let column = containingCell as? Column {
-            #warning("When completing a drag, this should be re-computed somehow for columns that no longer need to be compressed")
-            let stackOffset = boardProvider.stackOffset(for: card, orderIndex: column.orderIndex(for: card), spacing: SpacingConstants.defaultSpacing)
+            let stackOffset = boardProvider.stackOffset(for: card, orderIndex: column.orderIndex(for: card), spacing: boardProvider.cardSpacing(for: column))
             cardPosition = cardPosition.position(byAdding: stackOffset)
         }
         

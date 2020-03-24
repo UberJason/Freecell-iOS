@@ -7,7 +7,7 @@
 //
 
 import SwiftUI
-
+#if os(iOS)
 struct ExpandCollapseButton: View {
     @Binding var isCollapsed: Bool
     
@@ -44,3 +44,4 @@ struct ExpandCollapseButton_Previews: PreviewProvider {
             .previewLayout(.fixed(width: 100, height: 100))
     }
 }
+#endif

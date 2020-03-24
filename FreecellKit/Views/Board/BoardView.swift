@@ -34,7 +34,7 @@ public struct BoardView: View, StackOffsetting {
                             HStack {
                                 ForEach(self.boardDriver.freecells) { freeCell in
                                     FreeCellView(freeCell: freeCell)
-                                        .frame(width: self.cardSize.width, height: self.cardSize.height)
+                                        .frame(width: self.boardDriver.cardSize.width, height: self.boardDriver.cardSize.height)
                                         .onTapGesture {
                                             self.boardDriver.itemTapped(freeCell)
                                     }
@@ -53,7 +53,7 @@ public struct BoardView: View, StackOffsetting {
                             HStack {
                                 ForEach(self.boardDriver.foundations) { foundation in
                                     FoundationView(foundation: foundation)
-                                        .frame(width: self.cardSize.width, height: self.cardSize.height)
+                                        .frame(width: self.boardDriver.cardSize.width, height: self.boardDriver.cardSize.height)
                                         .onTapGesture {
                                             self.boardDriver.itemTapped(foundation)
                                     }
@@ -66,12 +66,12 @@ public struct BoardView: View, StackOffsetting {
                         
                         HStack(spacing: 22.0) {
                             ForEach(self.boardDriver.columns) { column in
-                                ColumnView(column: column, expandCollapseButtonVisible: self.tilingButtonVisible(for: column), isCollapsed: Binding(get: {
+                                ColumnView(column: column, tilingButtonVisible: self.boardDriver.tilingButtonVisible(for: column), isCollapsed: Binding(get: {
                                     self.boardDriver.columnIsCollapsed(column.id)
                                 }, set: { (newValue) in
                                     self.boardDriver.setTilingState(for: column.id, isCollapsed: newValue)
                                 }))
-                                    .frame(width: self.cardSize.width, height: self.cardSize.height)
+                                    .frame(width: self.boardDriver.cardSize.width, height: self.boardDriver.cardSize.height)
                                     .onTapGesture {
                                         self.boardDriver.itemTapped(column)
                                 }
@@ -118,7 +118,7 @@ public struct BoardView: View, StackOffsetting {
         }).first {
             bounds = geometry[p.bounds]
             if let column = containingLocation as? Column {
-                stackOffset = boardDriver.stackOffset(for: card, orderIndex: column.orderIndex(for: card), spacing: self.cardSpacing(for: column))
+                stackOffset = boardDriver.stackOffset(for: card, orderIndex: column.orderIndex(for: card), spacing: boardDriver.cardSpacing(for: column))
             }
         }
         
@@ -156,28 +156,6 @@ public struct BoardView: View, StackOffsetting {
         
         return boardDriver.dragGestureAvailable ? gesture : nil
     }
-    
-    func tilingButtonVisible(for column: Column) -> Bool {
-        return SpacingCalculator().stackRequiresCompression(column.items.count, cardHeight: cardSize.height)
-    }
-    
-    func cardSpacing(for column: Column) -> CGFloat {
-        let calculator = SpacingCalculator()
-        guard calculator.stackRequiresCompression(column.items.count, cardHeight: cardSize.height) else { return defaultCardSpacing }
-        
-        let isCollapsed = boardDriver.columnIsCollapsed(column.id)
-        let optimalSpacing = calculator.spacingThatFits(calculator.availableVerticalSpace(bottomPadding: 20), cardHeight: cardSize.height, numberOfCards: column.items.count)
-        
-        return isCollapsed ? optimalSpacing : SpacingConstants.defaultSpacing
-    }
-    
-    var cardSize: CGSize {
-        //        return CGSize(width: 125, height: 187)  // iPad Pro
-        //        return CGSize(width: 107, height: 160)  // iPad Mini
-        return CGSize(width: 100, height: 149)  // iPad Mini, reduced
-    }
-    
-    var defaultCardSpacing: CGFloat { 40.0 }
     
     var cardSpringAnimation: Animation? {
         switch dragState {

@@ -33,6 +33,7 @@
 		964BBF1823A48B0B009B4FDE /* SubstackMovementTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 964BBF1723A48B0B009B4FDE /* SubstackMovementTests.swift */; };
 		964BBF1A23A48B39009B4FDE /* BoardTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 964BBF1923A48B39009B4FDE /* BoardTests.swift */; };
 		964BBF1D23A6D9C3009B4FDE /* StackOffsetting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 964BBF1C23A6D9C3009B4FDE /* StackOffsetting.swift */; };
+		965C015A242AA51900E04F74 /* SpacingCalculator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 965C0159242AA51900E04F74 /* SpacingCalculator.swift */; };
 		965E210624040E01002BA1F7 /* Image+Freecell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 965E210524040E01002BA1F7 /* Image+Freecell.swift */; };
 		965E2108240C598C002BA1F7 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 965E2107240C598C002BA1F7 /* Images.xcassets */; };
 		965E210A240C5B3A002BA1F7 /* Bundle+FreecellKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 965E2109240C5B3A002BA1F7 /* Bundle+FreecellKit.swift */; };
@@ -271,6 +272,7 @@
 		964BBF1723A48B0B009B4FDE /* SubstackMovementTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubstackMovementTests.swift; sourceTree = "<group>"; };
 		964BBF1923A48B39009B4FDE /* BoardTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoardTests.swift; sourceTree = "<group>"; };
 		964BBF1C23A6D9C3009B4FDE /* StackOffsetting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StackOffsetting.swift; sourceTree = "<group>"; };
+		965C0159242AA51900E04F74 /* SpacingCalculator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpacingCalculator.swift; sourceTree = "<group>"; };
 		965E210524040E01002BA1F7 /* Image+Freecell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Image+Freecell.swift"; sourceTree = "<group>"; };
 		965E2107240C598C002BA1F7 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		965E2109240C5B3A002BA1F7 /* Bundle+FreecellKit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Bundle+FreecellKit.swift"; sourceTree = "<group>"; };
@@ -760,6 +762,7 @@
 			isa = PBXGroup;
 			children = (
 				96CA9B0D239300C300C34A60 /* BoardViewDriver.swift */,
+				965C0159242AA51900E04F74 /* SpacingCalculator.swift */,
 				96EDA55A241ECF5E00C05697 /* BoardProvider.swift */,
 				96EDA558241ECF1F00C05697 /* ControlManager.swift */,
 				96EDA55E241ECF9800C05697 /* ClassicControlManager.swift */,
@@ -1234,6 +1237,7 @@
 				964BBF0823A4861C009B4FDE /* Convenience.swift in Sources */,
 				96A36488237E3894005C45FB /* FreecellError.swift in Sources */,
 				9613245223E23D4000982898 /* CGPoint+Translation.swift in Sources */,
+				965C015A242AA51900E04F74 /* SpacingCalculator.swift in Sources */,
 				962295F52388762D005D599B /* BoardView.swift in Sources */,
 				9627FED023AB19CF00F8F63B /* CustomDebugStrings.swift in Sources */,
 				9616A1D723FB7176007CABA1 /* ControlsView.swift in Sources */,

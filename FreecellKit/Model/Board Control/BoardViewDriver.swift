@@ -54,6 +54,7 @@ public class BoardViewDriver: ObservableObject {
         return f
     }()
     
+    #warning("Consider moving details about the move, etc into the top-level Game class - these responsibilities don't really belong to a *Board* driver")
     @Published public var moveTimeString: String = "00:00"
     @Published public var moves: Int = 0
     private var moveTime: TimeInterval = 0.0
@@ -72,6 +73,7 @@ public class BoardViewDriver: ObservableObject {
     internal var _board = Board(deck: Deck(shuffled: true))
     internal var previousBoards = [Board]()
     
+    #warning("Investigate memory leaks")
     public init(controlStyle: ControlStyle, undoManager: UndoManager? = nil) {
         self.controlStyle = controlStyle
         self.undoManager = undoManager
@@ -184,10 +186,28 @@ public class BoardViewDriver: ObservableObject {
 
 // MARK: - Column Expansion State -
 extension BoardViewDriver: StackOffsetting {
+    var cardSize: CGSize {
+        //        return CGSize(width: 125, height: 187)  // iPad Pro
+        //        return CGSize(width: 107, height: 160)  // iPad Mini
+        CGSize(width: 100, height: 145)  // iPad Mini, reduced
+    }
+    
+    var defaultColumnSpacing: CGFloat {
+        40.0
+    }
+    
     func columnIsCollapsed(_ id: UUID) -> Bool {
         return columnTilingStates.filter({ $0.id == id }).first?.isCollapsed ?? false
     }
     
+    func tilingButtonVisible(for column: Column) -> Bool {
+        #if os(iOS)
+        return SpacingCalculator().stackRequiresCompression(column.items.count, cardHeight: cardSize.height)
+        #else
+        return false
+        #endif
+    }
+
     func setTilingState(for columnId: UUID, isCollapsed: Bool) {
         columnTilingStates.filter({ $0.id == columnId }).first?.isCollapsed = isCollapsed
         objectWillChange.send()
@@ -257,32 +277,18 @@ extension BoardViewDriver: BoardProvider {
     func performUpdate() {
         objectWillChange.send()
     }
-}
-
-struct SpacingCalculator {
-    // verticalOffset = padding + cardHeight + spacing = 40 + 145 + 50 = 235
-    func stackRequiresCompression(_ numberOfCards: Int, cardHeight: CGFloat) -> Bool {
-        let height = self.height(forStackCount: numberOfCards, cardHeight: cardHeight, spacing: SpacingConstants.defaultSpacing)
-        let availableVerticalSpace = self.availableVerticalSpace()
-        
-        return height > availableVerticalSpace
-    }
     
-    func availableVerticalSpace(in bounds: CGRect = UIScreen.main.bounds, offsetBy verticalOffset: CGFloat = SpacingConstants.verticalOffset, bottomPadding: CGFloat = SpacingConstants.bottomPadding) -> CGFloat {
-        return bounds.height - verticalOffset - bottomPadding
+    func cardSpacing(for column: Column) -> CGFloat {
+        #if os(iOS)
+        let calculator = SpacingCalculator()
+        guard calculator.stackRequiresCompression(column.items.count, cardHeight: cardSize.height) else { return defaultColumnSpacing }
+        
+        let isCollapsed = columnIsCollapsed(column.id)
+        let optimalSpacing = calculator.spacingThatFits(calculator.availableVerticalSpace(bottomPadding: 20), cardHeight: cardSize.height, numberOfCards: column.items.count)
+        
+        return isCollapsed ? optimalSpacing : SpacingConstants.defaultSpacing
+        #else
+        return SpacingConstants.defaultSpacing
+        #endif
     }
-
-    func height(forStackCount numberOfCards: Int, cardHeight: CGFloat, spacing: CGFloat) -> CGFloat {
-        return cardHeight + CGFloat(numberOfCards - 1)*spacing
-    }
-
-    func spacingThatFits(_ availableVerticalSpace: CGFloat, cardHeight: CGFloat, numberOfCards: Int) -> CGFloat {
-        return (availableVerticalSpace - cardHeight) / CGFloat(numberOfCards - 1)
-    }
-}
-
-struct SpacingConstants {
-    static let defaultSpacing: CGFloat = 40
-    static let verticalOffset: CGFloat = 235
-    static let bottomPadding: CGFloat = -40
 }
