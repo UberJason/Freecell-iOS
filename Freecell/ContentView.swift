@@ -25,6 +25,7 @@ class Game: ObservableObject {
         self.undoManager = undoManager
         self.boardDriver = BoardViewDriver(controlStyle: controlStyle, undoManager: undoManager)
         
+        #warning("TODO: CMD+N for New Game on iPad?")
         NotificationCenter.default
             .publisher(for: .newGame)
             .sink { [unowned self] _ in

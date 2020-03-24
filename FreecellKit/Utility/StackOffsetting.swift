@@ -10,11 +10,11 @@ import CoreGraphics
 import DeckKit
 
 protocol StackOffsetting {
-    func stackOffset(for card: Card, orderIndex: Int) -> CGSize
+    func stackOffset(for card: Card, orderIndex: Int, spacing: CGFloat) -> CGSize
 }
 
 extension StackOffsetting {
-    func stackOffset(for card: Card, orderIndex: Int) -> CGSize {
-        return CGSize(width: 0, height: 40*CGFloat(orderIndex))
+    func stackOffset(for card: Card, orderIndex: Int, spacing: CGFloat) -> CGSize {
+        return CGSize(width: 0, height: spacing*CGFloat(orderIndex))
     }
 }

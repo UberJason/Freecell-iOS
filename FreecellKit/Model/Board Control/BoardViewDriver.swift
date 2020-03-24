@@ -184,19 +184,6 @@ public class BoardViewDriver: ObservableObject {
 
 // MARK: - Column Expansion State -
 extension BoardViewDriver: StackOffsetting {
-    #warning("When completing a drag, this should be re-computed somehow for columns that no longer need to be compressed")
-    func stackOffset(for card: Card, orderIndex: Int) -> CGSize {
-        guard let column = renderingBoard.cell(containing: card) as? Column else { return .zero }
-        
-        let isCollapsed = columnIsCollapsed(column.id)
-        let offset: CGFloat = isCollapsed ? 10 : 40
-        return CGSize(width: 0, height: offset*CGFloat(orderIndex))
-    }
-    
-    func tilingButtonVisible(for column: Column) -> Bool {
-        return column.items.count >= 10
-    }
-    
     func columnIsCollapsed(_ id: UUID) -> Bool {
         return columnTilingStates.filter({ $0.id == id }).first?.isCollapsed ?? false
     }
@@ -272,3 +259,30 @@ extension BoardViewDriver: BoardProvider {
     }
 }
 
+struct SpacingCalculator {
+    // verticalOffset = padding + cardHeight + spacing = 40 + 145 + 50 = 235
+    func stackRequiresCompression(_ numberOfCards: Int, cardHeight: CGFloat) -> Bool {
+        let height = self.height(forStackCount: numberOfCards, cardHeight: cardHeight, spacing: SpacingConstants.defaultSpacing)
+        let availableVerticalSpace = self.availableVerticalSpace()
+        
+        return height > availableVerticalSpace
+    }
+    
+    func availableVerticalSpace(in bounds: CGRect = UIScreen.main.bounds, offsetBy verticalOffset: CGFloat = SpacingConstants.verticalOffset, bottomPadding: CGFloat = SpacingConstants.bottomPadding) -> CGFloat {
+        return bounds.height - verticalOffset - bottomPadding
+    }
+
+    func height(forStackCount numberOfCards: Int, cardHeight: CGFloat, spacing: CGFloat) -> CGFloat {
+        return cardHeight + CGFloat(numberOfCards - 1)*spacing
+    }
+
+    func spacingThatFits(_ availableVerticalSpace: CGFloat, cardHeight: CGFloat, numberOfCards: Int) -> CGFloat {
+        return (availableVerticalSpace - cardHeight) / CGFloat(numberOfCards - 1)
+    }
+}
+
+struct SpacingConstants {
+    static let defaultSpacing: CGFloat = 40
+    static let verticalOffset: CGFloat = 235
+    static let bottomPadding: CGFloat = -40
+}
