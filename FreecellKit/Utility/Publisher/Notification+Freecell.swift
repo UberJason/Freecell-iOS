@@ -16,7 +16,6 @@ public extension Notification.Name {
     static let restartGame = Notification.Name(rawValue: "restartGame")
     
     static let performUndo = Notification.Name(rawValue: "performUndo")
-    static let performRedo = Notification.Name(rawValue: "performRedo")
     
     static let performBombAnimation = Notification.Name("performBombAnimation")
     

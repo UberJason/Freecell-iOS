@@ -27,20 +27,6 @@ class Game: ObservableObject {
                 self?.boardDriver = BoardViewDriver(controlStyle: .classic, undoManager: undoManager)
             }
             .store(in: &cancellables)
-        
-        NotificationCenter.default
-            .publisher(for: .performUndo)
-            .sink { [weak self] _ in
-                self?.boardDriver.undo()
-            }
-            .store(in: &cancellables)
-        
-        NotificationCenter.default
-            .publisher(for: .performRedo)
-            .sink { [weak self] _ in
-                self?.boardDriver.redo()
-            }
-            .store(in: &cancellables)
     }
 }
 

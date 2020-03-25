@@ -14,7 +14,8 @@ import Combine
 class AppDelegate: NSObject, NSApplicationDelegate {
 
     var window: NSWindow!
-
+    var undoManager: UndoManager?
+    
     func applicationDidFinishLaunching(_ aNotification: Notification) {
 
         // Create the window and set the content view. 
@@ -24,9 +25,10 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             backing: .buffered, defer: false)
         window.center()
         window.setFrameAutosaveName("Main Window")
-        
+    
         // Create the SwiftUI view that provides the window contents.
-        let contentView = ContentView(game: Game(undoManager: window.undoManager))
+        undoManager = window.undoManager
+        let contentView = ContentView(game: Game(undoManager: undoManager))
         
         window.contentView = NSHostingView(rootView: contentView)
         window.makeKeyAndOrderFront(nil)
@@ -41,10 +43,6 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     }
     
     @IBAction func undoMove(_ sender: Any) {
-        NotificationCenter.default.post(name: .performUndo, object: nil)
-    }
-    
-    @IBAction func redoMove(_ sender: Any) {
-        NotificationCenter.default.post(name: .performRedo, object: nil)
+        undoManager?.undo()
     }
 }
