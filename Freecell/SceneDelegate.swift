@@ -8,6 +8,7 @@
 
 import UIKit
 import SwiftUI
+import FreecellKit
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 

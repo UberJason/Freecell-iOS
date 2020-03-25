@@ -8,7 +8,7 @@
 
 import Cocoa
 import SwiftUI
-import Combine
+import FreecellKit
 
 @NSApplicationMain
 class AppDelegate: NSObject, NSApplicationDelegate {
@@ -25,10 +25,11 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             backing: .buffered, defer: false)
         window.center()
         window.setFrameAutosaveName("Main Window")
-    
-        // Create the SwiftUI view that provides the window contents.
         undoManager = window.undoManager
-        let contentView = ContentView(game: Game(undoManager: undoManager))
+        
+        // Create the SwiftUI view that provides the window contents.
+        let game = Game(undoManager: undoManager)
+        let contentView = ContentView(game: game)
         
         window.contentView = NSHostingView(rootView: contentView)
         window.makeKeyAndOrderFront(nil)
