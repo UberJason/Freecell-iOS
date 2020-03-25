@@ -12,6 +12,7 @@
 		9616A1D723FB7176007CABA1 /* ControlsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9616A1D623FB7176007CABA1 /* ControlsView.swift */; };
 		961AC2A823E374AC003341B0 /* Notification+Freecell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 961AC2A723E374AC003341B0 /* Notification+Freecell.swift */; };
 		961AC2AA23E4B661003341B0 /* MoveEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 961AC2A923E4B661003341B0 /* MoveEvent.swift */; };
+		961C7FA1242BD56C0078E2F7 /* GameAlerting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 961C7FA0242BD56C0078E2F7 /* GameAlerting.swift */; };
 		9622959A23835A7B005D599B /* Cell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9622959923835A7B005D599B /* Cell.swift */; };
 		9622959C238393BA005D599B /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96A363F9237CF0FC005C45FB /* ContentView.swift */; };
 		962295F223884563005D599B /* CardRectangle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 962295F123884563005D599B /* CardRectangle.swift */; };
@@ -98,7 +99,7 @@
 		96CA9B0A238F0E5C00C34A60 /* FreecellKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 96A36459237E33BF005C45FB /* FreecellKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		96CA9B0E239300C300C34A60 /* BoardViewDriver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96CA9B0D239300C300C34A60 /* BoardViewDriver.swift */; };
 		96CC08702426B76600BE2737 /* NotificationCenter+Codable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96CC086F2426B76600BE2737 /* NotificationCenter+Codable.swift */; };
-		96CC08722427EB7000BE2737 /* ExpandCollapseButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96CC08712427EB7000BE2737 /* ExpandCollapseButton.swift */; };
+		96CC08722427EB7000BE2737 /* TilingButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96CC08712427EB7000BE2737 /* TilingButton.swift */; };
 		96EDA556241ECEE200C05697 /* GameState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96EDA555241ECEE200C05697 /* GameState.swift */; };
 		96EDA559241ECF1F00C05697 /* ControlManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96EDA558241ECF1F00C05697 /* ControlManager.swift */; };
 		96EDA55B241ECF5E00C05697 /* BoardProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96EDA55A241ECF5E00C05697 /* BoardProvider.swift */; };
@@ -251,6 +252,7 @@
 		9616A1D623FB7176007CABA1 /* ControlsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ControlsView.swift; sourceTree = "<group>"; };
 		961AC2A723E374AC003341B0 /* Notification+Freecell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Notification+Freecell.swift"; sourceTree = "<group>"; };
 		961AC2A923E4B661003341B0 /* MoveEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoveEvent.swift; sourceTree = "<group>"; };
+		961C7FA0242BD56C0078E2F7 /* GameAlerting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameAlerting.swift; sourceTree = "<group>"; };
 		9622959923835A7B005D599B /* Cell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Cell.swift; sourceTree = "<group>"; };
 		962295F123884563005D599B /* CardRectangle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardRectangle.swift; sourceTree = "<group>"; };
 		962295F323887623005D599B /* BoardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = BoardView.swift; path = FreecellKit/Views/Board/BoardView.swift; sourceTree = SOURCE_ROOT; };
@@ -348,7 +350,7 @@
 		96CA9AFA238F0E4B00C34A60 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		96CA9B0D239300C300C34A60 /* BoardViewDriver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoardViewDriver.swift; sourceTree = "<group>"; };
 		96CC086F2426B76600BE2737 /* NotificationCenter+Codable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NotificationCenter+Codable.swift"; sourceTree = "<group>"; };
-		96CC08712427EB7000BE2737 /* ExpandCollapseButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpandCollapseButton.swift; sourceTree = "<group>"; };
+		96CC08712427EB7000BE2737 /* TilingButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TilingButton.swift; sourceTree = "<group>"; };
 		96E188B823BBF301008129AF /* StatusBarHidingFirstResponderHostingController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusBarHidingFirstResponderHostingController.swift; sourceTree = "<group>"; };
 		96EDA555241ECEE200C05697 /* GameState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameState.swift; sourceTree = "<group>"; };
 		96EDA558241ECF1F00C05697 /* ControlManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ControlManager.swift; sourceTree = "<group>"; };
@@ -456,6 +458,7 @@
 				96EDA55C241ECF7C00C05697 /* ControlStyle.swift */,
 				96EDA555241ECEE200C05697 /* GameState.swift */,
 				96A36487237E3894005C45FB /* FreecellError.swift */,
+				961C7FA0242BD56C0078E2F7 /* GameAlerting.swift */,
 			);
 			path = Utility;
 			sourceTree = "<group>";
@@ -704,7 +707,7 @@
 				96EDA562241EE07000C05697 /* SelectControlStyleView.swift */,
 				9673834A24030F7E004A4525 /* YouWinView.swift */,
 				9673834C24030FF0004A4525 /* GameView.swift */,
-				96CC08712427EB7000BE2737 /* ExpandCollapseButton.swift */,
+				96CC08712427EB7000BE2737 /* TilingButton.swift */,
 			);
 			path = Controls;
 			sourceTree = "<group>";
@@ -1209,7 +1212,7 @@
 				9661E7AC2380439C00183A99 /* CardStack.swift in Sources */,
 				96A7223E240181DB004F7F47 /* EmojiBombView.swift in Sources */,
 				962562892381D846003C09AA /* CardView.swift in Sources */,
-				96CC08722427EB7000BE2737 /* ExpandCollapseButton.swift in Sources */,
+				96CC08722427EB7000BE2737 /* TilingButton.swift in Sources */,
 				96A36486237E385B005C45FB /* Foundation.swift in Sources */,
 				9688893A2389CB83001DD34B /* Result+SuccessVoid.swift in Sources */,
 				96FBBCD8241C679C001D1088 /* SettingsView.swift in Sources */,
@@ -1224,6 +1227,7 @@
 				962B0B6D2422F7E6007D4117 /* FreecellStore.swift in Sources */,
 				9673834B24030F7E004A4525 /* YouWinView.swift in Sources */,
 				96A36480237E37D1005C45FB /* Rank+FreecellValue.swift in Sources */,
+				961C7FA1242BD56C0078E2F7 /* GameAlerting.swift in Sources */,
 				96A36482237E384C005C45FB /* Column.swift in Sources */,
 				96CA9AD0238CC4F000C34A60 /* Card+Id.swift in Sources */,
 				9625628B2381D84C003C09AA /* FreeCellView.swift in Sources */,

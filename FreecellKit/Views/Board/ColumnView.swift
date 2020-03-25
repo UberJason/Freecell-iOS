@@ -24,7 +24,7 @@ public struct ColumnView: View {
         ZStack(alignment: .top) {
             #if os(iOS)
             if tilingButtonVisible {
-                ExpandCollapseButton(isCollapsed: $isCollapsed)
+                TilingButton(isCollapsed: $isCollapsed)
                     .offset(x: 0, y: -40)
             }
             #endif

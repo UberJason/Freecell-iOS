@@ -25,7 +25,6 @@ class Game: ObservableObject {
         self.undoManager = undoManager
         self.boardDriver = BoardViewDriver(controlStyle: controlStyle, undoManager: undoManager)
         
-        #warning("TODO: CMD+N for New Game on iPad?")
         NotificationCenter.default
             .publisher(for: .newGame)
             .sink { [unowned self] _ in
@@ -51,11 +50,33 @@ class Game: ObservableObject {
     }
 }
 
-struct ContentView: View {
+struct ContentView: View, GameAlerting {
+    enum AlertType {
+        case newGame, restartGame
+    }
+    
     @ObservedObject var game: Game
-
+    @State var alertShowing = false
+    @State var alertType = AlertType.newGame
+    
     var body: some View {
         GameView(boardDriver: game.boardDriver)
+            .onReceive(NotificationCenter.default.publisher(for: .newGameRequested)) { _ in
+                self.alertType = .newGame
+                self.alertShowing.toggle()
+            }
+            .onReceive(NotificationCenter.default.publisher(for: .restartGameRequested)) { _ in
+                self.alertType = .restartGame
+                self.alertShowing.toggle()
+            }
+            .alert(isPresented: $alertShowing) {
+                switch alertType {
+                case .newGame:
+                    return newGameAlert()
+                case .restartGame:
+                    return restartGameAlert()
+                }
+        }
     }
 }
 

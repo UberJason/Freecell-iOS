@@ -63,9 +63,11 @@ class GameHostingController: StatusBarHidingFirstResponderHostingController<Cont
     
     @objc func postNewGame() {
         print("Post New Game")
+        NotificationCenter.default.post(name: .newGameRequested, object: nil)
     }
     
     @objc func postRestartGame() {
         print("Post Restart Game")
+        NotificationCenter.default.post(name: .restartGameRequested, object: nil)
     }
 }
