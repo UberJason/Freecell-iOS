@@ -43,6 +43,13 @@ class GameHostingController: StatusBarHidingFirstResponderHostingController<Cont
         fatalError("init(coder:) not implemented")
     }
     
+    override var keyCommands: [UIKeyCommand]? {
+        [
+            UIKeyCommand(title: "New Game", action: #selector(postNewGame), input: "n", modifierFlags: .command),
+            UIKeyCommand(title: "Restart Game", action: #selector(postRestartGame), input: "r", modifierFlags: [.command, .shift])
+        ]
+    }
+    
     func showMenu() {
         print("show Menu")
         let settingsView = SettingsView()
@@ -52,5 +59,13 @@ class GameHostingController: StatusBarHidingFirstResponderHostingController<Cont
         
         present(hostingController, animated: true, completion: nil)
         
+    }
+    
+    @objc func postNewGame() {
+        print("Post New Game")
+    }
+    
+    @objc func postRestartGame() {
+        print("Post Restart Game")
     }
 }
