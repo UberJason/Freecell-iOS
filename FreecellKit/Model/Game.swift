@@ -15,7 +15,7 @@ public class Game: ObservableObject {
     
     var cancellables = Set<AnyCancellable>()
     
-    @UserDefault(key: "controlStyle", defaultValue: .modern)
+    @UserDefault(key: "controlStyle", defaultValue: .default)
     var controlStyle: ControlStyle
     
     public init(undoManager: UndoManager? = nil) {

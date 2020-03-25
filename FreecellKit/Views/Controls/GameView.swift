@@ -48,7 +48,6 @@ public struct GameView: View, GameAlerting {
             #endif
 
         }
-        .edgesIgnoringSafeArea(.all)
         .onReceive(NotificationCenter.default.publisher(for: .newGameRequested)) { _ in
             self.alertType = .newGame
             self.alertShowing.toggle()

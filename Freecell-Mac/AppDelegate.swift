@@ -40,7 +40,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     }
 
     @IBAction func newGame(_ sender: Any) {
-        NotificationCenter.default.post(name: .newGame, object: nil)
+        NotificationCenter.default.post(name: .newGameRequested, object: nil)
     }
     
     @IBAction func undoMove(_ sender: Any) {
