@@ -38,7 +38,6 @@ struct ControlsView: View {
                 }.padding(.top, 6).padding(.all, 6).hoverEffect(.automatic)
                 
                 Button(action: {
-                    print("Settings")
                     NotificationCenter.default.post(name: .showMenu, object: nil)
                 }) {
                     VStack {

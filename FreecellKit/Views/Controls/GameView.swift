@@ -15,7 +15,7 @@ public struct GameView: View, GameAlerting {
     }
     
     @ObservedObject var boardDriver: BoardViewDriver
-    @State var alertShowing = false
+    @State var presentAlert = false
     @State var alertType = AlertType.newGame
     
     public init(boardDriver: BoardViewDriver) {
@@ -46,17 +46,17 @@ public struct GameView: View, GameAlerting {
                     .transition(.opacity)
             }
             #endif
-
         }
         .onReceive(NotificationCenter.default.publisher(for: .newGameRequested)) { _ in
             self.alertType = .newGame
-            self.alertShowing.toggle()
+            self.presentAlert.toggle()
         }
         .onReceive(NotificationCenter.default.publisher(for: .restartGameRequested)) { _ in
             self.alertType = .restartGame
-            self.alertShowing.toggle()
+            self.presentAlert.toggle()
         }
-        .alert(isPresented: $alertShowing) {
+        .alert(isPresented: $presentAlert) {
+            #warning("Alert presents once per second on Mac")
             switch alertType {
             case .newGame:
                 return newGameAlert()

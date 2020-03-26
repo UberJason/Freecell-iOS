@@ -39,6 +39,10 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         // Insert code here to tear down your application
     }
 
+    @IBAction func restartGame(_ sender: Any) {
+        NotificationCenter.default.post(name: .restartGameRequested, object: nil)
+    }
+    
     @IBAction func newGame(_ sender: Any) {
         NotificationCenter.default.post(name: .newGameRequested, object: nil)
     }

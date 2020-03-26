@@ -134,11 +134,10 @@ public class BoardViewDriver: ObservableObject {
         
         NotificationCenter.default
             .publisher(for: .updateControlStyle)
-            .compactMap { $0.userInfo?["controlStyle"] as? String }
-            .compactMap { ControlStyle(rawValue: $0) }
-            .sink { [unowned self] in
-                self.controlStyle = $0
-            }
+            .decode(to: ControlStyle.self)
+            .sink(receiveCompletion: { _ in }, receiveValue: { [unowned self] result in
+                self.controlStyle = result
+            })
             .store(in: &cancellable)
     }
     

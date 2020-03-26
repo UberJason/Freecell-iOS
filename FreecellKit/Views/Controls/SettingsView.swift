@@ -11,12 +11,11 @@ import SwiftUI
 #if os(iOS)
 
 class ControlStyleStore: ObservableObject {
-    @UserDefault(key: "controlStyle", defaultValue: .modern)
+    @UserDefault(key: "controlStyle", defaultValue: .default)
     var controlStyle: ControlStyle {
         didSet {
             objectWillChange.send()
-            print("control style is now: \(controlStyle.rawValue)")
-            NotificationCenter.default.post(name: .updateControlStyle, object: nil, userInfo: ["controlStyle": controlStyle.rawValue])
+            try? NotificationCenter.default.post(.updateControlStyle, value: controlStyle)
         }
     }
 }

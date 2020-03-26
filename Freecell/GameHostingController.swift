@@ -30,9 +30,6 @@ class GameHostingController: StatusBarHidingFirstResponderHostingController<Cont
                 self.dismiss(animated: true, completion: nil)
             }
             .store(in: &cancellables)
-        
-        let store = FreecellStore()
-        print("Records: \(store.allRecords().count)")
     }
     
     override init?(coder aDecoder: NSCoder, rootView: ContentView) {
@@ -51,7 +48,6 @@ class GameHostingController: StatusBarHidingFirstResponderHostingController<Cont
     }
     
     func showMenu() {
-        print("show Menu")
         let settingsView = SettingsView()
         
         let hostingController = StatusBarHidingFirstResponderHostingController(rootView: settingsView)
@@ -62,12 +58,10 @@ class GameHostingController: StatusBarHidingFirstResponderHostingController<Cont
     }
     
     @objc func postNewGame() {
-        print("Post New Game")
         NotificationCenter.default.post(name: .newGameRequested, object: nil)
     }
     
     @objc func postRestartGame() {
-        print("Post Restart Game")
         NotificationCenter.default.post(name: .restartGameRequested, object: nil)
     }
 }
