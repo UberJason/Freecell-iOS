@@ -15,7 +15,7 @@ struct ControlsView: View {
     var gameManager: GameStateProvider
     
     var body: some View {
-        VStack(spacing: 30) {
+        VStack(spacing: 16) {
             VStack(alignment: .leading, spacing: 0) {
                 Text(timeString)
                 Text("\(moves) \(movesText())")

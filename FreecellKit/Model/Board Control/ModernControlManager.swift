@@ -110,6 +110,12 @@ public class ModernControlManager: ControlManager {
     }
     
     public func storeCellPositions(_ anchors: [CellInfo], using geometry: GeometryProxy) {
+        #warning("Fix storeCellPositions causing drag bugs.")
+        #warning("Replace cellId: UUID with a nicer string like freecell-0 - makes it much easier to debug")
+        // TODO:
+        // When the app is first launched on iPad Pro 11, the first freecell has x-position = 70. When changing control schemes to classic and back to modern, it's now x-position = 170.
+        // The x-position=70 seems quite wrong, there's probably 100pts of padding on the left side.
+        // This is the cause of the drag bugs and should be investigated.
         if cellPositions.isEmpty {
             cellPositions = anchors.map { CellPosition(cellId: $0.cellId, position: geometry[$0.bounds].center) }
         }
