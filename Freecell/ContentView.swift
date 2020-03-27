@@ -15,7 +15,7 @@ struct ContentView: View {
     @ObservedObject var game: Game
     
     var body: some View {
-        GameView(boardDriver: game.boardDriver)
+        GameView(game: game)
     }
 }
 

@@ -12,7 +12,7 @@ import SwiftUI
 struct ControlsView: View {
     let timeString: String
     let moves: Int
-    var boardDriver: BoardViewDriver
+    var gameManager: GameStateProvider
     
     var body: some View {
         VStack(spacing: 30) {
@@ -24,7 +24,7 @@ struct ControlsView: View {
             .font(.system(size: 15, weight: .semibold, design: .rounded))
             HStack(spacing: 0) {
                 Button(action: {
-                    self.boardDriver.undo()
+                    self.gameManager.undo()
                 }) {
                     VStack {
                         Image.undo
@@ -32,8 +32,8 @@ struct ControlsView: View {
                             .font(.system(size: 30))
                         Text("Undo").foregroundColor(.white)
                     }
-                    .disabled(boardDriver.gameState == .won)
-                    .opacity(boardDriver.gameState == .won ? 0.5 : 1.0)
+                    .disabled(gameManager.gameState == .won)
+                    .opacity(gameManager.gameState == .won ? 0.5 : 1.0)
                     
                 }.padding(.top, 6).padding(.all, 6).hoverEffect(.automatic)
                 
@@ -59,7 +59,7 @@ struct ControlsView: View {
 
 struct ControlsView_Previews: PreviewProvider {
     static var previews: some View {
-        ControlsView(timeString: "0:04", moves: 4, boardDriver: BoardViewDriver(controlStyle: .modern))
+        ControlsView(timeString: "0:04", moves: 4, gameManager: Game())
             .frame(width: 150, height: 300)
             .background(Color.green)
             .previewLayout(.fixed(width: 150, height: 300))

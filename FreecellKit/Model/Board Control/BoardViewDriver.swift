@@ -30,13 +30,6 @@ public class BoardViewDriver: ObservableObject {
     private var columnTilingStates: [ColumnExpansionState]
     
     @Published public var renderingBoard: Board
-    public var gameState = GameState.new {
-        didSet {
-            if gameState == .won {
-                handleWinState()
-            }
-        }
-    }
     
     public var controlStyle: ControlStyle = .modern {
         didSet {
@@ -44,21 +37,9 @@ public class BoardViewDriver: ObservableObject {
         }
     }
     
+    weak var gameStateProvider: GameStateProvider?
     lazy var controlManager: ControlManager = ModernControlManager(boardProvider: self)
-    
-    var moveTimerFormatter: DateComponentsFormatter = {
-        let f = DateComponentsFormatter()
-        f.allowedUnits = [.minute, .second]
-        f.zeroFormattingBehavior = .pad
-        f.unitsStyle = .positional
-        return f
-    }()
-    
-    #warning("Consider moving details about the move, etc into the top-level Game class - these responsibilities don't really belong to a *Board* driver")
-    @Published public var moveTimeString: String = "00:00"
-    @Published public var moves: Int = 0
-    private var moveTime: TimeInterval = 0.0
-    
+ 
     public var allCards: [Card] {
         return freecells.flatMap({ $0.items }) +
         foundations.flatMap({ $0.items }) +
@@ -68,14 +49,14 @@ public class BoardViewDriver: ObservableObject {
     internal var animationOffsetInterval = 75
     internal var moveEventSubscriber: AnyCancellable?
     internal var cancellable = Set<AnyCancellable>()
-    internal var timerCancellable: AnyCancellable?
     internal var undoManager: UndoManager?
     internal var _board = Board(deck: Deck(shuffled: true))
     internal var previousBoards = [Board]()
     
     #warning("Investigate memory leaks")
-    public init(controlStyle: ControlStyle, undoManager: UndoManager? = nil) {
+    public init(controlStyle: ControlStyle, gameStateProvider: GameStateProvider, undoManager: UndoManager? = nil) {
         self.controlStyle = controlStyle
+        self.gameStateProvider = gameStateProvider
         self.undoManager = undoManager
         
         renderingBoard = _board.copy
@@ -84,15 +65,11 @@ public class BoardViewDriver: ObservableObject {
         
         configureControlManager()
         configureRendering()
-        configureMoveTimer()
         configureLossSubscriber()
     }
     
     private func configureLossSubscriber() {
-        NotificationCenter.default
-            .publisher(for: .postLoss)
-            .sink { [weak self] _ in self?.postResult(.loss) }
-            .store(in: &cancellable)
+
     }
     
     private func configureControlManager() {
@@ -102,19 +79,6 @@ public class BoardViewDriver: ObservableObject {
         case .modern:
             controlManager = ModernControlManager(boardProvider: self)
         }
-    }
-    
-    private func configureMoveTimer() {
-        timerCancellable = Timer.publish(every: 1.0, on: .main, in: .common)
-            .autoconnect()
-            .scan(0.0, { (value, _) in
-                value + 1.0
-            })
-            .map { [weak self] in (time: $0, string: self?.moveTimerFormatter.string(from: $0) ?? "") }
-            .sink { [weak self] in
-                self?.moveTime = $0.time
-                self?.moveTimeString = $0.string
-            }
     }
     
     private func configureRendering() {
@@ -128,7 +92,10 @@ public class BoardViewDriver: ObservableObject {
             .sink { [weak self] in
                 guard let self = self else { return }
                 self.renderingBoard = $0
-                self.gameState = $0.isCompleted ? .won : .inProgress
+                if $0.isCompleted {
+                    NotificationCenter.default.post(name: .postWin, object: nil)
+                    self.handleWinState()
+                }
             }
             .store(in: &cancellable)
         
@@ -147,7 +114,7 @@ public class BoardViewDriver: ObservableObject {
     
     @objc func performUndo() {
         guard previousBoards.count > 0 else { return }
-        moves -= 1
+        gameStateProvider?.decrementMoves()
         
         setBoard(previousBoards.removeLast())
     }
@@ -155,9 +122,7 @@ public class BoardViewDriver: ObservableObject {
     public func restartGame() {
         guard let first = previousBoards.first else { return }
         previousBoards = []
-        moves = 0
-        moveTimeString = "00:00"
-        configureMoveTimer()
+
         setBoard(first)
     }
     
@@ -166,17 +131,11 @@ public class BoardViewDriver: ObservableObject {
         configureRendering()
     }
     
-    private func handleWinState() {
+    func handleWinState() {
         previousBoards = []
-        postResult(.win)
-        NotificationCenter.default.post(name: .performBombAnimation, object: nil)
-        timerCancellable?.cancel()
+
     }
-    
-    private func postResult(_ result: GameResult) {
-        let result = JSONGameRecord(result: result, moves: moves, time: moveTime)
-        try? NotificationCenter.default.post(.recordResult, value: result)
-    }
+
 }
 
 // MARK: - Column Expansion State -
@@ -255,14 +214,14 @@ extension BoardViewDriver: BoardProvider {
     var board: Board { return _board }
 
     func registerMove() {
-        moves += 1
+        gameStateProvider?.incrementMoves()
         previousBoards.append(_board.copy)
         undoManager?.registerUndo(withTarget: self, selector: #selector(performUndo), object: nil)
     }
     
     func rollbackFailedMove(with error: Error) {
         previousBoards.removeLast()
-        moves -= 1
+        gameStateProvider?.decrementMoves()
         #if os(macOS)
         NSSound.beep()
         #endif

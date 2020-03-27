@@ -18,8 +18,11 @@ public struct BoardView: View, StackOffsetting {
     @GestureState var dragState: DragState = .inactive
     @State var totalColumnWidth: CGFloat? = nil
     
-    public init(boardDriver: BoardViewDriver) {
+    var gameStateProvider: GameStateProvider
+    
+    public init(boardDriver: BoardViewDriver, gameStateProvider: GameStateProvider) {
         self.boardDriver = boardDriver
+        self.gameStateProvider = gameStateProvider
     }
     
     public var body: some View {
@@ -46,7 +49,7 @@ public struct BoardView: View, StackOffsetting {
                             
                             Spacer()
                             #if !os(macOS)
-                            ControlsView(timeString: self.boardDriver.moveTimeString, moves: self.boardDriver.moves, boardDriver: self.boardDriver)
+                            ControlsView(timeString: self.gameStateProvider.moveTimeString, moves: self.gameStateProvider.moves, gameManager: self.gameStateProvider)
                             Spacer()
                             #endif
                             
@@ -169,7 +172,8 @@ public struct BoardView: View, StackOffsetting {
 
 struct BoardView_Previews: PreviewProvider {
     static var previews: some View {
-        BoardView(boardDriver: BoardViewDriver(controlStyle: .modern))
+        let g = Game()
+        return BoardView(boardDriver: BoardViewDriver(controlStyle: .modern, gameStateProvider: g), gameStateProvider: g)
 //            .previewLayout(.fixed(width: 1400, height: 1200))
         //            .previewLayout(.fixed(width: 1194, height: 834))
                     .previewLayout(.fixed(width: 1024, height: 768))

@@ -24,6 +24,7 @@ public extension Notification.Name {
     
     static let recordResult = Notification.Name("recordResult")
     static let postLoss = Notification.Name(rawValue: "postLoss")
+    static let postWin = Notification.Name(rawValue: "postWin")
     
     static let updateControlStyle = Notification.Name(rawValue: "updateControlStyle")
 }

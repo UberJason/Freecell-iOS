@@ -14,17 +14,17 @@ public struct GameView: View, GameAlerting {
         case newGame, restartGame
     }
     
-    @ObservedObject var boardDriver: BoardViewDriver
+    @ObservedObject var game: Game
     @State var presentAlert = false
     @State var alertType = AlertType.newGame
     
-    public init(boardDriver: BoardViewDriver) {
-        self.boardDriver = boardDriver
+    public init(game: Game) {
+        self.game = game
     }
     
     public var body: some View {
         ZStack {
-            BoardView(boardDriver: boardDriver)
+            BoardView(boardDriver: game.boardDriver, gameStateProvider: game)
             #if os(iOS)
             HStack {
                 EmojiBombView()
@@ -38,10 +38,10 @@ public struct GameView: View, GameAlerting {
                     .offset(x: 0, y: 70)
                 }.offset(x: 0, y: -50)
                 .allowsHitTesting(false)
-            if boardDriver.gameState == .won {
+            if game.gameState == .won {
                 YouWinView()
                     .offset(x: 0, y: 100)
-                    .environmentObject(boardDriver)
+                    .environmentObject(game.boardDriver)
                     .animation(.default)
                     .transition(.opacity)
             }
@@ -68,8 +68,10 @@ public struct GameView: View, GameAlerting {
 }
 
 struct GameView_Previews: PreviewProvider {
-    static let driver: BoardViewDriver = {
-        let d = BoardViewDriver(controlStyle: .modern)
+    static let game: Game = {
+        let g = Game()
+        
+        let d = BoardViewDriver(controlStyle: .modern, gameStateProvider: g)
         d._board = Board.preconfigured(withFreecells: (0..<4).map { _ in FreeCell() },
                                        foundations: [
                                         Foundation(topCard: Card.king.ofClubs)!,
@@ -79,16 +81,17 @@ struct GameView_Previews: PreviewProvider {
                                         ],
                                        columns: (0...7).map { _ in Column() })
         d.renderingBoard = d._board
-        d.gameState = .won
-        return d
+        
+        g.boardDriver = d
+        return g
     }()
     
     static var previews: some View {
         Group {
-        GameView(boardDriver: driver)
+        GameView(game: game)
             .previewDevice("iPad Mini")
             .previewLayout(.fixed(width: 1024, height: 768))
-        GameView(boardDriver: driver)
+        GameView(game: game)
             .previewDevice("iPad Pro 11")
             .previewLayout(.fixed(width: 1194, height: 834))
         }
