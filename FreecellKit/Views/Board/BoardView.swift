@@ -41,9 +41,7 @@ public struct BoardView: View, StackOffsetting {
                                         .onTapGesture {
                                             self.boardDriver.itemTapped(freeCell)
                                     }
-                                    .anchorPreference(key: CellInfoKey.self, value: .bounds, transform: { bounds in
-                                        [CellInfo(cellId: freeCell.id, bounds: bounds)]
-                                    })
+                                    .anchorPreference(key: CellInfoKey.self, value: .bounds) { bounds in [CellInfo(cellId: freeCell.id, bounds: bounds)] }
                                 }
                             }
                             
@@ -60,12 +58,16 @@ public struct BoardView: View, StackOffsetting {
                                         .onTapGesture {
                                             self.boardDriver.itemTapped(foundation)
                                     }
-                                    .anchorPreference(key: CellInfoKey.self, value: .bounds, transform: { bounds in
-                                        [CellInfo(cellId: foundation.id, bounds: bounds)]
-                                    })
+                                    .anchorPreference(key: CellInfoKey.self, value: .bounds) { bounds in [CellInfo(cellId: foundation.id, bounds: bounds)] }
                                 }
                             }
-                        }.frame(width: self.totalColumnWidth)
+                        }
+                        .frame(width: self.totalColumnWidth)
+                        .anchorPreference(key: TopStackBoundsKey.self, value: .bounds) { bounds in
+                            let b = TopStackBounds(bounds: bounds)
+                            return b
+                            
+                        }
                         
                         HStack(spacing: 22.0) {
                             ForEach(self.boardDriver.columns) { column in
@@ -78,13 +80,11 @@ public struct BoardView: View, StackOffsetting {
                                     .onTapGesture {
                                         self.boardDriver.itemTapped(column)
                                 }
-                                .anchorPreference(key: CellInfoKey.self, value: .bounds, transform: { bounds in
-                                    [CellInfo(cellId: column.id, bounds: bounds)]
-                                })
+                                .anchorPreference(key: CellInfoKey.self, value: .bounds) { bounds in [CellInfo(cellId: column.id, bounds: bounds)] }
                             }
                         }
-                        .anchorPreference(key: ColumnWidthKey.self, value: .bounds, transform: { bounds in ColumnWidth(bounds: bounds) })
-                        .onPreferenceChange(ColumnWidthKey.self) { (preference) in
+                        .anchorPreference(key: ColumnStackWidthKey.self, value: .bounds) { bounds in ColumnStackWidth(bounds: bounds) }
+                        .onPreferenceChange(ColumnStackWidthKey.self) { (preference) in
                             guard let bounds = preference.bounds else { return }
                             self.totalColumnWidth = proxy[bounds].width
                         }

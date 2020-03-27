@@ -54,6 +54,8 @@
 		9689E18A23AB0BA4008B960B /* SteppingSubscriber.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9689E18823AB0BA4008B960B /* SteppingSubscriber.swift */; };
 		9689E18B23AB0BA4008B960B /* ModulatedPublisher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9689E18923AB0BA4008B960B /* ModulatedPublisher.swift */; };
 		9689E18D23AB0BBB008B960B /* CustomPublisherTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9689E18C23AB0BBB008B960B /* CustomPublisherTests.swift */; };
+		969DD4DB242E645F006873C3 /* CellPosition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 969DD4DA242E645F006873C3 /* CellPosition.swift */; };
+		969DD4DD242E6464006873C3 /* CellDistance.swift in Sources */ = {isa = PBXBuildFile; fileRef = 969DD4DC242E6464006873C3 /* CellDistance.swift */; };
 		96A363F6237CF0FC005C45FB /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96A363F5237CF0FC005C45FB /* AppDelegate.swift */; };
 		96A363F8237CF0FC005C45FB /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96A363F7237CF0FC005C45FB /* SceneDelegate.swift */; };
 		96A363FC237CF0FD005C45FB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 96A363FB237CF0FD005C45FB /* Assets.xcassets */; };
@@ -296,6 +298,8 @@
 		9689E18823AB0BA4008B960B /* SteppingSubscriber.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SteppingSubscriber.swift; sourceTree = "<group>"; };
 		9689E18923AB0BA4008B960B /* ModulatedPublisher.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ModulatedPublisher.swift; sourceTree = "<group>"; };
 		9689E18C23AB0BBB008B960B /* CustomPublisherTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomPublisherTests.swift; sourceTree = "<group>"; };
+		969DD4DA242E645F006873C3 /* CellPosition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CellPosition.swift; sourceTree = "<group>"; };
+		969DD4DC242E6464006873C3 /* CellDistance.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CellDistance.swift; sourceTree = "<group>"; };
 		96A363F2237CF0FC005C45FB /* Freecell.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Freecell.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		96A363F5237CF0FC005C45FB /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		96A363F7237CF0FC005C45FB /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -516,6 +520,8 @@
 				968889392389CB83001DD34B /* Result+SuccessVoid.swift */,
 				964BBF0723A4861C009B4FDE /* Convenience.swift */,
 				965E210524040E01002BA1F7 /* Image+Freecell.swift */,
+				969DD4DA242E645F006873C3 /* CellPosition.swift */,
+				969DD4DC242E6464006873C3 /* CellDistance.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -699,6 +705,7 @@
 				9625628C2381D853003C09AA /* FoundationView.swift */,
 				9625628E2381D857003C09AA /* ColumnView.swift */,
 				962295F323887623005D599B /* BoardView.swift */,
+				9673834C24030FF0004A4525 /* GameView.swift */,
 			);
 			path = Board;
 			sourceTree = "<group>";
@@ -712,7 +719,6 @@
 				96FBBCDE241C6BF0001D1088 /* StatisticsView.swift */,
 				96EDA562241EE07000C05697 /* SelectControlStyleView.swift */,
 				9673834A24030F7E004A4525 /* YouWinView.swift */,
-				9673834C24030FF0004A4525 /* GameView.swift */,
 				96CC08712427EB7000BE2737 /* TilingButton.swift */,
 			);
 			path = Controls;
@@ -1212,6 +1218,7 @@
 				9613245023E12A0600982898 /* CGRect+Center.swift in Sources */,
 				965E210624040E01002BA1F7 /* Image+Freecell.swift in Sources */,
 				961C7FA5242D7F550078E2F7 /* DelayedPropertyWrapper.swift in Sources */,
+				969DD4DD242E6464006873C3 /* CellDistance.swift in Sources */,
 				96EDA559241ECF1F00C05697 /* ControlManager.swift in Sources */,
 				961AC2AA23E4B661003341B0 /* MoveEvent.swift in Sources */,
 				961AC2A823E374AC003341B0 /* Notification+Freecell.swift in Sources */,
@@ -1238,6 +1245,7 @@
 				961C7FA1242BD56C0078E2F7 /* GameAlerting.swift in Sources */,
 				96A36482237E384C005C45FB /* Column.swift in Sources */,
 				96CA9AD0238CC4F000C34A60 /* Card+Id.swift in Sources */,
+				969DD4DB242E645F006873C3 /* CellPosition.swift in Sources */,
 				9625628B2381D84C003C09AA /* FreeCellView.swift in Sources */,
 				9625628D2381D853003C09AA /* FoundationView.swift in Sources */,
 				9689E18B23AB0BA4008B960B /* ModulatedPublisher.swift in Sources */,

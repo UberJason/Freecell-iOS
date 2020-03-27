@@ -47,6 +47,13 @@ public struct GameView: View, GameAlerting {
             }
             #endif
         }
+        .overlayPreferenceValue(TopStackBoundsKey.self) { preferences in
+            return GeometryReader { geometry in
+                ControlsView(timeString: self.game.moveTimeString, moves: self.game.moves, gameManager: self.game).background(Color.red)
+                    .position(geometry[preferences.bounds!].center)
+//                .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
+            }
+        }
         .onReceive(NotificationCenter.default.publisher(for: .newGameRequested)) { _ in
             self.alertType = .newGame
             self.presentAlert.toggle()
@@ -88,12 +95,12 @@ struct GameView_Previews: PreviewProvider {
     
     static var previews: some View {
         Group {
-        GameView(game: game)
-            .previewDevice("iPad Mini")
-            .previewLayout(.fixed(width: 1024, height: 768))
-        GameView(game: game)
-            .previewDevice("iPad Pro 11")
-            .previewLayout(.fixed(width: 1194, height: 834))
+            GameView(game: game)
+                .previewDevice("iPad Mini")
+                .previewLayout(.fixed(width: 1024, height: 768))
+            GameView(game: game)
+                .previewDevice("iPad Pro 11")
+                .previewLayout(.fixed(width: 1194, height: 834))
         }
     }
 }
