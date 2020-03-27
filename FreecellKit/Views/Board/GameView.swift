@@ -48,10 +48,14 @@ public struct GameView: View, GameAlerting {
             #endif
         }
         .overlayPreferenceValue(TopStackBoundsKey.self) { preferences in
-            return GeometryReader { geometry in
+            #if os(macOS)
+            EmptyView()
+            #else
+            GeometryReader { geometry in
                 ControlsView(timeString: self.game.moveTimeString, moves: self.game.moves, gameManager: self.game)
                     .position(geometry[preferences.bounds!].center)
             }
+            #endif
         }
         .onReceive(NotificationCenter.default.publisher(for: .newGameRequested)) { _ in
             self.alertType = .newGame

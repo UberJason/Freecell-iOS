@@ -17,7 +17,7 @@ struct ContentView: View {
     }
     
     var body: some View {
-        GameView(boardDriver: game.boardDriver)
+        GameView(game: game)
     }
 }
 
