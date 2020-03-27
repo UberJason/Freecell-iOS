@@ -82,12 +82,7 @@ public struct BoardView: View, StackOffsetting {
         }
         .overlayPreferenceValue(CellInfoKey.self) { preferences in
             return GeometryReader { geometry in
-                return ZStack {
-                    ForEach(self.boardDriver.allCards) { card in
-                        self.renderedCardView(card, using: geometry, cells: preferences)
-                    }
-                }
-                .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
+                self.allRenderedCards(using: geometry, cells: preferences)
             }
         }
         .onTapGesture {
@@ -96,8 +91,17 @@ public struct BoardView: View, StackOffsetting {
         .frame(minWidth: self.totalColumnWidth)
     }
     
-    func renderedCardView(_ card: Card, using geometry: GeometryProxy, cells: [CellInfo]) -> some View {
+    func allRenderedCards(using geometry: GeometryProxy, cells: [CellInfo]) -> some View {
         boardDriver.storeCellPositions(cells, using: geometry)
+        return ZStack {
+            ForEach(self.boardDriver.allCards) { card in
+                self.renderedCardView(card, using: geometry, cells: cells)
+            }
+        }
+        .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
+    }
+    
+    func renderedCardView(_ card: Card, using geometry: GeometryProxy, cells: [CellInfo]) -> some View {
         
         var bounds = CGRect.zero
         var stackOffset = CGSize.zero
