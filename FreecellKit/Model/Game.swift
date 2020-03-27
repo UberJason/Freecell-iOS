@@ -13,7 +13,7 @@ public class Game: ObservableObject, GameStateProvider {
     @Delayed public var boardDriver: BoardViewDriver
     let store = FreecellStore()
     
-    public private(set) var gameState = GameState.new {
+    @Published public private(set) var gameState = GameState.new {
         didSet {
             if gameState == .won {
                 handleWinState()
