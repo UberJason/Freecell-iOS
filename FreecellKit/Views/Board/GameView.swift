@@ -24,7 +24,7 @@ public struct GameView: View, GameAlerting {
     
     public var body: some View {
         ZStack {
-            BoardView(boardDriver: game.boardDriver, gameStateProvider: game)
+            BoardView(boardDriver: game.boardDriver)
             #if os(iOS)
             HStack {
                 EmojiBombView()
@@ -49,9 +49,8 @@ public struct GameView: View, GameAlerting {
         }
         .overlayPreferenceValue(TopStackBoundsKey.self) { preferences in
             return GeometryReader { geometry in
-                ControlsView(timeString: self.game.moveTimeString, moves: self.game.moves, gameManager: self.game).background(Color.red)
+                ControlsView(timeString: self.game.moveTimeString, moves: self.game.moves, gameManager: self.game)
                     .position(geometry[preferences.bounds!].center)
-//                .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
             }
         }
         .onReceive(NotificationCenter.default.publisher(for: .newGameRequested)) { _ in
