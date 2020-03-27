@@ -21,9 +21,12 @@ public class Game: ObservableObject, GameStateProvider {
         }
     }
     
-    @Published public var moveTimeString: String = "00:00"
+    public var moveTimeString: String {
+        return (moveTime == 0) ? "00:00" : moveTimerFormatter.string(from: moveTime)!
+    }
+    
     @Published public var moves: Int = 0
-    private var moveTime: TimeInterval = 0.0
+    @Published private var moveTime: TimeInterval = 0.0
     internal var timerCancellable: AnyCancellable?
     
     var moveTimerFormatter: DateComponentsFormatter = {
@@ -55,7 +58,6 @@ public class Game: ObservableObject, GameStateProvider {
             .publisher(for: .restartGame)
             .sink { [weak self] _ in
                 self?.moves = 0
-                self?.moveTimeString = "00:00"
                 self?.configureMoveTimer()
                 self?.boardDriver.restartGame()
             }
@@ -94,7 +96,6 @@ public class Game: ObservableObject, GameStateProvider {
             .map { [weak self] in (time: $0, string: self?.moveTimerFormatter.string(from: $0) ?? "") }
             .sink { [weak self] in
                 self?.moveTime = $0.time
-                self?.moveTimeString = $0.string
             }
     }
     
@@ -109,7 +110,6 @@ public class Game: ObservableObject, GameStateProvider {
         gameState = .new
         moves = 0
         moveTime = 0.0
-        moveTimeString = "00:00"
         configureMoveTimer()
     }
     
@@ -124,7 +124,7 @@ public class Game: ObservableObject, GameStateProvider {
 }
 
 public protocol GameStateProvider: AnyObject {
-    var moveTimeString: String { get set }
+    var moveTimeString: String { get }
     var moves: Int { get set }
     var gameState: GameState { get }
     
