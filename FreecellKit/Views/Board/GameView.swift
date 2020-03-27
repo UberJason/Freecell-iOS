@@ -24,6 +24,8 @@ public struct GameView: View, GameAlerting {
     
     public var body: some View {
         ZStack {
+            BackgroundColorView()
+                .frame(maxWidth: .infinity, maxHeight: .infinity)
             BoardView(boardDriver: game.boardDriver)
             #if os(iOS)
             HStack {
@@ -46,7 +48,7 @@ public struct GameView: View, GameAlerting {
                     .transition(.opacity)
             }
             #endif
-        }
+        }.edgesIgnoringSafeArea(.all)
         .overlayPreferenceValue(TopStackBoundsKey.self) { preferences in
             #if os(macOS)
             EmptyView()

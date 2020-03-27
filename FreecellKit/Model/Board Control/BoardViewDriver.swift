@@ -65,11 +65,6 @@ public class BoardViewDriver: ObservableObject {
         
         configureControlManager()
         configureRendering()
-        configureLossSubscriber()
-    }
-    
-    private func configureLossSubscriber() {
-
     }
     
     private func configureControlManager() {
