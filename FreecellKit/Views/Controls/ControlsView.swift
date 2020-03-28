@@ -20,7 +20,7 @@ struct ControlsView: View {
                 Text(timeString)
                 Text("\(moves) \(movesText())")
             }
-            .foregroundColor(.cardBackground)
+            .foregroundColor(.white)
             .font(.system(size: 15, weight: .semibold, design: .rounded))
             HStack(spacing: 0) {
                 Button(action: {
@@ -28,9 +28,9 @@ struct ControlsView: View {
                 }) {
                     VStack {
                         Image.undo
-                            .foregroundColor(.cardBackground)
+                            .foregroundColor(.white)
                             .font(.system(size: 30))
-                        Text("Undo").foregroundColor(.cardBackground)
+                        Text("Undo").foregroundColor(.white)
                     }
                     .disabled(gameManager.gameState == .won)
                     .opacity(gameManager.gameState == .won ? 0.5 : 1.0)
@@ -42,9 +42,9 @@ struct ControlsView: View {
                 }) {
                     VStack {
                         Image.settings
-                            .foregroundColor(.cardBackground)
+                            .foregroundColor(.white)
                             .font(.system(size: 30))
-                        Text("Menu").foregroundColor(.cardBackground)
+                        Text("Menu").foregroundColor(.white)
                     }
                     
                 }.padding(.top, 6).padding(.all, 6).hoverEffect(.automatic)

@@ -24,5 +24,5 @@ public extension Notification.Name {
     static let postLoss = Notification.Name(rawValue: "postLoss")
     
     static let updateControlStyle = Notification.Name(rawValue: "updateControlStyle")
-    public static let preferredVisualThemeDidChange = Notification.Name(rawValue: "preferredVisualThemeDidChange")
+    static let preferredVisualThemeDidChange = Notification.Name(rawValue: "preferredVisualThemeDidChange")
 }
