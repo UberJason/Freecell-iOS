@@ -8,6 +8,8 @@
 
 import SwiftUI
 import UIKit
+import Combine
+import FreecellKit
 
 /// UIHostingController subclass which can become first responder.
 /// Necessary in order to be able to respond to undo gestures.

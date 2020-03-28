@@ -11,9 +11,7 @@ import UIKit
 import SwiftUI
 import FreecellKit
 
-class GameHostingController: StatusBarHidingFirstResponderHostingController<ContentView> {
-    var cancellables = Set<AnyCancellable>()
-    
+class GameHostingController: FreecellHostingController {
     override init(rootView: ContentView) {
         super.init(rootView: rootView)
         
