@@ -25,7 +25,7 @@ public struct ColumnView: View {
             #if os(iOS)
             if tilingButtonVisible {
                 TilingButton(isCollapsed: $isCollapsed)
-                    .offset(x: 0, y: -40)
+                    .offset(x: 0, y: -32)
             }
             #endif
             EmptySpotView()

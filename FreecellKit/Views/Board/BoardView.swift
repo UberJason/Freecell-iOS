@@ -25,8 +25,7 @@ public struct BoardView: View, StackOffsetting {
     public var body: some View {
         GeometryReader { proxy in
             ZStack {
-                #warning("Spacing above columns should equal padding above freecells - right now it's 50 vs. 40")
-                VStack(spacing: 50.0) {
+                VStack(spacing: 40.0) {
                     HStack {
                         HStack {
                             ForEach(self.boardDriver.freecells) { freeCell in
@@ -102,14 +101,11 @@ public struct BoardView: View, StackOffsetting {
     }
     
     func renderedCardView(_ card: Card, using geometry: GeometryProxy, cells: [CellInfo]) -> some View {
-        
         var bounds = CGRect.zero
         var stackOffset = CGSize.zero
         
         let containingLocation = boardDriver.cell(containing: card)
-        if let p = cells.filter({
-            $0.cellId == containingLocation.id
-        }).first {
+        if let p = cells.first(where: { $0.cellId == containingLocation.id }) {
             bounds = geometry[p.bounds]
             if let column = containingLocation as? Column {
                 stackOffset = boardDriver.stackOffset(for: card, orderIndex: column.orderIndex(for: card), spacing: boardDriver.cardSpacing(for: column))
@@ -121,18 +117,18 @@ public struct BoardView: View, StackOffsetting {
             .frame(width: bounds.size.width, height: bounds.size.height)
             .overlay(
                 CardRectangle(foregroundColor: boardDriver.cardOverlayColor(for: card), opacity: 0.3)
-        )
+            )
             .scaleEffect(boardDriver.scale(for: card), anchor: .top)
             .animation(cardSpringAnimation)
             .onTapGesture {
                 self.boardDriver.itemTapped(card)
-        }
-        .position(x: bounds.midX, y: bounds.midY + stackOffset.height)
-        .offset(boardDriver.cardOffset(for: card, relativeTo: bounds, dragState: dragState))
-        .animation(cardSpringAnimation)
-        .simultaneousGesture(
-            createDragGesture(for: card)
-        )
+            }
+            .position(x: bounds.midX, y: bounds.midY + stackOffset.height)
+            .offset(boardDriver.cardOffset(for: card, relativeTo: bounds, dragState: dragState))
+            .animation(cardSpringAnimation)
+            .simultaneousGesture(
+                createDragGesture(for: card)
+            )
             .zIndex(boardDriver.zIndex(for: card))
     }
     
@@ -143,10 +139,10 @@ public struct BoardView: View, StackOffsetting {
                     self.boardDriver.dragStarted(from: card)
                 }
                 state = .active(translation: value.translation)
-        }
-        .onEnded { value in
-            self.boardDriver.dragEnded(with: value.translation)
-        }
+            }
+            .onEnded { value in
+                self.boardDriver.dragEnded(with: value.translation)
+            }
         
         return boardDriver.dragGestureAvailable ? gesture : nil
     }
@@ -163,9 +159,10 @@ public struct BoardView: View, StackOffsetting {
 struct BoardView_Previews: PreviewProvider {
     static var previews: some View {
         let g = Game()
+        let driver = BoardViewDriver(controlStyle: .modern, gameStateProvider: g)
         return ZStack {
             BackgroundColorView()
-            BoardView(boardDriver: BoardViewDriver(controlStyle: .modern, gameStateProvider: g))
+            BoardView(boardDriver: driver)
         }
 //            .previewLayout(.fixed(width: 1400, height: 1200))
         //            .previewLayout(.fixed(width: 1194, height: 834))

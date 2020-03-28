@@ -18,7 +18,7 @@ struct TilingButton: View {
             image()
                 .foregroundColor(.freecellBackground)
                 .font(.system(size: 15, weight: .semibold))
-                .frame(width: 22, height: 30)
+                .frame(width: 20, height: 26)
                 .background(
                     RoundedRectangle(cornerRadius: 4).fill(Color.white)
                 )
