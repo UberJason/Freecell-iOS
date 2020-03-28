@@ -88,8 +88,7 @@ public class BoardViewDriver: ObservableObject {
                 guard let self = self else { return }
                 self.renderingBoard = $0
                 if $0.isCompleted {
-                    NotificationCenter.default.post(name: .postWin, object: nil)
-                    self.handleWinState()
+                    self.gameStateProvider?.win()
                 }
             }
             .store(in: &cancellable)
@@ -126,9 +125,8 @@ public class BoardViewDriver: ObservableObject {
         configureRendering()
     }
     
-    func handleWinState() {
+    func clearUndoStack() {
         previousBoards = []
-
     }
 
 }

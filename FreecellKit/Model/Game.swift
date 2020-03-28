@@ -8,6 +8,26 @@
 
 import Combine
 
+public protocol GameStateProvider: AnyObject {
+    var moveTimeString: String { get }
+    var moves: Int { get set }
+    var gameState: GameState { get }
+    
+    func incrementMoves()
+    func decrementMoves()
+    func undo()
+    func win()
+}
+
+public extension GameStateProvider {
+    func incrementMoves() {
+        moves += 1
+    }
+    func decrementMoves() {
+        moves -= 1
+    }
+}
+
 public class Game: ObservableObject, GameStateProvider {
     var undoManager: UndoManager?
     @Delayed public var boardDriver: BoardViewDriver
@@ -57,7 +77,7 @@ public class Game: ObservableObject, GameStateProvider {
         NotificationCenter.default
             .publisher(for: .restartGame)
             .sink { [weak self] _ in
-                self?.moves = 0
+                self?.resetState()
                 self?.configureMoveTimer()
                 self?.boardDriver.restartGame()
             }
@@ -65,15 +85,9 @@ public class Game: ObservableObject, GameStateProvider {
         
         NotificationCenter.default
             .publisher(for: .postLoss)
-            .sink { [weak self] _ in self?.postResult(.loss) }
+            .sink { [weak self] _ in self?.post(result: .loss) }
             .store(in: &cancellables)
-        
-        NotificationCenter.default
-            .publisher(for: .postWin)
-            .map { _ in GameState.won }
-            .sink { [weak self] in self?.gameState = $0 }
-            .store(in: &cancellables)
-        
+
         NotificationCenter.default
             .publisher(for: .recordResult)
             .decode(to: JSONGameRecord.self)
@@ -86,7 +100,7 @@ public class Game: ObservableObject, GameStateProvider {
         configureMoveTimer()
     }
     
-    func configureMoveTimer() {
+    private func configureMoveTimer() {
         timerCancellable?.cancel()
         timerCancellable = Timer.publish(every: 1.0, on: .main, in: .common)
             .autoconnect()
@@ -99,21 +113,21 @@ public class Game: ObservableObject, GameStateProvider {
             }
     }
     
-    func handleWinState() {
-        postResult(.win)
+    private func handleWinState() {
+        post(result: .win)
         NotificationCenter.default.post(name: .performBombAnimation, object: nil)
         timerCancellable?.cancel()
-        boardDriver.handleWinState()
+        boardDriver.clearUndoStack()
     }
     
-    func resetState() {
+    private func resetState() {
         gameState = .new
         moves = 0
         moveTime = 0.0
         configureMoveTimer()
     }
     
-    private func postResult(_ result: GameResult) {
+    private func post(result: GameResult) {
         let result = JSONGameRecord(result: result, moves: moves, time: moveTime)
         try? NotificationCenter.default.post(.recordResult, value: result)
     }
@@ -121,23 +135,8 @@ public class Game: ObservableObject, GameStateProvider {
     public func undo() {
         undoManager?.undo()
     }
-}
-
-public protocol GameStateProvider: AnyObject {
-    var moveTimeString: String { get }
-    var moves: Int { get set }
-    var gameState: GameState { get }
     
-    func incrementMoves()
-    func decrementMoves()
-    func undo()
-}
-
-public extension GameStateProvider {
-    func incrementMoves() {
-        moves += 1
-    }
-    func decrementMoves() {
-        moves -= 1
+    public func win() {
+        gameState = .won
     }
 }

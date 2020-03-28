@@ -15,8 +15,6 @@ public extension Notification.Name {
     static let newGame = Notification.Name(rawValue: "newGame")
     static let restartGame = Notification.Name(rawValue: "restartGame")
     
-    static let performUndo = Notification.Name(rawValue: "performUndo")
-    
     static let performBombAnimation = Notification.Name("performBombAnimation")
     
     static let showMenu = Notification.Name(rawValue: "showMenu")
@@ -24,7 +22,6 @@ public extension Notification.Name {
     
     static let recordResult = Notification.Name("recordResult")
     static let postLoss = Notification.Name(rawValue: "postLoss")
-    static let postWin = Notification.Name(rawValue: "postWin")
     
     static let updateControlStyle = Notification.Name(rawValue: "updateControlStyle")
 }
