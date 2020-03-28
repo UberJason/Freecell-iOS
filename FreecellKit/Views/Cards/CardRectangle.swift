@@ -12,7 +12,7 @@ struct CardRectangle: View {
     let foregroundColor: Color
     let opacity: Double
     
-    init(foregroundColor: Color = .white, opacity: Double = 1.0) {
+    init(foregroundColor: Color = .cardBackground, opacity: Double = 1.0) {
         self.foregroundColor = foregroundColor
         self.opacity = opacity
     }
@@ -34,3 +34,4 @@ struct CardRectangle_Previews: PreviewProvider {
             .previewLayout(.fixed(width: 200, height: 300))
     }
 }
+    

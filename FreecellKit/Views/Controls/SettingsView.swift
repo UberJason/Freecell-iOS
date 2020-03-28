@@ -10,12 +10,19 @@ import SwiftUI
 
 #if os(iOS)
 
-class ControlStyleStore: ObservableObject {
+class SettingsStore: ObservableObject {
     @UserDefault(key: "controlStyle", defaultValue: .default)
     var controlStyle: ControlStyle {
         didSet {
             objectWillChange.send()
             try? NotificationCenter.default.post(.updateControlStyle, value: controlStyle)
+        }
+    }
+
+    @UserDefault(key: UserDefaults.preferredVisualThemeKey, defaultValue: .system)
+    var preferredVisualTheme: VisualTheme {
+        didSet {
+            NotificationCenter.default.post(name: .preferredVisualThemeDidChange, object: nil)
         }
     }
 }
@@ -25,7 +32,7 @@ public struct SettingsView: View, GameAlerting {
     @State var restartGameWarning = false
     
     #warning("If/when SwiftUI 2.0 allows for formSheet presentation, rework to remove GameHostingController, present directly from BoardView, and bind controlStyle to BoardViewDriver.controlStyle directly.")
-    @ObservedObject var store = ControlStyleStore()
+    @ObservedObject var store = SettingsStore()
     
     public init() {}
     
@@ -37,19 +44,27 @@ public struct SettingsView: View, GameAlerting {
                         self.restartGameWarning.toggle()
                     }) {
                         CellRow(leading: Text("Restart Game"), trailing: Image(systemName: "arrow.uturn.left"))
-                            .foregroundColor(.freecellBackground)
+                            .foregroundColor(.freecellTheme)
                     }.alert(isPresented: $restartGameWarning) { restartGameAlert() }
                     Button(action: {
                         self.newGameWarning.toggle()
                     }) {
                         CellRow(leading: Text("New Game"), trailing: Image(systemName: "goforward.plus"))
-                            .foregroundColor(.freecellBackground)
+                            .foregroundColor(.freecellTheme)
                     }.alert(isPresented: $newGameWarning) { newGameAlert() }
                 }
                 
                 Section(header: Text("Settings")) {
+                    CellRow(leading: Text("Visual Theme"), trailing:
+                        Picker("Visual Theme", selection: $store.preferredVisualTheme) {
+                            ForEach(VisualTheme.allCases, id: \.self) { Text($0.title) }
+                        }
+                        .accentColor(.freecellTheme)
+                        .pickerStyle(SegmentedPickerStyle())
+                        .frame(maxWidth: 200)
+                    )
                     NavigationLink(destination: SelectControlStyleView(controlStyle: $store.controlStyle)) {
-                        CellRow(leading: Text("Control Scheme"), trailing: Text(store.controlStyle.rawValue).foregroundColor(.freecellBackground))
+                        CellRow(leading: Text("Control Scheme"), trailing: Text(store.controlStyle.rawValue).foregroundColor(.freecellTheme))
                     }
                     NavigationLink(destination: StatisticsView()) {
                         Text("Statistics")
@@ -64,11 +79,11 @@ public struct SettingsView: View, GameAlerting {
                     NotificationCenter.default.post(name: .dismissMenu, object: nil)
                 }) {
                     Text("Done").fontWeight(.bold)
-                }
+                }.padding([.leading, .top, .bottom], 8)
             )
                 .background(Color(UIColor.systemGroupedBackground))
         }
-        .accentColor(.freecellBackground)
+        .accentColor(.freecellTheme)
     }
 
 }

@@ -19,7 +19,7 @@ struct SelectControlStyleView: View {
                     Button(action: {
                         self.controlStyle = style
                     }) {
-                        CellRow(leading: Text(style.rawValue), trailing: self.image(for: style).foregroundColor(.freecellBackground))
+                        CellRow(leading: Text(style.rawValue), trailing: self.image(for: style).foregroundColor(.freecellTheme))
                     }
                 }
             }

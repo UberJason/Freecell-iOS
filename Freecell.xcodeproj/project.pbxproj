@@ -56,6 +56,10 @@
 		9689E18D23AB0BBB008B960B /* CustomPublisherTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9689E18C23AB0BBB008B960B /* CustomPublisherTests.swift */; };
 		969DD4DB242E645F006873C3 /* CellPosition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 969DD4DA242E645F006873C3 /* CellPosition.swift */; };
 		969DD4DD242E6464006873C3 /* CellDistance.swift in Sources */ = {isa = PBXBuildFile; fileRef = 969DD4DC242E6464006873C3 /* CellDistance.swift */; };
+		969DD4DF242ED7E2006873C3 /* Colors.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 969DD4DE242ED7E2006873C3 /* Colors.xcassets */; };
+		969DD4E1242EDCBC006873C3 /* VisualTheming.swift in Sources */ = {isa = PBXBuildFile; fileRef = 969DD4E0242EDCBC006873C3 /* VisualTheming.swift */; };
+		969DD4E3242EE35C006873C3 /* FreecellHostingController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 969DD4E2242EE35C006873C3 /* FreecellHostingController.swift */; };
+		969DD4E5242EE790006873C3 /* UserDefaults+VisualTheming.swift in Sources */ = {isa = PBXBuildFile; fileRef = 969DD4E4242EE790006873C3 /* UserDefaults+VisualTheming.swift */; };
 		96A363F6237CF0FC005C45FB /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96A363F5237CF0FC005C45FB /* AppDelegate.swift */; };
 		96A363F8237CF0FC005C45FB /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96A363F7237CF0FC005C45FB /* SceneDelegate.swift */; };
 		96A363FC237CF0FD005C45FB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 96A363FB237CF0FD005C45FB /* Assets.xcassets */; };
@@ -300,6 +304,10 @@
 		9689E18C23AB0BBB008B960B /* CustomPublisherTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomPublisherTests.swift; sourceTree = "<group>"; };
 		969DD4DA242E645F006873C3 /* CellPosition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CellPosition.swift; sourceTree = "<group>"; };
 		969DD4DC242E6464006873C3 /* CellDistance.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CellDistance.swift; sourceTree = "<group>"; };
+		969DD4DE242ED7E2006873C3 /* Colors.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Colors.xcassets; sourceTree = "<group>"; };
+		969DD4E0242EDCBC006873C3 /* VisualTheming.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VisualTheming.swift; sourceTree = "<group>"; };
+		969DD4E2242EE35C006873C3 /* FreecellHostingController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FreecellHostingController.swift; sourceTree = "<group>"; };
+		969DD4E4242EE790006873C3 /* UserDefaults+VisualTheming.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UserDefaults+VisualTheming.swift"; sourceTree = "<group>"; };
 		96A363F2237CF0FC005C45FB /* Freecell.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Freecell.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		96A363F5237CF0FC005C45FB /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		96A363F7237CF0FC005C45FB /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -456,6 +464,7 @@
 		962295F623889359005D599B /* Utility */ = {
 			isa = PBXGroup;
 			children = (
+				969DD4E6242EE7A1006873C3 /* Visual Theming */,
 				965E210424040D93002BA1F7 /* Extensions */,
 				96D5BBFE2401877B00550326 /* Emoji Bomb */,
 				9689E18723AB0B8F008B960B /* Publisher */,
@@ -549,6 +558,15 @@
 			path = Publisher;
 			sourceTree = "<group>";
 		};
+		969DD4E6242EE7A1006873C3 /* Visual Theming */ = {
+			isa = PBXGroup;
+			children = (
+				969DD4E0242EDCBC006873C3 /* VisualTheming.swift */,
+				969DD4E4242EE790006873C3 /* UserDefaults+VisualTheming.swift */,
+			);
+			path = "Visual Theming";
+			sourceTree = "<group>";
+		};
 		96A363E9237CF0FC005C45FB = {
 			isa = PBXGroup;
 			children = (
@@ -591,6 +609,7 @@
 				96A363F5237CF0FC005C45FB /* AppDelegate.swift */,
 				96A363F7237CF0FC005C45FB /* SceneDelegate.swift */,
 				96E188B823BBF301008129AF /* StatusBarHidingFirstResponderHostingController.swift */,
+				969DD4E2242EE35C006873C3 /* FreecellHostingController.swift */,
 				96FBBCD5241C6409001D1088 /* GameHostingController.swift */,
 				96A363F9237CF0FC005C45FB /* ContentView.swift */,
 				96A363FB237CF0FD005C45FB /* Assets.xcassets */,
@@ -660,6 +679,7 @@
 				962562862381D824003C09AA /* Views */,
 				962295F623889359005D599B /* Utility */,
 				965E2107240C598C002BA1F7 /* Images.xcassets */,
+				969DD4DE242ED7E2006873C3 /* Colors.xcassets */,
 			);
 			path = FreecellKit;
 			sourceTree = "<group>";
@@ -1007,7 +1027,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 1120;
-				LastUpgradeCheck = 1120;
+				LastUpgradeCheck = 1140;
 				ORGANIZATIONNAME = "Jason Ji";
 				TargetAttributes = {
 					96A363F1237CF0FC005C45FB = {
@@ -1123,6 +1143,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				965E2108240C598C002BA1F7 /* Images.xcassets in Resources */,
+				969DD4DF242ED7E2006873C3 /* Colors.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1164,6 +1185,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				969DD4E3242EE35C006873C3 /* FreecellHostingController.swift in Sources */,
 				96A363F6237CF0FC005C45FB /* AppDelegate.swift in Sources */,
 				96FBBCDD241C67F8001D1088 /* GameHostingController.swift in Sources */,
 				96FBBCDC241C67F8001D1088 /* StatusBarHidingFirstResponderHostingController.swift in Sources */,
@@ -1228,6 +1250,7 @@
 				962562892381D846003C09AA /* CardView.swift in Sources */,
 				96CC08722427EB7000BE2737 /* TilingButton.swift in Sources */,
 				961C7FA3242BDE190078E2F7 /* Game.swift in Sources */,
+				969DD4E1242EDCBC006873C3 /* VisualTheming.swift in Sources */,
 				96A36486237E385B005C45FB /* Foundation.swift in Sources */,
 				9688893A2389CB83001DD34B /* Result+SuccessVoid.swift in Sources */,
 				96FBBCD8241C679C001D1088 /* SettingsView.swift in Sources */,
@@ -1269,6 +1292,7 @@
 				96EDA556241ECEE200C05697 /* GameState.swift in Sources */,
 				9661BFAE23DE86A300DFC5E9 /* AnchorPreferences.swift in Sources */,
 				96A36477237E33D3005C45FB /* Board.swift in Sources */,
+				969DD4E5242EE790006873C3 /* UserDefaults+VisualTheming.swift in Sources */,
 				96A7223C2401814C004F7F47 /* EmojiBombAnimator.swift in Sources */,
 				96FBBCDF241C6BF0001D1088 /* StatisticsView.swift in Sources */,
 				96CC08702426B76600BE2737 /* NotificationCenter+Codable.swift in Sources */,
@@ -1811,7 +1835,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
 				SUPPORTED_PLATFORMS = "iphonesimulator iphoneos macosx";
-				SWIFT_COMPILATION_MODE = singlefile;
+				SWIFT_COMPILATION_MODE = wholemodule;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
