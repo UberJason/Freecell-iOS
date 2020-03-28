@@ -13,7 +13,7 @@ extension Suit {
     var swiftUIColor: Color {
         switch color {
         case .red: return .redSuitColor
-        case .black: return .black
+        case .black: return .blackSuitColor
         }
     }
     

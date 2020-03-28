@@ -11,7 +11,7 @@ import UIKit
 import SwiftUI
 import FreecellKit
 
-class GameHostingController: FreecellHostingController {
+class GameHostingController: FreecellHostingController<ContentView> {
     override init(rootView: ContentView) {
         super.init(rootView: rootView)
         
@@ -48,7 +48,7 @@ class GameHostingController: FreecellHostingController {
     func showMenu() {
         let settingsView = SettingsView()
         
-        let hostingController = StatusBarHidingFirstResponderHostingController(rootView: settingsView)
+        let hostingController = FreecellHostingController(rootView: settingsView)
         hostingController.modalPresentationStyle = .formSheet
         
         present(hostingController, animated: true, completion: nil)
