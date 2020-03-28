@@ -11,26 +11,30 @@ import DeckKit
 
 extension FreeCell: CustomDebugStringConvertible {
     public var debugDescription: String {
-        return "[\(item?.displayTitle ?? " ")]"
+        return "\(id): [\(item?.displayTitle ?? " ")]"
     }
 }
 
 extension Foundation: CustomDebugStringConvertible {
     public var debugDescription: String {
-        return "[\(topItem?.displayTitle ?? " ")]"
+        return "\(id): [\(topItem?.displayTitle ?? " ")]"
     }
 }
 
 extension CardStack: CustomDebugStringConvertible {
     public var debugDescription: String {
-        return "[ " + items.map({ $0.displayTitle }).joined(separator: ", ") + "]"
+        if let column = self as? Column {
+            return "\(column.id): [ " + items.map({ $0.displayTitle }).joined(separator: ", ") + "]"
+        }
+        else {
+            return "[ " + items.map({ $0.displayTitle }).joined(separator: ", ") + "]"
+        }
     }
 }
 
 extension Board: CustomDebugStringConvertible {
     public var debugDescription: String {
         return  """
-                
                 Freecells: \(freecells[0].debugDescription) \(freecells[1].debugDescription) \(freecells[2].debugDescription) \(freecells[3].debugDescription)
                 Foundations: \(foundations[0].debugDescription) \(foundations[1].debugDescription) \(foundations[2].debugDescription) \(foundations[3].debugDescription)
                 Columns:

@@ -15,10 +15,10 @@ import Cocoa
 #endif
 
 class ColumnExpansionState {
-    let id: UUID
+    let id: String
     var isCollapsed = false
     
-    init(id: UUID) {
+    init(id: String) {
         self.id = id
     }
 }
@@ -145,7 +145,7 @@ extension BoardViewDriver: StackOffsetting {
         40.0
     }
     
-    func columnIsCollapsed(_ id: UUID) -> Bool {
+    func columnIsCollapsed(_ id: String) -> Bool {
         return columnTilingStates.filter({ $0.id == id }).first?.isCollapsed ?? false
     }
     
@@ -157,7 +157,7 @@ extension BoardViewDriver: StackOffsetting {
         #endif
     }
 
-    func setTilingState(for columnId: UUID, isCollapsed: Bool) {
+    func setTilingState(for columnId: String, isCollapsed: Bool) {
         columnTilingStates.filter({ $0.id == columnId }).first?.isCollapsed = isCollapsed
         objectWillChange.send()
     }

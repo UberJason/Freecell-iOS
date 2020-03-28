@@ -45,7 +45,8 @@ class BoardTests: XCTestCase {
     }
     
     func testBoardSelectionState() {
-        let boardViewDriver = BoardViewDriver(controlStyle: .classic)
+        let game = Game()
+        let boardViewDriver = BoardViewDriver(controlStyle: .classic, gameStateProvider: game)
         let controlManager = ClassicControlManager(boardProvider: boardViewDriver)
         
         switch controlManager.selectionState {
@@ -77,8 +78,8 @@ class BoardTests: XCTestCase {
         let board = Board(deck: Deck(shuffled: false))
         
         validateLocation(for: board, card: Card.ace.ofSpades, expectedLocation: board.columns[0])
-        validateLocation(for: board, card: Card.queen.ofClubs, expectedLocation: board.columns[1])
-        validateLocation(for: board, card: Card.five.ofClubs, expectedLocation: board.columns[0])
+        validateLocation(for: board, card: Card.queen.ofClubs, expectedLocation: board.columns[4])
+        validateLocation(for: board, card: Card.five.ofClubs, expectedLocation: board.columns[3])
         
         let card = try XCTUnwrap(board.columns[0].pop())
         try! board.freecells[0].push(card)
@@ -88,10 +89,10 @@ class BoardTests: XCTestCase {
         let card2 = try XCTUnwrap(board.columns[7].pop())
         try! board.freecells[1].push(card2)
         let card3 = try XCTUnwrap(board.columns[7].pop())
-        try! board.foundations[1].push(card3)
+        try! board.foundations[0].push(card3)
         
         validateLocation(for: board, card: card2, expectedLocation: board.freecells[1])
-        validateLocation(for: board, card: card3, expectedLocation: board.foundations[1])
+        validateLocation(for: board, card: card3, expectedLocation: board.foundations[0])
     }
     
     func testRankNextHighestOrLowest() throws {

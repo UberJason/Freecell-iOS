@@ -9,6 +9,6 @@
 import CoreGraphics
 
 public struct CellPosition {
-    let cellId: UUID
+    let cellId: String
     let position: CGPoint
 }

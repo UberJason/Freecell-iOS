@@ -9,6 +9,6 @@
 import CoreGraphics
 
 public struct CellDistance {
-    let cellId: UUID
+    let cellId: String
     let distance: CGFloat
 }

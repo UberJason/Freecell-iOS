@@ -99,7 +99,7 @@ class LocationTests: XCTestCase {
     // MARK: - FreeCell Tests -
     func testFreecellOccupied() throws {
         
-        func validate(for board: Board, expectedId: UUID) {
+        func validate(for board: Board, expectedId: String) {
             let availableFreeCell = board.nextAvailableFreecell
             XCTAssertEqual(availableFreeCell?.id, expectedId)
         }

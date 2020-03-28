@@ -11,19 +11,19 @@ import DeckKit
 
 public class Foundation: Stack, Cell, Identifiable {
     
-    public let id: UUID
+    public let id: String
     public let suit: Suit
     var stack = [Card]()
     
     public var maxSize: Int { return 13 }
     public var topItem: Card? { return stack.last ?? nil }
 
-    public init(id: UUID = UUID(), suit: Suit) {
+    public init(id: String = UUID().uuidString, suit: Suit) {
         self.id = id
         self.suit = suit
     }
     
-    public convenience init?(id: UUID = UUID(), topCard: Card) {
+    public convenience init?(id: String = UUID().uuidString, topCard: Card) {
         self.init(id: id, suit: topCard.suit)
         for i in 1 ... topCard.rank.value {
             guard let rank = Rank(value: i) else { return nil }

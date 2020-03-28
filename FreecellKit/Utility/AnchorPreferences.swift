@@ -11,7 +11,7 @@ import SwiftUI
 
 /// CellInfo is used to provide the location of Freecells, Foundations, and Columns.
 public struct CellInfo {
-    let cellId: UUID
+    let cellId: String
     let bounds: Anchor<CGRect>
 }
 
