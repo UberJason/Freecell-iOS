@@ -79,7 +79,7 @@ public struct SettingsView: View, GameAlerting {
                     NotificationCenter.default.post(name: .dismissMenu, object: nil)
                 }) {
                     Text("Done").fontWeight(.bold)
-                }
+                }.padding([.leading, .top, .bottom], 8)
             )
                 .background(Color(UIColor.systemGroupedBackground))
         }
