@@ -12,6 +12,9 @@
 		9616A1D723FB7176007CABA1 /* ControlsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9616A1D623FB7176007CABA1 /* ControlsView.swift */; };
 		961AC2A823E374AC003341B0 /* Notification+Freecell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 961AC2A723E374AC003341B0 /* Notification+Freecell.swift */; };
 		961AC2AA23E4B661003341B0 /* MoveEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 961AC2A923E4B661003341B0 /* MoveEvent.swift */; };
+		961C7FA1242BD56C0078E2F7 /* GameAlerting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 961C7FA0242BD56C0078E2F7 /* GameAlerting.swift */; };
+		961C7FA3242BDE190078E2F7 /* Game.swift in Sources */ = {isa = PBXBuildFile; fileRef = 961C7FA2242BDE190078E2F7 /* Game.swift */; };
+		961C7FA5242D7F550078E2F7 /* DelayedPropertyWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 961C7FA4242D7F550078E2F7 /* DelayedPropertyWrapper.swift */; };
 		9622959A23835A7B005D599B /* Cell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9622959923835A7B005D599B /* Cell.swift */; };
 		9622959C238393BA005D599B /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96A363F9237CF0FC005C45FB /* ContentView.swift */; };
 		962295F223884563005D599B /* CardRectangle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 962295F123884563005D599B /* CardRectangle.swift */; };
@@ -51,6 +54,8 @@
 		9689E18A23AB0BA4008B960B /* SteppingSubscriber.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9689E18823AB0BA4008B960B /* SteppingSubscriber.swift */; };
 		9689E18B23AB0BA4008B960B /* ModulatedPublisher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9689E18923AB0BA4008B960B /* ModulatedPublisher.swift */; };
 		9689E18D23AB0BBB008B960B /* CustomPublisherTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9689E18C23AB0BBB008B960B /* CustomPublisherTests.swift */; };
+		969DD4DB242E645F006873C3 /* CellPosition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 969DD4DA242E645F006873C3 /* CellPosition.swift */; };
+		969DD4DD242E6464006873C3 /* CellDistance.swift in Sources */ = {isa = PBXBuildFile; fileRef = 969DD4DC242E6464006873C3 /* CellDistance.swift */; };
 		96A363F6237CF0FC005C45FB /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96A363F5237CF0FC005C45FB /* AppDelegate.swift */; };
 		96A363F8237CF0FC005C45FB /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96A363F7237CF0FC005C45FB /* SceneDelegate.swift */; };
 		96A363FC237CF0FD005C45FB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 96A363FB237CF0FD005C45FB /* Assets.xcassets */; };
@@ -98,7 +103,7 @@
 		96CA9B0A238F0E5C00C34A60 /* FreecellKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 96A36459237E33BF005C45FB /* FreecellKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		96CA9B0E239300C300C34A60 /* BoardViewDriver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96CA9B0D239300C300C34A60 /* BoardViewDriver.swift */; };
 		96CC08702426B76600BE2737 /* NotificationCenter+Codable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96CC086F2426B76600BE2737 /* NotificationCenter+Codable.swift */; };
-		96CC08722427EB7000BE2737 /* ExpandCollapseButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96CC08712427EB7000BE2737 /* ExpandCollapseButton.swift */; };
+		96CC08722427EB7000BE2737 /* TilingButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96CC08712427EB7000BE2737 /* TilingButton.swift */; };
 		96EDA556241ECEE200C05697 /* GameState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96EDA555241ECEE200C05697 /* GameState.swift */; };
 		96EDA559241ECF1F00C05697 /* ControlManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96EDA558241ECF1F00C05697 /* ControlManager.swift */; };
 		96EDA55B241ECF5E00C05697 /* BoardProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96EDA55A241ECF5E00C05697 /* BoardProvider.swift */; };
@@ -251,6 +256,9 @@
 		9616A1D623FB7176007CABA1 /* ControlsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ControlsView.swift; sourceTree = "<group>"; };
 		961AC2A723E374AC003341B0 /* Notification+Freecell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Notification+Freecell.swift"; sourceTree = "<group>"; };
 		961AC2A923E4B661003341B0 /* MoveEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoveEvent.swift; sourceTree = "<group>"; };
+		961C7FA0242BD56C0078E2F7 /* GameAlerting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameAlerting.swift; sourceTree = "<group>"; };
+		961C7FA2242BDE190078E2F7 /* Game.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Game.swift; sourceTree = "<group>"; };
+		961C7FA4242D7F550078E2F7 /* DelayedPropertyWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DelayedPropertyWrapper.swift; sourceTree = "<group>"; };
 		9622959923835A7B005D599B /* Cell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Cell.swift; sourceTree = "<group>"; };
 		962295F123884563005D599B /* CardRectangle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardRectangle.swift; sourceTree = "<group>"; };
 		962295F323887623005D599B /* BoardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = BoardView.swift; path = FreecellKit/Views/Board/BoardView.swift; sourceTree = SOURCE_ROOT; };
@@ -290,6 +298,8 @@
 		9689E18823AB0BA4008B960B /* SteppingSubscriber.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SteppingSubscriber.swift; sourceTree = "<group>"; };
 		9689E18923AB0BA4008B960B /* ModulatedPublisher.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ModulatedPublisher.swift; sourceTree = "<group>"; };
 		9689E18C23AB0BBB008B960B /* CustomPublisherTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomPublisherTests.swift; sourceTree = "<group>"; };
+		969DD4DA242E645F006873C3 /* CellPosition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CellPosition.swift; sourceTree = "<group>"; };
+		969DD4DC242E6464006873C3 /* CellDistance.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CellDistance.swift; sourceTree = "<group>"; };
 		96A363F2237CF0FC005C45FB /* Freecell.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Freecell.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		96A363F5237CF0FC005C45FB /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		96A363F7237CF0FC005C45FB /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -348,7 +358,7 @@
 		96CA9AFA238F0E4B00C34A60 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		96CA9B0D239300C300C34A60 /* BoardViewDriver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoardViewDriver.swift; sourceTree = "<group>"; };
 		96CC086F2426B76600BE2737 /* NotificationCenter+Codable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NotificationCenter+Codable.swift"; sourceTree = "<group>"; };
-		96CC08712427EB7000BE2737 /* ExpandCollapseButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpandCollapseButton.swift; sourceTree = "<group>"; };
+		96CC08712427EB7000BE2737 /* TilingButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TilingButton.swift; sourceTree = "<group>"; };
 		96E188B823BBF301008129AF /* StatusBarHidingFirstResponderHostingController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusBarHidingFirstResponderHostingController.swift; sourceTree = "<group>"; };
 		96EDA555241ECEE200C05697 /* GameState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameState.swift; sourceTree = "<group>"; };
 		96EDA558241ECF1F00C05697 /* ControlManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ControlManager.swift; sourceTree = "<group>"; };
@@ -453,9 +463,11 @@
 				9627FECF23AB19CF00F8F63B /* CustomDebugStrings.swift */,
 				9661BFAD23DE86A300DFC5E9 /* AnchorPreferences.swift */,
 				962621BF241E902000B3637A /* UserDefaultPropertyWrapper.swift */,
+				961C7FA4242D7F550078E2F7 /* DelayedPropertyWrapper.swift */,
 				96EDA55C241ECF7C00C05697 /* ControlStyle.swift */,
 				96EDA555241ECEE200C05697 /* GameState.swift */,
 				96A36487237E3894005C45FB /* FreecellError.swift */,
+				961C7FA0242BD56C0078E2F7 /* GameAlerting.swift */,
 			);
 			path = Utility;
 			sourceTree = "<group>";
@@ -480,6 +492,7 @@
 				96A36485237E385B005C45FB /* Foundation.swift */,
 				96A36481237E384C005C45FB /* Column.swift */,
 				96A36476237E33D3005C45FB /* Board.swift */,
+				961C7FA2242BDE190078E2F7 /* Game.swift */,
 				96EDA557241ECF0C00C05697 /* Board Control */,
 			);
 			path = Model;
@@ -507,6 +520,8 @@
 				968889392389CB83001DD34B /* Result+SuccessVoid.swift */,
 				964BBF0723A4861C009B4FDE /* Convenience.swift */,
 				965E210524040E01002BA1F7 /* Image+Freecell.swift */,
+				969DD4DA242E645F006873C3 /* CellPosition.swift */,
+				969DD4DC242E6464006873C3 /* CellDistance.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -690,6 +705,7 @@
 				9625628C2381D853003C09AA /* FoundationView.swift */,
 				9625628E2381D857003C09AA /* ColumnView.swift */,
 				962295F323887623005D599B /* BoardView.swift */,
+				9673834C24030FF0004A4525 /* GameView.swift */,
 			);
 			path = Board;
 			sourceTree = "<group>";
@@ -703,8 +719,7 @@
 				96FBBCDE241C6BF0001D1088 /* StatisticsView.swift */,
 				96EDA562241EE07000C05697 /* SelectControlStyleView.swift */,
 				9673834A24030F7E004A4525 /* YouWinView.swift */,
-				9673834C24030FF0004A4525 /* GameView.swift */,
-				96CC08712427EB7000BE2737 /* ExpandCollapseButton.swift */,
+				96CC08712427EB7000BE2737 /* TilingButton.swift */,
 			);
 			path = Controls;
 			sourceTree = "<group>";
@@ -1202,6 +1217,8 @@
 				962295F223884563005D599B /* CardRectangle.swift in Sources */,
 				9613245023E12A0600982898 /* CGRect+Center.swift in Sources */,
 				965E210624040E01002BA1F7 /* Image+Freecell.swift in Sources */,
+				961C7FA5242D7F550078E2F7 /* DelayedPropertyWrapper.swift in Sources */,
+				969DD4DD242E6464006873C3 /* CellDistance.swift in Sources */,
 				96EDA559241ECF1F00C05697 /* ControlManager.swift in Sources */,
 				961AC2AA23E4B661003341B0 /* MoveEvent.swift in Sources */,
 				961AC2A823E374AC003341B0 /* Notification+Freecell.swift in Sources */,
@@ -1209,7 +1226,8 @@
 				9661E7AC2380439C00183A99 /* CardStack.swift in Sources */,
 				96A7223E240181DB004F7F47 /* EmojiBombView.swift in Sources */,
 				962562892381D846003C09AA /* CardView.swift in Sources */,
-				96CC08722427EB7000BE2737 /* ExpandCollapseButton.swift in Sources */,
+				96CC08722427EB7000BE2737 /* TilingButton.swift in Sources */,
+				961C7FA3242BDE190078E2F7 /* Game.swift in Sources */,
 				96A36486237E385B005C45FB /* Foundation.swift in Sources */,
 				9688893A2389CB83001DD34B /* Result+SuccessVoid.swift in Sources */,
 				96FBBCD8241C679C001D1088 /* SettingsView.swift in Sources */,
@@ -1224,8 +1242,10 @@
 				962B0B6D2422F7E6007D4117 /* FreecellStore.swift in Sources */,
 				9673834B24030F7E004A4525 /* YouWinView.swift in Sources */,
 				96A36480237E37D1005C45FB /* Rank+FreecellValue.swift in Sources */,
+				961C7FA1242BD56C0078E2F7 /* GameAlerting.swift in Sources */,
 				96A36482237E384C005C45FB /* Column.swift in Sources */,
 				96CA9AD0238CC4F000C34A60 /* Card+Id.swift in Sources */,
+				969DD4DB242E645F006873C3 /* CellPosition.swift in Sources */,
 				9625628B2381D84C003C09AA /* FreeCellView.swift in Sources */,
 				9625628D2381D853003C09AA /* FoundationView.swift in Sources */,
 				9689E18B23AB0BA4008B960B /* ModulatedPublisher.swift in Sources */,
@@ -1438,7 +1458,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.4;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -1492,7 +1512,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.4;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
@@ -1513,6 +1533,7 @@
 				DEVELOPMENT_TEAM = 2GPQ8GE99T;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = Freecell/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.4;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -1535,6 +1556,7 @@
 				DEVELOPMENT_TEAM = 2GPQ8GE99T;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = Freecell/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.4;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -1644,6 +1666,7 @@
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				INFOPLIST_FILE = DeckKit/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 13.4;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -1676,6 +1699,7 @@
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				INFOPLIST_FILE = DeckKit/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 13.4;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -1746,6 +1770,7 @@
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				INFOPLIST_FILE = FreecellKit/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 13.4;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -1776,6 +1801,7 @@
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				INFOPLIST_FILE = FreecellKit/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 13.4;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

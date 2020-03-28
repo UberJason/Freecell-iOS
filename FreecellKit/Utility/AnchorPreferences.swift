@@ -8,8 +8,10 @@
 
 import SwiftUI
 
+
+/// CellInfo is used to provide the location of Freecells, Foundations, and Columns.
 public struct CellInfo {
-    let cellId: UUID
+    let cellId: String
     let bounds: Anchor<CGRect>
 }
 
@@ -21,18 +23,10 @@ public struct CellInfoKey: PreferenceKey {
     }
 }
 
-public struct CellPosition {
-    let cellId: UUID
-    let position: CGPoint
-}
 
-public struct CellDistance {
-    let cellId: UUID
-    let distance: CGFloat
-}
-
-public struct ColumnWidth: Equatable {
-    public static func == (lhs: ColumnWidth, rhs: ColumnWidth) -> Bool {
+/// ColumnStackWidth is used to provide the total horizontal width of the 8 columns, for alignment purposes.
+public struct ColumnStackWidth: Equatable {
+    public static func == (lhs: ColumnStackWidth, rhs: ColumnStackWidth) -> Bool {
         return lhs.uuid == rhs.uuid
     }
     
@@ -40,10 +34,25 @@ public struct ColumnWidth: Equatable {
     var bounds: Anchor<CGRect>? = nil
 }
 
-public struct ColumnWidthKey: PreferenceKey {
-    public static var defaultValue: ColumnWidth = ColumnWidth()
+public struct ColumnStackWidthKey: PreferenceKey {
+    public static var defaultValue = ColumnStackWidth()
     
-    public static func reduce(value: inout ColumnWidth, nextValue: () -> ColumnWidth) {
+    public static func reduce(value: inout ColumnStackWidth, nextValue: () -> ColumnStackWidth) {
         value = nextValue()
+    }
+}
+
+
+/// TopStackBounds is used to provide the position of the top stack containing Freecells and Foundations, to position ControlsView in the center of it.
+public struct TopStackBounds {
+    var bounds: Anchor<CGRect>? = nil
+}
+
+public struct TopStackBoundsKey: PreferenceKey {
+    public static var defaultValue = TopStackBounds()
+    public static func reduce(value: inout TopStackBounds, nextValue: () -> TopStackBounds) {
+        if let bounds = nextValue().bounds {
+            value.bounds = bounds
+        }
     }
 }

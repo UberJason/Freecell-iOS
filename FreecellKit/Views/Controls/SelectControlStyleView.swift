@@ -29,8 +29,8 @@ struct SelectControlStyleView: View {
         .environment(\.horizontalSizeClass, .regular)
     }
     
-    func image(for style: ControlStyle) -> AnyView {
-        return style == controlStyle ? AnyView(Image(systemName: "checkmark")) : AnyView(EmptyView())
+    func image(for style: ControlStyle) -> Image? {
+        return style == controlStyle ? Image(systemName: "checkmark") : nil
     }
     
     var footerText: String {

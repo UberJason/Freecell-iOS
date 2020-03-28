@@ -1,5 +1,5 @@
 //
-//  ExpandCollapseButton.swift
+//  TilingButton.swift
 //  FreecellKit
 //
 //  Created by Jason Ji on 3/22/20.
@@ -8,7 +8,7 @@
 
 import SwiftUI
 #if os(iOS)
-struct ExpandCollapseButton: View {
+struct TilingButton: View {
     @Binding var isCollapsed: Bool
     
     public var body: some View {
@@ -18,7 +18,7 @@ struct ExpandCollapseButton: View {
             image()
                 .foregroundColor(.freecellBackground)
                 .font(.system(size: 15, weight: .semibold))
-                .frame(width: 22, height: 30)
+                .frame(width: 20, height: 26)
                 .background(
                     RoundedRectangle(cornerRadius: 4).fill(Color.white)
                 )
@@ -35,10 +35,10 @@ struct ExpandCollapseButton: View {
     }
 }
 
-struct ExpandCollapseButton_Previews: PreviewProvider {
+struct TilingButton_Previews: PreviewProvider {
     @State static var isCollapsed = false
     static var previews: some View {
-        ExpandCollapseButton(isCollapsed: $isCollapsed)
+        TilingButton(isCollapsed: $isCollapsed)
             .frame(width: 100, height: 100)
             .background(Color.freecellBackground)
             .previewLayout(.fixed(width: 100, height: 100))

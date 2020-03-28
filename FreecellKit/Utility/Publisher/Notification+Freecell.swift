@@ -9,10 +9,11 @@
 import Foundation
 
 public extension Notification.Name {
+    static let newGameRequested = Notification.Name(rawValue: "newGameRequested")
+    static let restartGameRequested = Notification.Name(rawValue: "restartGameRequested")
+    
     static let newGame = Notification.Name(rawValue: "newGame")
     static let restartGame = Notification.Name(rawValue: "restartGame")
-    static let performUndo = Notification.Name(rawValue: "performUndo")
-    static let performRedo = Notification.Name(rawValue: "performRedo")
     
     static let performBombAnimation = Notification.Name("performBombAnimation")
     

@@ -11,17 +11,16 @@ import SwiftUI
 #if os(iOS)
 
 class ControlStyleStore: ObservableObject {
-    @UserDefault(key: "controlStyle", defaultValue: .modern)
+    @UserDefault(key: "controlStyle", defaultValue: .default)
     var controlStyle: ControlStyle {
         didSet {
             objectWillChange.send()
-            print("control style is now: \(controlStyle.rawValue)")
-            NotificationCenter.default.post(name: .updateControlStyle, object: nil, userInfo: ["controlStyle": controlStyle.rawValue])
+            try? NotificationCenter.default.post(.updateControlStyle, value: controlStyle)
         }
     }
 }
 
-public struct SettingsView: View {
+public struct SettingsView: View, GameAlerting {
     @State var newGameWarning = false
     @State var restartGameWarning = false
     
@@ -71,25 +70,7 @@ public struct SettingsView: View {
         }
         .accentColor(.freecellBackground)
     }
-    
-    func restartGameAlert() -> Alert {
-        let restart = ActionSheet.Button.destructive(Text("Restart Game")) {
-            NotificationCenter.default.post(name: .restartGame, object: nil)
-            NotificationCenter.default.post(name: .dismissMenu, object: nil)
-        }
-        
-        return Alert(title: Text("Restart Game"), message: Text("Are you sure you want to restart this game?"), primaryButton: restart, secondaryButton: ActionSheet.Button.cancel())
-    }
-    
-    func newGameAlert() -> Alert {
-        let newGame = ActionSheet.Button.destructive(Text("New Game")) {
-            NotificationCenter.default.post(name: .postLoss, object: nil)
-            NotificationCenter.default.post(name: .newGame, object: nil)
-            NotificationCenter.default.post(name: .dismissMenu, object: nil)
-        }
-        
-        return Alert(title: Text("New Game"), message: Text("Are you sure you want to start a new game? The current game will be recorded as a loss."), primaryButton: newGame, secondaryButton: ActionSheet.Button.cancel())
-    }
+
 }
 
 struct SettingsView_Previews: PreviewProvider {

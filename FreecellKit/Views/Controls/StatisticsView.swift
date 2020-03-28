@@ -120,7 +120,6 @@ struct StatisticsView: View {
             }
             
             Button(action: {
-                print("Reset Statistics")
                 self.resetStatisticsAlertShowing.toggle()
             }) {
                 CellRow(leading: Text("Reset Statistics"), trailing: Image(systemName: "trash.fill"))

@@ -8,13 +8,14 @@
 
 import Cocoa
 import SwiftUI
-import Combine
+import FreecellKit
 
 @NSApplicationMain
 class AppDelegate: NSObject, NSApplicationDelegate {
 
     var window: NSWindow!
-
+    var undoManager: UndoManager?
+    
     func applicationDidFinishLaunching(_ aNotification: Notification) {
 
         // Create the window and set the content view. 
@@ -24,9 +25,11 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             backing: .buffered, defer: false)
         window.center()
         window.setFrameAutosaveName("Main Window")
+        undoManager = window.undoManager
         
         // Create the SwiftUI view that provides the window contents.
-        let contentView = ContentView(game: Game(undoManager: window.undoManager))
+        let game = Game(undoManager: undoManager)
+        let contentView = ContentView(game: game)
         
         window.contentView = NSHostingView(rootView: contentView)
         window.makeKeyAndOrderFront(nil)
@@ -36,15 +39,15 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         // Insert code here to tear down your application
     }
 
+    @IBAction func restartGame(_ sender: Any) {
+        NotificationCenter.default.post(name: .restartGameRequested, object: nil)
+    }
+    
     @IBAction func newGame(_ sender: Any) {
-        NotificationCenter.default.post(name: .newGame, object: nil)
+        NotificationCenter.default.post(name: .newGameRequested, object: nil)
     }
     
     @IBAction func undoMove(_ sender: Any) {
-        NotificationCenter.default.post(name: .performUndo, object: nil)
-    }
-    
-    @IBAction func redoMove(_ sender: Any) {
-        NotificationCenter.default.post(name: .performRedo, object: nil)
+        undoManager?.undo()
     }
 }

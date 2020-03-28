@@ -19,14 +19,9 @@ public struct Board {
     private var _movePublisher = PassthroughSubject<MoveEvent, Never>()
     
     public init(deck: Deck = Deck(shuffled: false)) {
-        freecells = (0...3).map { _ in FreeCell() }
-        foundations = [
-            Foundation(suit: .diamonds),
-            Foundation(suit: .clubs),
-            Foundation(suit: .hearts),
-            Foundation(suit: .spades)
-        ]
-        columns = (0...7).map { i in Column() }
+        freecells = (0...3).map { i in FreeCell(id: "freecell-\(i)") }
+        foundations = Suit.allCases.map { Foundation(id: "foundation-\($0.displayTitle)", suit: $0) }
+        columns = (0...7).map { i in Column(id: "column-\(i)") }
         
         for i in 0 ..< Deck.maxCardCount {
             guard let card = deck.draw() else { fatalError("Deck empty during new game setup") }
@@ -57,7 +52,7 @@ public struct Board {
         return cell
     }
     
-    func cell(for id: UUID) -> Cell {
+    func cell(for id: String) -> Cell {
         let allCells: [[Cell]] = [freecells, foundations, columns]
         let allCellsFlat = allCells.flatMap({ $0 })
         guard let cell = allCellsFlat

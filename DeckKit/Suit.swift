@@ -9,7 +9,7 @@
 import Foundation
 
 public enum Suit: CaseIterable {
-    case clubs, diamonds, hearts, spades
+    case diamonds, clubs, hearts, spades
     
     public var color: SuitColor {
         switch self {

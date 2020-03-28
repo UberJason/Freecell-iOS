@@ -24,9 +24,9 @@ public struct FreeCellView: View {
 }
 
 struct FreeCellView_Previews: PreviewProvider {
-    static var emptyFreeCell = FreeCell()
+    static var emptyFreeCell = FreeCell(id: "empty")
     static var occupiedFreeCell: FreeCell = {
-        let f = FreeCell()
+        let f = FreeCell(id: "occupied")
         try! f.push(Card.ace.ofSpades)
         return f
     }()

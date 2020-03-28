@@ -7,42 +7,7 @@
 //
 
 import SwiftUI
-import DeckKit
 import FreecellKit
-import Combine
-
-class Game: ObservableObject {
-    var undoManager: UndoManager?
-    @Published var boardDriver: BoardViewDriver
-    
-    var cancellables = Set<AnyCancellable>()
-    
-    init(undoManager: UndoManager? = nil) {
-        self.undoManager = undoManager
-        self.boardDriver = BoardViewDriver(controlStyle: .classic, undoManager: undoManager)
-        
-        NotificationCenter.default
-            .publisher(for: .newGame)
-            .sink { [weak self] _ in
-                self?.boardDriver = BoardViewDriver(controlStyle: .classic, undoManager: undoManager)
-            }
-            .store(in: &cancellables)
-        
-        NotificationCenter.default
-            .publisher(for: .performUndo)
-            .sink { [weak self] _ in
-                self?.boardDriver.undo()
-            }
-            .store(in: &cancellables)
-        
-        NotificationCenter.default
-            .publisher(for: .performRedo)
-            .sink { [weak self] _ in
-                self?.boardDriver.redo()
-            }
-            .store(in: &cancellables)
-    }
-}
 
 struct ContentView: View {
     @ObservedObject var game: Game
@@ -52,7 +17,7 @@ struct ContentView: View {
     }
     
     var body: some View {
-        BoardView(boardDriver: game.boardDriver)
+        GameView(game: game)
     }
 }
 

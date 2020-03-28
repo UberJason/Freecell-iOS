@@ -110,8 +110,6 @@ public class ModernControlManager: ControlManager {
     }
     
     public func storeCellPositions(_ anchors: [CellInfo], using geometry: GeometryProxy) {
-        if cellPositions.isEmpty {
-            cellPositions = anchors.map { CellPosition(cellId: $0.cellId, position: geometry[$0.bounds].center) }
-        }
+        cellPositions = anchors.map { CellPosition(cellId: $0.cellId, position: geometry[$0.bounds].center) }
     }
 }

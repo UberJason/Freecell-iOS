@@ -23,81 +23,65 @@ public struct BoardView: View, StackOffsetting {
     }
     
     public var body: some View {
-        ZStack(alignment: .topLeading) {
-            BackgroundColorView()
-                .frame(maxWidth: .infinity, maxHeight: .infinity)
-            GeometryReader { proxy in
-                ZStack {
-                    #warning("Spacing above columns should equal padding above freecells - right now it's 50 vs. 40")
-                    VStack(spacing: 50.0) {
+        GeometryReader { proxy in
+            ZStack {
+                VStack(spacing: 40.0) {
+                    HStack {
                         HStack {
-                            HStack {
-                                ForEach(self.boardDriver.freecells) { freeCell in
-                                    FreeCellView(freeCell: freeCell)
-                                        .frame(width: self.boardDriver.cardSize.width, height: self.boardDriver.cardSize.height)
-                                        .onTapGesture {
-                                            self.boardDriver.itemTapped(freeCell)
-                                    }
-                                    .anchorPreference(key: CellInfoKey.self, value: .bounds, transform: { bounds in
-                                        [CellInfo(cellId: freeCell.id, bounds: bounds)]
-                                    })
-                                }
-                            }
-                            
-                            Spacer()
-                            #if !os(macOS)
-                            ControlsView(timeString: self.boardDriver.moveTimeString, moves: self.boardDriver.moves, boardDriver: self.boardDriver)
-                            Spacer()
-                            #endif
-                            
-                            HStack {
-                                ForEach(self.boardDriver.foundations) { foundation in
-                                    FoundationView(foundation: foundation)
-                                        .frame(width: self.boardDriver.cardSize.width, height: self.boardDriver.cardSize.height)
-                                        .onTapGesture {
-                                            self.boardDriver.itemTapped(foundation)
-                                    }
-                                    .anchorPreference(key: CellInfoKey.self, value: .bounds, transform: { bounds in
-                                        [CellInfo(cellId: foundation.id, bounds: bounds)]
-                                    })
-                                }
-                            }
-                        }.frame(width: self.totalColumnWidth)
-                        
-                        HStack(spacing: 22.0) {
-                            ForEach(self.boardDriver.columns) { column in
-                                ColumnView(column: column, tilingButtonVisible: self.boardDriver.tilingButtonVisible(for: column), isCollapsed: Binding(get: {
-                                    self.boardDriver.columnIsCollapsed(column.id)
-                                }, set: { (newValue) in
-                                    self.boardDriver.setTilingState(for: column.id, isCollapsed: newValue)
-                                }))
+                            ForEach(self.boardDriver.freecells) { freeCell in
+                                FreeCellView(freeCell: freeCell)
                                     .frame(width: self.boardDriver.cardSize.width, height: self.boardDriver.cardSize.height)
                                     .onTapGesture {
-                                        self.boardDriver.itemTapped(column)
+                                        self.boardDriver.itemTapped(freeCell)
                                 }
-                                .anchorPreference(key: CellInfoKey.self, value: .bounds, transform: { bounds in
-                                    [CellInfo(cellId: column.id, bounds: bounds)]
-                                })
+                                .anchorPreference(key: CellInfoKey.self, value: .bounds) { bounds in [CellInfo(cellId: freeCell.id, bounds: bounds)] }
                             }
                         }
-                        .anchorPreference(key: ColumnWidthKey.self, value: .bounds, transform: { bounds in ColumnWidth(bounds: bounds) })
-                        .onPreferenceChange(ColumnWidthKey.self) { (preference) in
-                            guard let bounds = preference.bounds else { return }
-                            self.totalColumnWidth = proxy[bounds].width
+                        
+                        Spacer()
+
+                        HStack {
+                            ForEach(self.boardDriver.foundations) { foundation in
+                                FoundationView(foundation: foundation)
+                                    .frame(width: self.boardDriver.cardSize.width, height: self.boardDriver.cardSize.height)
+                                    .onTapGesture {
+                                        self.boardDriver.itemTapped(foundation)
+                                }
+                                .anchorPreference(key: CellInfoKey.self, value: .bounds) { bounds in [CellInfo(cellId: foundation.id, bounds: bounds)] }
+                            }
                         }
-                    }.padding(EdgeInsets(top: 40, leading: 20, bottom: 40, trailing: 20))
-                }.frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
-            }
+                    }
+                    .frame(width: self.totalColumnWidth)
+                    .anchorPreference(key: TopStackBoundsKey.self, value: .bounds) { bounds in
+                        let b = TopStackBounds(bounds: bounds)
+                        return b
+                    }
+                    
+                    HStack(spacing: 22.0) {
+                        ForEach(self.boardDriver.columns) { column in
+                            ColumnView(column: column, tilingButtonVisible: self.boardDriver.tilingButtonVisible(for: column), isCollapsed: Binding(get: {
+                                self.boardDriver.columnIsCollapsed(column.id)
+                            }, set: { (newValue) in
+                                self.boardDriver.setTilingState(for: column.id, isCollapsed: newValue)
+                            }))
+                                .frame(width: self.boardDriver.cardSize.width, height: self.boardDriver.cardSize.height)
+                                .onTapGesture {
+                                    self.boardDriver.itemTapped(column)
+                            }
+                            .anchorPreference(key: CellInfoKey.self, value: .bounds) { bounds in [CellInfo(cellId: column.id, bounds: bounds)] }
+                        }
+                    }
+                    .anchorPreference(key: ColumnStackWidthKey.self, value: .bounds) { bounds in ColumnStackWidth(bounds: bounds) }
+                    .onPreferenceChange(ColumnStackWidthKey.self) { (preference) in
+                        guard let bounds = preference.bounds else { return }
+                        self.totalColumnWidth = proxy[bounds].width
+                    }
+                }.padding(EdgeInsets(top: 40, leading: 20, bottom: 40, trailing: 20))
+            }.frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
         }
-        .edgesIgnoringSafeArea(.all)
         .overlayPreferenceValue(CellInfoKey.self) { preferences in
             return GeometryReader { geometry in
-                ZStack {
-                    ForEach(self.boardDriver.allCards) { card in
-                        self.renderedCardView(card, using: geometry, cells: preferences)
-                    }
-                }
-                .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
+                self.allRenderedCards(using: geometry, cells: preferences)
             }
         }
         .onTapGesture {
@@ -106,16 +90,22 @@ public struct BoardView: View, StackOffsetting {
         .frame(minWidth: self.totalColumnWidth)
     }
     
-    func renderedCardView(_ card: Card, using geometry: GeometryProxy, cells: [CellInfo]) -> some View {
+    func allRenderedCards(using geometry: GeometryProxy, cells: [CellInfo]) -> some View {
         boardDriver.storeCellPositions(cells, using: geometry)
-        
+        return ZStack {
+            ForEach(self.boardDriver.allCards) { card in
+                self.renderedCardView(card, using: geometry, cells: cells)
+            }
+        }
+        .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
+    }
+    
+    func renderedCardView(_ card: Card, using geometry: GeometryProxy, cells: [CellInfo]) -> some View {
         var bounds = CGRect.zero
         var stackOffset = CGSize.zero
         
         let containingLocation = boardDriver.cell(containing: card)
-        if let p = cells.filter({
-            $0.cellId == containingLocation.id
-        }).first {
+        if let p = cells.first(where: { $0.cellId == containingLocation.id }) {
             bounds = geometry[p.bounds]
             if let column = containingLocation as? Column {
                 stackOffset = boardDriver.stackOffset(for: card, orderIndex: column.orderIndex(for: card), spacing: boardDriver.cardSpacing(for: column))
@@ -127,18 +117,18 @@ public struct BoardView: View, StackOffsetting {
             .frame(width: bounds.size.width, height: bounds.size.height)
             .overlay(
                 CardRectangle(foregroundColor: boardDriver.cardOverlayColor(for: card), opacity: 0.3)
-        )
+            )
             .scaleEffect(boardDriver.scale(for: card), anchor: .top)
             .animation(cardSpringAnimation)
             .onTapGesture {
                 self.boardDriver.itemTapped(card)
-        }
-        .position(x: bounds.midX, y: bounds.midY + stackOffset.height)
-        .offset(boardDriver.cardOffset(for: card, relativeTo: bounds, dragState: dragState))
-        .animation(cardSpringAnimation)
-        .simultaneousGesture(
-            createDragGesture(for: card)
-        )
+            }
+            .position(x: bounds.midX, y: bounds.midY + stackOffset.height)
+            .offset(boardDriver.cardOffset(for: card, relativeTo: bounds, dragState: dragState))
+            .animation(cardSpringAnimation)
+            .simultaneousGesture(
+                createDragGesture(for: card)
+            )
             .zIndex(boardDriver.zIndex(for: card))
     }
     
@@ -149,10 +139,10 @@ public struct BoardView: View, StackOffsetting {
                     self.boardDriver.dragStarted(from: card)
                 }
                 state = .active(translation: value.translation)
-        }
-        .onEnded { value in
-            self.boardDriver.dragEnded(with: value.translation)
-        }
+            }
+            .onEnded { value in
+                self.boardDriver.dragEnded(with: value.translation)
+            }
         
         return boardDriver.dragGestureAvailable ? gesture : nil
     }
@@ -160,7 +150,6 @@ public struct BoardView: View, StackOffsetting {
     var cardSpringAnimation: Animation? {
         switch dragState {
         case .inactive:
-            //        return Animation.spring(response: 0.08, dampingFraction: 0.95, blendDuration: 0.0)
             return .spring(response: 0.10, dampingFraction: 0.90, blendDuration: 0.0)
         case .active(_): return nil
         }
@@ -169,7 +158,12 @@ public struct BoardView: View, StackOffsetting {
 
 struct BoardView_Previews: PreviewProvider {
     static var previews: some View {
-        BoardView(boardDriver: BoardViewDriver(controlStyle: .modern))
+        let g = Game()
+        let driver = BoardViewDriver(controlStyle: .modern, gameStateProvider: g)
+        return ZStack {
+            BackgroundColorView()
+            BoardView(boardDriver: driver)
+        }
 //            .previewLayout(.fixed(width: 1400, height: 1200))
         //            .previewLayout(.fixed(width: 1194, height: 834))
                     .previewLayout(.fixed(width: 1024, height: 768))

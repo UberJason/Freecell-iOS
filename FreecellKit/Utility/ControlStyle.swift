@@ -8,6 +8,14 @@
 
 import Foundation
 
-public enum ControlStyle: String, CaseIterable {
+public enum ControlStyle: String, CaseIterable, Codable {
     case modern = "Modern", classic = "Classic"
+    
+    static var `default`: ControlStyle {
+        #if os(iOS)
+        return .modern
+        #else
+        return .classic
+        #endif
+    }
 }
