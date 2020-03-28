@@ -20,7 +20,7 @@ struct TilingButton: View {
                 .font(.system(size: 15, weight: .semibold))
                 .frame(width: 20, height: 26)
                 .background(
-                    RoundedRectangle(cornerRadius: 4).fill(Color.white)
+                    RoundedRectangle(cornerRadius: 4).fill(Color.cardBackground)
                 )
         }
     }

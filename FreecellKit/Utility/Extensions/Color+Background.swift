@@ -10,5 +10,8 @@ import SwiftUI
 
 #warning("Dark mode version of this color? For menu as well.")
 public extension Color {
-    static let freecellBackground: Color = Color(red: 0, green: 127/255.0, blue: 0)
+    static let freecellBackground = Color(UIColor(named: "freecellBackground", in: Bundle.freecellKit, compatibleWith: nil)!)
+    static let freecellTheme = Color(UIColor(named: "freecellTheme", in: Bundle.freecellKit, compatibleWith: nil)!)
+    static let cardBackground = Color(UIColor(named: "cardBackground", in: Bundle.freecellKit, compatibleWith: nil)!)
+    static let redSuitColor = Color(UIColor(named: "redSuitColor", in: Bundle.freecellKit, compatibleWith: nil)!)
 }

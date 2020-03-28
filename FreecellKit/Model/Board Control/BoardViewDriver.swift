@@ -53,7 +53,6 @@ public class BoardViewDriver: ObservableObject {
     internal var _board = Board(deck: Deck(shuffled: true))
     internal var previousBoards = [Board]()
     
-    #warning("Investigate memory leaks")
     public init(controlStyle: ControlStyle, gameStateProvider: GameStateProvider, undoManager: UndoManager? = nil) {
         self.controlStyle = controlStyle
         self.gameStateProvider = gameStateProvider

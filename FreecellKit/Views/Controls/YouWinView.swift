@@ -26,7 +26,7 @@ struct YouWinView: View {
             }
             
         }
-        .foregroundColor(.white)
+        .foregroundColor(.cardBackground)
     }
 }
 

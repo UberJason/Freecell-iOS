@@ -12,7 +12,7 @@ import DeckKit
 extension Suit {
     var swiftUIColor: Color {
         switch color {
-        case .red: return .red
+        case .red: return .redSuitColor
         case .black: return .black
         }
     }

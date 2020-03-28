@@ -37,19 +37,19 @@ public struct SettingsView: View, GameAlerting {
                         self.restartGameWarning.toggle()
                     }) {
                         CellRow(leading: Text("Restart Game"), trailing: Image(systemName: "arrow.uturn.left"))
-                            .foregroundColor(.freecellBackground)
+                            .foregroundColor(.freecellTheme)
                     }.alert(isPresented: $restartGameWarning) { restartGameAlert() }
                     Button(action: {
                         self.newGameWarning.toggle()
                     }) {
                         CellRow(leading: Text("New Game"), trailing: Image(systemName: "goforward.plus"))
-                            .foregroundColor(.freecellBackground)
+                            .foregroundColor(.freecellTheme)
                     }.alert(isPresented: $newGameWarning) { newGameAlert() }
                 }
                 
                 Section(header: Text("Settings")) {
                     NavigationLink(destination: SelectControlStyleView(controlStyle: $store.controlStyle)) {
-                        CellRow(leading: Text("Control Scheme"), trailing: Text(store.controlStyle.rawValue).foregroundColor(.freecellBackground))
+                        CellRow(leading: Text("Control Scheme"), trailing: Text(store.controlStyle.rawValue).foregroundColor(.freecellTheme))
                     }
                     NavigationLink(destination: StatisticsView()) {
                         Text("Statistics")

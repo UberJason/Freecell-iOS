@@ -157,15 +157,24 @@ public struct BoardView: View, StackOffsetting {
 }
 
 struct BoardView_Previews: PreviewProvider {
-    static var previews: some View {
+    static func boardView() -> some View {
         let g = Game()
         let driver = BoardViewDriver(controlStyle: .modern, gameStateProvider: g)
         return ZStack {
             BackgroundColorView()
             BoardView(boardDriver: driver)
         }
-//            .previewLayout(.fixed(width: 1400, height: 1200))
-        //            .previewLayout(.fixed(width: 1194, height: 834))
-                    .previewLayout(.fixed(width: 1024, height: 768))
+    }
+    
+    static var previews: some View {
+        Group {
+            boardView()
+                .environment(\.colorScheme, .dark)
+                .previewLayout(.fixed(width: 1024, height: 768))
+            
+            boardView()
+            .environment(\.colorScheme, .light)
+            .previewLayout(.fixed(width: 1024, height: 768))
+        }
     }
 }
