@@ -8,34 +8,6 @@
 
 import UIKit
 
-extension Notification.Name {
-    public static let preferredVisualThemeDidChange = Notification.Name(rawValue: "preferredVisualThemeDidChange")
-}
-
-extension UserDefaults {
-    public static let preferredVisualThemeKey = "preferredVisualTheme"
-    
-    public var preferredVisualTheme: VisualTheme {
-        get {
-            if let themeTitle = string(forKey: type(of: self).preferredVisualThemeKey),
-                let theme = VisualTheme(rawValue: themeTitle) {
-                return theme
-            }
-            else {
-                let theme = VisualTheme.system
-                set(theme.rawValue, forKey: type(of: self).preferredVisualThemeKey)
-                synchronize()
-                
-                return theme
-            }
-        }
-        set {
-            set(newValue.rawValue, forKey: type(of: self).preferredVisualThemeKey)
-            synchronize()
-        }
-    }
-}
-
 public protocol VisualTheming where Self: UIViewController {
     func applyPreferredTheme(from defaults: UserDefaults)
     func registerForThemeChanges()
