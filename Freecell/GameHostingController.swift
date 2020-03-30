@@ -59,6 +59,7 @@ class GameHostingController: FreecellHostingController<ContentView> {
         NotificationCenter.default.post(name: .newGameRequested, object: nil)
     }
     
+    
     @objc func postRestartGame() {
         NotificationCenter.default.post(name: .restartGameRequested, object: nil)
     }

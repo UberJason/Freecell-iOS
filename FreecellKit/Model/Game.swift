@@ -133,6 +133,7 @@ public class Game: ObservableObject, GameStateProvider {
     }
     
     public func undo() {
+        #warning("Undo shouldn't work if game state is .won")
         undoManager?.undo()
     }
     

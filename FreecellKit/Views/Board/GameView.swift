@@ -60,10 +60,12 @@ public struct GameView: View, GameAlerting {
             #endif
         }
         .onReceive(NotificationCenter.default.publisher(for: .newGameRequested)) { _ in
+            #warning("New Game still posts a loss if pressed while we are on the You Won screen")
             self.alertType = .newGame
             self.presentAlert.toggle()
         }
         .onReceive(NotificationCenter.default.publisher(for: .restartGameRequested)) { _ in
+            #warning("Restart game gets stuck if pressed while we are on the You Won screen")
             self.alertType = .restartGame
             self.presentAlert.toggle()
         }
