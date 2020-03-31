@@ -52,7 +52,6 @@ class GameHostingController: FreecellHostingController<ContentView> {
         hostingController.modalPresentationStyle = .formSheet
         
         present(hostingController, animated: true, completion: nil)
-        
     }
     
     @objc func postNewGame() {

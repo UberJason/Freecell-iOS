@@ -29,9 +29,16 @@ public extension GameStateProvider {
 }
 
 public class Game: ObservableObject, GameStateProvider {
+    enum AlertType {
+        case newGame, restartGame
+    }
+    
     var undoManager: UndoManager?
     @Delayed public var boardDriver: BoardViewDriver
     let store = FreecellStore()
+    
+    @Published var presentAlert = false
+    var alertType = AlertType.newGame
     
     @Published public private(set) var gameState = GameState.new {
         didSet {
@@ -80,6 +87,33 @@ public class Game: ObservableObject, GameStateProvider {
                 self?.resetState()
                 self?.configureMoveTimer()
                 self?.boardDriver.restartGame()
+            }
+            .store(in: &cancellables)
+        
+        NotificationCenter.default
+            .publisher(for: .newGameRequested)
+            .map { _ in AlertType.newGame }
+            .filter { [unowned self] _ in self.gameState != .won }
+            .sink { [unowned self] in
+                self.alertType = $0
+                self.presentAlert = true
+            }
+            .store(in: &cancellables)
+        
+        NotificationCenter.default
+            .publisher(for: .newGameRequested)
+            .map { _ in AlertType.newGame }
+            .filter { [unowned self] _ in return self.gameState == .won }
+            .sink { _ in NotificationCenter.default.post(name: .newGame, object: nil) }
+            .store(in: &cancellables)
+        
+        NotificationCenter.default
+            .publisher(for: .restartGameRequested)
+            .map { _ in AlertType.restartGame }
+            .filter { [unowned self] _ in self.gameState != .won }
+            .sink { [unowned self] in
+                self.alertType = $0
+                self.presentAlert = true
             }
             .store(in: &cancellables)
         
@@ -133,7 +167,10 @@ public class Game: ObservableObject, GameStateProvider {
     }
     
     public func undo() {
-        undoManager?.undo()
+        #warning("Undo shouldn't work if game state is .won")
+        if gameState != .won {
+            undoManager?.undo()
+        }
     }
     
     public func win() {
