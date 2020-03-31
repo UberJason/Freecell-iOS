@@ -29,7 +29,7 @@ public extension GameStateProvider {
 }
 
 public class Game: ObservableObject, GameStateProvider {
-    enum AlertType {
+    public enum AlertType {
         case newGame, restartGame
     }
     

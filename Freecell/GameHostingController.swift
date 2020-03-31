@@ -11,7 +11,7 @@ import UIKit
 import SwiftUI
 import FreecellKit
 
-class GameHostingController: FreecellHostingController<ContentView> {
+class GameHostingController: FreecellHostingController<ContentView>, GameAlerting {
     override init(rootView: ContentView) {
         super.init(rootView: rootView)
         
@@ -57,25 +57,22 @@ class GameHostingController: FreecellHostingController<ContentView> {
     #warning("Present new game and restart game alerts the old fashioned way...")
     @objc func postNewGame() {
         print("postNewGame")
-        guard presentedViewController == nil else { return }
-//        NotificationCenter.default.post(name: .newGameRequested, object: nil)
-        let alert = UIAlertController(title: "Test", message: "Are you sure you want to test - new game?", preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { (_) in
-            print("OK tapped")
-        }))
-        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+        #if targetEnvironment(macCatalyst)
+        let alert = self.alert(for: .newGame)
         present(alert, animated: true, completion: nil)
+        #else
+        NotificationCenter.default.post(name: .newGameRequested, object: nil)
+        #endif
     }
     
     @objc func postRestartGame() {
         print("postRestartGame")
-        guard presentedViewController == nil else { return }
-    //        NotificationCenter.default.post(name: .newGameRequested, object: nil)
-        let alert = UIAlertController(title: "Test", message: "Are you sure you want to test - restart game?", preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { (_) in
-            print("OK tapped")
-        }))
-        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+        #if targetEnvironment(macCatalyst)
+        let alert = self.alert(for: .restartGame)
         present(alert, animated: true, completion: nil)
+        #else
+        NotificationCenter.default.post(name: .restartGameRequested, object: nil)
+        #endif
     }
+
 }
