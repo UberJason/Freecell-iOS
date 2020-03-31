@@ -54,6 +54,7 @@ class GameHostingController: FreecellHostingController<ContentView> {
         present(hostingController, animated: true, completion: nil)
     }
     
+    #warning("Present new game and restart game alerts the old fashioned way...")
     @objc func postNewGame() {
         NotificationCenter.default.post(name: .newGameRequested, object: nil)
     }
