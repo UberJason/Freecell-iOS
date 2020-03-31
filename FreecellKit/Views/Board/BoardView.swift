@@ -84,6 +84,7 @@ public struct BoardView: View, StackOffsetting {
                 self.allRenderedCards(using: geometry, cells: preferences)
             }
         }
+        .contentShape(Rectangle())
         .onTapGesture {
             self.boardDriver.itemTapped(self)
         }
