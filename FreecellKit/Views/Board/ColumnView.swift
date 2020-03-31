@@ -14,6 +14,7 @@ public struct ColumnView: View {
     let tilingButtonVisible: Bool
     @Binding var isCollapsed: Bool
     
+    #warning("Catalyst TODO: don't show tiling button at all")
     public init(column: Column, tilingButtonVisible: Bool, isCollapsed: Binding<Bool>) {
         self.column = column
         self.tilingButtonVisible = tilingButtonVisible

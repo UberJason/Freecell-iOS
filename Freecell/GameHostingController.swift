@@ -12,6 +12,13 @@ import SwiftUI
 import FreecellKit
 
 class GameHostingController: FreecellHostingController<ContentView>, GameAlerting {
+    weak var game: Game?
+    
+    convenience init(game: Game?, rootView: ContentView) {
+        self.init(rootView: rootView)
+        self.game = game
+    }
+    
     override init(rootView: ContentView) {
         super.init(rootView: rootView)
         
@@ -54,25 +61,65 @@ class GameHostingController: FreecellHostingController<ContentView>, GameAlertin
         present(hostingController, animated: true, completion: nil)
     }
     
-    #warning("Present new game and restart game alerts the old fashioned way...")
+    #warning("SwiftUI 2.0: Remove Mac Catalyst-specific code paths and resume allowing GameView to handle alerts")
     @objc func postNewGame() {
-        print("postNewGame")
         #if targetEnvironment(macCatalyst)
-        let alert = self.alert(for: .newGame)
-        present(alert, animated: true, completion: nil)
+        if game?.gameState == .won {
+            NotificationCenter.default.post(name: .newGame, object: nil)
+        }
+        else {
+            let alert = self.alert(for: .newGame)
+            present(alert, animated: true, completion: nil)
+        }
         #else
         NotificationCenter.default.post(name: .newGameRequested, object: nil)
         #endif
     }
     
     @objc func postRestartGame() {
-        print("postRestartGame")
         #if targetEnvironment(macCatalyst)
+        guard game?.gameState != .won else { return }
         let alert = self.alert(for: .restartGame)
         present(alert, animated: true, completion: nil)
         #else
         NotificationCenter.default.post(name: .restartGameRequested, object: nil)
         #endif
     }
+}
 
+// MARK: - Hacks for Catalyst -
+
+
+#warning("SwiftUI 2.0: remove alert(for:) if bugs around alert and timer are fixed")
+extension GameAlerting {
+    public func alert(for type: Game.AlertType) -> UIAlertController {
+        let title: String
+        let message: String
+        let perform: () -> ()
+        
+        switch type {
+        case .newGame:
+            title = "New Game"
+            message = "Are you sure you want to start a new game? The current game will be recorded as a loss."
+            perform = {
+                NotificationCenter.default.post(name: .postLoss, object: nil)
+                NotificationCenter.default.post(name: .newGame, object: nil)
+            }
+        case .restartGame:
+            title = "Restart Game"
+            message = "Are you sure you want to restart this game?"
+            perform = {
+                NotificationCenter.default.post(name: .restartGame, object: nil)
+            }
+        }
+        
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: title, style: .destructive, handler: { _ in
+            perform()
+        }))
+        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+        
+        return alert
+    }
+    
 }

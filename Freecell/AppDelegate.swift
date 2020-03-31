@@ -41,6 +41,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         let gameMenu = UIMenu(title: "Game", image: nil, identifier: UIMenu.Identifier("Game"), options: [], children: [ newGame, restartGame ])
         builder.insertSibling(gameMenu, afterMenu: .application)
+        
+        #warning("Catalyst TODO: Add undo in Game menu, add divider, add visual theming")
+        #warning("Catalyst TODO: Add Statistics window and add it to the Game menu")
     }
 }
 

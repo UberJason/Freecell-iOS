@@ -31,7 +31,7 @@ public struct SettingsView: View, GameAlerting {
     @State var newGameWarning = false
     @State var restartGameWarning = false
     
-    #warning("If/when SwiftUI 2.0 allows for formSheet presentation, rework to remove GameHostingController, present directly from BoardView, and bind controlStyle to BoardViewDriver.controlStyle directly.")
+    #warning("SwiftUI 2.0: if allowing for formSheet presentation, rework to remove GameHostingController, present directly from BoardView, and bind controlStyle to BoardViewDriver.controlStyle directly.")
     @ObservedObject var store = SettingsStore()
     
     public init() {}

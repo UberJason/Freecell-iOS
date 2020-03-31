@@ -49,13 +49,13 @@ public struct GameView: View, GameAlerting {
             EmptyView()
             #else
             GeometryReader { geometry in
+                #warning("Catalyst TODO: Remove undo and menu button. Put controls in a toolbar.")
                 ControlsView(timeString: self.game.moveTimeString, moves: self.game.moves, gameManager: self.game)
                     .position(geometry[preferences.bounds!].center)
             }
             #endif
         }
         .alert(isPresented: $game.presentAlert) {
-            #warning("Alert presents once per second on Mac")
             switch game.alertType {
             case .newGame:
                 return newGameAlert()
