@@ -10,13 +10,8 @@ import SwiftUI
 import DeckKit
 
 public struct GameView: View, GameAlerting {
-    enum AlertType {
-        case newGame, restartGame
-    }
-    
+
     @ObservedObject var game: Game
-    @State var presentAlert = false
-    @State var alertType = AlertType.newGame
     
     public init(game: Game) {
         self.game = game
@@ -59,19 +54,9 @@ public struct GameView: View, GameAlerting {
             }
             #endif
         }
-        .onReceive(NotificationCenter.default.publisher(for: .newGameRequested)) { _ in
-            #warning("New Game still posts a loss if pressed while we are on the You Won screen")
-            self.alertType = .newGame
-            self.presentAlert.toggle()
-        }
-        .onReceive(NotificationCenter.default.publisher(for: .restartGameRequested)) { _ in
-            #warning("Restart game gets stuck if pressed while we are on the You Won screen")
-            self.alertType = .restartGame
-            self.presentAlert.toggle()
-        }
-        .alert(isPresented: $presentAlert) {
+        .alert(isPresented: $game.presentAlert) {
             #warning("Alert presents once per second on Mac")
-            switch alertType {
+            switch game.alertType {
             case .newGame:
                 return newGameAlert()
             case .restartGame:
