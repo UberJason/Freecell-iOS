@@ -36,6 +36,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         builder.remove(menu: .edit)
         builder.remove(menu: .format)
         
+        let newGame = UIKeyCommand(title: "New Game", action: #selector(GameHostingController.postNewGame), input: "n", modifierFlags: .command)
+        let restartGame = UIKeyCommand(title: "Restart Game", action: #selector(GameHostingController.postRestartGame), input: "r", modifierFlags: [.command, .shift])
+
+        let gameMenu = UIMenu(title: "Game", image: nil, identifier: UIMenu.Identifier("Game"), options: [], children: [ newGame, restartGame ])
+        builder.insertSibling(gameMenu, afterMenu: .application)
     }
 }
 

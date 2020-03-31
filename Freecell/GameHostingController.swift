@@ -37,7 +37,7 @@ class GameHostingController: FreecellHostingController<ContentView> {
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) not implemented")
     }
-    
+
     override var keyCommands: [UIKeyCommand]? {
         [
             UIKeyCommand(title: "New Game", action: #selector(postNewGame), input: "n", modifierFlags: .command),
@@ -56,10 +56,26 @@ class GameHostingController: FreecellHostingController<ContentView> {
     
     #warning("Present new game and restart game alerts the old fashioned way...")
     @objc func postNewGame() {
-        NotificationCenter.default.post(name: .newGameRequested, object: nil)
+        print("postNewGame")
+        guard presentedViewController == nil else { return }
+//        NotificationCenter.default.post(name: .newGameRequested, object: nil)
+        let alert = UIAlertController(title: "Test", message: "Are you sure you want to test - new game?", preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { (_) in
+            print("OK tapped")
+        }))
+        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+        present(alert, animated: true, completion: nil)
     }
     
     @objc func postRestartGame() {
-        NotificationCenter.default.post(name: .restartGameRequested, object: nil)
+        print("postRestartGame")
+        guard presentedViewController == nil else { return }
+    //        NotificationCenter.default.post(name: .newGameRequested, object: nil)
+        let alert = UIAlertController(title: "Test", message: "Are you sure you want to test - restart game?", preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { (_) in
+            print("OK tapped")
+        }))
+        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+        present(alert, animated: true, completion: nil)
     }
 }
