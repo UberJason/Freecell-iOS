@@ -48,7 +48,8 @@ class GameHostingController: FreecellHostingController<ContentView>, GameAlertin
     override var keyCommands: [UIKeyCommand]? {
         [
             UIKeyCommand(title: "New Game", action: #selector(postNewGame), input: "n", modifierFlags: .command),
-            UIKeyCommand(title: "Restart Game", action: #selector(postRestartGame), input: "r", modifierFlags: [.command, .shift])
+            UIKeyCommand(title: "Restart Game", action: #selector(postRestartGame), input: "r", modifierFlags: [.command, .shift]),
+            UIKeyCommand(title: "Undo", action: #selector(undoPressed), input: "z", modifierFlags: .command)
         ]
     }
     
@@ -84,6 +85,10 @@ class GameHostingController: FreecellHostingController<ContentView>, GameAlertin
         #else
         NotificationCenter.default.post(name: .restartGameRequested, object: nil)
         #endif
+    }
+    
+    @objc func undoPressed() {
+        game?.undo()
     }
 }
 

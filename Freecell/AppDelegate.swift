@@ -36,14 +36,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         builder.remove(menu: .edit)
         builder.remove(menu: .format)
         
+        #warning("Duplication between these three key commands and GameHostingController.keyCommands array")
         let newGame = UIKeyCommand(title: "New Game", action: #selector(GameHostingController.postNewGame), input: "n", modifierFlags: .command)
         let restartGame = UIKeyCommand(title: "Restart Game", action: #selector(GameHostingController.postRestartGame), input: "r", modifierFlags: [.command, .shift])
+        let undo = UIKeyCommand(title: "Undo", action: #selector(GameHostingController.undoPressed), input: "z", modifierFlags: .command)
 
-        let gameMenu = UIMenu(title: "Game", image: nil, identifier: UIMenu.Identifier("Game"), options: [], children: [ newGame, restartGame ])
+        let gameMenu = UIMenu(title: "Game", image: nil, identifier: .game, options: [], children: [ newGame, restartGame ])
         builder.insertSibling(gameMenu, afterMenu: .application)
+        let undoMenu = UIMenu(title: "Undo", image: nil, identifier: .undo, options: [.displayInline], children: [undo])
+        builder.insertChild(undoMenu, atEndOfMenu: .game)
         
-        #warning("Catalyst TODO: Add undo in Game menu, add divider, add visual theming")
+        #warning("Catalyst TODO: Add visual theming in View menu")
         #warning("Catalyst TODO: Add Statistics window and add it to the Game menu")
     }
 }
-
