@@ -14,7 +14,6 @@ public struct ColumnView: View {
     let tilingButtonVisible: Bool
     @Binding var isCollapsed: Bool
     
-    #warning("Catalyst TODO: don't show tiling button at all")
     public init(column: Column, tilingButtonVisible: Bool, isCollapsed: Binding<Bool>) {
         self.column = column
         self.tilingButtonVisible = tilingButtonVisible
@@ -23,7 +22,7 @@ public struct ColumnView: View {
     
     public var body: some View {
         ZStack(alignment: .top) {
-            #if os(iOS)
+            #if !targetEnvironment(macCatalyst)
             if tilingButtonVisible {
                 TilingButton(isCollapsed: $isCollapsed)
                     .offset(x: 0, y: -32)
