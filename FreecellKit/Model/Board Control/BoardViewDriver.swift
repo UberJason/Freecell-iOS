@@ -53,6 +53,7 @@ public class BoardViewDriver: ObservableObject {
     internal var _board = Board(deck: Deck(shuffled: true))
     internal var previousBoards = [Board]()
     
+    @Delayed private var movePublisher: AnyPublisher<MoveEvent, Never>
     public init(controlStyle: ControlStyle, gameStateProvider: GameStateProvider, undoManager: UndoManager? = nil) {
         self.controlStyle = controlStyle
         self.gameStateProvider = gameStateProvider
@@ -78,13 +79,16 @@ public class BoardViewDriver: ObservableObject {
     private func configureRendering() {
         renderingBoard = _board.copy
         
+        // PacePublisher doesn't actually subscribe the downstream - an internal PassthroughSubject does -
+        // so we have to explicitly retain it ourselves or it will immediately deallocate.
+        movePublisher = _board.movePublisher
+            .modulated(.milliseconds(animationOffsetInterval), scheduler: RunLoop.main)
+
         // Assign seems to cause a memory leak, so I'm using sink instead:
         // https://forums.swift.org/t/does-assign-to-produce-memory-leaks/29546
-        _board.movePublisher
-            .modulated(.milliseconds(animationOffsetInterval), scheduler: RunLoop.main)
+        movePublisher
             .map { $0.afterBoard }
-            .sink { [weak self] in
-                guard let self = self else { return }
+            .sink { [unowned self] in
                 self.renderingBoard = $0
                 if $0.isCompleted {
                     self.gameStateProvider?.win()
