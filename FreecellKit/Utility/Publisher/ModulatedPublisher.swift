@@ -20,16 +20,16 @@ final class PacePublisher<Context: Scheduler, Source: Publisher>: Publisher {
     typealias Output = Source.Output
     typealias Failure = Source.Failure
 
-    let subject: PassthroughSubject<Output, Failure>
+    var internalSubject: PassthroughSubject<Output, Failure>
     let scheduler: Context
     let pace: Context.SchedulerTimeType.Stride
 
     lazy var internalSubscriber: SteppingSubscriber<Output, Failure> = SteppingSubscriber<Output, Failure>(stepper: stepper)
-    lazy var stepper: ((SteppingSubscriber<Output, Failure>.Event) -> ()) = {
+    lazy var stepper: ((SteppingSubscriber<Output, Failure>.Event) -> ()) = { [unowned self] in 
         switch $0 {
         case .input(let input, let promise):
             // Send the input from upstream now.
-            self.subject.send(input)
+            self.internalSubject.send(input)
 
             // Wait for the pace interval to elapse before requesting the
             // next input from upstream.
@@ -38,21 +38,30 @@ final class PacePublisher<Context: Scheduler, Source: Publisher>: Publisher {
             }
 
         case .completion(let completion):
-            self.subject.send(completion: completion)
+            self.internalSubject.send(completion: completion)
         }
     }
 
     init(pace: Context.SchedulerTimeType.Stride, scheduler: Context, source: Source) {
         self.scheduler = scheduler
         self.pace = pace
-        self.subject = PassthroughSubject<Source.Output, Source.Failure>()
+        self.internalSubject = PassthroughSubject<Source.Output, Source.Failure>()
 
         source.subscribe(internalSubscriber)
     }
 
     public func receive<S>(subscriber: S) where S : Subscriber, Failure == S.Failure, Output == S.Input {
-        subject.subscribe(subscriber)
-        subject.send(subscription: PaceSubscription(subscriber: subscriber))
+        internalSubject.subscribe(subscriber)
+        internalSubject.send(subscription: PaceSubscription(subscriber: subscriber))
+    }
+    
+    deinit {
+        terminate()
+    }
+    
+    func terminate() {
+        internalSubject.send(completion: .finished)
+        internalSubscriber.cancel()
     }
 }
 
