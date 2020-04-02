@@ -8,7 +8,10 @@
 
 import SwiftUI
 
+#if os(macOS)
 #warning("Re-export images for macOS in a square aspect ratio")
+#endif
+
 public extension Image {
     static var clubs: Image {
         #if os(macOS)
