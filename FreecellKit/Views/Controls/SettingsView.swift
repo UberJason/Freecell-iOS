@@ -10,9 +10,11 @@ import SwiftUI
 
 #if os(iOS)
 
-class SettingsStore: ObservableObject {
+public class SettingsStore: ObservableObject {
+    public init() {}
+    
     @UserDefault(key: "controlStyle", defaultValue: .default)
-    var controlStyle: ControlStyle {
+    public var controlStyle: ControlStyle {
         didSet {
             objectWillChange.send()
             try? NotificationCenter.default.post(.updateControlStyle, value: controlStyle)
@@ -20,7 +22,7 @@ class SettingsStore: ObservableObject {
     }
 
     @UserDefault(key: UserDefaults.preferredVisualThemeKey, defaultValue: .system)
-    var preferredVisualTheme: VisualTheme {
+    public var preferredVisualTheme: VisualTheme {
         didSet {
             NotificationCenter.default.post(name: .preferredVisualThemeDidChange, object: nil)
         }

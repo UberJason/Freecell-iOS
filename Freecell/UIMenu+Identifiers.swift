@@ -11,4 +11,6 @@ import UIKit
 extension UIMenu.Identifier {
     static let game = UIMenu.Identifier("Game")
     static let undo = UIMenu.Identifier("Undo")
+    static let theme = UIMenu.Identifier("Theme")
+    static let controlStyle = UIMenu.Identifier("Control Style")
 }

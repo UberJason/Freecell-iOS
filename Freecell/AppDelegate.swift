@@ -7,9 +7,12 @@
 //
 
 import UIKit
+import FreecellKit
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
+    @Delayed var menuController: MenuController
+    
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         return true
@@ -32,21 +35,78 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     override func buildMenu(with builder: UIMenuBuilder) {
         super.buildMenu(with: builder)
         
+        menuController = MenuController(with: builder)
+        menuController.buildMenu()
+    }
+
+    @objc func setTheme(_ sender: Any) {
+        guard let command = sender as? UICommand,
+            let plist = command.propertyList as? [String : String],
+            let themeString = plist["theme"],
+            let theme = VisualTheme(rawValue: themeString) else { return }
+        
+        menuController.settingsStore.preferredVisualTheme = theme
+    }
+    
+    @objc func setControlStyle(_ sender: Any) {
+        guard let command = sender as? UICommand,
+               let plist = command.propertyList as? [String : String],
+               let controlStyleString = plist["controlStyle"],
+               let controlStyle = ControlStyle(rawValue: controlStyleString) else { return }
+           
+           menuController.settingsStore.controlStyle = controlStyle
+    }
+    
+    override func validate(_ command: UICommand) {
+        guard let plist = command.propertyList as? [String : String] else { return }
+        
+        if let themeString = plist["theme"],
+            let theme = VisualTheme(rawValue: themeString) {
+            command.state = (menuController.settingsStore.preferredVisualTheme == theme) ? .on : .off
+        }
+        
+        else if let controlStyleString = plist["controlStyle"],
+            let controlStyle = ControlStyle(rawValue: controlStyleString) {
+            command.state = (menuController.settingsStore.controlStyle == controlStyle) ? .on : .off
+        }
+    }
+}
+
+class MenuController {
+    let settingsStore = SettingsStore()
+    let builder: UIMenuBuilder
+    
+    init(with builder: UIMenuBuilder) {
+        self.builder = builder
+    }
+
+    func buildMenu() {
         builder.remove(menu: .file)
         builder.remove(menu: .edit)
         builder.remove(menu: .format)
         
-        #warning("Duplication between these three key commands and GameHostingController.keyCommands array")
         let newGame = UIKeyCommand(title: "New Game", action: #selector(GameHostingController.postNewGame), input: "n", modifierFlags: .command)
         let restartGame = UIKeyCommand(title: "Restart Game", action: #selector(GameHostingController.postRestartGame), input: "r", modifierFlags: [.command, .shift])
         let undo = UIKeyCommand(title: "Undo", action: #selector(GameHostingController.undoPressed), input: "z", modifierFlags: .command)
-
+        
         let gameMenu = UIMenu(title: "Game", image: nil, identifier: .game, options: [], children: [ newGame, restartGame ])
         builder.insertSibling(gameMenu, afterMenu: .application)
         let undoMenu = UIMenu(title: "Undo", image: nil, identifier: .undo, options: [.displayInline], children: [undo])
         builder.insertChild(undoMenu, atEndOfMenu: .game)
         
-        #warning("Catalyst TODO: Add visual theming in View menu")
+        let controlStyleCommands = ControlStyle.allCases.map { controlStyle in
+            UICommand(title: controlStyle.rawValue, action: #selector(AppDelegate.setControlStyle(_:)), propertyList: ["controlStyle": controlStyle.rawValue], state: settingsStore.controlStyle == controlStyle ? .on : .off)
+        }
+        let controlStyleMenu = UIMenu(title: "Control Style", image: nil, identifier: .controlStyle, options: [], children: controlStyleCommands)
+        builder.insertChild(controlStyleMenu, atEndOfMenu: .game)
+        
+        let themeCommands = VisualTheme.allCases.map { theme in
+            UICommand(title: theme.title, action: #selector(AppDelegate.setTheme(_:)), propertyList: ["theme": theme.rawValue], state: settingsStore.preferredVisualTheme == theme ? .on : .off)
+        }
+        
+        let visualTheme = UIMenu(title: "Visual Theme", image: nil, identifier: .theme, options: [], children: themeCommands)
+        builder.insertChild(visualTheme, atStartOfMenu: .view)
+        
         #warning("Catalyst TODO: Add Statistics window and add it to the Game menu")
     }
 }
