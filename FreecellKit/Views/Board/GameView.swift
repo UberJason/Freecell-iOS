@@ -55,7 +55,6 @@ public struct GameView: View, GameAlerting {
             #endif
         }
         .alert(isPresented: $game.presentAlert) {
-            #warning("Alert presents once per second on Mac")
             switch game.alertType {
             case .newGame:
                 return newGameAlert()
