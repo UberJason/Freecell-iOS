@@ -49,7 +49,6 @@ public struct GameView: View, GameAlerting {
             EmptyView()
             #else
             GeometryReader { geometry in
-                #warning("Catalyst TODO: Remove undo and menu button.")
                 ControlsView(timeString: self.game.moveTimeString, moves: self.game.moves, gameManager: self.game)
                     .position(geometry[preferences.bounds!].center)
             }

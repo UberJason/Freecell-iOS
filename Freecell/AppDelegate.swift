@@ -108,6 +108,5 @@ class MenuController {
         builder.insertChild(visualTheme, atStartOfMenu: .view)
         
         #warning("Catalyst TODO: Add Statistics window and add it to the Game menu")
-        #warning("Catalyst TODO: Special Catalyst version of the app icon - Circle with border")
     }
 }
