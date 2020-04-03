@@ -31,6 +31,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             self.window = window
             window.makeKeyAndVisible()
         }
+        
+        #warning("Catalyst TODO: Toolbar with Undo, Restart Game, New Game, Statistics buttons.")
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {
