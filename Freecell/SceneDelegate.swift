@@ -21,16 +21,26 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // This delegate does not imply the connecting scene or session are new (see `application:configurationForConnectingSceneSession` instead).
 
         // Use a UIHostingController as window root view controller.
-        if let windowScene = scene as? UIWindowScene {
-            let window = UIWindow(windowScene: windowScene)
-            // Create the SwiftUI view that provides the window contents.
-            let game = Game(undoManager: window.undoManager)
-            let contentView = ContentView(game: game)
+        guard let windowScene = scene as? UIWindowScene else { return }
+        
+        let window = UIWindow(windowScene: windowScene)
+        // Create the SwiftUI view that provides the window contents.
+        let game = Game(undoManager: window.undoManager)
+        let contentView = ContentView(game: game)
 
-            window.rootViewController = GameHostingController(game: game, rootView: contentView)
-            self.window = window
-            window.makeKeyAndVisible()
+        window.rootViewController = GameHostingController(game: game, rootView: contentView)
+        self.window = window
+        window.makeKeyAndVisible()
+        
+        #if targetEnvironment(macCatalyst)
+        if let titlebar = windowScene.titlebar {
+            let toolbar = NSToolbar(identifier: "Test Toolbar")
+            toolbar.delegate = self
+            toolbar.allowsUserCustomization = false
+            
+            titlebar.toolbar = toolbar
         }
+        #endif
         
         #warning("Catalyst TODO: Toolbar with Undo, Restart Game, New Game, Statistics buttons.")
     }
@@ -63,3 +73,31 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // to restore the scene back to its current state.
     }
 }
+
+#if targetEnvironment(macCatalyst)
+extension SceneDelegate: NSToolbarDelegate {
+    func toolbar(_ toolbar: NSToolbar, itemForItemIdentifier itemIdentifier: NSToolbarItem.Identifier, willBeInsertedIntoToolbar flag: Bool) -> NSToolbarItem? {
+        return nil
+    }
+    
+    func toolbarDefaultItemIdentifiers(_ toolbar: NSToolbar) -> [NSToolbarItem.Identifier] {
+        return []
+    }
+    
+    func toolbarAllowedItemIdentifiers(_ toolbar: NSToolbar) -> [NSToolbarItem.Identifier] {
+        return []
+    }
+    
+    func toolbarSelectableItemIdentifiers(_ toolbar: NSToolbar) -> [NSToolbarItem.Identifier] {
+        return []
+    }
+    
+    func toolbarWillAddItem(_ notification: Notification) {
+        print("toolbarWillAddItem")
+    }
+    
+    func toolbarDidRemoveItem(_ notification: Notification) {
+        print("toolbarDidRemoveItem")
+    }
+}
+#endif
