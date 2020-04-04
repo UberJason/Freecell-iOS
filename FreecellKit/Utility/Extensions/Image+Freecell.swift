@@ -47,7 +47,7 @@ public extension Image {
         #if os(macOS)
         return Image("Spade", bundle: Bundle.freecellKit)
         #else
-        return Image(identifier: .clubs)
+        return Image(identifier: .spades)
         #endif
     }
 }
