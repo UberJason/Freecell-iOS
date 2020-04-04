@@ -26,6 +26,9 @@
 		962562912381DEEB003C09AA /* EmptySpotView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 962562902381DEEB003C09AA /* EmptySpotView.swift */; };
 		962621C0241E902000B3637A /* UserDefaultPropertyWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 962621BF241E902000B3637A /* UserDefaultPropertyWrapper.swift */; };
 		9627FED023AB19CF00F8F63B /* CustomDebugStrings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9627FECF23AB19CF00F8F63B /* CustomDebugStrings.swift */; };
+		9629B2F82438E59D00A5B37F /* ToolbarManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9629B2F72438E59D00A5B37F /* ToolbarManager.swift */; };
+		9629B2FA2438E5C100A5B37F /* Toolbar+Identifiers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9629B2F92438E5C100A5B37F /* Toolbar+Identifiers.swift */; };
+		9629B2FE2438E8A300A5B37F /* SymbolIdentifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9629B2FD2438E8A300A5B37F /* SymbolIdentifier.swift */; };
 		962B0B6D2422F7E6007D4117 /* FreecellStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 962B0B6C2422F7E6007D4117 /* FreecellStore.swift */; };
 		964BBF0623A47B96009B4FDE /* BackgroundColorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 964BBF0523A47B96009B4FDE /* BackgroundColorView.swift */; };
 		964BBF0823A4861C009B4FDE /* Convenience.swift in Sources */ = {isa = PBXBuildFile; fileRef = 964BBF0723A4861C009B4FDE /* Convenience.swift */; };
@@ -274,6 +277,9 @@
 		962562902381DEEB003C09AA /* EmptySpotView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptySpotView.swift; sourceTree = "<group>"; };
 		962621BF241E902000B3637A /* UserDefaultPropertyWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultPropertyWrapper.swift; sourceTree = "<group>"; };
 		9627FECF23AB19CF00F8F63B /* CustomDebugStrings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomDebugStrings.swift; sourceTree = "<group>"; };
+		9629B2F72438E59D00A5B37F /* ToolbarManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToolbarManager.swift; sourceTree = "<group>"; };
+		9629B2F92438E5C100A5B37F /* Toolbar+Identifiers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Toolbar+Identifiers.swift"; sourceTree = "<group>"; };
+		9629B2FD2438E8A300A5B37F /* SymbolIdentifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SymbolIdentifier.swift; sourceTree = "<group>"; };
 		962B0B6C2422F7E6007D4117 /* FreecellStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FreecellStore.swift; sourceTree = "<group>"; };
 		96416DC623F9CAEF000197E0 /* Freecell.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Freecell.entitlements; sourceTree = "<group>"; };
 		964BBF0523A47B96009B4FDE /* BackgroundColorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackgroundColorView.swift; sourceTree = "<group>"; };
@@ -509,6 +515,38 @@
 			path = Model;
 			sourceTree = "<group>";
 		};
+		9629B2F62438E58D00A5B37F /* Catalyst */ = {
+			isa = PBXGroup;
+			children = (
+				964FC5632434243800FAC88F /* UIMenu+Identifiers.swift */,
+				9629B2F72438E59D00A5B37F /* ToolbarManager.swift */,
+				9629B2F92438E5C100A5B37F /* Toolbar+Identifiers.swift */,
+			);
+			path = Catalyst;
+			sourceTree = "<group>";
+		};
+		9629B2FB2438E5FC00A5B37F /* Utility */ = {
+			isa = PBXGroup;
+			children = (
+				96A36403237CF0FD005C45FB /* Info.plist */,
+				96A363FB237CF0FD005C45FB /* Assets.xcassets */,
+				96A36400237CF0FD005C45FB /* LaunchScreen.storyboard */,
+				96416DC623F9CAEF000197E0 /* Freecell.entitlements */,
+				96A363FD237CF0FD005C45FB /* Preview Content */,
+			);
+			path = Utility;
+			sourceTree = "<group>";
+		};
+		9629B2FC2438E62300A5B37F /* Hosting Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				96E188B823BBF301008129AF /* StatusBarHidingFirstResponderHostingController.swift */,
+				969DD4E2242EE35C006873C3 /* FreecellHostingController.swift */,
+				96FBBCD5241C6409001D1088 /* GameHostingController.swift */,
+			);
+			path = "Hosting Controllers";
+			sourceTree = "<group>";
+		};
 		964BBF1B23A48B97009B4FDE /* Utility */ = {
 			isa = PBXGroup;
 			children = (
@@ -531,6 +569,7 @@
 				968889392389CB83001DD34B /* Result+SuccessVoid.swift */,
 				964BBF0723A4861C009B4FDE /* Convenience.swift */,
 				965E210524040E01002BA1F7 /* Image+Freecell.swift */,
+				9629B2FD2438E8A300A5B37F /* SymbolIdentifier.swift */,
 				969DD4DA242E645F006873C3 /* CellPosition.swift */,
 				969DD4DC242E6464006873C3 /* CellDistance.swift */,
 			);
@@ -607,18 +646,12 @@
 		96A363F4237CF0FC005C45FB /* Freecell */ = {
 			isa = PBXGroup;
 			children = (
-				96416DC623F9CAEF000197E0 /* Freecell.entitlements */,
 				96A363F5237CF0FC005C45FB /* AppDelegate.swift */,
 				96A363F7237CF0FC005C45FB /* SceneDelegate.swift */,
-				96E188B823BBF301008129AF /* StatusBarHidingFirstResponderHostingController.swift */,
-				969DD4E2242EE35C006873C3 /* FreecellHostingController.swift */,
-				96FBBCD5241C6409001D1088 /* GameHostingController.swift */,
 				96A363F9237CF0FC005C45FB /* ContentView.swift */,
-				96A363FB237CF0FD005C45FB /* Assets.xcassets */,
-				96A36400237CF0FD005C45FB /* LaunchScreen.storyboard */,
-				96A36403237CF0FD005C45FB /* Info.plist */,
-				96A363FD237CF0FD005C45FB /* Preview Content */,
-				964FC5632434243800FAC88F /* UIMenu+Identifiers.swift */,
+				9629B2FC2438E62300A5B37F /* Hosting Controllers */,
+				9629B2F62438E58D00A5B37F /* Catalyst */,
+				9629B2FB2438E5FC00A5B37F /* Utility */,
 			);
 			path = Freecell;
 			sourceTree = "<group>";
@@ -1191,8 +1224,10 @@
 				969DD4E3242EE35C006873C3 /* FreecellHostingController.swift in Sources */,
 				96A363F6237CF0FC005C45FB /* AppDelegate.swift in Sources */,
 				96FBBCDD241C67F8001D1088 /* GameHostingController.swift in Sources */,
+				9629B2FA2438E5C100A5B37F /* Toolbar+Identifiers.swift in Sources */,
 				96FBBCDC241C67F8001D1088 /* StatusBarHidingFirstResponderHostingController.swift in Sources */,
 				9622959C238393BA005D599B /* ContentView.swift in Sources */,
+				9629B2F82438E59D00A5B37F /* ToolbarManager.swift in Sources */,
 				96A363F8237CF0FC005C45FB /* SceneDelegate.swift in Sources */,
 				964FC5642434243800FAC88F /* UIMenu+Identifiers.swift in Sources */,
 			);
@@ -1260,6 +1295,7 @@
 				96FBBCD8241C679C001D1088 /* SettingsView.swift in Sources */,
 				96FBBCE1241C73FF001D1088 /* CellRow.swift in Sources */,
 				96EDA563241EE07000C05697 /* SelectControlStyleView.swift in Sources */,
+				9629B2FE2438E8A300A5B37F /* SymbolIdentifier.swift in Sources */,
 				9683E0A223F87A5500B6C114 /* Freecell.xcdatamodeld in Sources */,
 				965E210A240C5B3A002BA1F7 /* Bundle+FreecellKit.swift in Sources */,
 				962562912381DEEB003C09AA /* EmptySpotView.swift in Sources */,
@@ -1555,12 +1591,12 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_ENTITLEMENTS = Freecell/Freecell.entitlements;
+				CODE_SIGN_ENTITLEMENTS = Freecell/Utility/Freecell.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_ASSET_PATHS = "\"Freecell/Preview Content\"";
+				DEVELOPMENT_ASSET_PATHS = "\"Freecell/Utility/Preview Content\"";
 				DEVELOPMENT_TEAM = 2GPQ8GE99T;
 				ENABLE_PREVIEWS = YES;
-				INFOPLIST_FILE = Freecell/Info.plist;
+				INFOPLIST_FILE = Freecell/Utility/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.4;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1579,12 +1615,12 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_ENTITLEMENTS = Freecell/Freecell.entitlements;
+				CODE_SIGN_ENTITLEMENTS = Freecell/Utility/Freecell.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_ASSET_PATHS = "\"Freecell/Preview Content\"";
+				DEVELOPMENT_ASSET_PATHS = "\"Freecell/Utility/Preview Content\"";
 				DEVELOPMENT_TEAM = 2GPQ8GE99T;
 				ENABLE_PREVIEWS = YES;
-				INFOPLIST_FILE = Freecell/Info.plist;
+				INFOPLIST_FILE = Freecell/Utility/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.4;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
