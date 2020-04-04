@@ -13,7 +13,7 @@ import FreecellKit
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     var window: UIWindow?
-
+    let toolbarManager = ToolbarManager()
 
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         // Use this method to optionally configure and attach the UIWindow `window` to the provided UIWindowScene `scene`.
@@ -35,7 +35,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         #if targetEnvironment(macCatalyst)
         if let titlebar = windowScene.titlebar {
             let toolbar = NSToolbar(identifier: "Test Toolbar")
-            toolbar.delegate = self
+            toolbar.delegate = toolbarManager
             toolbar.allowsUserCustomization = false
             
             titlebar.toolbar = toolbar
@@ -75,13 +75,28 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 }
 
 #if targetEnvironment(macCatalyst)
-extension SceneDelegate: NSToolbarDelegate {
+class ToolbarManager: NSObject, NSToolbarDelegate {
+    let configurations = [
+        ToolbarConfiguration(identifier: .undo, title: "Undo", image: UIImage(systemName: "arrow.uturn.left.circle"), toolTip: "Undo the last move.", action: #selector(undoPressed)),
+        ToolbarConfiguration(identifier: .restart, title: "Restart Game", image: UIImage(systemName: "arrow.uturn.left"), toolTip: "Restart the game.", action: #selector(restartGamePressed)),
+        ToolbarConfiguration(identifier: .newGame, title: "New Game", image: UIImage(systemName: "goforward.plus"), toolTip: "Abandon the current game and start a new game.", action: #selector(newGamePressed)),
+        ToolbarConfiguration(identifier: .statistics, title: "View Statistics", image: UIImage(systemName: "goforward.plus"), toolTip: "View statistics.", action: #selector(statisticsPressed))
+    ]
+    
     func toolbar(_ toolbar: NSToolbar, itemForItemIdentifier itemIdentifier: NSToolbarItem.Identifier, willBeInsertedIntoToolbar flag: Bool) -> NSToolbarItem? {
-        return nil
+        guard let configuration = configurations.first(where: { $0.identifier == itemIdentifier }) else { return nil }
+        
+        let item = NSToolbarItem(itemIdentifier: configuration.identifier)
+        item.label = configuration.title
+        item.toolTip = configuration.toolTip
+        item.image = configuration.image
+        item.target = self
+        item.action = configuration.action
+        return item
     }
     
     func toolbarDefaultItemIdentifiers(_ toolbar: NSToolbar) -> [NSToolbarItem.Identifier] {
-        return []
+        return [.undo, .flexibleSpace, .restart, .newGame, .flexibleSpace, .statistics]
     }
     
     func toolbarAllowedItemIdentifiers(_ toolbar: NSToolbar) -> [NSToolbarItem.Identifier] {
@@ -99,5 +114,36 @@ extension SceneDelegate: NSToolbarDelegate {
     func toolbarDidRemoveItem(_ notification: Notification) {
         print("toolbarDidRemoveItem")
     }
+    
+    @objc func undoPressed() {
+        print("undoFromToolbar called")
+    }
+    
+    @objc func restartGamePressed() {
+        print("restartGamePressed")
+    }
+    
+    @objc func newGamePressed() {
+        print("newGamePressed")
+    }
+    
+    @objc func statisticsPressed() {
+        print("statisticsPressed")
+    }
 }
 #endif
+
+extension NSToolbarItem.Identifier {
+    static let undo = NSToolbarItem.Identifier(rawValue: "undo")
+    static let restart = NSToolbarItem.Identifier(rawValue: "restart")
+    static let newGame = NSToolbarItem.Identifier(rawValue: "newGame")
+    static let statistics = NSToolbarItem.Identifier(rawValue: "statistics")
+}
+
+struct ToolbarConfiguration {
+    let identifier: NSToolbarItem.Identifier
+    let title: String
+    let image: UIImage?
+    let toolTip: String
+    let action: Selector
+}
