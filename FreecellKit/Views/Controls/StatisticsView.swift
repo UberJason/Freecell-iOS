@@ -122,7 +122,7 @@ struct StatisticsView: View {
             Button(action: {
                 self.resetStatisticsAlertShowing.toggle()
             }) {
-                CellRow(leading: Text("Reset Statistics"), trailing: Image(systemName: "trash.fill"))
+                CellRow(leading: Text("Reset Statistics"), trailing: Image.trash)
                     .foregroundColor(.red)
             }.alert(isPresented: $resetStatisticsAlertShowing) {
                 resetStatisticsAlert()

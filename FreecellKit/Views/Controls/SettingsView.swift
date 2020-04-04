@@ -46,13 +46,13 @@ public struct SettingsView: View, GameAlerting {
                     Button(action: {
                         self.restartGameWarning.toggle()
                     }) {
-                        CellRow(leading: Text("Restart Game"), trailing: Image(systemName: "arrow.uturn.left"))
+                        CellRow(leading: Text("Restart Game"), trailing: Image.restart)
                             .foregroundColor(.freecellTheme)
                     }.alert(isPresented: $restartGameWarning) { restartGameAlert() }
                     Button(action: {
                         self.newGameWarning.toggle()
                     }) {
-                        CellRow(leading: Text("New Game"), trailing: Image(systemName: "goforward.plus"))
+                        CellRow(leading: Text("New Game"), trailing: Image.newGame)
                             .foregroundColor(.freecellTheme)
                     }.alert(isPresented: $newGameWarning) { newGameAlert() }
                 }

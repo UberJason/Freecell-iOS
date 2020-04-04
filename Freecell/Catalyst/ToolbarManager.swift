@@ -13,10 +13,10 @@ class ToolbarManager: NSObject, NSToolbarDelegate {
     weak var hostingController: GameHostingController?
     
     let configurations = [
-        ToolbarConfiguration(identifier: .undo, title: "Undo", image: UIImage(systemName: "arrow.uturn.left.circle"), toolTip: "Undo the last move.", action: #selector(undoPressed)),
-        ToolbarConfiguration(identifier: .restart, title: "Restart Game", image: UIImage(systemName: "arrow.uturn.left"), toolTip: "Restart the game.", action: #selector(restartGamePressed)),
-        ToolbarConfiguration(identifier: .newGame, title: "New Game", image: UIImage(systemName: "goforward.plus"), toolTip: "Abandon the current game and start a new game.", action: #selector(newGamePressed)),
-        ToolbarConfiguration(identifier: .statistics, title: "Statistics", image: UIImage(systemName: "doc.plaintext"), toolTip: "View statistics for your games.", action: #selector(statisticsPressed))
+        ToolbarConfiguration(identifier: .undo, title: "Undo", image: UIImage.undo, toolTip: "Undo the last move.", action: #selector(undoPressed)),
+        ToolbarConfiguration(identifier: .restart, title: "Restart Game", image: UIImage.restart, toolTip: "Restart the game.", action: #selector(restartGamePressed)),
+        ToolbarConfiguration(identifier: .newGame, title: "New Game", image: UIImage.newGame, toolTip: "Abandon the current game and start a new game.", action: #selector(newGamePressed)),
+        ToolbarConfiguration(identifier: .statistics, title: "Statistics", image: UIImage.statistics, toolTip: "View statistics for your games.", action: #selector(statisticsPressed))
     ]
     
     func toolbar(_ toolbar: NSToolbar, itemForItemIdentifier itemIdentifier: NSToolbarItem.Identifier, willBeInsertedIntoToolbar flag: Bool) -> NSToolbarItem? {

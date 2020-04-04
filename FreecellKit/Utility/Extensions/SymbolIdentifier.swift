@@ -17,3 +17,20 @@ public struct Symbol {
         }
     }
 }
+
+public extension Symbol.Identifier {
+    static let clubs = Symbol.Identifier(rawValue: "suit.club.fill")
+    static let diamonds = Symbol.Identifier(rawValue: "suit.diamond.fill")
+    static let hearts = Symbol.Identifier(rawValue: "suit.heart.fill")
+    static let spades = Symbol.Identifier(rawValue: "suit.spade.fill")
+    
+    static let expand = Symbol.Identifier(rawValue: "arrow.up.left.and.arrow.down.right")
+    static let collapse = Symbol.Identifier(rawValue: "arrow.down.right.and.arrow.up.left")
+    
+    static let undo = Symbol.Identifier(rawValue: "arrow.uturn.left.circle")
+    static let settings = Symbol.Identifier(rawValue: "gear")
+    static let trash = Symbol.Identifier(rawValue: "trash.fill")
+    
+    static let restart = Symbol.Identifier(rawValue: "arrow.uturn.left")
+    static let newGame = Symbol.Identifier(rawValue: "goforward.plus")
+}

@@ -12,18 +12,6 @@ import SwiftUI
 #warning("Re-export images for macOS in a square aspect ratio")
 #endif
 
-public extension Symbol.Identifier {
-    static let clubs = Symbol.Identifier(rawValue: "suit.club.fill")
-    static let diamonds = Symbol.Identifier(rawValue: "suit.diamond.fill")
-    static let hearts = Symbol.Identifier(rawValue: "suit.heart.fill")
-    static let spades = Symbol.Identifier(rawValue: "suit.spade.fill")
-    
-    static let undo = Symbol.Identifier(rawValue: "arrow.uturn.left.circle")
-    static let settings = Symbol.Identifier(rawValue: "gear")
-    static let expand = Symbol.Identifier(rawValue: "arrow.up.left.and.arrow.down.right")
-    static let collapse = Symbol.Identifier(rawValue: "arrow.down.right.and.arrow.up.left")
-}
-
 public extension Image {
     init(identifier: Symbol.Identifier) {
         self.init(systemName: identifier.rawValue)
@@ -74,12 +62,24 @@ public extension Image {
         Image(identifier: .settings)
     }
     
+    static var trash: Image {
+        Image(identifier: .trash)
+    }
+    
     static var expand: Image {
         Image(identifier: .expand)
     }
     
     static var collapse: Image {
         Image(identifier: .collapse)
+    }
+    
+    static var restart: Image {
+        Image(identifier: .restart)
+    }
+    
+    static var newGame: Image {
+        Image(identifier: .newGame)
     }
 }
 #endif
