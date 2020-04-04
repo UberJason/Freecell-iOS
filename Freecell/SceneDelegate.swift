@@ -13,8 +13,9 @@ import FreecellKit
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     var window: UIWindow?
+    #if targetEnvironment(macCatalyst)
     let toolbarManager = ToolbarManager()
-
+    #endif
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         // Use this method to optionally configure and attach the UIWindow `window` to the provided UIWindowScene `scene`.
         // If using a storyboard, the `window` property will automatically be initialized and attached to the scene.
@@ -28,12 +29,14 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         let game = Game(undoManager: window.undoManager)
         let contentView = ContentView(game: game)
 
-        window.rootViewController = GameHostingController(game: game, rootView: contentView)
+        let hostingController = GameHostingController(game: game, rootView: contentView)
+        window.rootViewController = hostingController
         self.window = window
         window.makeKeyAndVisible()
         
         #if targetEnvironment(macCatalyst)
         if let titlebar = windowScene.titlebar {
+            toolbarManager.hostingController = hostingController
             let toolbar = NSToolbar(identifier: "Test Toolbar")
             toolbar.delegate = toolbarManager
             toolbar.allowsUserCustomization = false
@@ -76,11 +79,13 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
 #if targetEnvironment(macCatalyst)
 class ToolbarManager: NSObject, NSToolbarDelegate {
+    weak var hostingController: GameHostingController?
+    
     let configurations = [
         ToolbarConfiguration(identifier: .undo, title: "Undo", image: UIImage(systemName: "arrow.uturn.left.circle"), toolTip: "Undo the last move.", action: #selector(undoPressed)),
         ToolbarConfiguration(identifier: .restart, title: "Restart Game", image: UIImage(systemName: "arrow.uturn.left"), toolTip: "Restart the game.", action: #selector(restartGamePressed)),
         ToolbarConfiguration(identifier: .newGame, title: "New Game", image: UIImage(systemName: "goforward.plus"), toolTip: "Abandon the current game and start a new game.", action: #selector(newGamePressed)),
-        ToolbarConfiguration(identifier: .statistics, title: "View Statistics", image: UIImage(systemName: "goforward.plus"), toolTip: "View statistics.", action: #selector(statisticsPressed))
+        ToolbarConfiguration(identifier: .statistics, title: "Statistics", image: UIImage(systemName: "doc.plaintext"), toolTip: "View statistics for your games.", action: #selector(statisticsPressed))
     ]
     
     func toolbar(_ toolbar: NSToolbar, itemForItemIdentifier itemIdentifier: NSToolbarItem.Identifier, willBeInsertedIntoToolbar flag: Bool) -> NSToolbarItem? {
@@ -107,31 +112,23 @@ class ToolbarManager: NSObject, NSToolbarDelegate {
         return []
     }
     
-    func toolbarWillAddItem(_ notification: Notification) {
-        print("toolbarWillAddItem")
-    }
-    
-    func toolbarDidRemoveItem(_ notification: Notification) {
-        print("toolbarDidRemoveItem")
-    }
-    
     @objc func undoPressed() {
-        print("undoFromToolbar called")
+        hostingController?.undoPressed()
     }
     
     @objc func restartGamePressed() {
-        print("restartGamePressed")
+        hostingController?.postRestartGame()
     }
     
     @objc func newGamePressed() {
-        print("newGamePressed")
+        hostingController?.postNewGame()
     }
     
     @objc func statisticsPressed() {
         print("statisticsPressed")
     }
 }
-#endif
+
 
 extension NSToolbarItem.Identifier {
     static let undo = NSToolbarItem.Identifier(rawValue: "undo")
@@ -147,3 +144,4 @@ struct ToolbarConfiguration {
     let toolTip: String
     let action: Selector
 }
+#endif
