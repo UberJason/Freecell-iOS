@@ -89,10 +89,13 @@ class MenuController {
         let restartGame = UIKeyCommand(title: "Restart Game", action: #selector(GameHostingController.postRestartGame), input: "r", modifierFlags: [.command, .shift])
         let undo = UIKeyCommand(title: "Undo", action: #selector(GameHostingController.undoPressed), input: "z", modifierFlags: .command)
         
-        let gameMenu = UIMenu(title: "Game", image: nil, identifier: .game, options: [], children: [ newGame, restartGame ])
+        let gameMenu = UIMenu(title: "Game", image: nil, identifier: .game, options: [], children: [ restartGame, newGame ])
         builder.insertSibling(gameMenu, afterMenu: .application)
         let undoMenu = UIMenu(title: "Undo", image: nil, identifier: .undo, options: [.displayInline], children: [undo])
-        builder.insertChild(undoMenu, atEndOfMenu: .game)
+        builder.insertChild(undoMenu, atStartOfMenu: .game)
+        
+        let separator = UIMenu(title: "", image: nil, identifier: .separator, options: [.displayInline], children: [])
+        builder.insertChild(separator, atEndOfMenu: .game)
         
         let controlStyleCommands = ControlStyle.allCases.map { controlStyle in
             UICommand(title: controlStyle.rawValue, action: #selector(AppDelegate.setControlStyle(_:)), propertyList: ["controlStyle": controlStyle.rawValue], state: settingsStore.controlStyle == controlStyle ? .on : .off)

@@ -38,7 +38,6 @@ public struct SettingsView: View, GameAlerting {
     
     public init() {}
     
-    #warning("Refactor - move image system names to Image+Freecell.swift")
     public var body: some View {
         NavigationView {
             Form {
