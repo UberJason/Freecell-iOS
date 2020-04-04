@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -32,6 +32,8 @@
 		9629B3002438EA5700A5B37F /* UIImage+Freecell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9629B2FF2438EA5700A5B37F /* UIImage+Freecell.swift */; };
 		962B0B6D2422F7E6007D4117 /* FreecellStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 962B0B6C2422F7E6007D4117 /* FreecellStore.swift */; };
 		964B8E232439080C00A61642 /* MenuController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 964B8E222439080C00A61642 /* MenuController.swift */; };
+		964B8E2E24390EBB00A61642 /* AppKitGlue.bundle in Embed PlugIns */ = {isa = PBXBuildFile; fileRef = 964B8E2824390E9B00A61642 /* AppKitGlue.bundle */; platformFilter = maccatalyst; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		964B8E3B24392D6800A61642 /* AppKitGlueManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 964B8E3A24392D6800A61642 /* AppKitGlueManager.swift */; };
 		964BBF0623A47B96009B4FDE /* BackgroundColorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 964BBF0523A47B96009B4FDE /* BackgroundColorView.swift */; };
 		964BBF0823A4861C009B4FDE /* Convenience.swift in Sources */ = {isa = PBXBuildFile; fileRef = 964BBF0723A4861C009B4FDE /* Convenience.swift */; };
 		964BBF0A23A48661009B4FDE /* FullStackMovementTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 964BBF0923A48661009B4FDE /* FullStackMovementTests.swift */; };
@@ -129,6 +131,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		964B8E2F24390EBB00A61642 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 96A363EA237CF0FC005C45FB /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 964B8E2724390E9B00A61642;
+			remoteInfo = AppKitGlue;
+		};
 		96A36409237CF0FD005C45FB /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 96A363EA237CF0FC005C45FB /* Project object */;
@@ -223,6 +232,17 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
+		964B8E3124390EBB00A61642 /* Embed PlugIns */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				964B8E2E24390EBB00A61642 /* AppKitGlue.bundle in Embed PlugIns */,
+			);
+			name = "Embed PlugIns";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		96A36444237CF138005C45FB /* Embed Frameworks */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
@@ -286,6 +306,10 @@
 		962B0B6C2422F7E6007D4117 /* FreecellStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FreecellStore.swift; sourceTree = "<group>"; };
 		96416DC623F9CAEF000197E0 /* Freecell.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Freecell.entitlements; sourceTree = "<group>"; };
 		964B8E222439080C00A61642 /* MenuController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuController.swift; sourceTree = "<group>"; };
+		964B8E2824390E9B00A61642 /* AppKitGlue.bundle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = AppKitGlue.bundle; sourceTree = BUILT_PRODUCTS_DIR; };
+		964B8E2A24390E9B00A61642 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		964B8E3224390EDF00A61642 /* AppKitGlue-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "AppKitGlue-Bridging-Header.h"; sourceTree = "<group>"; };
+		964B8E3A24392D6800A61642 /* AppKitGlueManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppKitGlueManager.swift; sourceTree = "<group>"; };
 		964BBF0523A47B96009B4FDE /* BackgroundColorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackgroundColorView.swift; sourceTree = "<group>"; };
 		964BBF0723A4861C009B4FDE /* Convenience.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Convenience.swift; sourceTree = "<group>"; };
 		964BBF0923A48661009B4FDE /* FullStackMovementTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FullStackMovementTests.swift; sourceTree = "<group>"; };
@@ -393,6 +417,13 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		964B8E2524390E9B00A61642 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		96A363EF237CF0FC005C45FB /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -553,6 +584,16 @@
 			path = "Hosting Controllers";
 			sourceTree = "<group>";
 		};
+		964B8E2924390E9B00A61642 /* AppKitGlue */ = {
+			isa = PBXGroup;
+			children = (
+				964B8E2A24390E9B00A61642 /* Info.plist */,
+				964B8E3224390EDF00A61642 /* AppKitGlue-Bridging-Header.h */,
+				964B8E3A24392D6800A61642 /* AppKitGlueManager.swift */,
+			);
+			path = AppKitGlue;
+			sourceTree = "<group>";
+		};
 		964BBF1B23A48B97009B4FDE /* Utility */ = {
 			isa = PBXGroup;
 			children = (
@@ -624,6 +665,7 @@
 				96A36467237E33C0005C45FB /* FreecellKitTests */,
 				96A3642B237CF138005C45FB /* DeckKit */,
 				96A36438237CF138005C45FB /* DeckKitTests */,
+				964B8E2924390E9B00A61642 /* AppKitGlue */,
 				96CA9AD6238F0E4900C34A60 /* Freecell-Mac */,
 				96CA9AEC238F0E4B00C34A60 /* Freecell-MacTests */,
 				96CA9AF7238F0E4B00C34A60 /* Freecell-MacUITests */,
@@ -645,6 +687,7 @@
 				96CA9AD5238F0E4900C34A60 /* Freecell.app */,
 				96CA9AE9238F0E4B00C34A60 /* Freecell-MacTests.xctest */,
 				96CA9AF4238F0E4B00C34A60 /* Freecell-MacUITests.xctest */,
+				964B8E2824390E9B00A61642 /* AppKitGlue.bundle */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -870,6 +913,23 @@
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
+		964B8E2724390E9B00A61642 /* AppKitGlue */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 964B8E2B24390E9B00A61642 /* Build configuration list for PBXNativeTarget "AppKitGlue" */;
+			buildPhases = (
+				964B8E2424390E9B00A61642 /* Sources */,
+				964B8E2524390E9B00A61642 /* Frameworks */,
+				964B8E2624390E9B00A61642 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = AppKitGlue;
+			productName = AppKitGlue;
+			productReference = 964B8E2824390E9B00A61642 /* AppKitGlue.bundle */;
+			productType = "com.apple.product-type.bundle";
+		};
 		96A363F1237CF0FC005C45FB /* Freecell */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 96A3641C237CF0FD005C45FB /* Build configuration list for PBXNativeTarget "Freecell" */;
@@ -878,12 +938,14 @@
 				96A363EF237CF0FC005C45FB /* Frameworks */,
 				96A363F0237CF0FC005C45FB /* Resources */,
 				96A36444237CF138005C45FB /* Embed Frameworks */,
+				964B8E3124390EBB00A61642 /* Embed PlugIns */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 				96A3643E237CF138005C45FB /* PBXTargetDependency */,
 				96A3646D237E33C0005C45FB /* PBXTargetDependency */,
+				964B8E3024390EBB00A61642 /* PBXTargetDependency */,
 			);
 			name = Freecell;
 			packageProductDependencies = (
@@ -1072,6 +1134,10 @@
 				LastUpgradeCheck = 1140;
 				ORGANIZATIONNAME = "Jason Ji";
 				TargetAttributes = {
+					964B8E2724390E9B00A61642 = {
+						CreatedOnToolsVersion = 11.4;
+						LastSwiftMigration = 1140;
+					};
 					96A363F1237CF0FC005C45FB = {
 						CreatedOnToolsVersion = 11.2;
 					};
@@ -1137,11 +1203,19 @@
 				96CA9AD4238F0E4900C34A60 /* Freecell-Mac */,
 				96CA9AE8238F0E4B00C34A60 /* Freecell-MacTests */,
 				96CA9AF3238F0E4B00C34A60 /* Freecell-MacUITests */,
+				964B8E2724390E9B00A61642 /* AppKitGlue */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		964B8E2624390E9B00A61642 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		96A363F0237CF0FC005C45FB /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -1223,6 +1297,14 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		964B8E2424390E9B00A61642 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				964B8E3B24392D6800A61642 /* AppKitGlueManager.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		96A363EE237CF0FC005C45FB /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -1393,6 +1475,12 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		964B8E3024390EBB00A61642 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			platformFilter = maccatalyst;
+			target = 964B8E2724390E9B00A61642 /* AppKitGlue */;
+			targetProxy = 964B8E2F24390EBB00A61642 /* PBXContainerItemProxy */;
+		};
 		96A3640A237CF0FD005C45FB /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 96A363F1237CF0FC005C45FB /* Freecell */;
@@ -1480,6 +1568,57 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		964B8E2C24390E9B00A61642 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_TEAM = 2GPQ8GE99T;
+				INFOPLIST_FILE = AppKitGlue/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Bundles";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 10.15;
+				PRODUCT_BUNDLE_IDENTIFIER = com.JYJApps.AppKitGlue;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SKIP_INSTALL = YES;
+				SWIFT_OBJC_BRIDGING_HEADER = "AppKitGlue/AppKitGlue-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
+				WRAPPER_EXTENSION = bundle;
+			};
+			name = Debug;
+		};
+		964B8E2D24390E9B00A61642 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_TEAM = 2GPQ8GE99T;
+				INFOPLIST_FILE = AppKitGlue/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Bundles";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 10.15;
+				PRODUCT_BUNDLE_IDENTIFIER = com.JYJApps.AppKitGlue;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SKIP_INSTALL = YES;
+				SWIFT_OBJC_BRIDGING_HEADER = "AppKitGlue/AppKitGlue-Bridging-Header.h";
+				SWIFT_VERSION = 5.0;
+				WRAPPER_EXTENSION = bundle;
+			};
+			name = Release;
+		};
 		96A3641A237CF0FD005C45FB /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -2074,6 +2213,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		964B8E2B24390E9B00A61642 /* Build configuration list for PBXNativeTarget "AppKitGlue" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				964B8E2C24390E9B00A61642 /* Debug */,
+				964B8E2D24390E9B00A61642 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		96A363ED237CF0FC005C45FB /* Build configuration list for PBXProject "Freecell" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
