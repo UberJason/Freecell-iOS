@@ -16,22 +16,6 @@ class FreecellHostingController<Content: View>: StatusBarHidingFirstResponderHos
     override init(rootView: Content) {
         super.init(rootView: rootView)
         
-        #if targetEnvironment(macCatalyst)
-        if let pluginPath = Bundle.main.builtInPlugInsPath?.appending("/AppKitGlue.bundle") {
-            print("Good to go")
-            let bundle = Bundle(path: pluginPath)
-            bundle?.load()
-            
-            
-            if let foo = bundle?.principalClass as? NSObject.Type {
-                let bar = foo.init()
-                print(bar)
-            }
-            
-            print("Loaded")
-        }
-        #endif
-        
         applyPreferredTheme()
         
         NotificationCenter.default

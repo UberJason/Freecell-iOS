@@ -310,6 +310,8 @@
 		964B8E2A24390E9B00A61642 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		964B8E3224390EDF00A61642 /* AppKitGlue-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "AppKitGlue-Bridging-Header.h"; sourceTree = "<group>"; };
 		964B8E3A24392D6800A61642 /* AppKitGlueManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppKitGlueManager.swift; sourceTree = "<group>"; };
+		964B8E4124394E7A00A61642 /* Freecell-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Freecell-Bridging-Header.h"; sourceTree = "<group>"; };
+		964B8E4224394E7A00A61642 /* AppKitBridging.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppKitBridging.h; sourceTree = "<group>"; };
 		964BBF0523A47B96009B4FDE /* BackgroundColorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackgroundColorView.swift; sourceTree = "<group>"; };
 		964BBF0723A4861C009B4FDE /* Convenience.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Convenience.swift; sourceTree = "<group>"; };
 		964BBF0923A48661009B4FDE /* FullStackMovementTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FullStackMovementTests.swift; sourceTree = "<group>"; };
@@ -566,6 +568,7 @@
 			isa = PBXGroup;
 			children = (
 				96A36403237CF0FD005C45FB /* Info.plist */,
+				964B8E4124394E7A00A61642 /* Freecell-Bridging-Header.h */,
 				96A363FB237CF0FD005C45FB /* Assets.xcassets */,
 				96A36400237CF0FD005C45FB /* LaunchScreen.storyboard */,
 				96416DC623F9CAEF000197E0 /* Freecell.entitlements */,
@@ -590,6 +593,7 @@
 				964B8E2A24390E9B00A61642 /* Info.plist */,
 				964B8E3224390EDF00A61642 /* AppKitGlue-Bridging-Header.h */,
 				964B8E3A24392D6800A61642 /* AppKitGlueManager.swift */,
+				964B8E4224394E7A00A61642 /* AppKitBridging.h */,
 			);
 			path = AppKitGlue;
 			sourceTree = "<group>";
@@ -1140,6 +1144,7 @@
 					};
 					96A363F1237CF0FC005C45FB = {
 						CreatedOnToolsVersion = 11.2;
+						LastSwiftMigration = 1140;
 					};
 					96A36407237CF0FD005C45FB = {
 						CreatedOnToolsVersion = 11.2;
@@ -1738,6 +1743,7 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = Freecell/Utility/Freecell.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_ASSET_PATHS = "\"Freecell/Utility/Preview Content\"";
@@ -1752,6 +1758,8 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.JYJApps.Freecell;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTS_MACCATALYST = YES;
+				SWIFT_OBJC_BRIDGING_HEADER = "Freecell/Utility/Freecell-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 2;
 			};
@@ -1762,6 +1770,7 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = Freecell/Utility/Freecell.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_ASSET_PATHS = "\"Freecell/Utility/Preview Content\"";
@@ -1776,6 +1785,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.JYJApps.Freecell;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTS_MACCATALYST = YES;
+				SWIFT_OBJC_BRIDGING_HEADER = "Freecell/Utility/Freecell-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 2;
 			};

@@ -11,6 +11,7 @@ import UIKit
 #if targetEnvironment(macCatalyst)
 class ToolbarManager: NSObject, NSToolbarDelegate {
     weak var hostingController: GameHostingController?
+    var appKitBridge: AppKitBridging?
     
     let configurations = [
         ToolbarConfiguration(identifier: .undo, title: "Undo", image: UIImage.undo, toolTip: "Undo the last move.", action: #selector(undoPressed)),
@@ -18,6 +19,17 @@ class ToolbarManager: NSObject, NSToolbarDelegate {
         ToolbarConfiguration(identifier: .newGame, title: "New Game", image: UIImage.newGame, toolTip: "Abandon the current game and start a new game.", action: #selector(newGamePressed)),
         ToolbarConfiguration(identifier: .statistics, title: "Statistics", image: UIImage.statistics, toolTip: "View statistics for your games.", action: #selector(statisticsPressed))
     ]
+    
+    override init() {
+        guard let pluginPath = Bundle.main.builtInPlugInsPath?.appending("/AppKitGlue.bundle") else { return }
+        
+        let bundle = Bundle(path: pluginPath)
+        bundle?.load()
+        if let type = bundle?.principalClass as? AppKitBridging.Type {
+            appKitBridge = type.init()
+            print("Loaded AppKitBridging")
+        }
+    }
     
     func toolbar(_ toolbar: NSToolbar, itemForItemIdentifier itemIdentifier: NSToolbarItem.Identifier, willBeInsertedIntoToolbar flag: Bool) -> NSToolbarItem? {
         guard let configuration = configurations.first(where: { $0.identifier == itemIdentifier }) else { return nil }
@@ -56,7 +68,7 @@ class ToolbarManager: NSObject, NSToolbarDelegate {
     }
     
     @objc func statisticsPressed() {
-        print("statisticsPressed")
+        appKitBridge?.showStatisticsWindow()
     }
 }
 
