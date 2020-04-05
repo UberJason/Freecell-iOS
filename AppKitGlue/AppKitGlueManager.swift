@@ -7,6 +7,7 @@
 //
 
 import AppKit
+import SwiftUI
 
 public class AppKitGlueManager: NSObject, AppKitBridging {
     var statisticsWindow: NSWindow!
@@ -15,7 +16,11 @@ public class AppKitGlueManager: NSObject, AppKitBridging {
         super.init()
     }
     
-    public func showStatisticsWindow() {
+    public func showStatisticsWindow(usingController controller: Any) {
+        guard let controller = controller as? NSViewController else { return }
+        
+        StatisticsView()
+        
         if statisticsWindow == nil {
             statisticsWindow = NSWindow(
                 contentRect: NSRect(x: 0, y: 0, width: 400, height: 400),
@@ -25,6 +30,7 @@ public class AppKitGlueManager: NSObject, AppKitBridging {
             statisticsWindow.center()
             statisticsWindow.setFrameAutosaveName("Statistics Window")
             statisticsWindow.delegate = self
+            statisticsWindow.contentViewController = controller
         }
         
         print(statisticsWindow)

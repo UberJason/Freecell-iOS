@@ -116,6 +116,7 @@
 		96CA9B0E239300C300C34A60 /* BoardViewDriver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96CA9B0D239300C300C34A60 /* BoardViewDriver.swift */; };
 		96CC08702426B76600BE2737 /* NotificationCenter+Codable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96CC086F2426B76600BE2737 /* NotificationCenter+Codable.swift */; };
 		96CC08722427EB7000BE2737 /* TilingButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96CC08712427EB7000BE2737 /* TilingButton.swift */; };
+		96CC54B624397D5100E46847 /* GameResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 966B539F2425AFE7009454E1 /* GameResult.swift */; };
 		96EDA556241ECEE200C05697 /* GameState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96EDA555241ECEE200C05697 /* GameState.swift */; };
 		96EDA559241ECF1F00C05697 /* ControlManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96EDA558241ECF1F00C05697 /* ControlManager.swift */; };
 		96EDA55B241ECF5E00C05697 /* BoardProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96EDA55A241ECF5E00C05697 /* BoardProvider.swift */; };
@@ -1307,6 +1308,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				964B8E3B24392D6800A61642 /* AppKitGlueManager.swift in Sources */,
+				96CC54B624397D5100E46847 /* GameResult.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

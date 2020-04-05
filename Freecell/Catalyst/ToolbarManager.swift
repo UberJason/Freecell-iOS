@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import SwiftUI
+import FreecellKit
 
 #if targetEnvironment(macCatalyst)
 class ToolbarManager: NSObject, NSToolbarDelegate {
@@ -68,7 +70,8 @@ class ToolbarManager: NSObject, NSToolbarDelegate {
     }
     
     @objc func statisticsPressed() {
-        appKitBridge?.showStatisticsWindow()
+        let hostingController = NSHostingController<StatisticsView>(rootView: StatisticsView())
+//        appKitBridge?.showStatisticsWindow(usingController: <#T##Any#>)
     }
 }
 

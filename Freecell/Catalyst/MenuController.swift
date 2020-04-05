@@ -50,3 +50,4 @@ class MenuController {
         #warning("Catalyst TODO: Add Statistics window and add it to the Game menu")
     }
 }
+

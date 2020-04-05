@@ -6,13 +6,13 @@
 //  Copyright © 2020 Jason Ji. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
+#import <AppKit/AppKit.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
 @protocol AppKitBridging <NSObject>
 -(instancetype)init;
--(void)showStatisticsWindow;
+-(void)showStatisticsWindowUsingController:(id)controller;
 @end
 
 NS_ASSUME_NONNULL_END
