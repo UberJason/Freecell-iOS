@@ -122,6 +122,10 @@
 		96EDA561241ECF9E00C05697 /* ModernControlManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96EDA560241ECF9E00C05697 /* ModernControlManager.swift */; };
 		96EDA563241EE07000C05697 /* SelectControlStyleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96EDA562241EE07000C05697 /* SelectControlStyleView.swift */; };
 		96F68678243A5A4A00572256 /* DismissableModalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96F68677243A5A4A00572256 /* DismissableModalView.swift */; };
+		96F6867E243A5DA700572256 /* DimmingPresentationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96F6867A243A5DA700572256 /* DimmingPresentationController.swift */; };
+		96F6867F243A5DA700572256 /* DimmingPresentationAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96F6867B243A5DA700572256 /* DimmingPresentationAnimator.swift */; };
+		96F68680243A5DA700572256 /* DimmingPresentationParams.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96F6867C243A5DA700572256 /* DimmingPresentationParams.swift */; };
+		96F68681243A5DA700572256 /* DimmingPresentationTransitioningDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96F6867D243A5DA700572256 /* DimmingPresentationTransitioningDelegate.swift */; };
 		96FBBCD8241C679C001D1088 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96A59AA7241B19E6004B8FDF /* SettingsView.swift */; };
 		96FBBCDC241C67F8001D1088 /* StatusBarHidingFirstResponderHostingController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96E188B823BBF301008129AF /* StatusBarHidingFirstResponderHostingController.swift */; };
 		96FBBCDD241C67F8001D1088 /* GameHostingController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96FBBCD5241C6409001D1088 /* GameHostingController.swift */; };
@@ -389,6 +393,10 @@
 		96EDA560241ECF9E00C05697 /* ModernControlManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModernControlManager.swift; sourceTree = "<group>"; };
 		96EDA562241EE07000C05697 /* SelectControlStyleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectControlStyleView.swift; sourceTree = "<group>"; };
 		96F68677243A5A4A00572256 /* DismissableModalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DismissableModalView.swift; sourceTree = "<group>"; };
+		96F6867A243A5DA700572256 /* DimmingPresentationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DimmingPresentationController.swift; sourceTree = "<group>"; };
+		96F6867B243A5DA700572256 /* DimmingPresentationAnimator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DimmingPresentationAnimator.swift; sourceTree = "<group>"; };
+		96F6867C243A5DA700572256 /* DimmingPresentationParams.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DimmingPresentationParams.swift; sourceTree = "<group>"; };
+		96F6867D243A5DA700572256 /* DimmingPresentationTransitioningDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DimmingPresentationTransitioningDelegate.swift; sourceTree = "<group>"; };
 		96FBBCD5241C6409001D1088 /* GameHostingController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameHostingController.swift; sourceTree = "<group>"; };
 		96FBBCDE241C6BF0001D1088 /* StatisticsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatisticsView.swift; sourceTree = "<group>"; };
 		96FBBCE0241C73FF001D1088 /* CellRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CellRow.swift; sourceTree = "<group>"; };
@@ -529,6 +537,7 @@
 				9629B2F92438E5C100A5B37F /* Toolbar+Identifiers.swift */,
 				9629B2FF2438EA5700A5B37F /* UIImage+Freecell.swift */,
 				964B8E222439080C00A61642 /* MenuController.swift */,
+				96F68679243A5DA700572256 /* Dimming Presentation */,
 			);
 			path = Catalyst;
 			sourceTree = "<group>";
@@ -849,6 +858,17 @@
 				96EDA560241ECF9E00C05697 /* ModernControlManager.swift */,
 			);
 			path = "Board Control";
+			sourceTree = "<group>";
+		};
+		96F68679243A5DA700572256 /* Dimming Presentation */ = {
+			isa = PBXGroup;
+			children = (
+				96F6867A243A5DA700572256 /* DimmingPresentationController.swift */,
+				96F6867B243A5DA700572256 /* DimmingPresentationAnimator.swift */,
+				96F6867C243A5DA700572256 /* DimmingPresentationParams.swift */,
+				96F6867D243A5DA700572256 /* DimmingPresentationTransitioningDelegate.swift */,
+			);
+			path = "Dimming Presentation";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -1234,13 +1254,17 @@
 				96A363F6237CF0FC005C45FB /* AppDelegate.swift in Sources */,
 				96FBBCDD241C67F8001D1088 /* GameHostingController.swift in Sources */,
 				9629B3002438EA5700A5B37F /* UIImage+Freecell.swift in Sources */,
+				96F6867F243A5DA700572256 /* DimmingPresentationAnimator.swift in Sources */,
+				96F68680243A5DA700572256 /* DimmingPresentationParams.swift in Sources */,
 				9629B2FA2438E5C100A5B37F /* Toolbar+Identifiers.swift in Sources */,
+				96F68681243A5DA700572256 /* DimmingPresentationTransitioningDelegate.swift in Sources */,
 				964B8E232439080C00A61642 /* MenuController.swift in Sources */,
 				96FBBCDC241C67F8001D1088 /* StatusBarHidingFirstResponderHostingController.swift in Sources */,
 				9622959C238393BA005D599B /* ContentView.swift in Sources */,
 				9629B2F82438E59D00A5B37F /* ToolbarManager.swift in Sources */,
 				96A363F8237CF0FC005C45FB /* SceneDelegate.swift in Sources */,
 				964FC5642434243800FAC88F /* UIMenu+Identifiers.swift in Sources */,
+				96F6867E243A5DA700572256 /* DimmingPresentationController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
