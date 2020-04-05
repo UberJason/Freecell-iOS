@@ -43,7 +43,7 @@ public struct GameView: View, GameAlerting {
                     .transition(.opacity)
             }
             #endif
-        }.edgesIgnoringSafeArea(.all)
+            }.conditionalEdgesIgnoringSafeArea()
         .overlayPreferenceValue(TopStackBoundsKey.self) { preferences in
             #if os(macOS)
             EmptyView()
@@ -62,6 +62,16 @@ public struct GameView: View, GameAlerting {
                 return restartGameAlert()
             }
         }
+    }
+}
+
+extension View {
+    func conditionalEdgesIgnoringSafeArea() -> some View {
+        #if targetEnvironment(macCatalyst)
+        return edgesIgnoringSafeArea([.leading, .trailing, .bottom])
+        #else
+        return edgesIgnoringSafeArea(.all)
+        #endif
     }
 }
 

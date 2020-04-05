@@ -22,7 +22,7 @@ public struct ColumnView: View {
     
     public var body: some View {
         ZStack(alignment: .top) {
-            #if os(iOS)
+            #if !targetEnvironment(macCatalyst)
             if tilingButtonVisible {
                 TilingButton(isCollapsed: $isCollapsed)
                     .offset(x: 0, y: -32)

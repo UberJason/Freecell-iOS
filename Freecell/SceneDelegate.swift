@@ -13,24 +13,39 @@ import FreecellKit
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     var window: UIWindow?
-
-
+    #if targetEnvironment(macCatalyst)
+    let toolbarManager = ToolbarManager()
+    #endif
+    
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         // Use this method to optionally configure and attach the UIWindow `window` to the provided UIWindowScene `scene`.
         // If using a storyboard, the `window` property will automatically be initialized and attached to the scene.
         // This delegate does not imply the connecting scene or session are new (see `application:configurationForConnectingSceneSession` instead).
 
         // Use a UIHostingController as window root view controller.
-        if let windowScene = scene as? UIWindowScene {
-            let window = UIWindow(windowScene: windowScene)
-            // Create the SwiftUI view that provides the window contents.
-            let game = Game(undoManager: window.undoManager)
-            let contentView = ContentView(game: game)
+        guard let windowScene = scene as? UIWindowScene else { return }
+        windowScene.sizeRestrictions?.minimumSize = CGSize(width: 1024, height: 640)
+        
+        let window = UIWindow(windowScene: windowScene)
+        // Create the SwiftUI view that provides the window contents.
+        let game = Game(undoManager: window.undoManager)
+        let contentView = ContentView(game: game)
 
-            window.rootViewController = GameHostingController(rootView: contentView)
-            self.window = window
-            window.makeKeyAndVisible()
+        let hostingController = GameHostingController(game: game, rootView: contentView)
+        window.rootViewController = hostingController
+        self.window = window
+        window.makeKeyAndVisible()
+        
+        #if targetEnvironment(macCatalyst)
+        if let titlebar = windowScene.titlebar {
+            toolbarManager.hostingController = hostingController
+            let toolbar = NSToolbar(identifier: "Test Toolbar")
+            toolbar.delegate = toolbarManager
+            toolbar.allowsUserCustomization = false
+            
+            titlebar.toolbar = toolbar
         }
+        #endif
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {

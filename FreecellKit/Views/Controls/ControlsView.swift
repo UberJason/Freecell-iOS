@@ -22,6 +22,7 @@ struct ControlsView: View {
             }
             .foregroundColor(.white)
             .font(.system(size: 15, weight: .semibold, design: .rounded))
+            #if !targetEnvironment(macCatalyst)
             HStack(spacing: 0) {
                 Button(action: {
                     self.gameManager.undo()
@@ -49,6 +50,7 @@ struct ControlsView: View {
                     
                 }.padding(.top, 6).padding(.all, 6).hoverEffect(.automatic)
             }.font(.system(size: 11, weight: .semibold, design: .rounded))
+            #endif
         }
     }
     

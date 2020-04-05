@@ -7,6 +7,7 @@
 //
 
 import SwiftUI
+import UIKit
 
 public protocol GameAlerting {
     func restartGameAlert() -> Alert

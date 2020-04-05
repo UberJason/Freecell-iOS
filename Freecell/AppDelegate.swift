@@ -7,9 +7,12 @@
 //
 
 import UIKit
+import FreecellKit
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
+    @Delayed var menuController: MenuController
+    
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         return true
@@ -29,6 +32,45 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Use this method to release any resources that were specific to the discarded scenes, as they will not return.
     }
 
-
+    override func buildMenu(with builder: UIMenuBuilder) {
+        super.buildMenu(with: builder)
+        
+        menuController = MenuController(with: builder)
+        menuController.buildMenu()
+    }
 }
 
+// MARK: - Menu Bar Command Selectors -
+extension AppDelegate {
+    @objc func setTheme(_ sender: Any) {
+        guard let command = sender as? UICommand,
+            let plist = command.propertyList as? [String : String],
+            let themeString = plist["theme"],
+            let theme = VisualTheme(rawValue: themeString) else { return }
+        
+        menuController.settingsStore.preferredVisualTheme = theme
+    }
+    
+    @objc func setControlStyle(_ sender: Any) {
+        guard let command = sender as? UICommand,
+               let plist = command.propertyList as? [String : String],
+               let controlStyleString = plist["controlStyle"],
+               let controlStyle = ControlStyle(rawValue: controlStyleString) else { return }
+           
+           menuController.settingsStore.controlStyle = controlStyle
+    }
+    
+    override func validate(_ command: UICommand) {
+        guard let plist = command.propertyList as? [String : String] else { return }
+        
+        if let themeString = plist["theme"],
+            let theme = VisualTheme(rawValue: themeString) {
+            command.state = (menuController.settingsStore.preferredVisualTheme == theme) ? .on : .off
+        }
+        
+        else if let controlStyleString = plist["controlStyle"],
+            let controlStyle = ControlStyle(rawValue: controlStyleString) {
+            command.state = (menuController.settingsStore.controlStyle == controlStyle) ? .on : .off
+        }
+    }
+}

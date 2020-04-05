@@ -10,9 +10,11 @@ import SwiftUI
 
 #if os(iOS)
 
-class SettingsStore: ObservableObject {
+public class SettingsStore: ObservableObject {
+    public init() {}
+    
     @UserDefault(key: "controlStyle", defaultValue: .default)
-    var controlStyle: ControlStyle {
+    public var controlStyle: ControlStyle {
         didSet {
             objectWillChange.send()
             try? NotificationCenter.default.post(.updateControlStyle, value: controlStyle)
@@ -20,7 +22,7 @@ class SettingsStore: ObservableObject {
     }
 
     @UserDefault(key: UserDefaults.preferredVisualThemeKey, defaultValue: .system)
-    var preferredVisualTheme: VisualTheme {
+    public var preferredVisualTheme: VisualTheme {
         didSet {
             NotificationCenter.default.post(name: .preferredVisualThemeDidChange, object: nil)
         }
@@ -31,25 +33,25 @@ public struct SettingsView: View, GameAlerting {
     @State var newGameWarning = false
     @State var restartGameWarning = false
     
-    #warning("If/when SwiftUI 2.0 allows for formSheet presentation, rework to remove GameHostingController, present directly from BoardView, and bind controlStyle to BoardViewDriver.controlStyle directly.")
+    #warning("SwiftUI 2.0: if allowing for formSheet presentation, rework to remove GameHostingController, present directly from BoardView, and bind controlStyle to BoardViewDriver.controlStyle directly.")
     @ObservedObject var store = SettingsStore()
     
     public init() {}
     
     public var body: some View {
-        NavigationView {
+        DismissableModalView(title: "Menu", content:
             Form {
                 Section(header: Text("This Game")) {
                     Button(action: {
                         self.restartGameWarning.toggle()
                     }) {
-                        CellRow(leading: Text("Restart Game"), trailing: Image(systemName: "arrow.uturn.left"))
+                        CellRow(leading: Text("Restart Game"), trailing: Image.restart)
                             .foregroundColor(.freecellTheme)
                     }.alert(isPresented: $restartGameWarning) { restartGameAlert() }
                     Button(action: {
                         self.newGameWarning.toggle()
                     }) {
-                        CellRow(leading: Text("New Game"), trailing: Image(systemName: "goforward.plus"))
+                        CellRow(leading: Text("New Game"), trailing: Image.newGame)
                             .foregroundColor(.freecellTheme)
                     }.alert(isPresented: $newGameWarning) { newGameAlert() }
                 }
@@ -71,19 +73,7 @@ public struct SettingsView: View, GameAlerting {
                     }
                 }
             }
-            .listStyle(GroupedListStyle())
-            .environment(\.horizontalSizeClass, .regular)
-            .navigationBarTitle("Menu", displayMode: .inline)
-            .navigationBarItems(trailing:
-                Button(action: {
-                    NotificationCenter.default.post(name: .dismissMenu, object: nil)
-                }) {
-                    Text("Done").fontWeight(.bold)
-                }.padding([.leading, .top, .bottom], 8)
-            )
-                .background(Color(UIColor.systemGroupedBackground))
-        }
-        .accentColor(.freecellTheme)
+        )
     }
 
 }

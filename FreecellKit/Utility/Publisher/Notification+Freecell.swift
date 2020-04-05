@@ -9,7 +9,7 @@
 import Foundation
 
 public extension Notification.Name {
-    static let newGameRequested = Notification.Name(rawValue: "newGameRequested")
+    static let newGameRequested = NSNotification.Name(rawValue: "newGameRequested")
     static let restartGameRequested = Notification.Name(rawValue: "restartGameRequested")
     
     static let newGame = Notification.Name(rawValue: "newGame")

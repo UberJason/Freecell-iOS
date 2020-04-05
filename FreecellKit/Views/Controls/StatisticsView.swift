@@ -100,11 +100,13 @@ class StatisticsModel: ObservableObject {
     }
 }
 
-struct StatisticsView: View {
+public struct StatisticsView: View {
     @ObservedObject var model = StatisticsModel()
     @State var resetStatisticsAlertShowing = false
     
-    var body: some View {
+    public init() {}
+    
+    public var body: some View {
         Form {
             Section(header: Text("Win/Loss")) {
                 CellRow(leading: Text("Games Won"), trailing: Text("\(model.winsCount)"))
@@ -122,7 +124,7 @@ struct StatisticsView: View {
             Button(action: {
                 self.resetStatisticsAlertShowing.toggle()
             }) {
-                CellRow(leading: Text("Reset Statistics"), trailing: Image(systemName: "trash.fill"))
+                CellRow(leading: Text("Reset Statistics"), trailing: Image.trash)
                     .foregroundColor(.red)
             }.alert(isPresented: $resetStatisticsAlertShowing) {
                 resetStatisticsAlert()
