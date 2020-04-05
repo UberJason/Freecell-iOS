@@ -99,6 +99,10 @@ class GameHostingController: FreecellHostingController<ContentView>, GameAlertin
 
 #if targetEnvironment(macCatalyst)
 extension GameHostingController {
+    #warning("Catalyst TODO: Nicer custom presentation for the statistics modal - inspiration from Dimming Presentation but simpler")
+    #warning("Catalyst TODO: detect 'Esc' and dismiss")
+//            UIKeyCommand(title: "Escape", action: #selector(escPressed), input: UIKeyCommand.inputEscape)
+    
     func presentStatisticsView() {
         if let _ = presentedViewController { return }
         
