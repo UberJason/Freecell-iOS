@@ -99,9 +99,8 @@ class GameHostingController: FreecellHostingController<ContentView>, GameAlertin
 
 // MARK: - Hacks for Catalyst -
 
-#if targetEnvironment(macCatalyst)
 extension GameHostingController {
-    func presentStatisticsView() {
+    @objc func presentStatisticsView() {
         #warning("SwiftUI 2.0 / Catalyst 2.0: Can I show stats in a proper window instead of this modal?")
         if let _ = presentedViewController { return }
         
@@ -116,6 +115,7 @@ extension GameHostingController {
     }
 }
 
+#if targetEnvironment(macCatalyst)
 #warning("SwiftUI 2.0: remove alert(for:) if bugs around alert and timer are fixed")
 extension GameAlerting {
     public func alert(for type: Game.AlertType) -> UIAlertController {

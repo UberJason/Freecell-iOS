@@ -40,13 +40,15 @@ class MenuController {
         let controlStyleMenu = UIMenu(title: "Control Style", image: nil, identifier: .controlStyle, options: [], children: controlStyleCommands)
         builder.insertChild(controlStyleMenu, atEndOfMenu: .game)
         
+        let viewStats = UIKeyCommand(title: "View Statistics...", action: #selector(GameHostingController.presentStatisticsView), input: "s", modifierFlags: [.command, .shift])
+        let viewStatsMenu = UIMenu(title: "View Statistics", image: nil, identifier: .viewStats, options: [.displayInline], children: [viewStats])
+        builder.insertChild(viewStatsMenu, atEndOfMenu: .game)
+        
         let themeCommands = VisualTheme.allCases.map { theme in
             UICommand(title: theme.title, action: #selector(AppDelegate.setTheme(_:)), propertyList: ["theme": theme.rawValue], state: settingsStore.preferredVisualTheme == theme ? .on : .off)
         }
         
         let visualTheme = UIMenu(title: "Visual Theme", image: nil, identifier: .theme, options: [], children: themeCommands)
         builder.insertChild(visualTheme, atStartOfMenu: .view)
-        
-        #warning("Catalyst TODO: Add Statistics window and add it to the Game menu")
     }
 }

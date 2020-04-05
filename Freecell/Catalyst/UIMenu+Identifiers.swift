@@ -14,4 +14,5 @@ extension UIMenu.Identifier {
     static let theme = UIMenu.Identifier("Theme")
     static let separator = UIMenu.Identifier("Separator")
     static let controlStyle = UIMenu.Identifier("Control Style")
+    static let viewStats = UIMenu.Identifier("View Statistics")
 }
