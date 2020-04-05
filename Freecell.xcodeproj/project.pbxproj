@@ -90,7 +90,6 @@
 		96A36477237E33D3005C45FB /* Board.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96A36476237E33D3005C45FB /* Board.swift */; };
 		96A36479237E3408005C45FB /* Stack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96A36478237E3408005C45FB /* Stack.swift */; };
 		96A3647B237E367A005C45FB /* DeckKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 96A3642A237CF138005C45FB /* DeckKit.framework */; };
-		96A3647C237E367A005C45FB /* DeckKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 96A3642A237CF138005C45FB /* DeckKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		96A36480237E37D1005C45FB /* Rank+FreecellValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96A36452237CF490005C45FB /* Rank+FreecellValue.swift */; };
 		96A36482237E384C005C45FB /* Column.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96A36481237E384C005C45FB /* Column.swift */; };
 		96A36484237E3851005C45FB /* FreeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96A36483237E3851005C45FB /* FreeCell.swift */; };
@@ -246,7 +245,6 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				96A3647C237E367A005C45FB /* DeckKit.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1625,7 +1623,7 @@
 		96A3641D237CF0FD005C45FB /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = Freecell/Utility/Freecell.entitlements;
 				CODE_SIGN_STYLE = Automatic;
@@ -1649,7 +1647,7 @@
 		96A3641E237CF0FD005C45FB /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = Freecell/Utility/Freecell.entitlements;
 				CODE_SIGN_STYLE = Automatic;
