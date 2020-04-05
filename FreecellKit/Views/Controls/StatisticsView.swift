@@ -100,11 +100,13 @@ class StatisticsModel: ObservableObject {
     }
 }
 
-struct StatisticsView: View {
+public struct StatisticsView: View {
     @ObservedObject var model = StatisticsModel()
     @State var resetStatisticsAlertShowing = false
     
-    var body: some View {
+    public init() {}
+    
+    public var body: some View {
         Form {
             Section(header: Text("Win/Loss")) {
                 CellRow(leading: Text("Games Won"), trailing: Text("\(model.winsCount)"))

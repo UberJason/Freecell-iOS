@@ -94,6 +94,21 @@ class GameHostingController: FreecellHostingController<ContentView>, GameAlertin
 
 // MARK: - Hacks for Catalyst -
 
+#if targetEnvironment(macCatalyst)
+extension GameHostingController {
+    func presentStatisticsView() {
+        if let _ = presentedViewController { return }
+        
+        let statisticsView = StatisticsView()
+        let modalView = DismissableModalView(title: "Statistics", content: statisticsView)
+        let hostingController = FreecellHostingController(rootView: modalView)
+        hostingController.view.clipsToBounds = true
+        hostingController.modalPresentationStyle = .formSheet
+//        hostingController.transitioningDelegate = transitionDelegate
+        present(hostingController, animated: true, completion: nil)
+        
+    }
+}
 
 #warning("SwiftUI 2.0: remove alert(for:) if bugs around alert and timer are fixed")
 extension GameAlerting {
@@ -126,5 +141,5 @@ extension GameAlerting {
         
         return alert
     }
-    
 }
+#endif

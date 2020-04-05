@@ -121,6 +121,7 @@
 		96EDA55F241ECF9800C05697 /* ClassicControlManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96EDA55E241ECF9800C05697 /* ClassicControlManager.swift */; };
 		96EDA561241ECF9E00C05697 /* ModernControlManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96EDA560241ECF9E00C05697 /* ModernControlManager.swift */; };
 		96EDA563241EE07000C05697 /* SelectControlStyleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96EDA562241EE07000C05697 /* SelectControlStyleView.swift */; };
+		96F68678243A5A4A00572256 /* DismissableModalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96F68677243A5A4A00572256 /* DismissableModalView.swift */; };
 		96FBBCD8241C679C001D1088 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96A59AA7241B19E6004B8FDF /* SettingsView.swift */; };
 		96FBBCDC241C67F8001D1088 /* StatusBarHidingFirstResponderHostingController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96E188B823BBF301008129AF /* StatusBarHidingFirstResponderHostingController.swift */; };
 		96FBBCDD241C67F8001D1088 /* GameHostingController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96FBBCD5241C6409001D1088 /* GameHostingController.swift */; };
@@ -387,6 +388,7 @@
 		96EDA55E241ECF9800C05697 /* ClassicControlManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClassicControlManager.swift; sourceTree = "<group>"; };
 		96EDA560241ECF9E00C05697 /* ModernControlManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModernControlManager.swift; sourceTree = "<group>"; };
 		96EDA562241EE07000C05697 /* SelectControlStyleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectControlStyleView.swift; sourceTree = "<group>"; };
+		96F68677243A5A4A00572256 /* DismissableModalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DismissableModalView.swift; sourceTree = "<group>"; };
 		96FBBCD5241C6409001D1088 /* GameHostingController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameHostingController.swift; sourceTree = "<group>"; };
 		96FBBCDE241C6BF0001D1088 /* StatisticsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatisticsView.swift; sourceTree = "<group>"; };
 		96FBBCE0241C73FF001D1088 /* CellRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CellRow.swift; sourceTree = "<group>"; };
@@ -776,6 +778,7 @@
 			isa = PBXGroup;
 			children = (
 				96FBBCE0241C73FF001D1088 /* CellRow.swift */,
+				96F68677243A5A4A00572256 /* DismissableModalView.swift */,
 				9616A1D623FB7176007CABA1 /* ControlsView.swift */,
 				96A59AA7241B19E6004B8FDF /* SettingsView.swift */,
 				96FBBCDE241C6BF0001D1088 /* StatisticsView.swift */,
@@ -1324,6 +1327,7 @@
 				9689E18A23AB0BA4008B960B /* SteppingSubscriber.swift in Sources */,
 				96CA9B0E239300C300C34A60 /* BoardViewDriver.swift in Sources */,
 				962621C0241E902000B3637A /* UserDefaultPropertyWrapper.swift in Sources */,
+				96F68678243A5A4A00572256 /* DismissableModalView.swift in Sources */,
 				96EDA55F241ECF9800C05697 /* ClassicControlManager.swift in Sources */,
 				964BBF0823A4861C009B4FDE /* Convenience.swift in Sources */,
 				96A36488237E3894005C45FB /* FreecellError.swift in Sources */,

@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import FreecellKit
 
 #if targetEnvironment(macCatalyst)
 class ToolbarManager: NSObject, NSToolbarDelegate {
@@ -28,6 +29,7 @@ class ToolbarManager: NSObject, NSToolbarDelegate {
         item.image = configuration.image
         item.target = self
         item.action = configuration.action
+        item.isBordered = true
         return item
     }
     
@@ -56,7 +58,7 @@ class ToolbarManager: NSObject, NSToolbarDelegate {
     }
     
     @objc func statisticsPressed() {
-        print("statisticsPressed")
+        hostingController?.presentStatisticsView()
     }
 }
 

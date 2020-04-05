@@ -39,7 +39,7 @@ public struct SettingsView: View, GameAlerting {
     public init() {}
     
     public var body: some View {
-        NavigationView {
+        DismissableModalView(title: "Menu", content:
             Form {
                 Section(header: Text("This Game")) {
                     Button(action: {
@@ -73,19 +73,7 @@ public struct SettingsView: View, GameAlerting {
                     }
                 }
             }
-            .listStyle(GroupedListStyle())
-            .environment(\.horizontalSizeClass, .regular)
-            .navigationBarTitle("Menu", displayMode: .inline)
-            .navigationBarItems(trailing:
-                Button(action: {
-                    NotificationCenter.default.post(name: .dismissMenu, object: nil)
-                }) {
-                    Text("Done").fontWeight(.bold)
-                }.padding([.leading, .top, .bottom], 8)
-            )
-                .background(Color(UIColor.systemGroupedBackground))
-        }
-        .accentColor(.freecellTheme)
+        )
     }
 
 }
