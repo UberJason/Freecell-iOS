@@ -15,7 +15,7 @@ class GameHostingController: FreecellHostingController<ContentView>, GameAlertin
     weak var game: Game?
     
     #if targetEnvironment(macCatalyst)
-    let transitionDelegate = DimmingPresentationTransitioningDelegate(params: DimmingPresentationParams(duration: 0.15, maxDimmedAlpha: 0.3, presentedCornerRadius: 10.0, contentWidth: 400, contentHeight: 600))
+    let transitionDelegate = DimmingPresentationTransitioningDelegate(params: DimmingPresentationParams(duration: 0.15, maxDimmedAlpha: 0.3, presentedCornerRadius: 10.0, contentWidth: 400, contentHeight: 580))
     #endif
     
     convenience init(game: Game?, rootView: ContentView) {
@@ -96,20 +96,18 @@ class GameHostingController: FreecellHostingController<ContentView>, GameAlertin
     }
 }
 
+
 // MARK: - Hacks for Catalyst -
 
 #if targetEnvironment(macCatalyst)
 extension GameHostingController {
-    #warning("Catalyst TODO: Nicer custom presentation for the statistics modal - inspiration from Dimming Presentation but simpler")
-    #warning("Catalyst TODO: detect 'Esc' and dismiss")
-//            UIKeyCommand(title: "Escape", action: #selector(escPressed), input: UIKeyCommand.inputEscape)
-    
     func presentStatisticsView() {
+        #warning("SwiftUI 2.0 / Catalyst 2.0: Can I show stats in a proper window instead of this modal?")
         if let _ = presentedViewController { return }
         
         let statisticsView = StatisticsView()
         let modalView = DismissableModalView(title: "Statistics", content: statisticsView)
-        let hostingController = FreecellHostingController(rootView: modalView)
+        let hostingController = StatisticsHostingController(rootView: modalView)
         hostingController.view.clipsToBounds = true
         hostingController.modalPresentationStyle = .custom
         hostingController.transitioningDelegate = transitionDelegate

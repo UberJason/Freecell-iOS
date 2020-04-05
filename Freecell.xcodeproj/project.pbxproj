@@ -126,6 +126,7 @@
 		96F68680243A5DA700572256 /* DimmingPresentationParams.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96F6867C243A5DA700572256 /* DimmingPresentationParams.swift */; };
 		96F68681243A5DA700572256 /* DimmingPresentationTransitioningDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96F6867D243A5DA700572256 /* DimmingPresentationTransitioningDelegate.swift */; };
 		96F68683243A790800572256 /* UIView+AddSubviewFullFrame.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96F68682243A790800572256 /* UIView+AddSubviewFullFrame.swift */; };
+		96F68685243A799F00572256 /* StatisticsHostingController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96F68684243A799F00572256 /* StatisticsHostingController.swift */; };
 		96FBBCD8241C679C001D1088 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96A59AA7241B19E6004B8FDF /* SettingsView.swift */; };
 		96FBBCDC241C67F8001D1088 /* StatusBarHidingFirstResponderHostingController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96E188B823BBF301008129AF /* StatusBarHidingFirstResponderHostingController.swift */; };
 		96FBBCDD241C67F8001D1088 /* GameHostingController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96FBBCD5241C6409001D1088 /* GameHostingController.swift */; };
@@ -397,6 +398,7 @@
 		96F6867C243A5DA700572256 /* DimmingPresentationParams.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DimmingPresentationParams.swift; sourceTree = "<group>"; };
 		96F6867D243A5DA700572256 /* DimmingPresentationTransitioningDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DimmingPresentationTransitioningDelegate.swift; sourceTree = "<group>"; };
 		96F68682243A790800572256 /* UIView+AddSubviewFullFrame.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+AddSubviewFullFrame.swift"; sourceTree = "<group>"; };
+		96F68684243A799F00572256 /* StatisticsHostingController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatisticsHostingController.swift; sourceTree = "<group>"; };
 		96FBBCD5241C6409001D1088 /* GameHostingController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameHostingController.swift; sourceTree = "<group>"; };
 		96FBBCDE241C6BF0001D1088 /* StatisticsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatisticsView.swift; sourceTree = "<group>"; };
 		96FBBCE0241C73FF001D1088 /* CellRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CellRow.swift; sourceTree = "<group>"; };
@@ -560,6 +562,7 @@
 				96E188B823BBF301008129AF /* StatusBarHidingFirstResponderHostingController.swift */,
 				969DD4E2242EE35C006873C3 /* FreecellHostingController.swift */,
 				96FBBCD5241C6409001D1088 /* GameHostingController.swift */,
+				96F68684243A799F00572256 /* StatisticsHostingController.swift */,
 			);
 			path = "Hosting Controllers";
 			sourceTree = "<group>";
@@ -1251,6 +1254,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				96F68685243A799F00572256 /* StatisticsHostingController.swift in Sources */,
 				969DD4E3242EE35C006873C3 /* FreecellHostingController.swift in Sources */,
 				96A363F6237CF0FC005C45FB /* AppDelegate.swift in Sources */,
 				96FBBCDD241C67F8001D1088 /* GameHostingController.swift in Sources */,
