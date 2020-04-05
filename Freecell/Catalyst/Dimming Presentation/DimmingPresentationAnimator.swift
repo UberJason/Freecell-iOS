@@ -55,25 +55,27 @@ public class DimmingPresentationAnimator: NSObject, UIViewControllerAnimatedTran
         containerView.addSubview(toViewController.view)
         toViewController.view.layer.cornerRadius = params.presentedCornerRadius
         toViewController.view.frame = transitionContext.finalFrame(for: toViewController)
-        toViewController.view.transform = CGAffineTransform(translationX: 0, y: containerView.bounds.size.height)
+        toViewController.view.transform = .init(scaleX: params.animationScale, y: params.animationScale)
+        toViewController.view.alpha = 0.0
         
-        UIView.animate(withDuration: params.duration, animations: {
+        
+        UIView.animate(withDuration: params.duration, delay: 0.0, usingSpringWithDamping: 0.9, initialSpringVelocity: 1, options: [], animations: {
             toViewController.view.transform = .identity
+            toViewController.view.alpha = 1.0
             toViewController.setNeedsStatusBarAppearanceUpdate()
-            
-        }, completion: { (finished) in
+        }) { (finished) in
             transitionContext.completeTransition(finished)
-        })
+        }
     }
     
     func animateDismissal(using transitionContext: UIViewControllerContextTransitioning) {
-        let containerView = transitionContext.containerView
         guard let fromViewController = transitionContext.viewController(forKey: UITransitionContextViewControllerKey.from) else {
             fatalError("Couldn't get view controllers for this transition")
         }
         
-        UIView.animate(withDuration: params.duration, animations: {
-            fromViewController.view.transform = CGAffineTransform(translationX: 0, y: containerView.bounds.size.height)
+        UIView.animate(withDuration: params.duration, animations: { [animationScale = params.animationScale] in
+            fromViewController.view.transform = .init(scaleX: animationScale, y: animationScale)
+            fromViewController.view.alpha = 0.0
         
         }, completion: { (finished) in
             transitionContext.completeTransition(finished)

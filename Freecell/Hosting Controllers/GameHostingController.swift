@@ -13,8 +13,9 @@ import FreecellKit
 
 class GameHostingController: FreecellHostingController<ContentView>, GameAlerting {
     weak var game: Game?
+    
     #if targetEnvironment(macCatalyst)
-    let transitionDelegate = DimmingPresentationTransitioningDelegate(params: DimmingPresentationParams(duration: 0.3, maxDimmedAlpha: 0.5, presentedCornerRadius: 17.0, contentWidth: 400, contentHeight: 600, bottomInset: 0, viewsToHide: [], bottomInsetRespectsSafeArea: false))
+    let transitionDelegate = DimmingPresentationTransitioningDelegate(params: DimmingPresentationParams(duration: 0.15, maxDimmedAlpha: 0.3, presentedCornerRadius: 10.0, contentWidth: 400, contentHeight: 600))
     #endif
     
     convenience init(game: Game?, rootView: ContentView) {
@@ -110,8 +111,8 @@ extension GameHostingController {
         let modalView = DismissableModalView(title: "Statistics", content: statisticsView)
         let hostingController = FreecellHostingController(rootView: modalView)
         hostingController.view.clipsToBounds = true
-        hostingController.modalPresentationStyle = .formSheet
-//        hostingController.transitioningDelegate = transitionDelegate
+        hostingController.modalPresentationStyle = .custom
+        hostingController.transitioningDelegate = transitionDelegate
         present(hostingController, animated: true, completion: nil)
         
     }

@@ -125,6 +125,7 @@
 		96F6867F243A5DA700572256 /* DimmingPresentationAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96F6867B243A5DA700572256 /* DimmingPresentationAnimator.swift */; };
 		96F68680243A5DA700572256 /* DimmingPresentationParams.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96F6867C243A5DA700572256 /* DimmingPresentationParams.swift */; };
 		96F68681243A5DA700572256 /* DimmingPresentationTransitioningDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96F6867D243A5DA700572256 /* DimmingPresentationTransitioningDelegate.swift */; };
+		96F68683243A790800572256 /* UIView+AddSubviewFullFrame.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96F68682243A790800572256 /* UIView+AddSubviewFullFrame.swift */; };
 		96FBBCD8241C679C001D1088 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96A59AA7241B19E6004B8FDF /* SettingsView.swift */; };
 		96FBBCDC241C67F8001D1088 /* StatusBarHidingFirstResponderHostingController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96E188B823BBF301008129AF /* StatusBarHidingFirstResponderHostingController.swift */; };
 		96FBBCDD241C67F8001D1088 /* GameHostingController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96FBBCD5241C6409001D1088 /* GameHostingController.swift */; };
@@ -395,6 +396,7 @@
 		96F6867B243A5DA700572256 /* DimmingPresentationAnimator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DimmingPresentationAnimator.swift; sourceTree = "<group>"; };
 		96F6867C243A5DA700572256 /* DimmingPresentationParams.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DimmingPresentationParams.swift; sourceTree = "<group>"; };
 		96F6867D243A5DA700572256 /* DimmingPresentationTransitioningDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DimmingPresentationTransitioningDelegate.swift; sourceTree = "<group>"; };
+		96F68682243A790800572256 /* UIView+AddSubviewFullFrame.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+AddSubviewFullFrame.swift"; sourceTree = "<group>"; };
 		96FBBCD5241C6409001D1088 /* GameHostingController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameHostingController.swift; sourceTree = "<group>"; };
 		96FBBCDE241C6BF0001D1088 /* StatisticsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatisticsView.swift; sourceTree = "<group>"; };
 		96FBBCE0241C73FF001D1088 /* CellRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CellRow.swift; sourceTree = "<group>"; };
@@ -861,6 +863,7 @@
 		96F68679243A5DA700572256 /* Dimming Presentation */ = {
 			isa = PBXGroup;
 			children = (
+				96F68682243A790800572256 /* UIView+AddSubviewFullFrame.swift */,
 				96F6867A243A5DA700572256 /* DimmingPresentationController.swift */,
 				96F6867B243A5DA700572256 /* DimmingPresentationAnimator.swift */,
 				96F6867C243A5DA700572256 /* DimmingPresentationParams.swift */,
@@ -1254,6 +1257,7 @@
 				9629B3002438EA5700A5B37F /* UIImage+Freecell.swift in Sources */,
 				96F6867F243A5DA700572256 /* DimmingPresentationAnimator.swift in Sources */,
 				96F68680243A5DA700572256 /* DimmingPresentationParams.swift in Sources */,
+				96F68683243A790800572256 /* UIView+AddSubviewFullFrame.swift in Sources */,
 				9629B2FA2438E5C100A5B37F /* Toolbar+Identifiers.swift in Sources */,
 				96F68681243A5DA700572256 /* DimmingPresentationTransitioningDelegate.swift in Sources */,
 				964B8E232439080C00A61642 /* MenuController.swift in Sources */,
