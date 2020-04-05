@@ -16,10 +16,10 @@ public class AppKitGlueManager: NSObject, AppKitBridging {
         super.init()
     }
     
-    public func showStatisticsWindow(usingController controller: Any) {
-        guard let controller = controller as? NSViewController else { return }
-        
-        StatisticsView()
+    public func showStatisticsWindow(forStatistics data: Data) {
+        let viewModel = try? JSONDecoder().decode(StatisticsViewModel.self, from: data)
+        print(type(of: viewModel))
+        print(viewModel)
         
         if statisticsWindow == nil {
             statisticsWindow = NSWindow(
@@ -30,7 +30,7 @@ public class AppKitGlueManager: NSObject, AppKitBridging {
             statisticsWindow.center()
             statisticsWindow.setFrameAutosaveName("Statistics Window")
             statisticsWindow.delegate = self
-            statisticsWindow.contentViewController = controller
+//            statisticsWindow.contentViewController = controller
         }
         
         print(statisticsWindow)

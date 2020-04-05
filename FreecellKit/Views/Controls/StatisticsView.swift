@@ -17,7 +17,7 @@ struct Streak {
     }
 }
 
-class StatisticsModel: ObservableObject {
+public class StatisticsModel: ObservableObject {
     private let store = FreecellStore()
     
     private var allRecords: [GameRecord] {
@@ -56,7 +56,7 @@ class StatisticsModel: ObservableObject {
     var longestLosingStreak = Streak(type: .loss)
     var currentStreak = Streak(type: .win)
     
-    init() {
+    public init() {
         allRecords = store.allRecords()
         updateStreaks()
     }
@@ -96,6 +96,10 @@ class StatisticsModel: ObservableObject {
         }
         
         return (winning: longestWinningStreak, losing: longestLosingStreak, current: currentStreak)
+    }
+    
+    public func makeViewModel() -> StatisticsViewModel {
+        return StatisticsViewModel(winsCount: winsCount, lossCount: lossCount, totalGameCount: totalGameCount, winPercentage: winPercentage, currentStreak: currentStreak.title, longestWinningStreak: longestWinningStreak.title, longestLosingStreak: longestLosingStreak.title)
     }
 }
 

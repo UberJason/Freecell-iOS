@@ -34,6 +34,8 @@
 		964B8E232439080C00A61642 /* MenuController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 964B8E222439080C00A61642 /* MenuController.swift */; };
 		964B8E2E24390EBB00A61642 /* AppKitGlue.bundle in Embed PlugIns */ = {isa = PBXBuildFile; fileRef = 964B8E2824390E9B00A61642 /* AppKitGlue.bundle */; platformFilter = maccatalyst; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		964B8E3B24392D6800A61642 /* AppKitGlueManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 964B8E3A24392D6800A61642 /* AppKitGlueManager.swift */; };
+		964B8E44243A253200A61642 /* StatisticsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 964B8E43243A253200A61642 /* StatisticsViewModel.swift */; };
+		964B8E45243A254600A61642 /* StatisticsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 964B8E43243A253200A61642 /* StatisticsViewModel.swift */; };
 		964BBF0623A47B96009B4FDE /* BackgroundColorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 964BBF0523A47B96009B4FDE /* BackgroundColorView.swift */; };
 		964BBF0823A4861C009B4FDE /* Convenience.swift in Sources */ = {isa = PBXBuildFile; fileRef = 964BBF0723A4861C009B4FDE /* Convenience.swift */; };
 		964BBF0A23A48661009B4FDE /* FullStackMovementTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 964BBF0923A48661009B4FDE /* FullStackMovementTests.swift */; };
@@ -313,6 +315,7 @@
 		964B8E3A24392D6800A61642 /* AppKitGlueManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppKitGlueManager.swift; sourceTree = "<group>"; };
 		964B8E4124394E7A00A61642 /* Freecell-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Freecell-Bridging-Header.h"; sourceTree = "<group>"; };
 		964B8E4224394E7A00A61642 /* AppKitBridging.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppKitBridging.h; sourceTree = "<group>"; };
+		964B8E43243A253200A61642 /* StatisticsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatisticsViewModel.swift; sourceTree = "<group>"; };
 		964BBF0523A47B96009B4FDE /* BackgroundColorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackgroundColorView.swift; sourceTree = "<group>"; };
 		964BBF0723A4861C009B4FDE /* Convenience.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Convenience.swift; sourceTree = "<group>"; };
 		964BBF0923A48661009B4FDE /* FullStackMovementTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FullStackMovementTests.swift; sourceTree = "<group>"; };
@@ -593,8 +596,8 @@
 			children = (
 				964B8E2A24390E9B00A61642 /* Info.plist */,
 				964B8E3224390EDF00A61642 /* AppKitGlue-Bridging-Header.h */,
-				964B8E3A24392D6800A61642 /* AppKitGlueManager.swift */,
 				964B8E4224394E7A00A61642 /* AppKitBridging.h */,
+				964B8E3A24392D6800A61642 /* AppKitGlueManager.swift */,
 			);
 			path = AppKitGlue;
 			sourceTree = "<group>";
@@ -635,6 +638,7 @@
 				9683E0A323F89D6F00B6C114 /* GameRecord.swift */,
 				966B539F2425AFE7009454E1 /* GameResult.swift */,
 				962B0B6C2422F7E6007D4117 /* FreecellStore.swift */,
+				964B8E43243A253200A61642 /* StatisticsViewModel.swift */,
 			);
 			path = "Core Data";
 			sourceTree = "<group>";
@@ -1309,6 +1313,7 @@
 			files = (
 				964B8E3B24392D6800A61642 /* AppKitGlueManager.swift in Sources */,
 				96CC54B624397D5100E46847 /* GameResult.swift in Sources */,
+				964B8E45243A254600A61642 /* StatisticsViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1429,6 +1434,7 @@
 				96EDA556241ECEE200C05697 /* GameState.swift in Sources */,
 				9661BFAE23DE86A300DFC5E9 /* AnchorPreferences.swift in Sources */,
 				96A36477237E33D3005C45FB /* Board.swift in Sources */,
+				964B8E44243A253200A61642 /* StatisticsViewModel.swift in Sources */,
 				969DD4E5242EE790006873C3 /* UserDefaults+VisualTheming.swift in Sources */,
 				96A7223C2401814C004F7F47 /* EmojiBombAnimator.swift in Sources */,
 				96FBBCDF241C6BF0001D1088 /* StatisticsView.swift in Sources */,

@@ -70,8 +70,9 @@ class ToolbarManager: NSObject, NSToolbarDelegate {
     }
     
     @objc func statisticsPressed() {
-        let hostingController = NSHostingController<StatisticsView>(rootView: StatisticsView())
-//        appKitBridge?.showStatisticsWindow(usingController: <#T##Any#>)
+        let viewModel = StatisticsModel().makeViewModel()
+        guard let data = try? JSONEncoder().encode(viewModel) else { return }
+        appKitBridge?.showStatisticsWindow(forStatistics: data)
     }
 }
 

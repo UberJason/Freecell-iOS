@@ -8,11 +8,13 @@
 
 #import <AppKit/AppKit.h>
 
+struct StatisticsViewModel;
+
 NS_ASSUME_NONNULL_BEGIN
 
 @protocol AppKitBridging <NSObject>
 -(instancetype)init;
--(void)showStatisticsWindowUsingController:(id)controller;
+-(void)showStatisticsWindowForStatistics:(NSData *)data;
 @end
 
 NS_ASSUME_NONNULL_END
