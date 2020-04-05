@@ -24,6 +24,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
         // Use a UIHostingController as window root view controller.
         guard let windowScene = scene as? UIWindowScene else { return }
+        windowScene.sizeRestrictions?.minimumSize = CGSize(width: 1024, height: 640)
         
         let window = UIWindow(windowScene: windowScene)
         // Create the SwiftUI view that provides the window contents.
