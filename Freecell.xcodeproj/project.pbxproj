@@ -126,6 +126,8 @@
 		96EDA55F241ECF9800C05697 /* ClassicControlManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96EDA55E241ECF9800C05697 /* ClassicControlManager.swift */; };
 		96EDA561241ECF9E00C05697 /* ModernControlManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96EDA560241ECF9E00C05697 /* ModernControlManager.swift */; };
 		96EDA563241EE07000C05697 /* SelectControlStyleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96EDA562241EE07000C05697 /* SelectControlStyleView.swift */; };
+		96F68673243A545B00572256 /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 96F68671243A543600572256 /* SwiftUI.framework */; };
+		96F68674243A545B00572256 /* SwiftUI.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 96F68671243A543600572256 /* SwiftUI.framework */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		96FBBCD8241C679C001D1088 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96A59AA7241B19E6004B8FDF /* SettingsView.swift */; };
 		96FBBCDC241C67F8001D1088 /* StatusBarHidingFirstResponderHostingController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96E188B823BBF301008129AF /* StatusBarHidingFirstResponderHostingController.swift */; };
 		96FBBCDD241C67F8001D1088 /* GameHostingController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96FBBCD5241C6409001D1088 /* GameHostingController.swift */; };
@@ -281,6 +283,17 @@
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		96F68675243A545B00572256 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				96F68674243A545B00572256 /* SwiftUI.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
@@ -417,6 +430,7 @@
 		96EDA55E241ECF9800C05697 /* ClassicControlManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClassicControlManager.swift; sourceTree = "<group>"; };
 		96EDA560241ECF9E00C05697 /* ModernControlManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModernControlManager.swift; sourceTree = "<group>"; };
 		96EDA562241EE07000C05697 /* SelectControlStyleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectControlStyleView.swift; sourceTree = "<group>"; };
+		96F68671243A543600572256 /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.15.sdk/System/Library/Frameworks/SwiftUI.framework; sourceTree = DEVELOPER_DIR; };
 		96FBBCD5241C6409001D1088 /* GameHostingController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameHostingController.swift; sourceTree = "<group>"; };
 		96FBBCDE241C6BF0001D1088 /* StatisticsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatisticsView.swift; sourceTree = "<group>"; };
 		96FBBCE0241C73FF001D1088 /* CellRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CellRow.swift; sourceTree = "<group>"; };
@@ -427,6 +441,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				96F68673243A545B00572256 /* SwiftUI.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -797,6 +812,7 @@
 		96A3647A237E367A005C45FB /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				96F68671243A543600572256 /* SwiftUI.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -929,6 +945,7 @@
 				964B8E2424390E9B00A61642 /* Sources */,
 				964B8E2524390E9B00A61642 /* Frameworks */,
 				964B8E2624390E9B00A61642 /* Resources */,
+				96F68675243A545B00572256 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);

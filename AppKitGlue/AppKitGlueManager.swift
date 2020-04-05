@@ -17,7 +17,7 @@ public class AppKitGlueManager: NSObject, AppKitBridging {
     }
     
     public func showStatisticsWindow(forStatistics data: Data) {
-        let viewModel = try? JSONDecoder().decode(StatisticsViewModel.self, from: data)
+        guard let viewModel = try? JSONDecoder().decode(StatisticsViewModel.self, from: data) else { return }
         print(type(of: viewModel))
         print(viewModel)
         
@@ -30,7 +30,9 @@ public class AppKitGlueManager: NSObject, AppKitBridging {
             statisticsWindow.center()
             statisticsWindow.setFrameAutosaveName("Statistics Window")
             statisticsWindow.delegate = self
+            statisticsWindow.contentViewController = NSHostingController<StatisticsView>(rootView: StatisticsView(viewModel: viewModel))
 //            statisticsWindow.contentViewController = controller
+            
         }
         
         print(statisticsWindow)
@@ -42,5 +44,52 @@ public class AppKitGlueManager: NSObject, AppKitBridging {
 extension AppKitGlueManager: NSWindowDelegate {
     public func windowWillClose(_ notification: Notification) {
         statisticsWindow = nil
+    }
+}
+
+struct StatisticsView: View {
+    let viewModel: StatisticsViewModel
+    
+    public var body: some View {
+        Form {
+            Section(header: Text("Win/Loss")) {
+                CellRow(leading: Text("Games Won"), trailing: Text("\(viewModel.winsCount)"))
+                CellRow(leading: Text("Games Lost"), trailing: Text("\(viewModel.lossCount)"))
+                CellRow(leading: Text("Total"), trailing: Text("\(viewModel.totalGameCount)"))
+                CellRow(leading: Text("Win Percentage"), trailing: Text(viewModel.winPercentage))
+            }
+            
+            Section(header: Text("Streaks")) {
+                CellRow(leading: Text("Current Streak"), trailing: Text(viewModel.currentStreak))
+                CellRow(leading: Text("Longest Winning Streak"), trailing: Text(viewModel.longestWinningStreak))
+                CellRow(leading: Text("Longest Losing Streak"), trailing: Text(viewModel.longestLosingStreak))
+            }
+        }
+    }
+}
+
+struct CellRow<Leading: View, Trailing: View>: View {
+    let leading: Leading
+    let trailing: Trailing
+    
+    init(leading: Leading, trailing: Trailing) {
+        self.leading = leading
+        self.trailing = trailing
+    }
+    
+    var body: some View {
+        HStack {
+            leading
+            Spacer()
+            trailing
+        }
+    }
+}
+
+struct CellRow_Previews: PreviewProvider {
+    static var previews: some View {
+        CellRow(leading: Text("Leading"), trailing: Text("Trailing"))
+            .previewDevice("iPad mini")
+            .previewLayout(.fixed(width: 500, height: 44))
     }
 }
