@@ -9,22 +9,32 @@
 import AppKit
 
 public class AppKitGlueManager: NSObject, AppKitBridging {
-    var window: NSWindow!
+    var statisticsWindow: NSWindow!
     
     public required override init() {
         super.init()
     }
     
     public func showStatisticsWindow() {
-        window = NSWindow(
-            contentRect: NSRect(x: 0, y: 0, width: 400, height: 400),
-            styleMask: [.titled, .closable, .miniaturizable, .resizable, .fullSizeContentView],
-            backing: .buffered, defer: false)
-        window.title = "Statistics"
-        window.center()
-        window.setFrameAutosaveName("Statistics Window")
+        if statisticsWindow == nil {
+            statisticsWindow = NSWindow(
+                contentRect: NSRect(x: 0, y: 0, width: 400, height: 400),
+                styleMask: [.titled, .closable, .miniaturizable, .resizable, .fullSizeContentView],
+                backing: .buffered, defer: false)
+            statisticsWindow.title = "Statistics"
+            statisticsWindow.center()
+            statisticsWindow.setFrameAutosaveName("Statistics Window")
+            statisticsWindow.delegate = self
+        }
         
-        let windowController = NSWindowController(window: window)
+        print(statisticsWindow)
+        let windowController = NSWindowController(window: statisticsWindow)
         windowController.showWindow(self)
+    }
+}
+
+extension AppKitGlueManager: NSWindowDelegate {
+    public func windowWillClose(_ notification: Notification) {
+        statisticsWindow = nil
     }
 }
