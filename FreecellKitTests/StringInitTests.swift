@@ -24,9 +24,9 @@ class StringInitTests: XCTestCase {
         // case: garbage - return empty array
         let parser = TextParser()
         
-        let cards = parser.parseCards(from: "[♠️3, ❤️4, ♦️K, ♣️Q]")
+        let cards = parser.parse(from: "[♠️3, ❤️4, ♦️K, ♣️Q]")
         XCTAssertEqual(cards, [Card.three.ofSpades, Card.four.ofHearts, Card.king.ofDiamonds, Card.queen.ofClubs])
-        let garbage = parser.parseCards(from: "asdf foo !!")
+        let garbage = parser.parse(from: "asdf foo !!")
         XCTAssertEqual(garbage, [])
     }
     
@@ -47,33 +47,23 @@ class StringInitTests: XCTestCase {
     }
     
     func testFoundationStringInit() throws {
-        // case 0: 0 cards - fail
-        // case 1: 1 card as Ace - init with card
-        // case 2: 1 card not as Ace: - fail
-        // case 3: 2 cards Ace+2 - init with sequence
-        // case 4: 2 cards Ace+2-different suit - fail
-        // case 5: 5 cards Ace-5 - init with sequence
+        // case 0: 1 card - init with card
+        // case 1: suit - init with suit
+        // case 2: 3 cards - fail
+        // case 3: garbage - fail
         
-        let case0 = Foundation(text: "")
-        XCTAssertNil(case0)
+        let case0 = try XCTUnwrap(Foundation(text: "[♠️4]"))
+        XCTAssertEqual(case0.topItem, Card.four.ofSpades)
         
-        let case1 = try XCTUnwrap(Foundation(text: "[♠️A]"))
-        XCTAssert(case1.suit == .spades)
-        XCTAssert(case1.topItem == Card.ace.ofSpades)
+        let case1 = try XCTUnwrap(Foundation(text: "[❤️]"))
+        XCTAssert(case1.suit == .hearts)
+        XCTAssertNil(case1.topItem)
         
-        let case2 = Foundation(text: "[♠️4]")
+        let case2 = Foundation(text: "[♠️A, ♠️2]")
         XCTAssertNil(case2)
         
-        let case3 = try XCTUnwrap(Foundation(text: "[♠️A, ♠️2]"))
-        XCTAssert(case3.suit == .spades)
-        XCTAssert(case3.topItem == Card.two.ofSpades)
-        
-        let case4 = Foundation(text: "[♠️A, ❤️2]")
-        XCTAssertNil(case4)
-        
-        let case5 = try XCTUnwrap(Foundation(text: "[♠️A, ♠️2, ♠️3, ♠️4, ♠️5]"))
-        XCTAssert(case5.suit == .spades)
-        XCTAssert(case5.topItem == Card.five.ofSpades)
+        let case3 = Foundation(text: "[oo bah]")
+        XCTAssertNil(case3)
     }
     
     func testColumnStringInit() throws {

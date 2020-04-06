@@ -10,8 +10,14 @@ import Foundation
 import DeckKit
 
 // Expect string to have format like "[♠️3, ❤️4, ♦️K, ♣️Q]"
-struct TextParser {
-    func parseCards(from text: String) -> [Card] {
+
+protocol Parser {
+    associatedtype Output
+    func parse(from text: String) -> Output
+}
+
+struct TextParser: Parser {
+    func parse(from text: String) -> [Card] {
         guard let firstBracketIndex = text.firstIndex(of: "["),
             let secondBracketIndex = text.lastIndex(of: "]") else { return [] }
         
@@ -25,9 +31,21 @@ struct TextParser {
     }
 }
 
+struct SuitParser {
+    func parse(from text: String) -> Suit? {
+        guard let firstBracketIndex = text.firstIndex(of: "["),
+            let secondBracketIndex = text.lastIndex(of: "]") else { return nil }
+        
+        let startIndex = text.index(after: firstBracketIndex)
+        let endIndex = text.index(before: secondBracketIndex)
+        
+        return Suit(text: String(text[startIndex...endIndex]))
+    }
+}
+
 public extension FreeCell {
       convenience init?(text: String) {
-        let cards = TextParser().parseCards(from: text)
+        let cards = TextParser().parse(from: text)
         
         guard cards.count < 2 else { return nil }
         self.init(card: cards.first)
@@ -35,29 +53,24 @@ public extension FreeCell {
 }
 
 public extension Foundation {
+    // First try to parse a card. Requirement: should have one card representing the top card. e.g. "[♠️3]"
+    // If that's not available, try to parse a suit. Requirement: should look like "[♠️]" to represent an empty Spade foundation.
     convenience init?(text: String) {
-        let cards = TextParser().parseCards(from: text)
-        if cards.count == 0 { return nil }
-        else if cards.count == 1 {
-            let first = cards.first!
-            guard first.rank == .ace else { return nil }
-            self.init(topCard: first)
+        let cards = TextParser().parse(from: text)
+        
+        if cards.count == 1 {
+            self.init(topCard: cards.first!)
         }
         else {
-            var previous = cards.first!
-            for i in 1..<cards.count {
-                let current = cards[i]
-                guard current.suit == previous.suit && current.rank.value == previous.rank.value + 1 else { return nil }
-                previous = current
-            }
-            self.init(topCard: cards[cards.count - 1])
+            guard let suit = SuitParser().parse(from: text) else { return nil }
+            self.init(suit: suit)
         }
     }
 }
 
 public extension Column {
     convenience init?(text: String) {
-        let cards = TextParser().parseCards(from: text)
+        let cards = TextParser().parse(from: text)
         self.init(cards: cards)
     }
 }
