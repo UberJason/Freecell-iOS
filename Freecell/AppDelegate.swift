@@ -9,6 +9,7 @@
 import UIKit
 import FreecellKit
 
+#warning("Request review after a win - SKStoreReviewController")
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
     @Delayed var menuController: MenuController
