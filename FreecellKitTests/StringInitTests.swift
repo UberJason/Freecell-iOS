@@ -30,10 +30,20 @@ class StringInitTests: XCTestCase {
         XCTAssertEqual(garbage, [])
     }
     
-    func testFreeCellStringInit() {
+    func testFreeCellStringInit() throws {
         // case: 0 cards - init empty
         // case: 1 card - init with card
         // case: 2 cards - fail
+        
+        let emptyFreecell = try XCTUnwrap(FreeCell(text: ""))
+        XCTAssertNil(emptyFreecell.topItem)
+        XCTAssertFalse(emptyFreecell.isOccupied)
+        
+        let occupiedFreecell = try XCTUnwrap(FreeCell(text: "♠️3"))
+        XCTAssertEqual(occupiedFreecell.topItem, Card.three.ofSpades)
+        
+        let nilFreecell = FreeCell(text: "♠️3, ♠️4")
+        XCTAssertNil(nilFreecell)
     }
     
     func testFoundationStringInit() {
