@@ -14,9 +14,7 @@ import FreecellKit
 class GameHostingController: FreecellHostingController<ContentView>, GameAlerting {
     weak var game: Game?
     
-    #if targetEnvironment(macCatalyst)
     let transitionDelegate = DimmingPresentationTransitioningDelegate(params: DimmingPresentationParams(duration: 0.15, maxDimmedAlpha: 0.3, presentedCornerRadius: 10.0, contentWidth: 400, contentHeight: 580))
-    #endif
     
     convenience init(game: Game?, rootView: ContentView) {
         self.init(rootView: rootView)

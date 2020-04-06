@@ -11,7 +11,6 @@ import UIKit
 import SwiftUI
 import FreecellKit
 
-#if targetEnvironment(macCatalyst)
 class StatisticsHostingController: FreecellHostingController<DismissableModalView<StatisticsView>> {
     override var keyCommands: [UIKeyCommand]? {
         [
@@ -23,4 +22,3 @@ class StatisticsHostingController: FreecellHostingController<DismissableModalVie
         NotificationCenter.default.post(name: .dismissMenu, object: nil)
     }
 }
-#endif
