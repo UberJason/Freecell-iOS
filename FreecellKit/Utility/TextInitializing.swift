@@ -9,10 +9,17 @@
 import Foundation
 import DeckKit
 
-// Expect string to have format like "♠️3, ❤️4, ♦️K, ♣️Q"
+// Expect string to have format like "[♠️3, ❤️4, ♦️K, ♣️Q]"
 struct TextParser {
     func parseCards(from text: String) -> [Card] {
-        return text.split(separator: ",")
+        guard let firstBracketIndex = text.firstIndex(of: "["),
+            let secondBracketIndex = text.lastIndex(of: "]") else { return [] }
+        
+        let startIndex = text.index(after: firstBracketIndex)
+        let endIndex = text.index(before: secondBracketIndex)
+        
+        return text[startIndex...endIndex]
+            .split(separator: ",")
             .map { $0.trimmingCharacters(in: .whitespaces) }
             .compactMap(Card.init)
     }

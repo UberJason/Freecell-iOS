@@ -749,13 +749,13 @@
 			isa = PBXGroup;
 			children = (
 				96A36468237E33C0005C45FB /* FreecellKitTests.swift */,
-				966B539D2425AA3B009454E1 /* StatisticsTests.swift */,
 				964BBF1323A489BF009B4FDE /* LocationTests.swift */,
 				964BBF1923A48B39009B4FDE /* BoardTests.swift */,
 				964BBF0923A48661009B4FDE /* FullStackMovementTests.swift */,
 				964BBF1723A48B0B009B4FDE /* SubstackMovementTests.swift */,
-				968047D9243B67850030D617 /* StringInitTests.swift */,
 				9689E18C23AB0BBB008B960B /* CustomPublisherTests.swift */,
+				966B539D2425AA3B009454E1 /* StatisticsTests.swift */,
+				968047D9243B67850030D617 /* StringInitTests.swift */,
 				964BBF1B23A48B97009B4FDE /* Utility */,
 				96A3646A237E33C0005C45FB /* Info.plist */,
 			);
@@ -1692,7 +1692,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 2GPQ8GE99T;
 				INFOPLIST_FILE = FreecellTests/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.4;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -1714,7 +1714,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 2GPQ8GE99T;
 				INFOPLIST_FILE = FreecellTests/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.4;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
