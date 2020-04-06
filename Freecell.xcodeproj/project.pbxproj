@@ -54,6 +54,7 @@
 		9673834B24030F7E004A4525 /* YouWinView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9673834A24030F7E004A4525 /* YouWinView.swift */; };
 		9673834D24030FF0004A4525 /* GameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9673834C24030FF0004A4525 /* GameView.swift */; };
 		968047D8243B5BA60030D617 /* TextInitializing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 968047D7243B5BA60030D617 /* TextInitializing.swift */; };
+		968047DA243B67850030D617 /* StringInitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 968047D9243B67850030D617 /* StringInitTests.swift */; };
 		9683E0A223F87A5500B6C114 /* Freecell.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 9683E0A023F87A5500B6C114 /* Freecell.xcdatamodeld */; };
 		9683E0A423F89D6F00B6C114 /* GameRecord.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9683E0A323F89D6F00B6C114 /* GameRecord.swift */; };
 		9688893A2389CB83001DD34B /* Result+SuccessVoid.swift in Sources */ = {isa = PBXBuildFile; fileRef = 968889392389CB83001DD34B /* Result+SuccessVoid.swift */; };
@@ -314,6 +315,7 @@
 		9673834A24030F7E004A4525 /* YouWinView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YouWinView.swift; sourceTree = "<group>"; };
 		9673834C24030FF0004A4525 /* GameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameView.swift; sourceTree = "<group>"; };
 		968047D7243B5BA60030D617 /* TextInitializing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextInitializing.swift; sourceTree = "<group>"; };
+		968047D9243B67850030D617 /* StringInitTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringInitTests.swift; sourceTree = "<group>"; };
 		9683E0A123F87A5500B6C114 /* Freecell.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Freecell.xcdatamodel; sourceTree = "<group>"; };
 		9683E0A323F89D6F00B6C114 /* GameRecord.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameRecord.swift; sourceTree = "<group>"; };
 		968889392389CB83001DD34B /* Result+SuccessVoid.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Result+SuccessVoid.swift"; sourceTree = "<group>"; };
@@ -752,6 +754,7 @@
 				964BBF1923A48B39009B4FDE /* BoardTests.swift */,
 				964BBF0923A48661009B4FDE /* FullStackMovementTests.swift */,
 				964BBF1723A48B0B009B4FDE /* SubstackMovementTests.swift */,
+				968047D9243B67850030D617 /* StringInitTests.swift */,
 				9689E18C23AB0BBB008B960B /* CustomPublisherTests.swift */,
 				964BBF1B23A48B97009B4FDE /* Utility */,
 				96A3646A237E33C0005C45FB /* Info.plist */,
@@ -1391,6 +1394,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				968047DA243B67850030D617 /* StringInitTests.swift in Sources */,
 				96A36469237E33C0005C45FB /* FreecellKitTests.swift in Sources */,
 				966B539E2425AA3B009454E1 /* StatisticsTests.swift in Sources */,
 				9689E18D23AB0BBB008B960B /* CustomPublisherTests.swift in Sources */,
