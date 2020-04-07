@@ -54,11 +54,14 @@ public class BoardViewDriver: ObservableObject {
     internal var previousBoards = [Board]()
     
     @Delayed private var movePublisher: AnyPublisher<MoveEvent, Never>
-    public init(controlStyle: ControlStyle, gameStateProvider: GameStateProvider, undoManager: UndoManager? = nil) {
+    public init(controlStyle: ControlStyle, gameStateProvider: GameStateProvider, undoManager: UndoManager? = nil, preconfiguredBoard: Board? = nil) {
         self.controlStyle = controlStyle
         self.gameStateProvider = gameStateProvider
         self.undoManager = undoManager
         
+        if let preconfiguredBoard = preconfiguredBoard {
+            _board = preconfiguredBoard
+        }
         renderingBoard = _board.copy
         
         columnTilingStates = _board.columns.map { ColumnExpansionState(id: $0.id) }

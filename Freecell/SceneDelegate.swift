@@ -26,9 +26,10 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         guard let windowScene = scene as? UIWindowScene else { return }
         windowScene.sizeRestrictions?.minimumSize = CGSize(width: 1024, height: 640)
         
+        let preconfiguredBoard = CommandLine.arguments.contains("-usePreconfiguredBoard") ? BoardParser().parse(fromFile: "AUI+Screenshots") : nil
+        
         let window = UIWindow(windowScene: windowScene)
-        // Create the SwiftUI view that provides the window contents.
-        let game = Game(undoManager: window.undoManager)
+        let game = Game(undoManager: window.undoManager, preconfiguredBoard: preconfiguredBoard)
         let contentView = ContentView(game: game)
 
         let hostingController = GameHostingController(game: game, rootView: contentView)

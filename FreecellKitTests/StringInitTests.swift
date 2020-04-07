@@ -113,6 +113,5 @@ Columns:
         XCTAssert(board?.foundations[2].topItem == Card.ace.ofHearts)
         
         XCTAssert(board?.columns[0].stack.count == 6)
-        
     }
 }

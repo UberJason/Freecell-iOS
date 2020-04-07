@@ -11,12 +11,12 @@ import DeckKit
 
 // Expect string to have format like "[♠️3, ❤️4, ♦️K, ♣️Q]"
 
-protocol Parser {
+public protocol Parser {
     associatedtype Output
     func parse(from text: String) -> Output
 }
 
-extension Parser {
+public extension Parser {
     func stripBrackets(from text: String) -> String? {
         guard let firstBracketIndex = text.firstIndex(of: "["),
             let secondBracketIndex = text.lastIndex(of: "]") else { return nil }
@@ -30,8 +30,10 @@ extension Parser {
     }
 }
 
-struct BoardParser: Parser {
-    func parse(from text: String) -> Board? {
+public struct BoardParser: Parser {
+    public init() {}
+    
+    public func parse(from text: String) -> Board? {
         let groups = text.split(separator: "\n").map { String($0) }
         let freecellText = groups[1]
         let foundationText = groups[3]
@@ -42,6 +44,16 @@ struct BoardParser: Parser {
         let columns = parseColumns(from: columnsTexts)
         
         return Board.preconfigured(withFreecells: freecells, foundations: foundations, columns: columns)
+    }
+    
+    public func parse(fromFile filename: String, bundle: Bundle = Bundle.main) -> Board? {
+        guard let path = bundle.path(forResource: filename, ofType: "txt"),
+            let data = try? Data(contentsOf: URL(fileURLWithPath: path)),
+            let string = String(data: data, encoding: .utf8) else {
+                return nil
+        }
+        
+        return parse(from: string)
     }
     
     func parseFreecells(from text: String) -> [FreeCell] {
@@ -61,8 +73,8 @@ struct BoardParser: Parser {
     }
 }
 
-struct CardParser: Parser {
-    func parse(from text: String) -> [Card] {
+public struct CardParser: Parser {
+    public func parse(from text: String) -> [Card] {
         guard let stripped = stripBrackets(from: text) else { return [] }
         
         return stripped
@@ -72,8 +84,8 @@ struct CardParser: Parser {
     }
 }
 
-struct SuitParser {
-    func parse(from text: String) -> Suit? {
+public struct SuitParser: Parser {
+    public func parse(from text: String) -> Suit? {
         guard let firstBracketIndex = text.firstIndex(of: "["),
             let secondBracketIndex = text.lastIndex(of: "]") else { return nil }
         

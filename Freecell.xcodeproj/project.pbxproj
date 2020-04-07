@@ -31,6 +31,8 @@
 		9629B2FE2438E8A300A5B37F /* SymbolIdentifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9629B2FD2438E8A300A5B37F /* SymbolIdentifier.swift */; };
 		9629B3002438EA5700A5B37F /* UIImage+Freecell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9629B2FF2438EA5700A5B37F /* UIImage+Freecell.swift */; };
 		962B0B6D2422F7E6007D4117 /* FreecellStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 962B0B6C2422F7E6007D4117 /* FreecellStore.swift */; };
+		962EED18243C104200183C16 /* AUI+Screenshots.txt in Resources */ = {isa = PBXBuildFile; fileRef = 962EED15243BFF8B00183C16 /* AUI+Screenshots.txt */; };
+		962EED19243C104900183C16 /* AUI+Screenshots.txt in Resources */ = {isa = PBXBuildFile; fileRef = 962EED15243BFF8B00183C16 /* AUI+Screenshots.txt */; };
 		964B8E232439080C00A61642 /* MenuController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 964B8E222439080C00A61642 /* MenuController.swift */; };
 		964BBF0623A47B96009B4FDE /* BackgroundColorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 964BBF0523A47B96009B4FDE /* BackgroundColorView.swift */; };
 		964BBF0823A4861C009B4FDE /* Convenience.swift in Sources */ = {isa = PBXBuildFile; fileRef = 964BBF0723A4861C009B4FDE /* Convenience.swift */; };
@@ -291,6 +293,7 @@
 		9629B2FD2438E8A300A5B37F /* SymbolIdentifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SymbolIdentifier.swift; sourceTree = "<group>"; };
 		9629B2FF2438EA5700A5B37F /* UIImage+Freecell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+Freecell.swift"; sourceTree = "<group>"; };
 		962B0B6C2422F7E6007D4117 /* FreecellStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FreecellStore.swift; sourceTree = "<group>"; };
+		962EED15243BFF8B00183C16 /* AUI+Screenshots.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "AUI+Screenshots.txt"; sourceTree = "<group>"; };
 		96416DC623F9CAEF000197E0 /* Freecell.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Freecell.entitlements; sourceTree = "<group>"; };
 		964B8E222439080C00A61642 /* MenuController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuController.swift; sourceTree = "<group>"; };
 		964BBF0523A47B96009B4FDE /* BackgroundColorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackgroundColorView.swift; sourceTree = "<group>"; };
@@ -552,6 +555,7 @@
 		9629B2FB2438E5FC00A5B37F /* Utility */ = {
 			isa = PBXGroup;
 			children = (
+				962EED15243BFF8B00183C16 /* AUI+Screenshots.txt */,
 				96A36403237CF0FD005C45FB /* Info.plist */,
 				96A363FB237CF0FD005C45FB /* Assets.xcassets */,
 				96A36400237CF0FD005C45FB /* LaunchScreen.storyboard */,
@@ -1179,6 +1183,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				962EED18243C104200183C16 /* AUI+Screenshots.txt in Resources */,
 				96A36402237CF0FD005C45FB /* LaunchScreen.storyboard in Resources */,
 				96A363FF237CF0FD005C45FB /* Preview Assets.xcassets in Resources */,
 				96A363FC237CF0FD005C45FB /* Assets.xcassets in Resources */,
@@ -1226,6 +1231,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				962EED19243C104900183C16 /* AUI+Screenshots.txt in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
