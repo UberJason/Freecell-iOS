@@ -2,9 +2,14 @@
 
 # A list of devices you want to take the screenshots from
 devices([
+   "iPad Pro (12.9-inch) (3rd generation)",
+   "iPad Pro (12.9-inch) (2nd generation)",
    "iPad Pro (11-inch) (2nd generation)",
+   "iPad Pro (10.5-inch)",
    "iPad mini (5th generation)"
 ])
+
+clear_previous_screenshots(true)
 
 # languages([
 #   "en-US",
@@ -19,8 +24,6 @@ devices([
 # Where should the resulting screenshots be stored?
 # output_directory("./screenshots")
 
-# remove the '#' to clear all previously generated screenshots before creating new ones
-# clear_previous_screenshots(true)
 
 # Arguments to pass to the app on launch. See https://docs.fastlane.tools/actions/snapshot/#launch-arguments
 # launch_arguments(["-favColor red"])

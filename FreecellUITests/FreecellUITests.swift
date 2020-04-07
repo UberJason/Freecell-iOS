@@ -10,17 +10,16 @@ import XCTest
 
 class FreecellUITests: XCTestCase {
 
+    let app = XCUIApplication()
+    
     override func setUp() {
-        let app = XCUIApplication()
         setupSnapshot(app)
         app.launchArguments = ["-usePreconfiguredBoard"]
         app.launch()
-
-        // Put setup code here. This method is called before the invocation of each test method in the class.
-
-        // In UI tests it is usually best to stop immediately when a failure occurs.
+        
         continueAfterFailure = false
-
+        
+        app.setSystemTheme()
         // In UI tests it’s important to set the initial state - such as interface orientation - required for your tests before they run. The setUp method is a good place to do this.
     }
 
@@ -28,10 +27,53 @@ class FreecellUITests: XCTestCase {
         // Put teardown code here. This method is called after the invocation of each test method in the class.
     }
 
-    func testGameplay() {
+    func testGameplayLightMode() {
         // UI tests must launch the application that they test.
-        let app = XCUIApplication()
-        snapshot("initialScreen")
+        app.setLightTheme()
+        
+        runGameWithSnapshots(in: app)
+        
+        app.setSystemTheme()
+    }
+    
+    func testGameplayDarkMode() {
+        app.setDarkTheme()
+        
+        runGameWithSnapshots(in: app)
+        
+        app.setSystemTheme()
+    }
+    
+    func testMenuControls() {
+        // This is not really a test.
+        app.setLightTheme()
+        
+        let menuButton = app.buttons["Menu"]
+        menuButton.tap()
+        snapshot("4-menuScreen")
+        
+        let table = app.tables
+        table.buttons["Control Scheme"].tap()
+        table.buttons["Classic"].tap()
+        snapshot("5-controlsScreen")
+        var backButton = app.navigationBars["Control Style"].buttons["Menu"]
+        backButton.tap()
+        
+        table.buttons["Control Scheme"].tap()
+        table.buttons["Modern"].tap()
+        backButton.tap()
+        
+        table.buttons["Statistics"].tap()
+        backButton = app.navigationBars["Statistics"].buttons["Menu"]
+        backButton.tap()
+        
+        app.navigationBars["Menu"].buttons["Done"].tap()
+        
+        app.setSystemTheme()
+    }
+    
+    func runGameWithSnapshots(in app: XCUIApplication) {
+        snapshot("1-initialScreen")
         app.tapCard("♦️A")
         app.tapCard("♠️6")
         app.tapCard("♦️5")
@@ -50,7 +92,7 @@ class FreecellUITests: XCTestCase {
         app.tapCard("♠️4")
         app.tapCard("♠️Q")
         app.tapCard("♦️10")
-        snapshot("laterScreen")
+        snapshot("2-laterScreen")
         app.tapCard("❤️4")
         app.tapCard("♠️3")
         app.tapCard("❤️5")
@@ -79,41 +121,39 @@ class FreecellUITests: XCTestCase {
         
         let newGameButton = app.buttons["New Game"]
         guard newGameButton.waitForExistence(timeout: 5.0) else { XCTFail(); return }
-        snapshot("victoryScreen")
+        snapshot("3-victoryScreen")
         newGameButton.tap()
-        
-    }
-
-    func testMenuControls() {
-        // This is not really a test.
-        let app = XCUIApplication()
-        
-        let menuButton = app.buttons["Menu"]
-        menuButton.tap()
-        
-        let table = app.tables
-        table.buttons["System"].tap()
-        table.buttons["Light"].tap()
-        table.buttons["Dark"].tap()
-        
-        table.buttons["Control Scheme"].tap()
-        table.buttons["Classic"].tap()
-        var backButton = app.navigationBars["Control Style"].buttons["Menu"]
-        backButton.tap()
-        
-        table.buttons["Control Scheme"].tap()
-        table.buttons["Modern"].tap()
-        backButton.tap()
-        
-        table.buttons["Statistics"].tap()
-        backButton = app.navigationBars["Statistics"].buttons["Menu"]
-        backButton.tap()
-        
-        app.navigationBars["Menu"].buttons["Done"].tap()
     }
 }
 
 extension XCUIApplication {
+    func setLightTheme() {
+        let menuButton = buttons["Menu"]
+        menuButton.tap()
+        
+        let table = tables
+        table.buttons["Light"].tap()
+        navigationBars["Menu"].buttons["Done"].tap()
+    }
+    
+    func setDarkTheme() {
+        let menuButton = buttons["Menu"]
+        menuButton.tap()
+        
+        let table = tables
+        table.buttons["Dark"].tap()
+        navigationBars["Menu"].buttons["Done"].tap()
+    }
+    
+    func setSystemTheme() {
+        let menuButton = buttons["Menu"]
+        menuButton.tap()
+        
+        let table = tables
+        table.buttons["System"].tap()
+        navigationBars["Menu"].buttons["Done"].tap()
+    }
+    
     func tapCard(_ title: String) {
         staticTexts["\(title)-tab"].tap()
     }
