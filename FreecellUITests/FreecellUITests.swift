@@ -29,34 +29,53 @@ class FreecellUITests: XCTestCase {
         app.launchArguments = ["-usePreconfiguredBoard"]
         app.launch()
 
+        app.staticTexts["♦️A-tab"].tap()
+        app.staticTexts["♠️6-tab"].tap()
+        app.staticTexts["♦️5-tab"].tap()
+        app.staticTexts["♠️8-tab"].tap()
+        app.staticTexts["♣️7-tab"].tap()
+        app.staticTexts["♠️9-tab"].tap()
+        app.staticTexts["♣️7-tab"].tap()
+        app.staticTexts["❤️6-tab"].tap()
+        app.staticTexts["❤️4-tab"].tap()
+        app.staticTexts["❤️7-tab"].tap()
+        app.staticTexts["❤️6-tab"].tap()
+        app.staticTexts["♦️6-tab"].tap()
+        app.staticTexts["♣️10-tab"].tap()
+        app.staticTexts["♦️8-tab"].tap()
+        app.staticTexts["♣️7-tab"].tap()
+        app.staticTexts["♠️4-tab"].tap()
+        app.staticTexts["♠️Q-tab"].tap()
+        app.staticTexts["♦️10-tab"].tap()
+        app.staticTexts["❤️4-tab"].tap()
+        app.staticTexts["♠️3-tab"].tap()
+        app.staticTexts["❤️5-tab"].tap()
+        app.staticTexts["♠️5-tab"].tap()
+        app.staticTexts["❤️4-tab"].tap()
+        app.staticTexts["♠️7-tab"].tap()
+        app.staticTexts["♦️K-tab"].tap()
+        app.staticTexts["❤️10-tab"].tap()
+        app.staticTexts["❤️10-tab"].tap()
+        app.staticTexts["❤️K-tab"].tap()
+        app.staticTexts["♣️6-tab"].tap()
+        app.staticTexts["❤️J-tab"].tap()
+        app.staticTexts["♣️6-tab"].tap()
+        app.staticTexts["❤️5-tab"].tap()
+        app.staticTexts["♦️9-tab"].tap()
+        app.staticTexts["♠️J-tab"].tap()
+        app.staticTexts["♠️K-tab"].press(forDuration: 0.1, thenDragTo: app.staticTexts["column-3"])
+        app.staticTexts["♦️Q-tab"].tap()
+        app.staticTexts["♣️9-tab"].tap()
+        app.staticTexts["❤️Q-tab"].tap()
+        app.staticTexts["♣️J-tab"].tap()
+        app.staticTexts["♣️10-tab"].tap()
+        app.staticTexts["❤️9-tab"].tap()
+        app.staticTexts["♣️K-tab"].tap()
+        app.staticTexts["♦️J-tab"].tap()
         
-//        app.staticTexts["♦️A-tab"].tap()
-//        app.staticTexts["♠️6-tab"].tap()
-//        app.staticTexts["♦️5-tab"].tap()
-//        app.staticTexts["♠️8-tab"].tap()
-//        app.staticTexts["♣️7-tab"].tap()
-//        app.staticTexts["♠️9-tab"].tap()
-//        app.staticTexts["♣️7-tab"].tap()
-//        app.staticTexts["❤️6-tab"].tap()
-//        app.staticTexts["❤️4-tab"].tap()
-//        app.staticTexts["❤️7-tab"].tap()
-//        app.staticTexts["❤️6-tab"].tap()
-    
-
-        
-                
-        // Use recording to get started writing UI tests.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
-        
-        
+        let newGameButton = app.buttons["New Game"]
+        guard newGameButton.waitForExistence(timeout: 5.0) else { XCTFail(); return }
+        newGameButton.tap()
     }
 
-//    func testLaunchPerformance() {
-//        if #available(macOS 10.15, iOS 13.0, tvOS 13.0, *) {
-//            // This measures how long it takes to launch your application.
-//            measure(metrics: [XCTOSSignpostMetric.applicationLaunch]) {
-//                XCUIApplication().launch()
-//            }
-//        }
-//    }
 }
