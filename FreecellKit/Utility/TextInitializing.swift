@@ -59,17 +59,21 @@ public struct BoardParser: Parser {
     func parseFreecells(from text: String) -> [FreeCell] {
         return text
             .split(separator: " ")
-            .compactMap { FreeCell(text: String($0)) }
+            .enumerated()
+            .compactMap { index, element in FreeCell(id: "freecell-\(index)", text: String(element)) }
     }
     
     func parseFoundations(from text: String) -> [Foundation] {
         return text
             .split(separator: " ")
-            .compactMap { Foundation(text: String($0)) }
+            .enumerated()
+            .compactMap { index, element in Foundation(id: "foundation-\(index)", text: String(element)) }
     }
     
     func parseColumns(from texts: [String]) -> [Column] {
-        return texts.compactMap { Column(text: $0) }
+        return texts
+            .enumerated()
+            .compactMap { index, element in Column(id: "column-\(index)", text: element) }
     }
 }
 
@@ -97,22 +101,22 @@ public struct SuitParser: Parser {
 }
 
 public extension FreeCell {
-      convenience init?(text: String) {
+    convenience init?(id: String = UUID().uuidString, text: String) {
         let cards = CardParser().parse(from: text)
         
         guard cards.count < 2 else { return nil }
-        self.init(card: cards.first)
+        self.init(id: id, card: cards.first)
     }
 }
 
 public extension Foundation {
     // First try to parse a card. Requirement: should have one card representing the top card. e.g. "[♠️3]"
     // If that's not available, try to parse a suit. Requirement: should look like "[♠️]" to represent an empty Spade foundation.
-    convenience init?(text: String) {
+    convenience init?(id: String = UUID().uuidString, text: String) {
         let cards = CardParser().parse(from: text)
         
         if cards.count == 1 {
-            self.init(topCard: cards.first!)
+            self.init(id: id, topCard: cards.first!)
         }
         else {
             guard let suit = SuitParser().parse(from: text) else { return nil }
@@ -122,8 +126,8 @@ public extension Foundation {
 }
 
 public extension Column {
-    convenience init?(text: String) {
+    convenience init?(id: String = UUID().uuidString, text: String) {
         let cards = CardParser().parse(from: text)
-        self.init(cards: cards)
+        self.init(id: id, cards: cards)
     }
 }

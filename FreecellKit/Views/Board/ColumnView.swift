@@ -32,6 +32,7 @@ public struct ColumnView: View {
         }
         .accessibilityElement(children: .combine)
         .accessibility(identifier: column.id)
+        .accessibility(hidden: column.topItem != nil)
     }
 }
 

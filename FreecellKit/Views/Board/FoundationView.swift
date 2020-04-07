@@ -22,6 +22,7 @@ public struct FoundationView: View {
         }
         .accessibilityElement(children: .combine)
         .accessibility(identifier: foundation.id)
+        .accessibility(hidden: foundation.topItem != nil)
     }
 }
 

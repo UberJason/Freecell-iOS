@@ -22,6 +22,7 @@ public struct FreeCellView: View {
         }
         .accessibilityElement(children: .combine)
         .accessibility(identifier: freeCell.id)
+        .accessibility(hidden: freeCell.isOccupied)
     }
 }
 
