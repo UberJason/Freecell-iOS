@@ -120,7 +120,7 @@ public extension Foundation {
         }
         else {
             guard let suit = SuitParser().parse(from: text) else { return nil }
-            self.init(suit: suit)
+            self.init(id: id, suit: suit)
         }
     }
 }
