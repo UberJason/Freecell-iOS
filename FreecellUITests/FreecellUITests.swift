@@ -23,59 +23,98 @@ class FreecellUITests: XCTestCase {
         // Put teardown code here. This method is called after the invocation of each test method in the class.
     }
 
-    func testExample() {
+    func testGameplay() {
         // UI tests must launch the application that they test.
         let app = XCUIApplication()
         app.launchArguments = ["-usePreconfiguredBoard"]
         app.launch()
 
-        app.staticTexts["♦️A-tab"].tap()
-        app.staticTexts["♠️6-tab"].tap()
-        app.staticTexts["♦️5-tab"].tap()
-        app.staticTexts["♠️8-tab"].tap()
-        app.staticTexts["♣️7-tab"].tap()
-        app.staticTexts["♠️9-tab"].tap()
-        app.staticTexts["♣️7-tab"].tap()
-        app.staticTexts["❤️6-tab"].tap()
-        app.staticTexts["❤️4-tab"].tap()
-        app.staticTexts["❤️7-tab"].tap()
-        app.staticTexts["❤️6-tab"].tap()
-        app.staticTexts["♦️6-tab"].tap()
-        app.staticTexts["♣️10-tab"].tap()
-        app.staticTexts["♦️8-tab"].tap()
-        app.staticTexts["♣️7-tab"].tap()
-        app.staticTexts["♠️4-tab"].tap()
-        app.staticTexts["♠️Q-tab"].tap()
-        app.staticTexts["♦️10-tab"].tap()
-        app.staticTexts["❤️4-tab"].tap()
-        app.staticTexts["♠️3-tab"].tap()
-        app.staticTexts["❤️5-tab"].tap()
-        app.staticTexts["♠️5-tab"].tap()
-        app.staticTexts["❤️4-tab"].tap()
-        app.staticTexts["♠️7-tab"].tap()
-        app.staticTexts["♦️K-tab"].tap()
-        app.staticTexts["❤️10-tab"].tap()
-        app.staticTexts["❤️10-tab"].tap()
-        app.staticTexts["❤️K-tab"].tap()
-        app.staticTexts["♣️6-tab"].tap()
-        app.staticTexts["❤️J-tab"].tap()
-        app.staticTexts["♣️6-tab"].tap()
-        app.staticTexts["❤️5-tab"].tap()
-        app.staticTexts["♦️9-tab"].tap()
-        app.staticTexts["♠️J-tab"].tap()
-        app.staticTexts["♠️K-tab"].press(forDuration: 0.1, thenDragTo: app.staticTexts["column-3"])
-        app.staticTexts["♦️Q-tab"].tap()
-        app.staticTexts["♣️9-tab"].tap()
-        app.staticTexts["❤️Q-tab"].tap()
-        app.staticTexts["♣️J-tab"].tap()
-        app.staticTexts["♣️10-tab"].tap()
-        app.staticTexts["❤️9-tab"].tap()
-        app.staticTexts["♣️K-tab"].tap()
-        app.staticTexts["♦️J-tab"].tap()
+        app.tapCard("♦️A")
+        app.tapCard("♠️6")
+        app.tapCard("♦️5")
+        app.tapCard("♠️8")
+        app.tapCard("♣️7")
+        app.tapCard("♠️9")
+        app.tapCard("♣️7")
+        app.tapCard("❤️6")
+        app.tapCard("❤️4")
+        app.tapCard("❤️7")
+        app.tapCard("❤️6")
+        app.tapCard("♦️6")
+        app.tapCard("♣️10")
+        app.tapCard("♦️8")
+        app.tapCard("♣️7")
+        app.tapCard("♠️4")
+        app.tapCard("♠️Q")
+        app.tapCard("♦️10")
+        app.tapCard("❤️4")
+        app.tapCard("♠️3")
+        app.tapCard("❤️5")
+        app.tapCard("♠️5")
+        app.tapCard("❤️4")
+        app.tapCard("♠️7")
+        app.tapCard("♦️K")
+        app.tapCard("❤️10")
+        app.tapCard("❤️10")
+        app.tapCard("❤️K")
+        app.tapCard("♣️6")
+        app.tapCard("❤️J")
+        app.tapCard("♣️6")
+        app.tapCard("❤️5")
+        app.tapCard("♦️9")
+        app.tapCard("♠️J")
+        app.dragCard("♠️K", to: "column-3")
+        app.tapCard("♦️Q")
+        app.tapCard("♣️9")
+        app.tapCard("❤️Q")
+        app.tapCard("♣️J")
+        app.tapCard("♣️10")
+        app.tapCard("❤️9")
+        app.tapCard("♣️K")
+        app.tapCard("♦️J")
         
         let newGameButton = app.buttons["New Game"]
         guard newGameButton.waitForExistence(timeout: 5.0) else { XCTFail(); return }
         newGameButton.tap()
     }
 
+    func testMenuControls() {
+        // This is not really a test.
+        let app = XCUIApplication()
+        app.launchArguments = ["-usePreconfiguredBoard"]
+        app.launch()
+        
+        let menuButton = app.buttons["Menu"]
+        menuButton.tap()
+        
+        let table = app.tables
+        table.buttons["System"].tap()
+        table.buttons["Light"].tap()
+        table.buttons["Dark"].tap()
+        
+        table.buttons["Control Scheme"].tap()
+        table.buttons["Classic"].tap()
+        var backButton = app.navigationBars["Control Style"].buttons["Menu"]
+        backButton.tap()
+        
+        table.buttons["Control Scheme"].tap()
+        table.buttons["Modern"].tap()
+        backButton.tap()
+        
+        table.buttons["Statistics"].tap()
+        backButton = app.navigationBars["Statistics"].buttons["Menu"]
+        backButton.tap()
+        
+        app.navigationBars["Menu"].buttons["Done"].tap()
+    }
+}
+
+extension XCUIApplication {
+    func tapCard(_ title: String) {
+        staticTexts["\(title)-tab"].tap()
+    }
+    
+    func dragCard(_ fromTitle: String, to elementTitle: String) {
+        staticTexts["\(fromTitle)-tab"].press(forDuration: 0.1, thenDragTo: staticTexts[elementTitle])
+    }
 }

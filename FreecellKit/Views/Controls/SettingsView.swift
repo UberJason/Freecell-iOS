@@ -67,7 +67,7 @@ public struct SettingsView: View, GameAlerting {
                     )
                     NavigationLink(destination: SelectControlStyleView(controlStyle: $store.controlStyle)) {
                         CellRow(leading: Text("Control Scheme"), trailing: Text(store.controlStyle.rawValue).foregroundColor(.freecellTheme))
-                    }
+                    }.accessibility(identifier: "Control Scheme")
                     NavigationLink(destination: StatisticsView()) {
                         Text("Statistics")
                     }
