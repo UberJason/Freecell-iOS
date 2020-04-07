@@ -30,23 +30,24 @@ class FreecellUITests: XCTestCase {
         app.launch()
 
         
-        app.staticTexts["♦️A"].tap()
-        app.staticTexts["♠️6"].tap()
-        app.staticTexts["♦️5"].tap()
-        app.staticTexts["♠️8"].tap()
-        app.staticTexts["♣️7"].tap()
-        app.staticTexts["♠️9"].tap()
-        app.staticTexts["♣️7"].tap()
-        app.staticTexts["❤️6"].tap()
-        app.staticTexts["❤️4"].tap()
-        app.staticTexts["❤️7"].tap()    // This is never triggered - probably because it's trying to tap on the ❤️7 in the *center* but there's another card on top of it. I wonder if we can tap specifically on the upper-left CardTab
-        app.staticTexts["❤️6"].tap()
+//        app.staticTexts["♦️A-tab"].tap()
+//        app.staticTexts["♠️6-tab"].tap()
+//        app.staticTexts["♦️5-tab"].tap()
+//        app.staticTexts["♠️8-tab"].tap()
+//        app.staticTexts["♣️7-tab"].tap()
+//        app.staticTexts["♠️9-tab"].tap()
+//        app.staticTexts["♣️7-tab"].tap()
+//        app.staticTexts["❤️6-tab"].tap()
+//        app.staticTexts["❤️4-tab"].tap()
+//        app.staticTexts["❤️7-tab"].tap()
+//        app.staticTexts["❤️6-tab"].tap()
     
 
         
                 
         // Use recording to get started writing UI tests.
         // Use XCTAssert and related functions to verify your tests produce the correct results.
+        
         
     }
 
