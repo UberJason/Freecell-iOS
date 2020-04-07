@@ -20,6 +20,8 @@ public struct FreeCellView: View {
         ZStack {
             EmptySpotView()
         }
+        .accessibilityElement(children: .combine)
+        .accessibility(identifier: freeCell.id)
     }
 }
 

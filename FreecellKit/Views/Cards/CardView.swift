@@ -38,6 +38,8 @@ public struct CardView: View {
                     .padding(5.0)
             }
         }
+        .accessibilityElement(children: .combine)
+        .accessibility(identifier: card.displayTitle)
     }
 }
 
