@@ -11,6 +11,11 @@ import XCTest
 class FreecellUITests: XCTestCase {
 
     override func setUp() {
+        let app = XCUIApplication()
+        setupSnapshot(app)
+        app.launchArguments = ["-usePreconfiguredBoard"]
+        app.launch()
+
         // Put setup code here. This method is called before the invocation of each test method in the class.
 
         // In UI tests it is usually best to stop immediately when a failure occurs.
@@ -26,9 +31,7 @@ class FreecellUITests: XCTestCase {
     func testGameplay() {
         // UI tests must launch the application that they test.
         let app = XCUIApplication()
-        app.launchArguments = ["-usePreconfiguredBoard"]
-        app.launch()
-
+        snapshot("initialScreen")
         app.tapCard("♦️A")
         app.tapCard("♠️6")
         app.tapCard("♦️5")
@@ -47,6 +50,7 @@ class FreecellUITests: XCTestCase {
         app.tapCard("♠️4")
         app.tapCard("♠️Q")
         app.tapCard("♦️10")
+        snapshot("laterScreen")
         app.tapCard("❤️4")
         app.tapCard("♠️3")
         app.tapCard("❤️5")
@@ -75,14 +79,14 @@ class FreecellUITests: XCTestCase {
         
         let newGameButton = app.buttons["New Game"]
         guard newGameButton.waitForExistence(timeout: 5.0) else { XCTFail(); return }
+        snapshot("victoryScreen")
         newGameButton.tap()
+        
     }
 
     func testMenuControls() {
         // This is not really a test.
         let app = XCUIApplication()
-        app.launchArguments = ["-usePreconfiguredBoard"]
-        app.launch()
         
         let menuButton = app.buttons["Menu"]
         menuButton.tap()
