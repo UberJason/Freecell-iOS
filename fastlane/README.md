@@ -21,6 +21,16 @@ or alternatively using `brew cask install fastlane`
 fastlane ios screenshots
 ```
 Generate new localized screenshots
+### ios frames
+```
+fastlane ios frames
+```
+
+### ios rotate_screenshots
+```
+fastlane ios rotate_screenshots
+```
+
 
 ----
 

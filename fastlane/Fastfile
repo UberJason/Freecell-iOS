@@ -19,6 +19,26 @@ platform :ios do
   desc "Generate new localized screenshots"
   lane :screenshots do
     capture_screenshots(scheme: "FreecellUITests")
-    upload_to_app_store(skip_binary_upload: true, skip_metadata: true)
+#    upload_to_app_store(skip_binary_upload: true, skip_metadata: true)
   end
+
+  lane :frames do
+    frameit
+    rotate_screenshots
+  end
+
+
+#Relative to the Fastfile, not the same as the path you pass to frameit.
+  screenshot_path = "./screenshots"
+
+  lane :rotate_screenshots do
+    screenshots = Dir.glob("#{screenshot_path}/**/*.{png,PNG}").uniq
+    screenshots.each do |full_path|
+      if full_path.downcase.include?("_frame")
+        puts "Rotating screenshot:#{full_path}"
+        system( "sips -r 90 '#{full_path}'")
+      end 
+    end
+  end
+
 end
