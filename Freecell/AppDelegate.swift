@@ -9,7 +9,10 @@
 import UIKit
 import FreecellKit
 
-#warning("Request review after a win - SKStoreReviewController")
+#warning("Freecell 1.0.1: Request review after a win - SKStoreReviewController")
+#warning("Freecell 1.0.1: Onboarding modal")
+#warning("Freecell 1.1: Error message for invalid moves")
+#warning("Freecell 1.1: How To Play interactive tutorial?")
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
     @Delayed var menuController: MenuController
