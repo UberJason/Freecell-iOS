@@ -1,0 +1,13 @@
+{
+  "device_frame_version": "latest",
+  "default": {
+  	"background": "./background.jpg",
+  	"padding": 50,
+  	"title": {
+  		"text": "Foo"
+  	}
+  },
+  "data": [
+
+  ]
+}
