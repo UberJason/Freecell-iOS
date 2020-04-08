@@ -33,6 +33,16 @@ platform :ios do
     )
   end
   
+  lane :beta_catalyst do
+	ensure_git_status_clean
+  	increment_build_number
+  	commit_version_bump(message: "Bump build number")
+    build_mac_app(scheme: "Freecell")
+    upload_to_testflight(
+    	apple_id: "uberjason@gmail.com",
+    	skip_waiting_for_build_processing: true
+    )
+  end
 # None of the following seems to work for iPad for one reason or another (e.g. comes out rotated funny) so let's just not use it.
 #   lane :frames do
 #     frameit

@@ -26,6 +26,11 @@ Generate new localized screenshots
 fastlane ios beta
 ```
 
+### ios beta_catalyst
+```
+fastlane ios beta_catalyst
+```
+
 
 ----
 
