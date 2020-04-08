@@ -30,6 +30,9 @@ public struct ColumnView: View {
             #endif
             EmptySpotView()
         }
+        .accessibilityElement(children: .combine)
+        .accessibility(identifier: column.id)
+        .accessibility(hidden: column.topItem != nil)
     }
 }
 

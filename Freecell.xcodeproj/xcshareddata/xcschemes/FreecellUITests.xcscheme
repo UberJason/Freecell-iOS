@@ -16,9 +16,9 @@
             skipped = "NO">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "96CA9AF3238F0E4B00C34A60"
-               BuildableName = "Freecell-MacUITests.xctest"
-               BlueprintName = "Freecell-MacUITests"
+               BlueprintIdentifier = "96A36412237CF0FD005C45FB"
+               BuildableName = "FreecellUITests.xctest"
+               BlueprintName = "FreecellUITests"
                ReferencedContainer = "container:Freecell.xcodeproj">
             </BuildableReference>
          </TestableReference>
@@ -34,6 +34,16 @@
       debugDocumentVersioning = "YES"
       debugServiceExtension = "internal"
       allowLocationSimulation = "YES">
+      <BuildableProductRunnable
+         runnableDebuggingMode = "0">
+         <BuildableReference
+            BuildableIdentifier = "primary"
+            BlueprintIdentifier = "96A363F1237CF0FC005C45FB"
+            BuildableName = "Freecell.app"
+            BlueprintName = "Freecell"
+            ReferencedContainer = "container:Freecell.xcodeproj">
+         </BuildableReference>
+      </BuildableProductRunnable>
    </LaunchAction>
    <ProfileAction
       buildConfiguration = "Release"
@@ -41,6 +51,15 @@
       savedToolIdentifier = ""
       useCustomWorkingDirectory = "NO"
       debugDocumentVersioning = "YES">
+      <MacroExpansion>
+         <BuildableReference
+            BuildableIdentifier = "primary"
+            BlueprintIdentifier = "96A363F1237CF0FC005C45FB"
+            BuildableName = "Freecell.app"
+            BlueprintName = "Freecell"
+            ReferencedContainer = "container:Freecell.xcodeproj">
+         </BuildableReference>
+      </MacroExpansion>
    </ProfileAction>
    <AnalyzeAction
       buildConfiguration = "Debug">

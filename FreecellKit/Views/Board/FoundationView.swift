@@ -20,6 +20,9 @@ public struct FoundationView: View {
         ZStack {
             EmptySpotView(suit: foundation.suit)
         }
+        .accessibilityElement(children: .combine)
+        .accessibility(identifier: foundation.id)
+        .accessibility(hidden: foundation.topItem != nil)
     }
 }
 

@@ -22,6 +22,18 @@ public struct Card: CardProtocol, Hashable {
         self.rank = rank
     }
     
+    public init?(text: String) {
+        guard text.count >= 2 else { return nil }
+        
+        let suitString = text[text.startIndex]
+        let rankString = text[text.index(text.startIndex, offsetBy: 1)...]
+        
+        guard let suit = Suit(text: String(suitString)),
+            let rank = Rank(text: String(rankString)) else { return nil }
+        
+        self.init(suit: suit, rank: rank)
+    }
+     
     public var displayTitle: String {
         return "\(suit.displayTitle)\(rank.displayTitle)"
     }

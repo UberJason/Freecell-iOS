@@ -32,6 +32,21 @@ public enum Rank: Int, CaseIterable {
         default: return String(rawValue)
         }
     }
+    
+    public init?(text: String) {
+        if let value = Int(text), value >= 2, value <= 10 {
+            self.init(rawValue: value)
+        }
+        else {
+            switch text {
+            case "A": self = .ace
+            case "K": self = .king
+            case "Q": self = .queen
+            case "J": self = .jack
+            default: return nil
+            }
+        }
+    }
 }
 
 public protocol Valuing {

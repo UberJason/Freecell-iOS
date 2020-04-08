@@ -31,6 +31,9 @@
 		9629B2FE2438E8A300A5B37F /* SymbolIdentifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9629B2FD2438E8A300A5B37F /* SymbolIdentifier.swift */; };
 		9629B3002438EA5700A5B37F /* UIImage+Freecell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9629B2FF2438EA5700A5B37F /* UIImage+Freecell.swift */; };
 		962B0B6D2422F7E6007D4117 /* FreecellStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 962B0B6C2422F7E6007D4117 /* FreecellStore.swift */; };
+		962EED18243C104200183C16 /* AUI+Screenshots.txt in Resources */ = {isa = PBXBuildFile; fileRef = 962EED15243BFF8B00183C16 /* AUI+Screenshots.txt */; };
+		962EED19243C104900183C16 /* AUI+Screenshots.txt in Resources */ = {isa = PBXBuildFile; fileRef = 962EED15243BFF8B00183C16 /* AUI+Screenshots.txt */; };
+		962F428D243CF84E00C4F17B /* SnapshotHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 962F428C243CF84E00C4F17B /* SnapshotHelper.swift */; };
 		964B8E232439080C00A61642 /* MenuController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 964B8E222439080C00A61642 /* MenuController.swift */; };
 		964BBF0623A47B96009B4FDE /* BackgroundColorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 964BBF0523A47B96009B4FDE /* BackgroundColorView.swift */; };
 		964BBF0823A4861C009B4FDE /* Convenience.swift in Sources */ = {isa = PBXBuildFile; fileRef = 964BBF0723A4861C009B4FDE /* Convenience.swift */; };
@@ -53,6 +56,8 @@
 		9673834724030EE1004A4525 /* Color+Background.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9673834624030EE1004A4525 /* Color+Background.swift */; };
 		9673834B24030F7E004A4525 /* YouWinView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9673834A24030F7E004A4525 /* YouWinView.swift */; };
 		9673834D24030FF0004A4525 /* GameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9673834C24030FF0004A4525 /* GameView.swift */; };
+		968047D8243B5BA60030D617 /* TextInitializing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 968047D7243B5BA60030D617 /* TextInitializing.swift */; };
+		968047DA243B67850030D617 /* StringInitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 968047D9243B67850030D617 /* StringInitTests.swift */; };
 		9683E0A223F87A5500B6C114 /* Freecell.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 9683E0A023F87A5500B6C114 /* Freecell.xcdatamodeld */; };
 		9683E0A423F89D6F00B6C114 /* GameRecord.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9683E0A323F89D6F00B6C114 /* GameRecord.swift */; };
 		9688893A2389CB83001DD34B /* Result+SuccessVoid.swift in Sources */ = {isa = PBXBuildFile; fileRef = 968889392389CB83001DD34B /* Result+SuccessVoid.swift */; };
@@ -289,6 +294,8 @@
 		9629B2FD2438E8A300A5B37F /* SymbolIdentifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SymbolIdentifier.swift; sourceTree = "<group>"; };
 		9629B2FF2438EA5700A5B37F /* UIImage+Freecell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+Freecell.swift"; sourceTree = "<group>"; };
 		962B0B6C2422F7E6007D4117 /* FreecellStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FreecellStore.swift; sourceTree = "<group>"; };
+		962EED15243BFF8B00183C16 /* AUI+Screenshots.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "AUI+Screenshots.txt"; sourceTree = "<group>"; };
+		962F428C243CF84E00C4F17B /* SnapshotHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SnapshotHelper.swift; path = fastlane/SnapshotHelper.swift; sourceTree = SOURCE_ROOT; };
 		96416DC623F9CAEF000197E0 /* Freecell.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Freecell.entitlements; sourceTree = "<group>"; };
 		964B8E222439080C00A61642 /* MenuController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuController.swift; sourceTree = "<group>"; };
 		964BBF0523A47B96009B4FDE /* BackgroundColorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackgroundColorView.swift; sourceTree = "<group>"; };
@@ -312,6 +319,8 @@
 		9673834624030EE1004A4525 /* Color+Background.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+Background.swift"; sourceTree = "<group>"; };
 		9673834A24030F7E004A4525 /* YouWinView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YouWinView.swift; sourceTree = "<group>"; };
 		9673834C24030FF0004A4525 /* GameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameView.swift; sourceTree = "<group>"; };
+		968047D7243B5BA60030D617 /* TextInitializing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextInitializing.swift; sourceTree = "<group>"; };
+		968047D9243B67850030D617 /* StringInitTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringInitTests.swift; sourceTree = "<group>"; };
 		9683E0A123F87A5500B6C114 /* Freecell.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Freecell.xcdatamodel; sourceTree = "<group>"; };
 		9683E0A323F89D6F00B6C114 /* GameRecord.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameRecord.swift; sourceTree = "<group>"; };
 		968889392389CB83001DD34B /* Result+SuccessVoid.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Result+SuccessVoid.swift"; sourceTree = "<group>"; };
@@ -494,6 +503,7 @@
 				9689E18723AB0B8F008B960B /* Publisher */,
 				964BBF1C23A6D9C3009B4FDE /* StackOffsetting.swift */,
 				9627FECF23AB19CF00F8F63B /* CustomDebugStrings.swift */,
+				968047D7243B5BA60030D617 /* TextInitializing.swift */,
 				9661BFAD23DE86A300DFC5E9 /* AnchorPreferences.swift */,
 				962621BF241E902000B3637A /* UserDefaultPropertyWrapper.swift */,
 				961C7FA4242D7F550078E2F7 /* DelayedPropertyWrapper.swift */,
@@ -547,6 +557,7 @@
 		9629B2FB2438E5FC00A5B37F /* Utility */ = {
 			isa = PBXGroup;
 			children = (
+				962EED15243BFF8B00183C16 /* AUI+Screenshots.txt */,
 				96A36403237CF0FD005C45FB /* Info.plist */,
 				96A363FB237CF0FD005C45FB /* Assets.xcassets */,
 				96A36400237CF0FD005C45FB /* LaunchScreen.storyboard */,
@@ -697,6 +708,7 @@
 			isa = PBXGroup;
 			children = (
 				96A36417237CF0FD005C45FB /* FreecellUITests.swift */,
+				962F428C243CF84E00C4F17B /* SnapshotHelper.swift */,
 				96A36419237CF0FD005C45FB /* Info.plist */,
 			);
 			path = FreecellUITests;
@@ -744,12 +756,13 @@
 			isa = PBXGroup;
 			children = (
 				96A36468237E33C0005C45FB /* FreecellKitTests.swift */,
-				966B539D2425AA3B009454E1 /* StatisticsTests.swift */,
 				964BBF1323A489BF009B4FDE /* LocationTests.swift */,
 				964BBF1923A48B39009B4FDE /* BoardTests.swift */,
 				964BBF0923A48661009B4FDE /* FullStackMovementTests.swift */,
 				964BBF1723A48B0B009B4FDE /* SubstackMovementTests.swift */,
 				9689E18C23AB0BBB008B960B /* CustomPublisherTests.swift */,
+				966B539D2425AA3B009454E1 /* StatisticsTests.swift */,
+				968047D9243B67850030D617 /* StringInitTests.swift */,
 				964BBF1B23A48B97009B4FDE /* Utility */,
 				96A3646A237E33C0005C45FB /* Info.plist */,
 			);
@@ -1173,6 +1186,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				962EED18243C104200183C16 /* AUI+Screenshots.txt in Resources */,
 				96A36402237CF0FD005C45FB /* LaunchScreen.storyboard in Resources */,
 				96A363FF237CF0FD005C45FB /* Preview Assets.xcassets in Resources */,
 				96A363FC237CF0FD005C45FB /* Assets.xcassets in Resources */,
@@ -1220,6 +1234,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				962EED19243C104900183C16 /* AUI+Screenshots.txt in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1287,6 +1302,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				96A36418237CF0FD005C45FB /* FreecellUITests.swift in Sources */,
+				962F428D243CF84E00C4F17B /* SnapshotHelper.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1324,6 +1340,7 @@
 				96EDA559241ECF1F00C05697 /* ControlManager.swift in Sources */,
 				961AC2AA23E4B661003341B0 /* MoveEvent.swift in Sources */,
 				961AC2A823E374AC003341B0 /* Notification+Freecell.swift in Sources */,
+				968047D8243B5BA60030D617 /* TextInitializing.swift in Sources */,
 				9688893C238B679A001DD34B /* Suit+Color.swift in Sources */,
 				9661E7AC2380439C00183A99 /* CardStack.swift in Sources */,
 				96A7223E240181DB004F7F47 /* EmojiBombView.swift in Sources */,
@@ -1387,6 +1404,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				968047DA243B67850030D617 /* StringInitTests.swift in Sources */,
 				96A36469237E33C0005C45FB /* FreecellKitTests.swift in Sources */,
 				966B539E2425AA3B009454E1 /* StatisticsTests.swift in Sources */,
 				9689E18D23AB0BBB008B960B /* CustomPublisherTests.swift in Sources */,
@@ -1635,6 +1653,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = Freecell/Utility/Freecell.entitlements;
 				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_ASSET_PATHS = "\"Freecell/Utility/Preview Content\"";
 				DEVELOPMENT_TEAM = 2GPQ8GE99T;
 				ENABLE_PREVIEWS = YES;
@@ -1649,6 +1668,7 @@
 				SUPPORTS_MACCATALYST = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 2;
+				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Debug;
 		};
@@ -1659,6 +1679,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = Freecell/Utility/Freecell.entitlements;
 				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_ASSET_PATHS = "\"Freecell/Utility/Preview Content\"";
 				DEVELOPMENT_TEAM = 2GPQ8GE99T;
 				ENABLE_PREVIEWS = YES;
@@ -1673,6 +1694,7 @@
 				SUPPORTS_MACCATALYST = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 2;
+				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Release;
 		};
@@ -1684,7 +1706,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 2GPQ8GE99T;
 				INFOPLIST_FILE = FreecellTests/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.4;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -1706,7 +1728,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 2GPQ8GE99T;
 				INFOPLIST_FILE = FreecellTests/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.4;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -1765,12 +1787,12 @@
 			buildSettings = {
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 2;
 				DEFINES_MODULE = YES;
 				DERIVE_MACCATALYST_PRODUCT_BUNDLE_IDENTIFIER = NO;
 				DEVELOPMENT_TEAM = 2GPQ8GE99T;
 				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 2;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				INFOPLIST_FILE = DeckKit/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
@@ -1798,12 +1820,12 @@
 			buildSettings = {
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 2;
 				DEFINES_MODULE = YES;
 				DERIVE_MACCATALYST_PRODUCT_BUNDLE_IDENTIFIER = NO;
 				DEVELOPMENT_TEAM = 2GPQ8GE99T;
 				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 2;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				INFOPLIST_FILE = DeckKit/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
@@ -1870,11 +1892,11 @@
 			buildSettings = {
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 2;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = 2GPQ8GE99T;
 				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 2;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				INFOPLIST_FILE = FreecellKit/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
@@ -1901,11 +1923,11 @@
 			buildSettings = {
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 2;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = 2GPQ8GE99T;
 				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 2;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				INFOPLIST_FILE = FreecellKit/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";

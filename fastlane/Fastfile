@@ -1,0 +1,76 @@
+# This file contains the fastlane.tools configuration
+# You can find the documentation at https://docs.fastlane.tools
+#
+# For a list of all available actions, check out
+#
+#     https://docs.fastlane.tools/actions
+#
+# For a list of all available plugins, check out
+#
+#     https://docs.fastlane.tools/plugins/available-plugins
+#
+
+# Uncomment the line if you want fastlane to automatically update itself
+# update_fastlane
+
+default_platform(:ios)
+
+platform :ios do
+  desc "Generate new localized screenshots"
+  lane :screenshots do
+    capture_screenshots(scheme: "FreecellUITests")
+    upload_to_app_store(skip_binary_upload: true, skip_metadata: true)
+  end
+
+  lane :beta do
+  	ensure_git_status_clean
+  	increment_build_number
+  	commit_version_bump(message: "Bump build number")
+    build_app(scheme: "Freecell")
+    upload_to_testflight(
+    	apple_id: "1506502722",
+    	skip_waiting_for_build_processing: true
+    )
+  end
+
+
+# Can't quite get Catalyst to upload to testflight, it keeps trying to upload the IPA. Maybe revisit someday...
+# https://github.com/fastlane/fastlane/pull/12195
+
+ #  lane :beta_catalyst do
+	# ensure_git_status_clean
+ #  	increment_build_number
+ #  	commit_version_bump(message: "Bump build number")
+ #    build_app(
+ #    	scheme: "Freecell",
+ #    	catalyst_platform: "macos"
+	# )
+ #    upload_to_testflight(
+ #    	apple_id: "1506502722",
+ #    	skip_waiting_for_build_processing: true
+ #    )
+ #  end
+
+
+
+# None of the following seems to work for iPad for one reason or another (e.g. comes out rotated funny) so let's just not use it.
+#   lane :frames do
+#     frameit
+#     rotate_screenshots
+#   end
+
+
+# #Relative to the Fastfile, not the same as the path you pass to frameit.
+#   screenshot_path = "./screenshots"
+
+#   lane :rotate_screenshots do
+#     screenshots = Dir.glob("#{screenshot_path}/**/*.{png,PNG}").uniq
+#     screenshots.each do |full_path|
+#       if full_path.downcase.include?("_frame")
+#         puts "Rotating screenshot:#{full_path}"
+#         system( "sips -r 90 '#{full_path}'")
+#       end 
+#     end
+#   end
+
+end

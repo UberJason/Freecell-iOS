@@ -23,11 +23,14 @@ public struct CardView: View {
                     RoundedRectangle(cornerRadius: 8)
                         .stroke(Color.black, lineWidth: 0.5)
                 )
+                .accessibility(identifier: card.displayTitle)
 
             ZStack(alignment: .topLeading) {
                 Rectangle()
                     .foregroundColor(.clear)
                 CardTabView(card: card)
+                    .accessibilityElement(children: .combine)
+                    .accessibility(identifier: "\(card.displayTitle)-tab")
                     .padding(5.0)
             }
             ZStack(alignment: .bottomTrailing) {
@@ -38,6 +41,7 @@ public struct CardView: View {
                     .padding(5.0)
             }
         }
+        
     }
 }
 

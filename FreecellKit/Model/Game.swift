@@ -69,9 +69,9 @@ public class Game: ObservableObject, GameStateProvider {
     @UserDefault(key: "controlStyle", defaultValue: .default)
     var controlStyle: ControlStyle
     
-    public init(undoManager: UndoManager? = nil) {
+    public init(undoManager: UndoManager? = nil, preconfiguredBoard: Board? = nil) {
         self.undoManager = undoManager
-        self.boardDriver = BoardViewDriver(controlStyle: controlStyle, gameStateProvider: self, undoManager: undoManager)
+        self.boardDriver = BoardViewDriver(controlStyle: controlStyle, gameStateProvider: self, undoManager: undoManager, preconfiguredBoard: preconfiguredBoard)
         
         NotificationCenter.default
             .publisher(for: .newGame)
