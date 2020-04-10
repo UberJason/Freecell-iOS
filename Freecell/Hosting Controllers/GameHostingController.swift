@@ -10,6 +10,7 @@ import Combine
 import UIKit
 import SwiftUI
 import FreecellKit
+import StoreKit
 
 class GameHostingController: FreecellHostingController<ContentView>, GameAlerting {
     weak var game: Game?
@@ -35,6 +36,15 @@ class GameHostingController: FreecellHostingController<ContentView>, GameAlertin
             .publisher(for: .dismissMenu)
             .sink { [unowned self] _ in
                 self.dismiss(animated: true, completion: nil)
+            }
+            .store(in: &cancellables)
+        
+        NotificationCenter.default
+            .publisher(for: .recordResult)
+            .decode(to: JSONGameRecord.self)
+            .filter { $0.result == .win }
+            .sink(receiveCompletion: { _ in }) { _ in 
+                SKStoreReviewController.requestReview()
             }
             .store(in: &cancellables)
     }
