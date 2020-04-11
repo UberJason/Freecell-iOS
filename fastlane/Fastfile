@@ -34,9 +34,6 @@ platform :ios do
   end
 
   lane :beta do
-  	ensure_git_status_clean
-  	increment_build_number
-  	commit_version_bump(message: "Bump build number")
     build_app(scheme: "Freecell")
     upload_to_testflight(
     	apple_id: "1506502722",
