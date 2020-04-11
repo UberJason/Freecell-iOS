@@ -20,7 +20,7 @@ or alternatively using `brew cask install fastlane`
 ```
 fastlane ios set_version
 ```
-Bump patch version number and set build to 1
+Set version and build numbers. Usage: fastlane set_version build:1 version:1.0.1
 ### ios screenshots
 ```
 fastlane ios screenshots
