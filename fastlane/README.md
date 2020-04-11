@@ -16,6 +16,11 @@ or alternatively using `brew cask install fastlane`
 
 # Available Actions
 ## iOS
+### ios set_version
+```
+fastlane ios set_version
+```
+Bump patch version number and set build to 1
 ### ios screenshots
 ```
 fastlane ios screenshots
@@ -24,11 +29,6 @@ Generate new localized screenshots
 ### ios beta
 ```
 fastlane ios beta
-```
-
-### ios beta_catalyst
-```
-fastlane ios beta_catalyst
 ```
 
 
