@@ -131,3 +131,4 @@ public extension Column {
         self.init(id: id, cards: cards)
     }
 }
+

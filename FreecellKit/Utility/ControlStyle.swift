@@ -8,7 +8,7 @@
 
 import Foundation
 
-public enum ControlStyle: String, CaseIterable, Codable {
+public enum ControlStyle: String, CaseIterable, Codable, UserDefaultConvertible {
     case modern = "Modern", classic = "Classic"
     
     static var `default`: ControlStyle {

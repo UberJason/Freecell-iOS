@@ -103,6 +103,7 @@
 		96A3648A237F51BA005C45FB /* Convenience.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96A36489237F51BA005C45FB /* Convenience.swift */; };
 		96A7223C2401814C004F7F47 /* EmojiBombAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96A7223B2401814C004F7F47 /* EmojiBombAnimator.swift */; };
 		96A7223E240181DB004F7F47 /* EmojiBombView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96A7223D240181DB004F7F47 /* EmojiBombView.swift */; };
+		96AF9E112441522C002C5608 /* OnboardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96AF9E0F24415170002C5608 /* OnboardingView.swift */; };
 		96CA9AD0238CC4F000C34A60 /* Card+Id.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96CA9ACF238CC4F000C34A60 /* Card+Id.swift */; };
 		96CA9AD8238F0E4900C34A60 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96CA9AD7238F0E4900C34A60 /* AppDelegate.swift */; };
 		96CA9ADA238F0E4900C34A60 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96CA9AD9238F0E4900C34A60 /* ContentView.swift */; };
@@ -375,6 +376,7 @@
 		96A59AA7241B19E6004B8FDF /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		96A7223B2401814C004F7F47 /* EmojiBombAnimator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EmojiBombAnimator.swift; sourceTree = "<group>"; };
 		96A7223D240181DB004F7F47 /* EmojiBombView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmojiBombView.swift; sourceTree = "<group>"; };
+		96AF9E0F24415170002C5608 /* OnboardingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingView.swift; sourceTree = "<group>"; };
 		96CA9ACF238CC4F000C34A60 /* Card+Id.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Card+Id.swift"; sourceTree = "<group>"; };
 		96CA9AD5238F0E4900C34A60 /* Freecell.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Freecell.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		96CA9AD7238F0E4900C34A60 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -802,6 +804,7 @@
 		96A59AAB241B1A08004B8FDF /* Controls */ = {
 			isa = PBXGroup;
 			children = (
+				96AF9E0F24415170002C5608 /* OnboardingView.swift */,
 				96FBBCE0241C73FF001D1088 /* CellRow.swift */,
 				96F68677243A5A4A00572256 /* DismissableModalView.swift */,
 				9616A1D623FB7176007CABA1 /* ControlsView.swift */,
@@ -1379,6 +1382,7 @@
 				964BBF0823A4861C009B4FDE /* Convenience.swift in Sources */,
 				96A36488237E3894005C45FB /* FreecellError.swift in Sources */,
 				9613245223E23D4000982898 /* CGPoint+Translation.swift in Sources */,
+				96AF9E112441522C002C5608 /* OnboardingView.swift in Sources */,
 				965C015A242AA51900E04F74 /* SpacingCalculator.swift in Sources */,
 				962295F52388762D005D599B /* BoardView.swift in Sources */,
 				9627FED023AB19CF00F8F63B /* CustomDebugStrings.swift in Sources */,

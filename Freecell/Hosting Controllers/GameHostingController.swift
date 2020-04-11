@@ -12,10 +12,15 @@ import SwiftUI
 import FreecellKit
 import StoreKit
 
+extension Bool: UserDefaultConvertible {}
+
 class GameHostingController: FreecellHostingController<ContentView>, GameAlerting {
     weak var game: Game?
     
     let transitionDelegate = DimmingPresentationTransitioningDelegate(params: DimmingPresentationParams(duration: 0.15, maxDimmedAlpha: 0.3, presentedCornerRadius: 10.0, contentWidth: 400, contentHeight: 580))
+    
+    @UserDefault(key: "onboardingCompleted", defaultValue: false)
+    var onboardingCompleted: Bool
     
     convenience init(game: Game?, rootView: ContentView) {
         self.init(rootView: rootView)
@@ -47,6 +52,13 @@ class GameHostingController: FreecellHostingController<ContentView>, GameAlertin
                 SKStoreReviewController.requestReview()
             }
             .store(in: &cancellables)
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        if !onboardingCompleted {
+            
+        }
     }
     
     override init?(coder aDecoder: NSCoder, rootView: ContentView) {

@@ -33,7 +33,7 @@ extension VisualTheming {
     }
 }
 
-public enum VisualTheme: String, CaseIterable {
+public enum VisualTheme: String, CaseIterable, UserDefaultConvertible {
     case system, light, dark
     
     public var title: String {
