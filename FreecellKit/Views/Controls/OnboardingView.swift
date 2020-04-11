@@ -16,27 +16,33 @@ struct OnboardingSnippet: Identifiable {
     let image: Image
 }
 
-struct OnboardingView: View {
-    let snippets: [OnboardingSnippet] = [
-        OnboardingSnippet(title: "Classic Gameplay, Modern Look", subtitle: "Play Freecell with a clean, modern design and quick, snappy animations.", image: Image.settings),
-        OnboardingSnippet(title: "Modern or Classic Controls", subtitle: "Choose between a smart, touch- and drag-first experience, or indulge in your early-00's nostalgia.", image: Image.settings)
-    
+public struct OnboardingView: View {
+    private let snippets: [OnboardingSnippet] = [
+        OnboardingSnippet(title: "Classic Gameplay, Modern Look", subtitle: "Play Freecell with a clean, modern design and quick, snappy animations.", image: Image.spades),
+        OnboardingSnippet(title: "Modern or Classic Controls", subtitle: "Choose between a smart, touch- and drag-first experience, or indulge in your early-00's nostalgia.", image: Image.controls)
     ]
-    var body: some View {
+    
+    public init() {}
+    
+    public var body: some View {
         VStack {
-            VStack(alignment: .leading) {
+            VStack(alignment: .leading, spacing: 75) {
                 VStack(alignment: .leading) {
                     Text("Welcome to").font(.system(.largeTitle)).fontWeight(.semibold)
                     Text("Freecell").font(.system(.largeTitle)).foregroundColor(.freecellTheme).fontWeight(.black)
                 }
-                Spacer()
+                
                 VStack(alignment: .leading, spacing: 30) {
                     ForEach(snippets) { snippet in
                         HStack(spacing: 30) {
-                            snippet.image.font(.system(size: 30))
-                            VStack(alignment: .leading) {
-                                Text(snippet.title).font(.body).fontWeight(.bold).foregroundColor(.freecellTheme)
-                                Text(snippet.subtitle)
+                            snippet.image
+                                .font(.system(size: 45))
+                            VStack(alignment: .leading, spacing: 4) {
+                                Text(snippet.title)
+                                    .font(.body)
+                                    .fontWeight(.bold)
+                                    .foregroundColor(.freecellTheme)
+                                Text(snippet.subtitle).fixedSize(horizontal: false, vertical: true)
                             }
                         }
                     }
@@ -44,19 +50,25 @@ struct OnboardingView: View {
                 Spacer()
             }
             Button(action: {
-                print("Get Started")
+                NotificationCenter.default.post(name: .dismissOnboarding, object: nil)
             }) {
-                Text("Get Started").foregroundColor(.white).padding().padding([.leading, .trailing], 60).background(Color.freecellTheme).cornerRadius(12.0)
+                Text("Get Started").foregroundColor(.white).padding().padding([.leading, .trailing], 75).background(Color.freecellTheme).cornerRadius(12.0)
             }
         }
-        .padding([.top, .bottom], 50)
-        .padding([.leading, .trailing], 50)
+        .padding([.top, .bottom], 75)
+        .padding([.leading, .trailing], 75)
     }
 }
 
 struct OnboardingView_Previews: PreviewProvider {
     static var previews: some View {
-        OnboardingView()
-            .previewLayout(.fixed(width: 520, height: 640))
+        let game = Game()
+        return ZStack {
+            GameView(game: game)
+            BackgroundColorView(color: Color.black.opacity(0.2)).edgesIgnoringSafeArea(.all)
+            OnboardingView().background(Color.white).cornerRadius(16).frame(width: 520, height: 640)
+        }.previewLayout(.fixed(width: 1024, height: 768))
+        
+            
     }
 }

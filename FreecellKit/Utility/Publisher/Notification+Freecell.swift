@@ -25,4 +25,6 @@ public extension Notification.Name {
     
     static let updateControlStyle = Notification.Name(rawValue: "updateControlStyle")
     static let preferredVisualThemeDidChange = Notification.Name(rawValue: "preferredVisualThemeDidChange")
+    
+    static let dismissOnboarding = Notification.Name(rawValue: "dismissOnboarding")
 }

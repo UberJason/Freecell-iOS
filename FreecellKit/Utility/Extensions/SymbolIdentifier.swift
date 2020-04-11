@@ -33,4 +33,5 @@ public extension Symbol.Identifier {
     
     static let restart = Symbol.Identifier(rawValue: "arrow.uturn.left")
     static let newGame = Symbol.Identifier(rawValue: "goforward.plus")
+    static let controls = Symbol.Identifier(rawValue: "slider.horizontal.3")
 }

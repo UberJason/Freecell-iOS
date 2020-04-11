@@ -56,9 +56,7 @@ class GameHostingController: FreecellHostingController<ContentView>, GameAlertin
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        if !onboardingCompleted {
-            
-        }
+        showOnboardingIfNeeded()
     }
     
     override init?(coder aDecoder: NSCoder, rootView: ContentView) {
@@ -75,6 +73,25 @@ class GameHostingController: FreecellHostingController<ContentView>, GameAlertin
             UIKeyCommand(title: "Restart Game", action: #selector(postRestartGame), input: "r", modifierFlags: [.command, .shift]),
             UIKeyCommand(title: "Undo", action: #selector(undoPressed), input: "z", modifierFlags: .command)
         ]
+    }
+    
+    func showOnboardingIfNeeded() {
+        guard !onboardingCompleted else { return }
+        
+        let onboardingView = OnboardingView()
+        let hostingController = FreecellHostingController(rootView: onboardingView)
+        hostingController.modalPresentationStyle = .formSheet
+        
+        present(hostingController, animated: true, completion: nil)
+        
+        onboardingCompleted = true
+        
+        NotificationCenter.default
+            .publisher(for: .dismissOnboarding)
+            .sink { [unowned self] _ in
+                self.dismiss(animated: true, completion: nil)
+            }
+            .store(in: &cancellables)
     }
     
     func showMenu() {

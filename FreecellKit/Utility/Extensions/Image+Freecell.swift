@@ -81,5 +81,9 @@ public extension Image {
     static var newGame: Image {
         Image(identifier: .newGame)
     }
+    
+    static var controls: Image {
+        Image(identifier: .controls)
+    }
 }
 #endif

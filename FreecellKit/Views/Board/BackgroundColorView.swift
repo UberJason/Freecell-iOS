@@ -9,7 +9,13 @@
 import SwiftUI
 
 struct BackgroundColorView: View {
+    let color: Color
+    
+    init(color: Color = Color.freecellBackground) {
+        self.color = color
+    }
+    
     var body: some View {
-        Spacer().background(Color.freecellBackground)
+        Spacer().background(color)
     }
 }
