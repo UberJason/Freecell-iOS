@@ -10,11 +10,17 @@ import Combine
 import UIKit
 import SwiftUI
 import FreecellKit
+import StoreKit
+
+extension Bool: UserDefaultConvertible {}
 
 class GameHostingController: FreecellHostingController<ContentView>, GameAlerting {
     weak var game: Game?
     
     let transitionDelegate = DimmingPresentationTransitioningDelegate(params: DimmingPresentationParams(duration: 0.15, maxDimmedAlpha: 0.3, presentedCornerRadius: 10.0, contentWidth: 400, contentHeight: 580))
+    
+    @UserDefault(key: "onboardingCompleted", defaultValue: false)
+    var onboardingCompleted: Bool
     
     convenience init(game: Game?, rootView: ContentView) {
         self.init(rootView: rootView)
@@ -37,6 +43,20 @@ class GameHostingController: FreecellHostingController<ContentView>, GameAlertin
                 self.dismiss(animated: true, completion: nil)
             }
             .store(in: &cancellables)
+        
+        NotificationCenter.default
+            .publisher(for: .recordResult)
+            .decode(to: JSONGameRecord.self)
+            .filter { $0.result == .win }
+            .sink(receiveCompletion: { _ in }) { _ in 
+                SKStoreReviewController.requestReview()
+            }
+            .store(in: &cancellables)
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        showOnboardingIfNeeded()
     }
     
     override init?(coder aDecoder: NSCoder, rootView: ContentView) {
@@ -53,6 +73,25 @@ class GameHostingController: FreecellHostingController<ContentView>, GameAlertin
             UIKeyCommand(title: "Restart Game", action: #selector(postRestartGame), input: "r", modifierFlags: [.command, .shift]),
             UIKeyCommand(title: "Undo", action: #selector(undoPressed), input: "z", modifierFlags: .command)
         ]
+    }
+    
+    func showOnboardingIfNeeded() {
+        guard !onboardingCompleted else { return }
+        
+        let onboardingView = OnboardingView()
+        let hostingController = FreecellHostingController(rootView: onboardingView)
+        hostingController.modalPresentationStyle = .formSheet
+        
+        present(hostingController, animated: true, completion: nil)
+        
+        onboardingCompleted = true
+        
+        NotificationCenter.default
+            .publisher(for: .dismissOnboarding)
+            .sink { [unowned self] _ in
+                self.dismiss(animated: true, completion: nil)
+            }
+            .store(in: &cancellables)
     }
     
     func showMenu() {

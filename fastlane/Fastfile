@@ -16,6 +16,17 @@
 default_platform(:ios)
 
 platform :ios do
+
+  desc "Set version and build numbers. Usage: fastlane set_version build:1 version:1.0.1"
+  lane :set_version do |options|
+    if options[:build]
+        increment_build_number(build_number: options[:build])
+    end
+    if options[:version]
+      increment_version_number(version_number: options[:version])        
+    end
+  end
+
   desc "Generate new localized screenshots"
   lane :screenshots do
     capture_screenshots(scheme: "FreecellUITests")
@@ -23,9 +34,6 @@ platform :ios do
   end
 
   lane :beta do
-  	ensure_git_status_clean
-  	increment_build_number
-  	commit_version_bump(message: "Bump build number")
     build_app(scheme: "Freecell")
     upload_to_testflight(
     	apple_id: "1506502722",
