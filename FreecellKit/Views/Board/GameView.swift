@@ -51,6 +51,10 @@ public struct GameView: View, GameAlerting {
             GeometryReader { geometry in
                 ControlsView(timeString: self.game.moveTimeString, moves: self.game.moves, gameManager: self.game)
                     .position(geometry[preferences.bounds!].center)
+                MessageView(message: "Invalid move.")
+                    .position(CGPoint(x: geometry[preferences.bounds!].center.x, y: geometry[preferences.bounds!].origin.y))
+                    .offset(x: 0, y: -20)
+                
             }
             #endif
         }
@@ -103,5 +107,21 @@ struct GameView_Previews: PreviewProvider {
                 .previewDevice("iPad Pro 11")
                 .previewLayout(.fixed(width: 1194, height: 834))
         }
+    }
+}
+
+struct MessageView: View {
+    let message: String
+    
+    var body: some View {
+        HStack {
+            Image(systemName: "xmark.circle")
+            Text(message)
+        }
+        .font(.system(size: 13, weight: .bold))
+        .foregroundColor(Color.white)
+        .padding(EdgeInsets(top: 4, leading: 12, bottom: 4, trailing: 12))
+        .background((Color.yellow))
+        .cornerRadius(16)
     }
 }
