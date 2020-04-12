@@ -28,6 +28,11 @@ public extension GameStateProvider {
     }
 }
 
+struct MessageBubble {
+    let message: String
+    let id = UUID()
+}
+
 public class Game: ObservableObject, GameStateProvider {
     public enum AlertType {
         case newGame, restartGame
@@ -55,6 +60,8 @@ public class Game: ObservableObject, GameStateProvider {
     @Published public var moves: Int = 0
     @Published private var moveTime: TimeInterval = 0.0
     internal var timerCancellable: AnyCancellable?
+    
+    @Published var currentMessageBubble: MessageBubble? = nil
     
     var moveTimerFormatter: DateComponentsFormatter = {
         let f = DateComponentsFormatter()
@@ -129,6 +136,14 @@ public class Game: ObservableObject, GameStateProvider {
                 _ = self?.store.createRecord(from: result)
                 try? self?.store.save()
             })
+            .store(in: &cancellables)
+        
+        NotificationCenter.default
+            .publisher(for: .invalidMove)
+            .sink { [unowned self] _ in
+                print("Received notice: invalid move.")
+                self.currentMessageBubble = MessageBubble(message: "Invalid move.")
+            }
             .store(in: &cancellables)
 
         configureMoveTimer()

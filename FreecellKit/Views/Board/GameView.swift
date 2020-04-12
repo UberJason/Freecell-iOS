@@ -51,9 +51,13 @@ public struct GameView: View, GameAlerting {
             GeometryReader { geometry in
                 ControlsView(timeString: self.game.moveTimeString, moves: self.game.moves, gameManager: self.game)
                     .position(geometry[preferences.bounds!].center)
-                MessageView(message: "Invalid move.")
-                    .position(CGPoint(x: geometry[preferences.bounds!].center.x, y: geometry[preferences.bounds!].origin.y))
-                    .offset(x: 0, y: -20)
+                self.game.currentMessageBubble.map {
+                    MessageView(message: $0.message)
+                        .id($0.id)
+                        .position(CGPoint(x: geometry[preferences.bounds!].center.x, y: geometry[preferences.bounds!].origin.y))
+                        .offset(x: 0, y: -20)
+                        .transition(AnyTransition.opacity.animation(.easeInOut(duration: 1.0)))
+                }
                 
             }
             #endif
