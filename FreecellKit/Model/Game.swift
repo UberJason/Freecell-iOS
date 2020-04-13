@@ -155,7 +155,7 @@ public class Game: ObservableObject, GameStateProvider {
             .store(in: &cancellables)
 
         invalidMovePublisher
-            .delay(for: 1.0, scheduler: RunLoop.main)
+            .delay(for: 3.0, scheduler: RunLoop.main)
             .sink(receiveCompletion: { _ in }, receiveValue: { [unowned self] message in
                 if self.currentMessageBubble?.id == message.id {
                     self.currentMessageBubble = nil
