@@ -63,13 +63,7 @@ public struct GameView: View, GameAlerting {
                 MessageView(message: $0.message)
                     .id($0.id)
                     .offset(x: 0, y: 10)
-                    .transition(AnyTransition.asymmetric(
-                                                        insertion: AnyTransition.scale(scale: 0.0, anchor: UnitPoint(x: 0.5, y: 0.75))
-                                                            .animation(.spring(response: 0.15, dampingFraction: 0.65, blendDuration: 0.0)),
-                                                        removal: AnyTransition.opacity
-                                                            .animation(.easeInOut(duration: 0.3))
-                                )
-                    )
+                    .transition(messageBubbleTransition())
             }
         }
         .alert(isPresented: $game.presentAlert) {
@@ -80,6 +74,26 @@ public struct GameView: View, GameAlerting {
                 return restartGameAlert()
             }
         }
+    }
+    
+    /// State of things appears to be:
+    /// If I use this nested ZStack approach, the insertion animation looks great, but the removal doesn't work at all, even for a simple opacity, even if it's not asymmetric.
+    /// If I use the old GeometryReader approach, the insertion and removals happen, but the insertion scale looks funny.
+    /// Also, the "scale" parameter in AnyTransition.scale(scale:anchor:) appears to be the starting scale, not the final scale.
+    func messageBubbleTransition() -> AnyTransition {
+//        let insertion = AnyTransition.scale(scale: 0.0, anchor: UnitPoint(x: 0.5, y: 0.75))
+//            .animation(.spring(response: 0.15, dampingFraction: 0.65, blendDuration: 0.0))
+        
+        let insertion = AnyTransition.opacity
+//            .animation(.spring(response: 0.15, dampingFraction: 0.65, blendDuration: 0.0))
+            .animation(.easeInOut(duration: 0.3))
+        
+        let removal = AnyTransition.opacity
+            .animation(.easeInOut(duration: 0.3))
+        
+//        return AnyTransition.asymmetric(insertion: insertion, removal: removal)
+        return AnyTransition.opacity.animation(.easeInOut(duration: 1.0))
+
     }
 }
 
