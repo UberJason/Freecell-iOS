@@ -56,7 +56,7 @@ public struct GameView: View, GameAlerting {
                         .id($0.id)
                         .position(CGPoint(x: geometry[preferences.bounds!].center.x, y: geometry[preferences.bounds!].origin.y))
                         .offset(x: 0, y: -20)
-                        .transition(AnyTransition.opacity.animation(.easeInOut(duration: 1.0)))
+                        .transition(AnyTransition.opacity.animation(.easeInOut(duration: 0.15)))
                 }
                 
             }

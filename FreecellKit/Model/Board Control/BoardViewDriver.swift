@@ -224,7 +224,7 @@ extension BoardViewDriver: BoardProvider {
         #if os(macOS)
         NSSound.beep()
         #endif
-        NotificationCenter.default.post(name: .invalidMove, object: nil)
+        try? NotificationCenter.default.post(.invalidMove, value: MessageBubble(message: "Invalid move."))
         print(error.localizedDescription)
     }
     

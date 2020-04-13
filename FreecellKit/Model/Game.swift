@@ -28,9 +28,14 @@ public extension GameStateProvider {
     }
 }
 
-struct MessageBubble {
+struct MessageBubble: Codable {
     let message: String
-    let id = UUID()
+    let id: UUID
+    
+    init(message: String, id: UUID = UUID()) {
+        self.message = message
+        self.id = id
+    }
 }
 
 public class Game: ObservableObject, GameStateProvider {
@@ -138,14 +143,26 @@ public class Game: ObservableObject, GameStateProvider {
             })
             .store(in: &cancellables)
         
-        NotificationCenter.default
+        let invalidMovePublisher = NotificationCenter.default
             .publisher(for: .invalidMove)
-            .sink { [unowned self] _ in
-                print("Received notice: invalid move.")
-                self.currentMessageBubble = MessageBubble(message: "Invalid move.")
-            }
+            .decode(to: MessageBubble.self)
+            .share()
+            
+        invalidMovePublisher
+            .sink(receiveCompletion: { _ in }, receiveValue: { [unowned self] message in
+                self.currentMessageBubble = message
+            })
             .store(in: &cancellables)
 
+        invalidMovePublisher
+            .delay(for: 1.0, scheduler: RunLoop.main)
+            .sink(receiveCompletion: { _ in }, receiveValue: { [unowned self] message in
+                if self.currentMessageBubble?.id == message.id {
+                    self.currentMessageBubble = nil
+                }
+            })
+            .store(in: &cancellables)
+        
         configureMoveTimer()
     }
     
