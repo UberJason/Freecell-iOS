@@ -77,6 +77,7 @@ class GameHostingController: FreecellHostingController<ContentView>, GameAlertin
     
     func showOnboardingIfNeeded() {
         guard !onboardingCompleted else { return }
+        guard !CommandLine.arguments.contains("-uiTesting") else { return }
         
         let onboardingView = OnboardingView()
         let hostingController = FreecellHostingController(rootView: onboardingView)

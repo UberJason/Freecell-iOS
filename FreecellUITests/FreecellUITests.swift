@@ -14,7 +14,8 @@ class FreecellUITests: XCTestCase {
     
     override func setUp() {
         setupSnapshot(app)
-        app.launchArguments = ["-usePreconfiguredBoard"]
+        app.launchArguments += ["-uiTesting"]
+        app.launchArguments += ["-usePreconfiguredBoard"]
         app.launch()
         
         continueAfterFailure = false
