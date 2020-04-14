@@ -33,9 +33,11 @@ class CustomPublisherTests: XCTestCase {
         var events = [Event]()
 
         let upstream = PassthroughSubject<Int, Never>()
-        cancellable = upstream
+        let movePublisher = upstream
             .buffer(size: 1000, prefetch: .byRequest, whenFull: .dropOldest)
             .modulated(.seconds(0.5), scheduler: DispatchQueue.main)
+        
+        cancellable = movePublisher
             .sink { value in
                 events.append(Event(value: value, date: Date()))
                 print("value received: \(value) at \(self.dateFormatter.string(from: Date()))")
