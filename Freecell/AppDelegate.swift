@@ -9,7 +9,6 @@
 import UIKit
 import FreecellKit
 
-#warning("Freecell 1.1: Error message for invalid moves")
 #warning("Freecell 1.1: How To Play interactive tutorial?")
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {

@@ -28,6 +28,16 @@ public extension GameStateProvider {
     }
 }
 
+struct MessageBubble: Codable {
+    let message: String
+    let id: UUID
+    
+    init(message: String, id: UUID = UUID()) {
+        self.message = message
+        self.id = id
+    }
+}
+
 public class Game: ObservableObject, GameStateProvider {
     public enum AlertType {
         case newGame, restartGame
@@ -55,6 +65,8 @@ public class Game: ObservableObject, GameStateProvider {
     @Published public var moves: Int = 0
     @Published private var moveTime: TimeInterval = 0.0
     internal var timerCancellable: AnyCancellable?
+    
+    @Published var currentMessageBubble: MessageBubble? = nil
     
     var moveTimerFormatter: DateComponentsFormatter = {
         let f = DateComponentsFormatter()
@@ -130,7 +142,27 @@ public class Game: ObservableObject, GameStateProvider {
                 try? self?.store.save()
             })
             .store(in: &cancellables)
+        
+        let invalidMovePublisher = NotificationCenter.default
+            .publisher(for: .invalidMove)
+            .decode(to: MessageBubble.self)
+            .share()
+            
+        invalidMovePublisher
+            .sink(receiveCompletion: { _ in }, receiveValue: { [unowned self] message in
+                self.currentMessageBubble = message
+            })
+            .store(in: &cancellables)
 
+        invalidMovePublisher
+            .delay(for: 2.0, scheduler: RunLoop.main)
+            .sink(receiveCompletion: { _ in }, receiveValue: { [unowned self] message in
+                if self.currentMessageBubble?.id == message.id {
+                    self.currentMessageBubble = nil
+                }
+            })
+            .store(in: &cancellables)
+        
         configureMoveTimer()
     }
     

@@ -219,12 +219,16 @@ extension BoardViewDriver: BoardProvider {
     }
     
     func rollbackFailedMove(with error: Error) {
+        print(error.localizedDescription)
+        
         previousBoards.removeLast()
         gameStateProvider?.decrementMoves()
         #if os(macOS)
         NSSound.beep()
         #endif
-        print(error.localizedDescription)
+        if let error = error as? FreecellError {
+            try? NotificationCenter.default.post(.invalidMove, value: MessageBubble(message: error.humanReadableDescription))
+        }
     }
     
     func performUpdate() {

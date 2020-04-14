@@ -51,6 +51,7 @@
 		965E210A240C5B3A002BA1F7 /* Bundle+FreecellKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 965E2109240C5B3A002BA1F7 /* Bundle+FreecellKit.swift */; };
 		9661BFAE23DE86A300DFC5E9 /* AnchorPreferences.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9661BFAD23DE86A300DFC5E9 /* AnchorPreferences.swift */; };
 		9661E7AC2380439C00183A99 /* CardStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9661E7AB2380439C00183A99 /* CardStack.swift */; };
+		966703E924453AD400387CAD /* MessageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 966703E824453AD400387CAD /* MessageView.swift */; };
 		966B539E2425AA3B009454E1 /* StatisticsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 966B539D2425AA3B009454E1 /* StatisticsTests.swift */; };
 		966B53A02425AFE7009454E1 /* GameResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 966B539F2425AFE7009454E1 /* GameResult.swift */; };
 		9673834724030EE1004A4525 /* Color+Background.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9673834624030EE1004A4525 /* Color+Background.swift */; };
@@ -315,6 +316,7 @@
 		965E2109240C5B3A002BA1F7 /* Bundle+FreecellKit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Bundle+FreecellKit.swift"; sourceTree = "<group>"; };
 		9661BFAD23DE86A300DFC5E9 /* AnchorPreferences.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnchorPreferences.swift; sourceTree = "<group>"; };
 		9661E7AB2380439C00183A99 /* CardStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardStack.swift; sourceTree = "<group>"; };
+		966703E824453AD400387CAD /* MessageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageView.swift; sourceTree = "<group>"; };
 		966B539D2425AA3B009454E1 /* StatisticsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatisticsTests.swift; sourceTree = "<group>"; };
 		966B539F2425AFE7009454E1 /* GameResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameResult.swift; sourceTree = "<group>"; };
 		9673834624030EE1004A4525 /* Color+Background.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+Background.swift"; sourceTree = "<group>"; };
@@ -522,6 +524,8 @@
 			children = (
 				96A59AA9241B19EA004B8FDF /* Cards */,
 				96A59AAA241B19F5004B8FDF /* Board */,
+				96D1A77624453B5A0066FB3D /* Game */,
+				96D1A77724453B770066FB3D /* Settings */,
 				96A59AAB241B1A08004B8FDF /* Controls */,
 			);
 			path = Views;
@@ -792,6 +796,7 @@
 			isa = PBXGroup;
 			children = (
 				964BBF0523A47B96009B4FDE /* BackgroundColorView.swift */,
+				96CC08712427EB7000BE2737 /* TilingButton.swift */,
 				9625628A2381D84C003C09AA /* FreeCellView.swift */,
 				9625628C2381D853003C09AA /* FoundationView.swift */,
 				9625628E2381D857003C09AA /* ColumnView.swift */,
@@ -804,15 +809,10 @@
 		96A59AAB241B1A08004B8FDF /* Controls */ = {
 			isa = PBXGroup;
 			children = (
-				96AF9E0F24415170002C5608 /* OnboardingView.swift */,
 				96FBBCE0241C73FF001D1088 /* CellRow.swift */,
-				96F68677243A5A4A00572256 /* DismissableModalView.swift */,
 				9616A1D623FB7176007CABA1 /* ControlsView.swift */,
-				96A59AA7241B19E6004B8FDF /* SettingsView.swift */,
-				96FBBCDE241C6BF0001D1088 /* StatisticsView.swift */,
+				96F68677243A5A4A00572256 /* DismissableModalView.swift */,
 				96EDA562241EE07000C05697 /* SelectControlStyleView.swift */,
-				9673834A24030F7E004A4525 /* YouWinView.swift */,
-				96CC08712427EB7000BE2737 /* TilingButton.swift */,
 			);
 			path = Controls;
 			sourceTree = "<group>";
@@ -855,6 +855,25 @@
 				96CA9AFA238F0E4B00C34A60 /* Info.plist */,
 			);
 			path = "Freecell-MacUITests";
+			sourceTree = "<group>";
+		};
+		96D1A77624453B5A0066FB3D /* Game */ = {
+			isa = PBXGroup;
+			children = (
+				96AF9E0F24415170002C5608 /* OnboardingView.swift */,
+				9673834A24030F7E004A4525 /* YouWinView.swift */,
+				966703E824453AD400387CAD /* MessageView.swift */,
+			);
+			path = Game;
+			sourceTree = "<group>";
+		};
+		96D1A77724453B770066FB3D /* Settings */ = {
+			isa = PBXGroup;
+			children = (
+				96A59AA7241B19E6004B8FDF /* SettingsView.swift */,
+				96FBBCDE241C6BF0001D1088 /* StatisticsView.swift */,
+			);
+			path = Settings;
 			sourceTree = "<group>";
 		};
 		96D5BBFE2401877B00550326 /* Emoji Bomb */ = {
@@ -1399,6 +1418,7 @@
 				96A7223C2401814C004F7F47 /* EmojiBombAnimator.swift in Sources */,
 				96FBBCDF241C6BF0001D1088 /* StatisticsView.swift in Sources */,
 				96CC08702426B76600BE2737 /* NotificationCenter+Codable.swift in Sources */,
+				966703E924453AD400387CAD /* MessageView.swift in Sources */,
 				964BBF1D23A6D9C3009B4FDE /* StackOffsetting.swift in Sources */,
 				964BBF0623A47B96009B4FDE /* BackgroundColorView.swift in Sources */,
 			);
