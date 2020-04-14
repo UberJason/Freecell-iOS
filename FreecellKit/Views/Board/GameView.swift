@@ -129,18 +129,4 @@ struct GameView_Previews: PreviewProvider {
     }
 }
 
-struct MessageView: View {
-    let message: String
-    
-    var body: some View {
-        HStack {
-            Image(systemName: "xmark.circle")
-            Text(message)
-        }
-        .font(.system(size: 13, weight: .bold))
-        .foregroundColor(Color.white)
-        .padding(EdgeInsets(top: 4, leading: 12, bottom: 4, trailing: 12))
-        .background((Color.yellow))
-        .cornerRadius(16)
-    }
-}
+
