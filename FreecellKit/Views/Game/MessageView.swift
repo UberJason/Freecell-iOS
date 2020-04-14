@@ -19,7 +19,7 @@ struct MessageView: View {
         .font(.system(size: 13, weight: .bold))
         .foregroundColor(Color.white)
         .padding(EdgeInsets(top: 4, leading: 12, bottom: 4, trailing: 12))
-        .background((Color.yellow))
+        .background(Color.messageViewBackground)
         .cornerRadius(16)
     }
 }
@@ -27,6 +27,7 @@ struct MessageView: View {
 struct MessageView_Previews: PreviewProvider {
     static var previews: some View {
         MessageView(message: "Invalid move.")
+            .frame(width: 200, height: 100).background(Color.freecellBackground)
             .previewLayout(.fixed(width: 200, height: 100))
     }
 }
