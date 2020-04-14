@@ -26,7 +26,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         guard let windowScene = scene as? UIWindowScene else { return }
         windowScene.sizeRestrictions?.minimumSize = CGSize(width: 1024, height: 640)
         
-        let preconfiguredBoard = CommandLine.arguments.contains("-usePreconfiguredBoard") ? BoardParser().parse(fromFile: "AUI+Screenshots") : nil
+        let preconfiguredBoard = AppEnvironment.usePreconfiguredBoard ? BoardParser().parse(fromFile: "AUI+Screenshots") : nil
         
         let window = UIWindow(windowScene: windowScene)
         let game = Game(undoManager: window.undoManager, preconfiguredBoard: preconfiguredBoard)

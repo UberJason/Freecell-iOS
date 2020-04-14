@@ -48,8 +48,10 @@ class GameHostingController: FreecellHostingController<ContentView>, GameAlertin
             .publisher(for: .recordResult)
             .decode(to: JSONGameRecord.self)
             .filter { $0.result == .win }
-            .sink(receiveCompletion: { _ in }) { _ in 
-                SKStoreReviewController.requestReview()
+            .sink(receiveCompletion: { _ in }) { _ in
+                if !AppEnvironment.isUITest {
+                    SKStoreReviewController.requestReview()
+                }
             }
             .store(in: &cancellables)
     }
@@ -77,7 +79,7 @@ class GameHostingController: FreecellHostingController<ContentView>, GameAlertin
     
     func showOnboardingIfNeeded() {
         guard !onboardingCompleted else { return }
-        guard !CommandLine.arguments.contains("-uiTesting") else { return }
+        guard !AppEnvironment.isUITest else { return }
         
         let onboardingView = OnboardingView()
         let hostingController = FreecellHostingController(rootView: onboardingView)

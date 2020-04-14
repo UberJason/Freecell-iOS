@@ -12,6 +12,7 @@
 		9616A1D723FB7176007CABA1 /* ControlsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9616A1D623FB7176007CABA1 /* ControlsView.swift */; };
 		961AC2A823E374AC003341B0 /* Notification+Freecell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 961AC2A723E374AC003341B0 /* Notification+Freecell.swift */; };
 		961AC2AA23E4B661003341B0 /* MoveEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 961AC2A923E4B661003341B0 /* MoveEvent.swift */; };
+		961B6B8C24455676001BAD6C /* AppEnvironment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 961B6B8B24455676001BAD6C /* AppEnvironment.swift */; };
 		961C7FA1242BD56C0078E2F7 /* GameAlerting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 961C7FA0242BD56C0078E2F7 /* GameAlerting.swift */; };
 		961C7FA3242BDE190078E2F7 /* Game.swift in Sources */ = {isa = PBXBuildFile; fileRef = 961C7FA2242BDE190078E2F7 /* Game.swift */; };
 		961C7FA5242D7F550078E2F7 /* DelayedPropertyWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 961C7FA4242D7F550078E2F7 /* DelayedPropertyWrapper.swift */; };
@@ -278,6 +279,7 @@
 		9616A1D623FB7176007CABA1 /* ControlsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ControlsView.swift; sourceTree = "<group>"; };
 		961AC2A723E374AC003341B0 /* Notification+Freecell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Notification+Freecell.swift"; sourceTree = "<group>"; };
 		961AC2A923E4B661003341B0 /* MoveEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoveEvent.swift; sourceTree = "<group>"; };
+		961B6B8B24455676001BAD6C /* AppEnvironment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppEnvironment.swift; sourceTree = "<group>"; };
 		961C7FA0242BD56C0078E2F7 /* GameAlerting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameAlerting.swift; sourceTree = "<group>"; };
 		961C7FA2242BDE190078E2F7 /* Game.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Game.swift; sourceTree = "<group>"; };
 		961C7FA4242D7F550078E2F7 /* DelayedPropertyWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DelayedPropertyWrapper.swift; sourceTree = "<group>"; };
@@ -569,6 +571,7 @@
 				96A36400237CF0FD005C45FB /* LaunchScreen.storyboard */,
 				96416DC623F9CAEF000197E0 /* Freecell.entitlements */,
 				96A363FD237CF0FD005C45FB /* Preview Content */,
+				961B6B8B24455676001BAD6C /* AppEnvironment.swift */,
 			);
 			path = Utility;
 			sourceTree = "<group>";
@@ -1308,6 +1311,7 @@
 				96A363F8237CF0FC005C45FB /* SceneDelegate.swift in Sources */,
 				964FC5642434243800FAC88F /* UIMenu+Identifiers.swift in Sources */,
 				96F6867E243A5DA700572256 /* DimmingPresentationController.swift in Sources */,
+				961B6B8C24455676001BAD6C /* AppEnvironment.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
