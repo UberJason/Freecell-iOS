@@ -12,6 +12,7 @@
 		9616A1D723FB7176007CABA1 /* ControlsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9616A1D623FB7176007CABA1 /* ControlsView.swift */; };
 		961AC2A823E374AC003341B0 /* Notification+Freecell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 961AC2A723E374AC003341B0 /* Notification+Freecell.swift */; };
 		961AC2AA23E4B661003341B0 /* MoveEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 961AC2A923E4B661003341B0 /* MoveEvent.swift */; };
+		961B6B8C24455676001BAD6C /* AppEnvironment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 961B6B8B24455676001BAD6C /* AppEnvironment.swift */; };
 		961C7FA1242BD56C0078E2F7 /* GameAlerting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 961C7FA0242BD56C0078E2F7 /* GameAlerting.swift */; };
 		961C7FA3242BDE190078E2F7 /* Game.swift in Sources */ = {isa = PBXBuildFile; fileRef = 961C7FA2242BDE190078E2F7 /* Game.swift */; };
 		961C7FA5242D7F550078E2F7 /* DelayedPropertyWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 961C7FA4242D7F550078E2F7 /* DelayedPropertyWrapper.swift */; };
@@ -51,6 +52,7 @@
 		965E210A240C5B3A002BA1F7 /* Bundle+FreecellKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 965E2109240C5B3A002BA1F7 /* Bundle+FreecellKit.swift */; };
 		9661BFAE23DE86A300DFC5E9 /* AnchorPreferences.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9661BFAD23DE86A300DFC5E9 /* AnchorPreferences.swift */; };
 		9661E7AC2380439C00183A99 /* CardStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9661E7AB2380439C00183A99 /* CardStack.swift */; };
+		966703E924453AD400387CAD /* MessageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 966703E824453AD400387CAD /* MessageView.swift */; };
 		966B539E2425AA3B009454E1 /* StatisticsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 966B539D2425AA3B009454E1 /* StatisticsTests.swift */; };
 		966B53A02425AFE7009454E1 /* GameResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 966B539F2425AFE7009454E1 /* GameResult.swift */; };
 		9673834724030EE1004A4525 /* Color+Background.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9673834624030EE1004A4525 /* Color+Background.swift */; };
@@ -277,6 +279,7 @@
 		9616A1D623FB7176007CABA1 /* ControlsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ControlsView.swift; sourceTree = "<group>"; };
 		961AC2A723E374AC003341B0 /* Notification+Freecell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Notification+Freecell.swift"; sourceTree = "<group>"; };
 		961AC2A923E4B661003341B0 /* MoveEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoveEvent.swift; sourceTree = "<group>"; };
+		961B6B8B24455676001BAD6C /* AppEnvironment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppEnvironment.swift; sourceTree = "<group>"; };
 		961C7FA0242BD56C0078E2F7 /* GameAlerting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameAlerting.swift; sourceTree = "<group>"; };
 		961C7FA2242BDE190078E2F7 /* Game.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Game.swift; sourceTree = "<group>"; };
 		961C7FA4242D7F550078E2F7 /* DelayedPropertyWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DelayedPropertyWrapper.swift; sourceTree = "<group>"; };
@@ -315,6 +318,7 @@
 		965E2109240C5B3A002BA1F7 /* Bundle+FreecellKit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Bundle+FreecellKit.swift"; sourceTree = "<group>"; };
 		9661BFAD23DE86A300DFC5E9 /* AnchorPreferences.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnchorPreferences.swift; sourceTree = "<group>"; };
 		9661E7AB2380439C00183A99 /* CardStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardStack.swift; sourceTree = "<group>"; };
+		966703E824453AD400387CAD /* MessageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageView.swift; sourceTree = "<group>"; };
 		966B539D2425AA3B009454E1 /* StatisticsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatisticsTests.swift; sourceTree = "<group>"; };
 		966B539F2425AFE7009454E1 /* GameResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameResult.swift; sourceTree = "<group>"; };
 		9673834624030EE1004A4525 /* Color+Background.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+Background.swift"; sourceTree = "<group>"; };
@@ -522,6 +526,8 @@
 			children = (
 				96A59AA9241B19EA004B8FDF /* Cards */,
 				96A59AAA241B19F5004B8FDF /* Board */,
+				96D1A77624453B5A0066FB3D /* Game */,
+				96D1A77724453B770066FB3D /* Settings */,
 				96A59AAB241B1A08004B8FDF /* Controls */,
 			);
 			path = Views;
@@ -565,6 +571,7 @@
 				96A36400237CF0FD005C45FB /* LaunchScreen.storyboard */,
 				96416DC623F9CAEF000197E0 /* Freecell.entitlements */,
 				96A363FD237CF0FD005C45FB /* Preview Content */,
+				961B6B8B24455676001BAD6C /* AppEnvironment.swift */,
 			);
 			path = Utility;
 			sourceTree = "<group>";
@@ -646,9 +653,9 @@
 			children = (
 				96A363F4237CF0FC005C45FB /* Freecell */,
 				96A3640B237CF0FD005C45FB /* FreecellTests */,
-				96A36416237CF0FD005C45FB /* FreecellUITests */,
 				96A3645A237E33BF005C45FB /* FreecellKit */,
 				96A36467237E33C0005C45FB /* FreecellKitTests */,
+				96A36416237CF0FD005C45FB /* FreecellUITests */,
 				96A3642B237CF138005C45FB /* DeckKit */,
 				96A36438237CF138005C45FB /* DeckKitTests */,
 				96CA9AD6238F0E4900C34A60 /* Freecell-Mac */,
@@ -792,6 +799,7 @@
 			isa = PBXGroup;
 			children = (
 				964BBF0523A47B96009B4FDE /* BackgroundColorView.swift */,
+				96CC08712427EB7000BE2737 /* TilingButton.swift */,
 				9625628A2381D84C003C09AA /* FreeCellView.swift */,
 				9625628C2381D853003C09AA /* FoundationView.swift */,
 				9625628E2381D857003C09AA /* ColumnView.swift */,
@@ -804,15 +812,10 @@
 		96A59AAB241B1A08004B8FDF /* Controls */ = {
 			isa = PBXGroup;
 			children = (
-				96AF9E0F24415170002C5608 /* OnboardingView.swift */,
 				96FBBCE0241C73FF001D1088 /* CellRow.swift */,
-				96F68677243A5A4A00572256 /* DismissableModalView.swift */,
 				9616A1D623FB7176007CABA1 /* ControlsView.swift */,
-				96A59AA7241B19E6004B8FDF /* SettingsView.swift */,
-				96FBBCDE241C6BF0001D1088 /* StatisticsView.swift */,
+				96F68677243A5A4A00572256 /* DismissableModalView.swift */,
 				96EDA562241EE07000C05697 /* SelectControlStyleView.swift */,
-				9673834A24030F7E004A4525 /* YouWinView.swift */,
-				96CC08712427EB7000BE2737 /* TilingButton.swift */,
 			);
 			path = Controls;
 			sourceTree = "<group>";
@@ -855,6 +858,25 @@
 				96CA9AFA238F0E4B00C34A60 /* Info.plist */,
 			);
 			path = "Freecell-MacUITests";
+			sourceTree = "<group>";
+		};
+		96D1A77624453B5A0066FB3D /* Game */ = {
+			isa = PBXGroup;
+			children = (
+				96AF9E0F24415170002C5608 /* OnboardingView.swift */,
+				9673834A24030F7E004A4525 /* YouWinView.swift */,
+				966703E824453AD400387CAD /* MessageView.swift */,
+			);
+			path = Game;
+			sourceTree = "<group>";
+		};
+		96D1A77724453B770066FB3D /* Settings */ = {
+			isa = PBXGroup;
+			children = (
+				96A59AA7241B19E6004B8FDF /* SettingsView.swift */,
+				96FBBCDE241C6BF0001D1088 /* StatisticsView.swift */,
+			);
+			path = Settings;
 			sourceTree = "<group>";
 		};
 		96D5BBFE2401877B00550326 /* Emoji Bomb */ = {
@@ -1289,6 +1311,7 @@
 				96A363F8237CF0FC005C45FB /* SceneDelegate.swift in Sources */,
 				964FC5642434243800FAC88F /* UIMenu+Identifiers.swift in Sources */,
 				96F6867E243A5DA700572256 /* DimmingPresentationController.swift in Sources */,
+				961B6B8C24455676001BAD6C /* AppEnvironment.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1399,6 +1422,7 @@
 				96A7223C2401814C004F7F47 /* EmojiBombAnimator.swift in Sources */,
 				96FBBCDF241C6BF0001D1088 /* StatisticsView.swift in Sources */,
 				96CC08702426B76600BE2737 /* NotificationCenter+Codable.swift in Sources */,
+				966703E924453AD400387CAD /* MessageView.swift in Sources */,
 				964BBF1D23A6D9C3009B4FDE /* StackOffsetting.swift in Sources */,
 				964BBF0623A47B96009B4FDE /* BackgroundColorView.swift in Sources */,
 			);
@@ -1657,7 +1681,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = Freecell/Utility/Freecell.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 3;
+				CURRENT_PROJECT_VERSION = 4;
 				DEVELOPMENT_ASSET_PATHS = "\"Freecell/Utility/Preview Content\"";
 				DEVELOPMENT_TEAM = 2GPQ8GE99T;
 				ENABLE_PREVIEWS = YES;
@@ -1683,7 +1707,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = Freecell/Utility/Freecell.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 3;
+				CURRENT_PROJECT_VERSION = 4;
 				DEVELOPMENT_ASSET_PATHS = "\"Freecell/Utility/Preview Content\"";
 				DEVELOPMENT_TEAM = 2GPQ8GE99T;
 				ENABLE_PREVIEWS = YES;
@@ -1791,12 +1815,12 @@
 			buildSettings = {
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 3;
+				CURRENT_PROJECT_VERSION = 4;
 				DEFINES_MODULE = YES;
 				DERIVE_MACCATALYST_PRODUCT_BUNDLE_IDENTIFIER = NO;
 				DEVELOPMENT_TEAM = 2GPQ8GE99T;
 				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 3;
+				DYLIB_CURRENT_VERSION = 4;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				INFOPLIST_FILE = DeckKit/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
@@ -1824,12 +1848,12 @@
 			buildSettings = {
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 3;
+				CURRENT_PROJECT_VERSION = 4;
 				DEFINES_MODULE = YES;
 				DERIVE_MACCATALYST_PRODUCT_BUNDLE_IDENTIFIER = NO;
 				DEVELOPMENT_TEAM = 2GPQ8GE99T;
 				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 3;
+				DYLIB_CURRENT_VERSION = 4;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				INFOPLIST_FILE = DeckKit/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
@@ -1896,11 +1920,11 @@
 			buildSettings = {
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 3;
+				CURRENT_PROJECT_VERSION = 4;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = 2GPQ8GE99T;
 				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 3;
+				DYLIB_CURRENT_VERSION = 4;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				INFOPLIST_FILE = FreecellKit/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
@@ -1927,11 +1951,11 @@
 			buildSettings = {
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 3;
+				CURRENT_PROJECT_VERSION = 4;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = 2GPQ8GE99T;
 				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 3;
+				DYLIB_CURRENT_VERSION = 4;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				INFOPLIST_FILE = FreecellKit/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";

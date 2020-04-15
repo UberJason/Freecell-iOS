@@ -19,25 +19,25 @@ enum FreecellError: Error, LocalizedError {
     case noValidMoveAvailable
     
     var errorDescription: String? {
-        let description: String
-        
+        return "FreecellError: \(humanReadableDescription)"
+    }
+    
+    var humanReadableDescription: String {
         switch self {
         case .cellOccupied:
-            description = "Attempted to push a card onto an occupied free cell."
+            return "Attempted to push a card onto an occupied free cell."
         case .invalidSuitForFoundation(let baseSuit, let newCard):
-            description = "Attempted to push a card of the wrong suit onto a foundation (\(newCard.displayTitle) onto a \(baseSuit.displayTitle) foundation)."
+            return "Attempted to push a card of the wrong suit onto a foundation (\(newCard.displayTitle) onto a \(baseSuit.displayTitle) foundation)."
         case .invalidRankForFoundation(let baseCard, let newCard):
-            description = "Attempted to push a card of the wrong rank onto a foundation (\(newCard.displayTitle) onto \(baseCard?.displayTitle ?? "empty foundation"))"
+            return "Attempted to push a card of the wrong rank onto a foundation (\(newCard.displayTitle) onto \(baseCard?.displayTitle ?? "empty foundation"))"
         case .invalidSuitForColumn(let baseCard, let newCard):
-            description = "Attempted to push a card of the wrong suit onto a column (\(newCard.displayTitle) onto \(baseCard.displayTitle))"
+            return "Attempted to push a card of the wrong suit onto a column (\(newCard.displayTitle) onto \(baseCard.displayTitle))"
         case .invalidRankForColumn(let baseCard, let newCard):
-            description = "Attempted to push a card of the wrong rank onto a column (\(newCard.displayTitle) onto \(baseCard.displayTitle))"
+            return "Attempted to push a card of the wrong rank onto a column (\(newCard.displayTitle) onto \(baseCard.displayTitle))"
         case .invalidMove:
-            description = "Attempted card movement was invalid."
+            return "Invalid move."
         case .noValidMoveAvailable:
-            description = "No valid move was found."
+            return "No available moves."
         }
-        
-        return "FreecellError: \(description)"
     }
 }

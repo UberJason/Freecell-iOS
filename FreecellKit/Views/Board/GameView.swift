@@ -10,7 +10,6 @@ import SwiftUI
 import DeckKit
 
 public struct GameView: View, GameAlerting {
-
     @ObservedObject var game: Game
     
     public init(game: Game) {
@@ -18,41 +17,54 @@ public struct GameView: View, GameAlerting {
     }
     
     public var body: some View {
-        ZStack {
-            BackgroundColorView()
-                .frame(maxWidth: .infinity, maxHeight: .infinity)
-            BoardView(boardDriver: game.boardDriver)
-            #if os(iOS)
-            HStack {
-                EmojiBombView()
-                    .frame(width: 300, height: 200)
-                    .offset(x: 0, y: 70)
-                EmojiBombView()
-                    .frame(width: 300, height: 200)
-                    .offset(x: 0, y: -70)
-                EmojiBombView()
-                    .frame(width: 300, height: 200)
-                    .offset(x: 0, y: 70)
-                }.offset(x: 0, y: -50)
-                .allowsHitTesting(false)
-            if game.gameState == .won {
-                YouWinView()
-                    .offset(x: 0, y: 100)
-                    .environmentObject(game.boardDriver)
-                    .animation(.default)
-                    .transition(.opacity)
+        ZStack(alignment: .top) {
+            ZStack {
+                BackgroundColorView()
+                    .frame(maxWidth: .infinity, maxHeight: .infinity)
+                BoardView(boardDriver: game.boardDriver)
+                #if os(iOS)
+                HStack {
+                    EmojiBombView()
+                        .frame(width: 300, height: 200)
+                        .offset(x: 0, y: 70)
+                    EmojiBombView()
+                        .frame(width: 300, height: 200)
+                        .offset(x: 0, y: -70)
+                    EmojiBombView()
+                        .frame(width: 300, height: 200)
+                        .offset(x: 0, y: 70)
+                    }.offset(x: 0, y: -50)
+                    .allowsHitTesting(false)
+                if game.gameState == .won {
+                    YouWinView()
+                        .offset(x: 0, y: 100)
+                        .environmentObject(game.boardDriver)
+                        .animation(.default)
+                        .transition(.opacity)
+                }
+
+                
+                #endif
+                }.conditionalEdgesIgnoringSafeArea()
+            .overlayPreferenceValue(TopStackBoundsKey.self) { preferences in
+                #if os(macOS)
+                EmptyView()
+                #else
+                GeometryReader { geometry in
+                    ControlsView(timeString: self.game.moveTimeString, moves: self.game.moves, gameManager: self.game)
+                        .position(geometry[preferences.bounds!].center)
+
+                    
+                }
+                #endif
             }
-            #endif
-            }.conditionalEdgesIgnoringSafeArea()
-        .overlayPreferenceValue(TopStackBoundsKey.self) { preferences in
-            #if os(macOS)
-            EmptyView()
-            #else
-            GeometryReader { geometry in
-                ControlsView(timeString: self.game.moveTimeString, moves: self.game.moves, gameManager: self.game)
-                    .position(geometry[preferences.bounds!].center)
+            self.game.currentMessageBubble.map {
+                MessageView(message: $0.message)
+                    .id($0.id)
+                    .offset(x: 0, y: 10)
+                    .transition(messageBubbleTransition())
+                    .zIndex(1)
             }
-            #endif
         }
         .alert(isPresented: $game.presentAlert) {
             switch game.alertType {
@@ -62,6 +74,16 @@ public struct GameView: View, GameAlerting {
                 return restartGameAlert()
             }
         }
+    }
+    
+    func messageBubbleTransition() -> AnyTransition {
+        let insertion = AnyTransition.scale(scale: 0.0, anchor: UnitPoint(x: 0.5, y: 0.75))
+            .animation(.spring(response: 0.15, dampingFraction: 0.65, blendDuration: 0.0))
+
+        let removal = AnyTransition.opacity
+            .animation(.easeInOut(duration: 0.15))
+        
+        return AnyTransition.asymmetric(insertion: insertion, removal: removal)
     }
 }
 
@@ -78,6 +100,7 @@ extension View {
 struct GameView_Previews: PreviewProvider {
     static let game: Game = {
         let g = Game()
+        g.currentMessageBubble = MessageBubble(message: "Invalid (Test)")
         
         let d = BoardViewDriver(controlStyle: .modern, gameStateProvider: g)
         d._board = Board.preconfigured(withFreecells: (0..<4).map { _ in FreeCell() },
@@ -105,3 +128,5 @@ struct GameView_Previews: PreviewProvider {
         }
     }
 }
+
+
