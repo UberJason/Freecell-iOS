@@ -10,6 +10,7 @@ import UIKit
 import FreecellKit
 
 #warning("Freecell 1.1: How To Play interactive tutorial?")
+#warning("Freecell 1.1: Fun animation - cards jumping down from the foundations when you win")
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
     @Delayed var menuController: MenuController
