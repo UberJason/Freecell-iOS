@@ -26,10 +26,10 @@ struct PathView: View {
                     .frame(width: geometry.size.height/10, height: geometry.size.height/10)
                     .position(CGPoint(x: geometry.size.width, y: 0))
                     .modifier(PathFollowingEffect(percentComplete: self.percentComplete, path: self.makePath(in: geometry.bounds), rect: geometry.bounds))
-                    .animation(.easeIn(duration: 2.5))
+                    .animation(.easeIn(duration: 1.5))
                 
                 Button(action: {
-                    self.percentComplete = 1.0
+                    self.percentComplete = (self.percentComplete == 0.0) ? 1.0 : 0.0
                 }) {
                     Text("Animate")
                 }
@@ -43,7 +43,7 @@ struct PathView: View {
         let p0 = CGPoint(x: rect.size.width, y: 0)
         let p1 = CGPoint(x: 2/3*rect.size.width, y: rect.size.height)
         let p2 = CGPoint(x: 1/3*rect.size.width, y: rect.size.height)
-        let p3 = CGPoint(x: 0, y: rect.size.height)
+        let p3 = CGPoint(x: -1/8*rect.size.width, y: 13/8*rect.size.height)
         
         let c1 = CGPoint(x: 5/6*rect.size.width, y: -1*rect.size.height)
         let c2 = CGPoint(x: 1/2*rect.size.width, y: -1/2*rect.size.height)
