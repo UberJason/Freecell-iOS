@@ -23,7 +23,7 @@ struct PathView: View {
                 Rectangle()
                     .frame(width: geometry.size.height/10, height: geometry.size.height/10)
                     .position(CGPoint(x: geometry.size.width, y: 0))
-                    .modifier(PathFollowingEffect(percentComplete: 0, path: self.makePath(in: geometry.bounds)))
+                    .modifier(PathFollowingEffect(percentComplete: 0, path: self.makePath(in: geometry.bounds), rect: geometry.bounds))
             }
         }
         .overlay(Rectangle().stroke())
@@ -52,6 +52,7 @@ struct PathView: View {
 struct PathFollowingEffect: GeometryEffect {
     var percentComplete: CGFloat
     let path: Path
+    let rect: CGRect
     
     var animatableData: CGFloat {
         get {
@@ -64,7 +65,10 @@ struct PathFollowingEffect: GeometryEffect {
     
     func effectValue(size: CGSize) -> ProjectionTransform {
         let location = point(at: percentComplete)
-        return ProjectionTransform(CGAffineTransform(translationX: location.x, y: location.y))
+        let startingPoint = CGPoint(x: rect.size.width, y: 0)
+        
+        let offset = CGSize(width: location.x - startingPoint.x, height: location.y - startingPoint.y)
+        return ProjectionTransform(CGAffineTransform(translationX: offset.width, y: offset.height))
     }
     
     func point(at percent: CGFloat) -> CGPoint {
