@@ -15,6 +15,8 @@ extension GeometryProxy {
 }
 
 struct PathView: View {
+    @State var percentComplete: CGFloat = 0.0
+    
     var body: some View {
         GeometryReader { geometry in
             ZStack {
@@ -23,7 +25,14 @@ struct PathView: View {
                 Rectangle()
                     .frame(width: geometry.size.height/10, height: geometry.size.height/10)
                     .position(CGPoint(x: geometry.size.width, y: 0))
-                    .modifier(PathFollowingEffect(percentComplete: 0, path: self.makePath(in: geometry.bounds), rect: geometry.bounds))
+                    .modifier(PathFollowingEffect(percentComplete: self.percentComplete, path: self.makePath(in: geometry.bounds), rect: geometry.bounds))
+                    .animation(.easeIn(duration: 2.5))
+                
+                Button(action: {
+                    self.percentComplete = 1.0
+                }) {
+                    Text("Animate")
+                }
             }
         }
         .overlay(Rectangle().stroke())
