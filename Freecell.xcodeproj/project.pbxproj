@@ -10,6 +10,7 @@
 		9613245023E12A0600982898 /* CGRect+Center.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9613244F23E12A0600982898 /* CGRect+Center.swift */; };
 		9613245223E23D4000982898 /* CGPoint+Translation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9613245123E23D4000982898 /* CGPoint+Translation.swift */; };
 		9616A1D723FB7176007CABA1 /* ControlsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9616A1D623FB7176007CABA1 /* ControlsView.swift */; };
+		9618A3EB24468F3C00BB080E /* PathView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9618A3EA24468F3C00BB080E /* PathView.swift */; };
 		961AC2A823E374AC003341B0 /* Notification+Freecell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 961AC2A723E374AC003341B0 /* Notification+Freecell.swift */; };
 		961AC2AA23E4B661003341B0 /* MoveEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 961AC2A923E4B661003341B0 /* MoveEvent.swift */; };
 		961B6B8C24455676001BAD6C /* AppEnvironment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 961B6B8B24455676001BAD6C /* AppEnvironment.swift */; };
@@ -287,6 +288,7 @@
 		9613244F23E12A0600982898 /* CGRect+Center.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CGRect+Center.swift"; sourceTree = "<group>"; };
 		9613245123E23D4000982898 /* CGPoint+Translation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CGPoint+Translation.swift"; sourceTree = "<group>"; };
 		9616A1D623FB7176007CABA1 /* ControlsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ControlsView.swift; sourceTree = "<group>"; };
+		9618A3EA24468F3C00BB080E /* PathView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PathView.swift; sourceTree = "<group>"; };
 		961AC2A723E374AC003341B0 /* Notification+Freecell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Notification+Freecell.swift"; sourceTree = "<group>"; };
 		961AC2A923E4B661003341B0 /* MoveEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoveEvent.swift; sourceTree = "<group>"; };
 		961B6B8B24455676001BAD6C /* AppEnvironment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppEnvironment.swift; sourceTree = "<group>"; };
@@ -852,6 +854,7 @@
 				9616A1D623FB7176007CABA1 /* ControlsView.swift */,
 				96F68677243A5A4A00572256 /* DismissableModalView.swift */,
 				96EDA562241EE07000C05697 /* SelectControlStyleView.swift */,
+				9618A3EA24468F3C00BB080E /* PathView.swift */,
 			);
 			path = Controls;
 			sourceTree = "<group>";
@@ -1443,6 +1446,7 @@
 				9665686A244A300E005FFCB0 /* GameInstructions.swift in Sources */,
 				962621C0241E902000B3637A /* UserDefaultPropertyWrapper.swift in Sources */,
 				96F68678243A5A4A00572256 /* DismissableModalView.swift in Sources */,
+				9618A3EB24468F3C00BB080E /* PathView.swift in Sources */,
 				96EDA55F241ECF9800C05697 /* ClassicControlManager.swift in Sources */,
 				964BBF0823A4861C009B4FDE /* Convenience.swift in Sources */,
 				96A36488237E3894005C45FB /* FreecellError.swift in Sources */,
