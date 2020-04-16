@@ -74,7 +74,8 @@ struct HowToPlayView: View {
                         }
                     }
                 }
-            }
+            }.padding()
+            .navigationBarTitle("How To Play")
         }
     }
 }
