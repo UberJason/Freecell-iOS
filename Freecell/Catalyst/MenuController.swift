@@ -21,6 +21,9 @@ class MenuController {
         builder.remove(menu: .file)
         builder.remove(menu: .edit)
         builder.remove(menu: .format)
+        builder.replaceChildren(ofMenu: .help) { (_) -> [UIMenuElement] in
+            return []
+        }
         
         let newGame = UIKeyCommand(title: "New Game", action: #selector(GameHostingController.postNewGame), input: "n", modifierFlags: .command)
         let restartGame = UIKeyCommand(title: "Restart Game", action: #selector(GameHostingController.postRestartGame), input: "r", modifierFlags: [.command, .shift])
