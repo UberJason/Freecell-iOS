@@ -74,7 +74,7 @@ public struct SettingsView: View, GameAlerting {
                 }
                 
                 Section {
-                    NavigationLink(destination: HowToPlayView()) {
+                    NavigationLink(destination: HowToPlayView(instructions: GameInstructions().instructions)) {
                         Text("How To Play")
                     }
                 }

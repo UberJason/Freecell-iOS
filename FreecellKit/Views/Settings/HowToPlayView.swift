@@ -7,6 +7,7 @@
 //
 
 import SwiftUI
+import DeckKit
 
 struct Instruction: Identifiable {
     let id = UUID()
@@ -30,12 +31,72 @@ struct Paragraph: Content {
 
 struct MiniBoard: Content {
     let id = UUID()
+    let freecells: [FreeCell]?
+    let foundations: [Foundation]?
+    let columns: [Column]?
+    
+    init(freecells: [FreeCell]? = nil, foundations: [Foundation]? = nil, columns: [Column]? = nil) {
+        self.freecells = freecells
+        self.foundations = foundations
+        self.columns = columns
+    }
+    
     var contentView: AnyView {
         AnyView(Image.settings)
     }
 }
 
-struct HowToPlayView: View {
+struct ColumnViewContent: Content, View {
+    let id = UUID()
+    let columns: [Column]
+    
+    var body: some View {
+        ZStack(alignment: .top) {
+            EmptySpotView()
+            HStack(alignment: .top, spacing: 22) {
+                ForEach(columns) { column in
+                    ZStack(alignment: .top) {
+                        ForEach(column.stack) { card in
+                            CardView(card: card)
+                                .frame(width: 100, height: 145)
+                                .offset(x: 0, y: 40.0*CGFloat(column.orderIndex(for: card)))
+                                .padding(.bottom, 40.0*CGFloat(column.orderIndex(for: card)))
+                        }
+                    }
+                }
+            }
+        }
+    }
+    
+    var contentView: AnyView { AnyView(self) }
+}
+
+struct ImageContent: Content {
+    let id = UUID()
+    let image: Image
+    var contentView: AnyView {
+        AnyView(image)
+    }
+}
+
+struct ImageCarousel: Content {
+    let id = UUID()
+    let images: [ImageContent]
+    
+    var contentView: AnyView {
+        AnyView(
+            ScrollView {
+                HStack {
+                    ForEach(images, id: \.id) { image in
+                        image.contentView
+                    }
+                }
+            }
+        )
+    }
+}
+
+struct GameInstructions {
     let instructions = [
         Instruction(title: "Introduction", sections: [
             Paragraph(content: "Freecell is a variant of Solitaire. The cards start out stacked randomly in eight columns, and the goal is to have them all sorted by rank and suit - four stacks, one for each suit, from Ace to King.")
@@ -49,7 +110,11 @@ struct HowToPlayView: View {
         ]),
         Instruction(title: "Basic Moves", sections: [
             Paragraph(content: "Within a column, only the bottom card in the stack (the one fully exposed at the bottom) can be moved. That card can be moved onto another column if and only if the receiving card is one higher in rank and has the opposite color suit. In figure 1 below, only the ♣️3, ❤️4 and ♣️J are available to move, and the ♣️3 can only be placed onto the ❤️4 - not the ♣️4."),
-            MiniBoard(),
+            ColumnViewContent(columns: [
+                Column(text: "[♠️J, ❤️9, ♠️4, ♣️3]")!,
+                Column(text: "[♦️K, ♠️7, ♦️10, ❤️4]")!,
+                Column(text: "[♠️2, ♦️4, ♦️5, ♣️4]")!
+            ]),
             Paragraph(content: "The card at the bottom of a column may also be moved into an open Freecell if one is available, or onto its matching Foundation if it would be the next card in the sequence. Note that cards placed into a Foundation cannot be removed, and cards can only be moved from a Freecell back onto a column if that column can receive the card (the column's bottom card is one rank higher and the opposite color)."),
             Paragraph(content: "If a Column is empty, it acts as a Freecell - any card can be placed there.")
         ]),
@@ -59,6 +124,10 @@ struct HowToPlayView: View {
             Paragraph(content: "This version of Freecell will automatically compute whether most stack movements are valid and will move the entire stack automatically if so. But more complex stack movements might still be possible, even if Freecell can't see them - so look carefully! Also, when using the Classic control scheme, performing a stack movement will show the full animation of cards moving up and down from Freecells.")
         ])
     ]
+}
+
+struct HowToPlayView: View {
+    let instructions: [Instruction]
     
     var body: some View {
         ScrollView {
@@ -80,9 +149,21 @@ struct HowToPlayView: View {
 }
 
 struct HowToPlayView_Previews: PreviewProvider {
+    static let instructions = [
+        Instruction(title: "Basic Moves", sections: [
+            Paragraph(content: "Within a column, only the bottom card in the stack (the one fully exposed at the bottom) can be moved. That card can be moved onto another column if and only if the receiving card is one higher in rank and has the opposite color suit. In figure 1 below, only the ♣️3, ❤️4 and ♣️J are available to move, and the ♣️3 can only be placed onto the ❤️4 - not the ♣️4."),
+            ColumnViewContent(columns: [
+                Column(text: "[♠️J, ❤️9, ♠️4, ♣️3]")!,
+                Column(text: "[♦️K, ♠️7, ♦️10, ❤️4]")!,
+                Column(text: "[♠️2, ♦️4, ♦️5, ♣️4]")!
+            ]),
+            Paragraph(content: "The card at the bottom of a column may also be moved into an open Freecell if one is available, or onto its matching Foundation if it would be the next card in the sequence. Note that cards placed into a Foundation cannot be removed, and cards can only be moved from a Freecell back onto a column if that column can receive the card (the column's bottom card is one rank higher and the opposite color)."),
+            Paragraph(content: "If a Column is empty, it acts as a Freecell - any card can be placed there.")
+        ])
+    ]
     static var previews: some View {
-        
-        DismissableModalView(title: "How To Play", content: HowToPlayView())
+        HowToPlayView(instructions: instructions)
+//        DismissableModalView(title: "How To Play", content: HowToPlayView())
 //            .environment(\.horizontalSizeClass, .compact)
             .previewLayout(.fixed(width: 520, height: 640))
     }
