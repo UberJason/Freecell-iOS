@@ -41,12 +41,11 @@ struct HowToPlayView: View {
             Paragraph(content: "Freecell is a variant of Solitaire. The cards start out stacked randomly in eight columns, and the goal is to have them all sorted by rank and suit - four stacks, one for each suit, from Ace to King.")
         ]),
         Instruction(title: "Board Layout", sections: [
-            Paragraph(content: """
-                There are three different types of card piles in Freecell.
-                    * Columns: the eight Columns make up the majority of the board, and all of the cards start out in a column.
-                    * Foundations: the four cells in the upper-right corner of the board are called the Foundations, where you want to move the cards. Foundations are ordered by rank, so you must place cards into the Foundation in order from Ace to King. Foundations are also sorted by suit, so you can only put a card into its matching Foundation.
-                    * FreeCells: the four cells in the upper-left corner of the board are called the FreeCells. These represent a free spot that you can place a card.
-                """)
+            Paragraph(content: "There are three different types of card piles in Freecell."),
+            Paragraph(content: "• Columns: the eight Columns make up the majority of the board, and all of the cards start out in a column."),
+            Paragraph(content: "• Foundations: the four cells in the upper-right corner of the board are called the Foundations, where you want to move the cards. Foundations are ordered by rank and sorted by suit, so you must place cards into its matching Foundation in order from Ace to King."),
+            Paragraph(content: "• Freecells: the four cells in the upper-left corner of the board are called the FreeCells. These represent a free spot that you can place a card."),
+            MiniBoard()
         ]),
         Instruction(title: "Basic Moves", sections: [
             Paragraph(content: "Within a column, only the bottom card in the stack (the one fully exposed at the bottom) can be moved. That card can be moved onto another column if and only if the receiving card is one higher in rank and has the opposite color suit. In figure 1 below, only the ♣️3, ❤️4 and ♣️J are available to move, and the ♣️3 can only be placed onto the ❤️4 - not the ♣️4."),
