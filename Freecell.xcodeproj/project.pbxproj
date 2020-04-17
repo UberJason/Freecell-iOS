@@ -52,6 +52,7 @@
 		965E210A240C5B3A002BA1F7 /* Bundle+FreecellKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 965E2109240C5B3A002BA1F7 /* Bundle+FreecellKit.swift */; };
 		9661BFAE23DE86A300DFC5E9 /* AnchorPreferences.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9661BFAD23DE86A300DFC5E9 /* AnchorPreferences.swift */; };
 		9661E7AC2380439C00183A99 /* CardStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9661E7AB2380439C00183A99 /* CardStack.swift */; };
+		9665685B2449313C005FFCB0 /* AUI+Screenshots.txt in Resources */ = {isa = PBXBuildFile; fileRef = 962EED15243BFF8B00183C16 /* AUI+Screenshots.txt */; };
 		966703E924453AD400387CAD /* MessageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 966703E824453AD400387CAD /* MessageView.swift */; };
 		966B539E2425AA3B009454E1 /* StatisticsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 966B539D2425AA3B009454E1 /* StatisticsTests.swift */; };
 		966B53A02425AFE7009454E1 /* GameResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 966B539F2425AFE7009454E1 /* GameResult.swift */; };
@@ -567,7 +568,6 @@
 		9629B2FB2438E5FC00A5B37F /* Utility */ = {
 			isa = PBXGroup;
 			children = (
-				962EED15243BFF8B00183C16 /* AUI+Screenshots.txt */,
 				96A36403237CF0FD005C45FB /* Info.plist */,
 				96A363FB237CF0FD005C45FB /* Assets.xcassets */,
 				96A36400237CF0FD005C45FB /* LaunchScreen.storyboard */,
@@ -759,6 +759,7 @@
 				962295F623889359005D599B /* Utility */,
 				965E2107240C598C002BA1F7 /* Images.xcassets */,
 				969DD4DE242ED7E2006873C3 /* Colors.xcassets */,
+				962EED15243BFF8B00183C16 /* AUI+Screenshots.txt */,
 			);
 			path = FreecellKit;
 			sourceTree = "<group>";
@@ -1255,6 +1256,7 @@
 			files = (
 				965E2108240C598C002BA1F7 /* Images.xcassets in Resources */,
 				969DD4DF242ED7E2006873C3 /* Colors.xcassets in Resources */,
+				9665685B2449313C005FFCB0 /* AUI+Screenshots.txt in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

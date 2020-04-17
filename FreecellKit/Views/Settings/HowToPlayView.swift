@@ -9,6 +9,12 @@
 import SwiftUI
 import DeckKit
 
+extension View {
+    func frame(size: CGSize, alignment: Alignment = .center) -> some View {
+        return frame(width: size.width, height: size.height, alignment: alignment)
+    }
+}
+
 struct Instruction: Identifiable {
     let id = UUID()
     let title: String
@@ -31,41 +37,114 @@ struct Paragraph: Content {
 
 struct MiniBoard: Content {
     let id = UUID()
-    let freecells: [FreeCell]?
-    let foundations: [Foundation]?
-    let columns: [Column]?
-    
-    init(freecells: [FreeCell]? = nil, foundations: [Foundation]? = nil, columns: [Column]? = nil) {
-        self.freecells = freecells
-        self.foundations = foundations
-        self.columns = columns
-    }
+    let cardSize = CGSize(width: 55, height: 80)
+    let board = BoardParser().parse(fromFile: "AUI+Screenshots", bundle: Bundle.freecellKit)!
     
     var contentView: AnyView {
-        AnyView(Image.settings)
+        AnyView(
+            boardView
+        )
+    }
+    
+    var boardView: some View {
+        VStack {
+            HStack {
+                miniFreecells
+                Spacer()
+                miniFoundations
+            }
+            
+            miniColumns
+            }
+        .padding(8)
+            .background(Color.gray)
+            .cornerRadius(8)
+    }
+    
+    var miniFreecells: some View {
+        VStack {
+            HStack(spacing: 2) {
+                ForEach(0..<4) { _ in
+                    EmptySpotView().frame(size: self.cardSize)
+                }
+            }
+            Text("Freecells").font(.system(.body)).foregroundColor(.white).bold()
+        }
+    }
+    
+    var miniFoundations: some View {
+        VStack {
+            HStack(spacing: 2) {
+                ForEach(0..<4) { _ in
+                    EmptySpotView().frame(size: self.cardSize)
+                }
+            }
+            Text("Foundations").font(.system(.body)).foregroundColor(.white).bold()
+        }
+    }
+    
+    var miniColumns: some View {
+        VStack {
+            ColumnViewContent(
+                cardSize: cardSize,
+                titleSize: 16,
+                tabPadding: 2.0,
+                cornerRadius: 4.0,
+                columnSpacing: 8,
+                stackSpacing: 25,
+                highlightAvailableCard: false,
+                columns: board.columns
+            )
+            Text("Columns").font(.system(.body)).foregroundColor(.white).bold()
+        }
     }
 }
 
 struct ColumnViewContent: Content, View {
     let id = UUID()
+    let cardSize: CGSize
+    let titleSize: CGFloat
+    let tabPadding: CGFloat
+    let cornerRadius: CGFloat
+    let columnSpacing: CGFloat
+    let stackSpacing: CGFloat
+    let highlightAvailableCard: Bool
     let columns: [Column]
     
+    init(cardSize: CGSize, titleSize: CGFloat, tabPadding: CGFloat = 5.0, cornerRadius: CGFloat = 8.0, columnSpacing: CGFloat, stackSpacing: CGFloat, highlightAvailableCard: Bool = true, columns: [Column]) {
+        self.cardSize = cardSize
+        self.titleSize = titleSize
+        self.tabPadding = tabPadding
+        self.cornerRadius = cornerRadius
+        self.columnSpacing = columnSpacing
+        self.stackSpacing = stackSpacing
+        self.highlightAvailableCard = highlightAvailableCard
+        self.columns = columns
+    }
+    
     var body: some View {
-        ZStack(alignment: .top) {
-            EmptySpotView()
-            HStack(alignment: .top, spacing: 22) {
-                ForEach(columns) { column in
-                    ZStack(alignment: .top) {
-                        ForEach(column.stack) { card in
-                            CardView(card: card)
-                                .frame(width: 100, height: 145)
-                                .offset(x: 0, y: 40.0*CGFloat(column.orderIndex(for: card)))
-                                .padding(.bottom, 40.0*CGFloat(column.orderIndex(for: card)))
-                        }
+        HStack(alignment: .top, spacing: columnSpacing) {
+            ForEach(columns) { column in
+                ZStack(alignment: .top) {
+                    EmptySpotView()
+                        .frame(width: self.cardSize.width, height: self.cardSize.height)
+                    ForEach(column.stack) { card in
+                        CardView(card: card, titleSize: self.titleSize, tabPadding: self.tabPadding, cornerRadius: self.cornerRadius)
+                            .frame(width: self.cardSize.width, height: self.cardSize.height)
+                            .overlay(
+                                CardRectangle(foregroundColor: self.foregroundColor(for: card, in: column), cornerRadius: self.cornerRadius, opacity: 0.3)
+                        )
+                            .offset(x: 0, y: self.stackSpacing*CGFloat(column.orderIndex(for: card)))
+                            .padding(.bottom, self.stackSpacing*CGFloat(column.orderIndex(for: card)))
                     }
                 }
             }
-        }
+        }.padding([.top, .bottom], 8)
+    }
+    
+    func foregroundColor(for card: Card, in column: Column) -> Color {
+        guard highlightAvailableCard else { return .clear }
+        return card == column.stack.last ? .yellow : .clear
     }
     
     var contentView: AnyView { AnyView(self) }
@@ -109,18 +188,24 @@ struct GameInstructions {
             MiniBoard()
         ]),
         Instruction(title: "Basic Moves", sections: [
-            Paragraph(content: "Within a column, only the bottom card in the stack (the one fully exposed at the bottom) can be moved. That card can be moved onto another column if and only if the receiving card is one higher in rank and has the opposite color suit. In figure 1 below, only the ♣️3, ❤️4 and ♣️J are available to move, and the ♣️3 can only be placed onto the ❤️4 - not the ♣️4."),
-            ColumnViewContent(columns: [
-                Column(text: "[♠️J, ❤️9, ♠️4, ♣️3]")!,
-                Column(text: "[♦️K, ♠️7, ♦️10, ❤️4]")!,
-                Column(text: "[♠️2, ♦️4, ♦️5, ♣️4]")!
-            ]),
+            Paragraph(content: "Within a column, only the bottom card in the stack (the one fully exposed at the bottom) can be moved. That card can be moved onto another column if and only if the receiving card is one higher in rank and has the opposite color suit. In the example below, only the ♣️3, ❤️4 and ♣️J are available to move, and the ♣️3 can only be placed onto the ❤️4 - not the ♣️4."),
+            ColumnViewContent(
+                cardSize: CGSize(width: 80, height: 116),
+                titleSize: 20,
+                columnSpacing: 22,
+                stackSpacing: 40,
+                columns: [
+                    Column(text: "[♠️J, ❤️9, ♠️4, ♣️3]")!,
+                    Column(text: "[♦️K, ♠️7, ♦️10, ❤️4]")!,
+                    Column(text: "[♠️2, ♦️4, ♦️5, ♣️4]")!
+                ]
+            ),
             Paragraph(content: "The card at the bottom of a column may also be moved into an open Freecell if one is available, or onto its matching Foundation if it would be the next card in the sequence. Note that cards placed into a Foundation cannot be removed, and cards can only be moved from a Freecell back onto a column if that column can receive the card (the column's bottom card is one rank higher and the opposite color)."),
             Paragraph(content: "If a Column is empty, it acts as a Freecell - any card can be placed there.")
         ]),
         Instruction(title: "Moving Stacks", sections: [
             Paragraph(content: "Though the basic rules only allow moving one card at a time, empty Freecells and empty Columns allow you to move stacks of cards. In Figure 2 below, with four open Freecells, you can move the ❤️7 to a Freecell, then the ♠️8, then the ♦️9, and finally the ♣️10. This opens up the ❤️J to be moved directly onto the ♠️Q, after which you can move the ♣️10 back down onto the ❤️J, then the ♦️9, the ♠️8, and the ❤️7."),
-            MiniBoard(),
+//            MiniBoard(),
             Paragraph(content: "This version of Freecell will automatically compute whether most stack movements are valid and will move the entire stack automatically if so. But more complex stack movements might still be possible, even if Freecell can't see them - so look carefully! Also, when using the Classic control scheme, performing a stack movement will show the full animation of cards moving up and down from Freecells.")
         ])
     ]
@@ -149,22 +234,42 @@ struct HowToPlayView: View {
 }
 
 struct HowToPlayView_Previews: PreviewProvider {
-    static let instructions = [
+    static let instructions1 = [
         Instruction(title: "Basic Moves", sections: [
             Paragraph(content: "Within a column, only the bottom card in the stack (the one fully exposed at the bottom) can be moved. That card can be moved onto another column if and only if the receiving card is one higher in rank and has the opposite color suit. In figure 1 below, only the ♣️3, ❤️4 and ♣️J are available to move, and the ♣️3 can only be placed onto the ❤️4 - not the ♣️4."),
-            ColumnViewContent(columns: [
-                Column(text: "[♠️J, ❤️9, ♠️4, ♣️3]")!,
-                Column(text: "[♦️K, ♠️7, ♦️10, ❤️4]")!,
-                Column(text: "[♠️2, ♦️4, ♦️5, ♣️4]")!
-            ]),
+            ColumnViewContent(
+                cardSize: CGSize(width: 80, height: 116),
+                titleSize: 20,
+                columnSpacing: 22,
+                stackSpacing: 40,
+                columns: [
+                    Column(text: "[♠️J, ❤️9, ♠️4, ♣️3]")!,
+                    Column(text: "[♦️K, ♠️7, ♦️10, ❤️4]")!,
+                    Column(text: "[♠️2, ♦️4, ♦️5, ♣️4]")!
+                ]
+            ),
             Paragraph(content: "The card at the bottom of a column may also be moved into an open Freecell if one is available, or onto its matching Foundation if it would be the next card in the sequence. Note that cards placed into a Foundation cannot be removed, and cards can only be moved from a Freecell back onto a column if that column can receive the card (the column's bottom card is one rank higher and the opposite color)."),
             Paragraph(content: "If a Column is empty, it acts as a Freecell - any card can be placed there.")
         ])
     ]
+    
+    static let instructions2 = [
+        Instruction(title: "Board Layout", sections: [
+            Paragraph(content: "There are three different types of card piles in Freecell."),
+            Paragraph(content: "• Columns: the eight Columns make up the majority of the board, and all of the cards start out in a column."),
+            Paragraph(content: "• Foundations: the four cells in the upper-right corner of the board are called the Foundations, where you want to move the cards. Foundations are ordered by rank and sorted by suit, so you must place cards into its matching Foundation in order from Ace to King."),
+            Paragraph(content: "• Freecells: the four cells in the upper-left corner of the board are called the FreeCells. These represent a free spot that you can place a card."),
+            MiniBoard()
+        ])
+    ]
     static var previews: some View {
-        HowToPlayView(instructions: instructions)
-//        DismissableModalView(title: "How To Play", content: HowToPlayView())
-//            .environment(\.horizontalSizeClass, .compact)
-            .previewLayout(.fixed(width: 520, height: 640))
+        Group {
+//            HowToPlayView(instructions: instructions1)
+//                .previewLayout(.fixed(width: 520, height: 640))
+//            HowToPlayView(instructions: instructions2)
+            MiniBoard().contentView
+                .frame(width: 500, height: 400)
+                .previewLayout(.fixed(width: 520, height: 640))
+        }
     }
 }

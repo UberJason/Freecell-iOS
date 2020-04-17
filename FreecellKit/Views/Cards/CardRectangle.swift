@@ -10,10 +10,12 @@ import SwiftUI
 
 struct CardRectangle: View {
     let foregroundColor: Color
+    let cornerRadius: CGFloat
     let opacity: Double
     
-    init(foregroundColor: Color = .cardBackground, opacity: Double = 1.0) {
+    init(foregroundColor: Color = .cardBackground, cornerRadius: CGFloat = 8.0, opacity: Double = 1.0) {
         self.foregroundColor = foregroundColor
+        self.cornerRadius = cornerRadius
         self.opacity = opacity
     }
     
@@ -21,7 +23,7 @@ struct CardRectangle: View {
         Rectangle()
             .foregroundColor(foregroundColor)
             .opacity(opacity)
-            .clipShape(RoundedRectangle(cornerRadius: 8))
+            .clipShape(RoundedRectangle(cornerRadius: cornerRadius))
     }
 }
 
