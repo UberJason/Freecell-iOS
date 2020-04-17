@@ -53,6 +53,13 @@
 		9661BFAE23DE86A300DFC5E9 /* AnchorPreferences.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9661BFAD23DE86A300DFC5E9 /* AnchorPreferences.swift */; };
 		9661E7AC2380439C00183A99 /* CardStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9661E7AB2380439C00183A99 /* CardStack.swift */; };
 		9665685B2449313C005FFCB0 /* AUI+Screenshots.txt in Resources */ = {isa = PBXBuildFile; fileRef = 962EED15243BFF8B00183C16 /* AUI+Screenshots.txt */; };
+		9665685E244A2F53005FFCB0 /* View+FrameSize.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9665685D244A2F53005FFCB0 /* View+FrameSize.swift */; };
+		96656860244A2F6D005FFCB0 /* Instructions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9665685F244A2F6D005FFCB0 /* Instructions.swift */; };
+		96656862244A2F97005FFCB0 /* Paragraph.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96656861244A2F97005FFCB0 /* Paragraph.swift */; };
+		96656864244A2FA7005FFCB0 /* MiniBoard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96656863244A2FA7005FFCB0 /* MiniBoard.swift */; };
+		96656866244A2FCF005FFCB0 /* BoardContentTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96656865244A2FCF005FFCB0 /* BoardContentTypes.swift */; };
+		96656868244A2FFC005FFCB0 /* CenteringBackgroundWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96656867244A2FFC005FFCB0 /* CenteringBackgroundWrapper.swift */; };
+		9665686A244A300E005FFCB0 /* GameInstructions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96656869244A300E005FFCB0 /* GameInstructions.swift */; };
 		966703E924453AD400387CAD /* MessageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 966703E824453AD400387CAD /* MessageView.swift */; };
 		966B539E2425AA3B009454E1 /* StatisticsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 966B539D2425AA3B009454E1 /* StatisticsTests.swift */; };
 		966B53A02425AFE7009454E1 /* GameResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 966B539F2425AFE7009454E1 /* GameResult.swift */; };
@@ -320,6 +327,13 @@
 		965E2109240C5B3A002BA1F7 /* Bundle+FreecellKit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Bundle+FreecellKit.swift"; sourceTree = "<group>"; };
 		9661BFAD23DE86A300DFC5E9 /* AnchorPreferences.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnchorPreferences.swift; sourceTree = "<group>"; };
 		9661E7AB2380439C00183A99 /* CardStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardStack.swift; sourceTree = "<group>"; };
+		9665685D244A2F53005FFCB0 /* View+FrameSize.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+FrameSize.swift"; sourceTree = "<group>"; };
+		9665685F244A2F6D005FFCB0 /* Instructions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Instructions.swift; sourceTree = "<group>"; };
+		96656861244A2F97005FFCB0 /* Paragraph.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Paragraph.swift; sourceTree = "<group>"; };
+		96656863244A2FA7005FFCB0 /* MiniBoard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MiniBoard.swift; sourceTree = "<group>"; };
+		96656865244A2FCF005FFCB0 /* BoardContentTypes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoardContentTypes.swift; sourceTree = "<group>"; };
+		96656867244A2FFC005FFCB0 /* CenteringBackgroundWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CenteringBackgroundWrapper.swift; sourceTree = "<group>"; };
+		96656869244A300E005FFCB0 /* GameInstructions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameInstructions.swift; sourceTree = "<group>"; };
 		966703E824453AD400387CAD /* MessageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageView.swift; sourceTree = "<group>"; };
 		966B539D2425AA3B009454E1 /* StatisticsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatisticsTests.swift; sourceTree = "<group>"; };
 		966B539F2425AFE7009454E1 /* GameResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameResult.swift; sourceTree = "<group>"; };
@@ -531,6 +545,7 @@
 				96A59AAA241B19F5004B8FDF /* Board */,
 				96D1A77624453B5A0066FB3D /* Game */,
 				96D1A77724453B770066FB3D /* Settings */,
+				9665685C244A2F36005FFCB0 /* How To Play */,
 				96A59AAB241B1A08004B8FDF /* Controls */,
 			);
 			path = Views;
@@ -614,8 +629,23 @@
 				9629B2FD2438E8A300A5B37F /* SymbolIdentifier.swift */,
 				969DD4DA242E645F006873C3 /* CellPosition.swift */,
 				969DD4DC242E6464006873C3 /* CellDistance.swift */,
+				9665685D244A2F53005FFCB0 /* View+FrameSize.swift */,
 			);
 			path = Extensions;
+			sourceTree = "<group>";
+		};
+		9665685C244A2F36005FFCB0 /* How To Play */ = {
+			isa = PBXGroup;
+			children = (
+				96BAC4802447F9FC0015066D /* HowToPlayView.swift */,
+				9665685F244A2F6D005FFCB0 /* Instructions.swift */,
+				96656861244A2F97005FFCB0 /* Paragraph.swift */,
+				96656863244A2FA7005FFCB0 /* MiniBoard.swift */,
+				96656865244A2FCF005FFCB0 /* BoardContentTypes.swift */,
+				96656867244A2FFC005FFCB0 /* CenteringBackgroundWrapper.swift */,
+				96656869244A300E005FFCB0 /* GameInstructions.swift */,
+			);
+			path = "How To Play";
 			sourceTree = "<group>";
 		};
 		9683E09F23F87A4000B6C114 /* Core Data */ = {
@@ -878,7 +908,6 @@
 			children = (
 				96A59AA7241B19E6004B8FDF /* SettingsView.swift */,
 				96FBBCDE241C6BF0001D1088 /* StatisticsView.swift */,
-				96BAC4802447F9FC0015066D /* HowToPlayView.swift */,
 			);
 			path = Settings;
 			sourceTree = "<group>";
@@ -1377,7 +1406,9 @@
 				96A7223E240181DB004F7F47 /* EmojiBombView.swift in Sources */,
 				962562892381D846003C09AA /* CardView.swift in Sources */,
 				96CC08722427EB7000BE2737 /* TilingButton.swift in Sources */,
+				96656862244A2F97005FFCB0 /* Paragraph.swift in Sources */,
 				961C7FA3242BDE190078E2F7 /* Game.swift in Sources */,
+				96656868244A2FFC005FFCB0 /* CenteringBackgroundWrapper.swift in Sources */,
 				969DD4E1242EDCBC006873C3 /* VisualTheming.swift in Sources */,
 				96A36486237E385B005C45FB /* Foundation.swift in Sources */,
 				9688893A2389CB83001DD34B /* Result+SuccessVoid.swift in Sources */,
@@ -1390,6 +1421,7 @@
 				962562912381DEEB003C09AA /* EmptySpotView.swift in Sources */,
 				9673834D24030FF0004A4525 /* GameView.swift in Sources */,
 				96A36484237E3851005C45FB /* FreeCell.swift in Sources */,
+				96656866244A2FCF005FFCB0 /* BoardContentTypes.swift in Sources */,
 				96EDA561241ECF9E00C05697 /* ModernControlManager.swift in Sources */,
 				962B0B6D2422F7E6007D4117 /* FreecellStore.swift in Sources */,
 				9673834B24030F7E004A4525 /* YouWinView.swift in Sources */,
@@ -1404,6 +1436,7 @@
 				9622959A23835A7B005D599B /* Cell.swift in Sources */,
 				9689E18A23AB0BA4008B960B /* SteppingSubscriber.swift in Sources */,
 				96CA9B0E239300C300C34A60 /* BoardViewDriver.swift in Sources */,
+				9665686A244A300E005FFCB0 /* GameInstructions.swift in Sources */,
 				962621C0241E902000B3637A /* UserDefaultPropertyWrapper.swift in Sources */,
 				96F68678243A5A4A00572256 /* DismissableModalView.swift in Sources */,
 				96EDA55F241ECF9800C05697 /* ClassicControlManager.swift in Sources */,
@@ -1413,8 +1446,11 @@
 				96AF9E112441522C002C5608 /* OnboardingView.swift in Sources */,
 				965C015A242AA51900E04F74 /* SpacingCalculator.swift in Sources */,
 				962295F52388762D005D599B /* BoardView.swift in Sources */,
+				9665685E244A2F53005FFCB0 /* View+FrameSize.swift in Sources */,
 				9627FED023AB19CF00F8F63B /* CustomDebugStrings.swift in Sources */,
+				96656860244A2F6D005FFCB0 /* Instructions.swift in Sources */,
 				9616A1D723FB7176007CABA1 /* ControlsView.swift in Sources */,
+				96656864244A2FA7005FFCB0 /* MiniBoard.swift in Sources */,
 				96EDA55D241ECF7C00C05697 /* ControlStyle.swift in Sources */,
 				9683E0A423F89D6F00B6C114 /* GameRecord.swift in Sources */,
 				966B53A02425AFE7009454E1 /* GameResult.swift in Sources */,
