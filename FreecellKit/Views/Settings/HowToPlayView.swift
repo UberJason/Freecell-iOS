@@ -53,12 +53,11 @@ struct MiniBoard: Content {
                 Spacer()
                 miniFoundations
             }
-            
             miniColumns
-            }
+        }
         .padding(8)
-            .background(Color.gray)
-            .cornerRadius(8)
+        .background(Color.freecellBackground)
+        .cornerRadius(8)
     }
     
     var miniFreecells: some View {
@@ -134,8 +133,8 @@ struct ColumnViewContent: Content, View {
                             .overlay(
                                 CardRectangle(foregroundColor: self.foregroundColor(for: card, in: column), cornerRadius: self.cornerRadius, opacity: 0.3)
                         )
-                            .offset(x: 0, y: self.stackSpacing*CGFloat(column.orderIndex(for: card)))
-                            .padding(.bottom, self.stackSpacing*CGFloat(column.orderIndex(for: card)))
+                        .offset(x: 0, y: self.stackSpacing*CGFloat(column.orderIndex(for: card)))
+                        .padding(.bottom, self.stackSpacing*CGFloat(column.orderIndex(for: card)))
                     }
                 }
             }
