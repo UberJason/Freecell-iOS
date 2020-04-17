@@ -37,6 +37,7 @@ struct Paragraph: Content {
 
 struct MiniBoard: Content {
     let id = UUID()
+    let cornerRadius: CGFloat = 4.0
     let cardSize = CGSize(width: 55, height: 80)
     let board = BoardParser().parse(fromFile: "AUI+Screenshots", bundle: Bundle.freecellKit)!
     
@@ -64,7 +65,7 @@ struct MiniBoard: Content {
         VStack {
             HStack(spacing: 2) {
                 ForEach(0..<4) { _ in
-                    EmptySpotView().frame(size: self.cardSize)
+                    EmptySpotView(cornerRadius: self.cornerRadius).frame(size: self.cardSize)
                 }
             }
             Text("Freecells").font(.system(.body)).foregroundColor(.white).bold()
@@ -75,7 +76,7 @@ struct MiniBoard: Content {
         VStack {
             HStack(spacing: 2) {
                 ForEach(0..<4) { _ in
-                    EmptySpotView().frame(size: self.cardSize)
+                    EmptySpotView(cornerRadius: self.cornerRadius).frame(size: self.cardSize)
                 }
             }
             Text("Foundations").font(.system(.body)).foregroundColor(.white).bold()
@@ -125,7 +126,7 @@ struct ColumnViewContent: Content, View {
         HStack(alignment: .top, spacing: columnSpacing) {
             ForEach(columns) { column in
                 ZStack(alignment: .top) {
-                    EmptySpotView()
+                    EmptySpotView(cornerRadius: self.cornerRadius)
                         .frame(width: self.cardSize.width, height: self.cardSize.height)
                     ForEach(column.stack) { card in
                         CardView(card: card, titleSize: self.titleSize, tabPadding: self.tabPadding, cornerRadius: self.cornerRadius)
