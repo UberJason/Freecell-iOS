@@ -44,7 +44,7 @@ struct GameInstructions {
                 columnSpacing: 22,
                 stackSpacing: 38
             )),
-            Paragraph(content: "This version of Freecell will automatically compute whether most stack movements are valid and will move the entire stack automatically if so. But more complex stack movements might still be possible, even if Freecell can't see them - so look carefully! Also, when using the Classic control scheme, performing a stack movement will show the full animation of cards moving up and down from Freecells.")
+            Paragraph(content: "This version of Freecell will automatically compute whether most stack movements are valid and will move the entire stack automatically if so. But more complex stack movements might still be possible, even if Freecell can't see them - so look carefully! When moving stacks, the Classic control scheme will show the full animation of cards moving up and down from Freecells - this can help you learn how and why some stack movements are legal and others aren't.")
         ])
     ]
 }
