@@ -8,8 +8,10 @@
 
 import CoreGraphics
 
-struct GameInstructions {
-    let instructions = [
+public struct GameInstructions {
+    public init() {}
+    
+    public let instructions = [
         Instruction(title: "Introduction", sections: [
             Paragraph(content: "Freecell is a variant of Solitaire. The cards start out stacked randomly in eight columns, and the goal is to have them all sorted by rank and suit - four stacks, one for each suit, from Ace to King.")
         ]),

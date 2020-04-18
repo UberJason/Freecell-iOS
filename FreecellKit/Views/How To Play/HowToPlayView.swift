@@ -9,10 +9,14 @@
 import SwiftUI
 import DeckKit
 
-struct HowToPlayView: View {
-    let instructions: [Instruction]
+public struct HowToPlayView: View {
+    public let instructions: [Instruction]
     
-    var body: some View {
+    public init(instructions: [Instruction]) {
+        self.instructions = instructions
+    }
+    
+    public var body: some View {
         ScrollView {
             VStack(alignment: .leading, spacing: 24) {
                 ForEach(instructions) { instruction in
@@ -26,7 +30,7 @@ struct HowToPlayView: View {
                     }
                 }
             }.padding()
-            .navigationBarTitle("How To Play")
+            .navigationBarTitle("How To Play", displayMode: .inline)
         }
     }
 }

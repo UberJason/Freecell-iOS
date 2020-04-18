@@ -8,17 +8,22 @@
 
 import SwiftUI
 
-struct Instruction: Identifiable {
-    let id = UUID()
-    let title: String
-    let sections: [Content]
+public struct Instruction: Identifiable {
+    public let id = UUID()
+    public let title: String
+    public let sections: [Content]
+    
+    init(title: String, sections: [Content]) {
+        self.title = title
+        self.sections = sections
+    }
 }
 
-protocol Content {
+public protocol Content {
     var id: UUID { get }
     var contentView: AnyView { get }
 }
 
-extension Content where Self: View {
+public extension Content where Self: View {
     var contentView: AnyView { AnyView(self) }
 }
