@@ -46,6 +46,7 @@
 		964BBF1A23A48B39009B4FDE /* BoardTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 964BBF1923A48B39009B4FDE /* BoardTests.swift */; };
 		964BBF1D23A6D9C3009B4FDE /* StackOffsetting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 964BBF1C23A6D9C3009B4FDE /* StackOffsetting.swift */; };
 		964FC5642434243800FAC88F /* UIMenu+Identifiers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 964FC5632434243800FAC88F /* UIMenu+Identifiers.swift */; };
+		965BD60F244A902100B796B3 /* ImageContent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 965BD60E244A902100B796B3 /* ImageContent.swift */; };
 		965C015A242AA51900E04F74 /* SpacingCalculator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 965C0159242AA51900E04F74 /* SpacingCalculator.swift */; };
 		965E210624040E01002BA1F7 /* Image+Freecell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 965E210524040E01002BA1F7 /* Image+Freecell.swift */; };
 		965E2108240C598C002BA1F7 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 965E2107240C598C002BA1F7 /* Images.xcassets */; };
@@ -321,6 +322,7 @@
 		964BBF1923A48B39009B4FDE /* BoardTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoardTests.swift; sourceTree = "<group>"; };
 		964BBF1C23A6D9C3009B4FDE /* StackOffsetting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StackOffsetting.swift; sourceTree = "<group>"; };
 		964FC5632434243800FAC88F /* UIMenu+Identifiers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIMenu+Identifiers.swift"; sourceTree = "<group>"; };
+		965BD60E244A902100B796B3 /* ImageContent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageContent.swift; sourceTree = "<group>"; };
 		965C0159242AA51900E04F74 /* SpacingCalculator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpacingCalculator.swift; sourceTree = "<group>"; };
 		965E210524040E01002BA1F7 /* Image+Freecell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Image+Freecell.swift"; sourceTree = "<group>"; };
 		965E2107240C598C002BA1F7 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
@@ -641,6 +643,7 @@
 				9665685F244A2F6D005FFCB0 /* Instructions.swift */,
 				96656861244A2F97005FFCB0 /* Paragraph.swift */,
 				96656863244A2FA7005FFCB0 /* MiniBoard.swift */,
+				965BD60E244A902100B796B3 /* ImageContent.swift */,
 				96656865244A2FCF005FFCB0 /* BoardContentTypes.swift */,
 				96656867244A2FFC005FFCB0 /* CenteringBackgroundWrapper.swift */,
 				96656869244A300E005FFCB0 /* GameInstructions.swift */,
@@ -1409,6 +1412,7 @@
 				96656862244A2F97005FFCB0 /* Paragraph.swift in Sources */,
 				961C7FA3242BDE190078E2F7 /* Game.swift in Sources */,
 				96656868244A2FFC005FFCB0 /* CenteringBackgroundWrapper.swift in Sources */,
+				965BD60F244A902100B796B3 /* ImageContent.swift in Sources */,
 				969DD4E1242EDCBC006873C3 /* VisualTheming.swift in Sources */,
 				96A36486237E385B005C45FB /* Foundation.swift in Sources */,
 				9688893A2389CB83001DD34B /* Result+SuccessVoid.swift in Sources */,

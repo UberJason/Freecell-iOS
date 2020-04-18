@@ -7,6 +7,7 @@
 //
 
 import CoreGraphics
+import SwiftUI
 
 public struct GameInstructions {
     public init() {}
@@ -20,7 +21,7 @@ public struct GameInstructions {
             Paragraph(content: "• Columns: the eight Columns make up the majority of the board, and all of the cards start out in a column."),
             Paragraph(content: "• Foundations: the four cells in the upper-right corner of the board are called the Foundations, where you want to move the cards. Foundations are ordered by rank and sorted by suit, so you must place cards into its matching Foundation in order from Ace to King."),
             Paragraph(content: "• Freecells: the four cells in the upper-left corner of the board are called the FreeCells. These represent a free spot that you can place a card."),
-            CenteringBackgroundWrapper(content: MiniBoard().contentView)
+            ImageContent(image: Image.boardLayoutTutorial)
         ]),
         Instruction(title: "Basic Moves", sections: [
             Paragraph(content: "Within a column, only the bottom card in the stack (the one fully exposed at the bottom) can be moved. That card can be moved onto another column if and only if the receiving card is one higher in rank and has the opposite color suit. In the example below, only the ♣️3, ❤️4 and ♣️J are available to move, and the ♣️3 can only be placed onto the ❤️4 - not the ♣️4."),

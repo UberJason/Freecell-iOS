@@ -50,6 +50,10 @@ public extension Image {
         return Image(identifier: .spades)
         #endif
     }
+    
+    static var boardLayoutTutorial: Image {
+        return Image("BoardLayout", bundle: Bundle.freecellKit)
+    }
 }
 
 #if !os(macOS)
