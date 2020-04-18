@@ -72,6 +72,12 @@ public struct SettingsView: View, GameAlerting {
                         Text("Statistics")
                     }
                 }
+                
+                Section {
+                    NavigationLink(destination: HowToPlayView(instructions: GameInstructions().instructions)) {
+                        Text("How To Play")
+                    }
+                }
             }
         )
     }

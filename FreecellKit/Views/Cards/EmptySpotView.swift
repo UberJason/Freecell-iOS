@@ -11,14 +11,16 @@ import DeckKit
 
 public struct EmptySpotView: View {
     let suit: Suit?
+    let cornerRadius: CGFloat
     
-    public init(suit: Suit? = nil) {
+    public init(suit: Suit? = nil, cornerRadius: CGFloat = 8.0) {
         self.suit = suit
+        self.cornerRadius = cornerRadius
     }
     
     public var body: some View {
         ZStack {
-            CardRectangle(opacity: 0.5)
+            CardRectangle(cornerRadius: cornerRadius, opacity: 0.5)
             
             Text(suit?.displayTitle ?? "")
                 .font(.system(size: 30, weight: .semibold, design: .default))

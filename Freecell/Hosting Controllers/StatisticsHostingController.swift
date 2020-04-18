@@ -11,7 +11,7 @@ import UIKit
 import SwiftUI
 import FreecellKit
 
-class StatisticsHostingController: FreecellHostingController<DismissableModalView<StatisticsView>> {
+class EscapableHostingController<T: View>: FreecellHostingController<DismissableModalView<T>> {
     override var keyCommands: [UIKeyCommand]? {
         [
             UIKeyCommand(title: "Escape", action: #selector(escPressed), input: UIKeyCommand.inputEscape)

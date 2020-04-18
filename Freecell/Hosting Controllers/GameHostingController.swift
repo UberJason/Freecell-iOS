@@ -17,7 +17,7 @@ extension Bool: UserDefaultConvertible {}
 class GameHostingController: FreecellHostingController<ContentView>, GameAlerting {
     weak var game: Game?
     
-    let transitionDelegate = DimmingPresentationTransitioningDelegate(params: DimmingPresentationParams(duration: 0.15, maxDimmedAlpha: 0.3, presentedCornerRadius: 10.0, contentWidth: 400, contentHeight: 580))
+    var transitionDelegate = DimmingPresentationTransitioningDelegate(params: DimmingPresentationParams(duration: 0.15, maxDimmedAlpha: 0.3, presentedCornerRadius: 10.0, contentWidth: 400, contentHeight: 580))
     
     @UserDefault(key: "onboardingCompleted", defaultValue: false)
     var onboardingCompleted: Bool
@@ -142,16 +142,24 @@ class GameHostingController: FreecellHostingController<ContentView>, GameAlertin
 extension GameHostingController {
     @objc func presentStatisticsView() {
         #warning("SwiftUI 2.0 / Catalyst 2.0: Can I show stats in a proper window instead of this modal?")
+        transitionDelegate = DimmingPresentationTransitioningDelegate(params: DimmingPresentationParams(duration: 0.15, maxDimmedAlpha: 0.3, presentedCornerRadius: 10.0, contentWidth: 400, contentHeight: 580))
+        presentStandaloneView(StatisticsView(), title: "Statistics")
+    }
+    
+    @objc func presentHowToPlayView() {
+        transitionDelegate = DimmingPresentationTransitioningDelegate(params: DimmingPresentationParams(duration: 0.15, maxDimmedAlpha: 0.3, presentedCornerRadius: 10.0, contentWidth: 540, contentHeight: 640))
+        presentStandaloneView(HowToPlayView(instructions: GameInstructions().instructions), title: "How To Play")
+    }
+    
+    func presentStandaloneView<T: View>(_ view: T, title: String) {
         if let _ = presentedViewController { return }
         
-        let statisticsView = StatisticsView()
-        let modalView = DismissableModalView(title: "Statistics", content: statisticsView)
-        let hostingController = StatisticsHostingController(rootView: modalView)
+        let modalView = DismissableModalView(title: title, content: view)
+        let hostingController = EscapableHostingController(rootView: modalView)
         hostingController.view.clipsToBounds = true
         hostingController.modalPresentationStyle = .custom
         hostingController.transitioningDelegate = transitionDelegate
         present(hostingController, animated: true, completion: nil)
-        
     }
 }
 
