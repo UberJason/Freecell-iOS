@@ -15,4 +15,5 @@ extension UIMenu.Identifier {
     static let separator = UIMenu.Identifier("Separator")
     static let controlStyle = UIMenu.Identifier("Control Style")
     static let viewStats = UIMenu.Identifier("View Statistics")
+    static let howToPlay = UIMenu.Identifier("How To Play")
 }

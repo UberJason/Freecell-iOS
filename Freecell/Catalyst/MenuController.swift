@@ -21,6 +21,12 @@ class MenuController {
         builder.remove(menu: .file)
         builder.remove(menu: .edit)
         builder.remove(menu: .format)
+        builder.replaceChildren(ofMenu: .help) { (_) -> [UIMenuElement] in
+            let howToPlay = UICommand(title: "How To Play", action: #selector(GameHostingController.presentHowToPlayView))
+            return [
+                UIMenu(title: "How To Play", image: nil, identifier: .howToPlay, options: [.displayInline], children: [howToPlay])
+            ]
+        }
         
         let newGame = UIKeyCommand(title: "New Game", action: #selector(GameHostingController.postNewGame), input: "n", modifierFlags: .command)
         let restartGame = UIKeyCommand(title: "Restart Game", action: #selector(GameHostingController.postRestartGame), input: "r", modifierFlags: [.command, .shift])
