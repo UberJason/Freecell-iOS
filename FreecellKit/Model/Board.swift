@@ -212,9 +212,13 @@ public struct Board {
         return nil
     }
     
+    func receivingColumn(_ toColumn: Column, isValidDestinationFor substack: CardStack) -> Bool {
+        guard let capCard = substack.bottomItem else { return false }
+        return toColumn.canReceive(capCard)
+    }
+    
     func canMoveSubstack(_ substack: CardStack, to toColumn: Column) -> Bool {
-        guard let capCard = substack.bottomItem,
-            toColumn.canReceive(capCard) else { return false }
+        guard receivingColumn(toColumn, isValidDestinationFor: substack) else { return false }
         
         return substack.items.count <= maximumMoveableSubstackSize
     }
@@ -266,8 +270,7 @@ public struct Board {
     }
     
     func canMoveFullStack(_ substack: CardStack, to toColumn: Column) -> Bool {
-        guard let capCard = substack.bottomItem,
-            toColumn.canReceive(capCard) else { return false }
+        guard receivingColumn(toColumn, isValidDestinationFor: substack) else { return false }
         
         let availableFreeColumnCount = self.availableFreeColumnCount(excluding: toColumn)
         
