@@ -146,6 +146,7 @@ public class Game: ObservableObject, GameStateProvider {
         let invalidMovePublisher = NotificationCenter.default
             .publisher(for: .invalidMove)
             .decode(to: MessageBubble.self)
+            .filter { [unowned self] _ in self.gameState != .won }
             .share()
             
         invalidMovePublisher
