@@ -121,9 +121,12 @@ public struct BoardView: View, StackOffsetting {
             )
             .scaleEffect(boardDriver.scale(for: card), anchor: .top)
             .animation(cardSpringAnimation)
-            .onTapGesture {
+            .overlay(TappableView(onTap: {
                 self.boardDriver.itemTapped(card)
-            }
+            }))
+//            .onTapGesture {
+//                self.boardDriver.itemTapped(card)
+//            }
             .position(x: bounds.midX, y: bounds.midY + stackOffset.height)
             .offset(boardDriver.cardOffset(for: card, relativeTo: bounds, dragState: dragState))
             .animation(cardSpringAnimation)
