@@ -27,6 +27,13 @@ public class SettingsStore: ObservableObject {
             NotificationCenter.default.post(name: .preferredVisualThemeDidChange, object: nil)
         }
     }
+    
+    static var appVersion: String {
+        let version = Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as? String ?? ""
+        let build = Bundle.main.object(forInfoDictionaryKey: "CFBundleVersion") as? String ?? ""
+        
+        return "\(version) (\(build))"
+    }
 }
 
 public struct SettingsView: View, GameAlerting {
@@ -39,47 +46,53 @@ public struct SettingsView: View, GameAlerting {
     public init() {}
     
     public var body: some View {
-        DismissableModalView(title: "Menu", content:
-            Form {
-                Section(header: Text("This Game")) {
-                    Button(action: {
-                        self.restartGameWarning.toggle()
-                    }) {
-                        CellRow(leading: Text("Restart Game"), trailing: Image.restart)
-                            .foregroundColor(.freecellTheme)
-                    }.alert(isPresented: $restartGameWarning) { restartGameAlert() }
-                    Button(action: {
-                        self.newGameWarning.toggle()
-                    }) {
-                        CellRow(leading: Text("New Game"), trailing: Image.newGame)
-                            .foregroundColor(.freecellTheme)
-                    }.alert(isPresented: $newGameWarning) { newGameAlert() }
-                }
-                
-                Section(header: Text("Settings")) {
-                    CellRow(leading: Text("Visual Theme"), trailing:
-                        Picker("Visual Theme", selection: $store.preferredVisualTheme) {
-                            ForEach(VisualTheme.allCases, id: \.self) { Text($0.title) }
+        DismissableModalView(title: "Menu") {
+            VStack {
+                Form {
+                    Section(header: Text("This Game")) {
+                        Button(action: {
+                            self.restartGameWarning.toggle()
+                        }) {
+                            CellRow(leading: Text("Restart Game"), trailing: Image.restart)
+                                .foregroundColor(.freecellTheme)
+                        }.alert(isPresented: $restartGameWarning) { restartGameAlert() }
+                        Button(action: {
+                            self.newGameWarning.toggle()
+                        }) {
+                            CellRow(leading: Text("New Game"), trailing: Image.newGame)
+                                .foregroundColor(.freecellTheme)
+                        }.alert(isPresented: $newGameWarning) { newGameAlert() }
+                    }
+                    
+                    Section(header: Text("Settings")) {
+                        CellRow(leading: Text("Visual Theme"), trailing:
+                            Picker("Visual Theme", selection: $store.preferredVisualTheme) {
+                                ForEach(VisualTheme.allCases, id: \.self) { Text($0.title) }
+                            }
+                            .accentColor(.freecellTheme)
+                            .pickerStyle(SegmentedPickerStyle())
+                            .frame(maxWidth: 200)
+                        )
+                        NavigationLink(destination: SelectControlStyleView(controlStyle: $store.controlStyle)) {
+                            CellRow(leading: Text("Control Scheme"), trailing: Text(store.controlStyle.rawValue).foregroundColor(.freecellTheme))
+                        }.accessibility(identifier: "Control Scheme")
+                        NavigationLink(destination: StatisticsView()) {
+                            Text("Statistics")
                         }
-                        .accentColor(.freecellTheme)
-                        .pickerStyle(SegmentedPickerStyle())
-                        .frame(maxWidth: 200)
-                    )
-                    NavigationLink(destination: SelectControlStyleView(controlStyle: $store.controlStyle)) {
-                        CellRow(leading: Text("Control Scheme"), trailing: Text(store.controlStyle.rawValue).foregroundColor(.freecellTheme))
-                    }.accessibility(identifier: "Control Scheme")
-                    NavigationLink(destination: StatisticsView()) {
-                        Text("Statistics")
+                    }
+                    
+                    Section {
+                        NavigationLink(destination: HowToPlayView(instructions: GameInstructions().instructions)) {
+                            Text("How To Play")
+                        }
                     }
                 }
-                
-                Section {
-                    NavigationLink(destination: HowToPlayView(instructions: GameInstructions().instructions)) {
-                        Text("How To Play")
-                    }
-                }
+                Text("Version \(SettingsStore.appVersion)")
+                    .font(.caption)
+                    .foregroundColor(.secondary)
+                    .padding()
             }
-        )
+        }
     }
 
 }
