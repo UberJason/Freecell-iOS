@@ -12,16 +12,16 @@ import Foundation
 public struct UserDefault<T: UserDefaultConvertible> {
     let key: String
     let defaultValue: T
-    let suiteName: String?
+    let store: UserDefaults
 
-    var store: UserDefaults {
-        return UserDefaults(suiteName: suiteName) ?? UserDefaults.standard
+    public init(key: String, suiteName: String?, defaultValue: T) {
+        self.init(key: key, store: UserDefaults(suiteName: suiteName) ?? UserDefaults.standard, defaultValue: defaultValue)
     }
     
-    public init(key: String, defaultValue: T, suiteName: String? = nil) {
+    public init(key: String, store: UserDefaults = .standard, defaultValue: T) {
         self.key = key
         self.defaultValue = defaultValue
-        self.suiteName = suiteName
+        self.store = store
     }
     
     public var wrappedValue: T {

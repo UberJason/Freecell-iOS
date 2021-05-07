@@ -23,12 +23,13 @@ struct ControlsView: View {
             .foregroundColor(.white)
             .font(.system(size: 15, weight: .semibold, design: .rounded))
             #if !targetEnvironment(macCatalyst)
-            HStack(spacing: 0) {
+            HStack(alignment: .bottom, spacing: 0) {
                 Button(action: {
                     self.gameManager.undo()
                 }) {
                     VStack {
                         Image.undo
+                            .frame(height: 37)
                             .foregroundColor(.white)
                             .font(.system(size: 30))
                         Text("Undo").foregroundColor(.white)
@@ -36,19 +37,26 @@ struct ControlsView: View {
                     .disabled(gameManager.gameState == .won)
                     .opacity(gameManager.gameState == .won ? 0.5 : 1.0)
                     
-                }.padding(.top, 6).padding(.all, 6).hoverEffect(.automatic)
+                }
+                .padding(.all, 4)
+                .contentShape(RoundedRectangle(cornerRadius: 8, style: .continuous))
+                .hoverEffect(.automatic)
                 
                 Button(action: {
                     NotificationCenter.default.post(name: .showMenu, object: nil)
                 }) {
                     VStack {
                         Image.settings
+                            .frame(height: 37)
                             .foregroundColor(.white)
                             .font(.system(size: 30))
                         Text("Menu").foregroundColor(.white)
                     }
                     
-                }.padding(.top, 6).padding(.all, 6).hoverEffect(.automatic)
+                }
+                .padding(.all, 4)
+                .contentShape(RoundedRectangle(cornerRadius: 8, style: .continuous))
+                .hoverEffect(.automatic)
             }.font(.system(size: 11, weight: .semibold, design: .rounded))
             #endif
         }

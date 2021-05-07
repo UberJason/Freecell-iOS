@@ -12,9 +12,9 @@ public struct DismissableModalView<Content: View>: View {
     public let title: String
     public let content: Content
     
-    public init(title: String, content: Content) {
+    public init(title: String, @ViewBuilder content: () -> Content) {
         self.title = title
-        self.content = content
+        self.content = content()
     }
     
     public var body: some View {
@@ -39,7 +39,9 @@ public struct DismissableModalView<Content: View>: View {
 
 struct DismissableModalView_Previews: PreviewProvider {
     static var previews: some View {
-        DismissableModalView(title: "Statistics", content: StatisticsView())
+        DismissableModalView(title: "Statistics") {
+            StatisticsView()
+        }
             .environment(\.horizontalSizeClass, .compact)
             .previewLayout(.fixed(width: 520, height: 640))
     }

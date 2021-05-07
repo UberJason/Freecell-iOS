@@ -154,7 +154,7 @@ extension GameHostingController {
     func presentStandaloneView<T: View>(_ view: T, title: String) {
         if let _ = presentedViewController { return }
         
-        let modalView = DismissableModalView(title: title, content: view)
+        let modalView = DismissableModalView(title: title) { view }
         let hostingController = EscapableHostingController(rootView: modalView)
         hostingController.view.clipsToBounds = true
         hostingController.modalPresentationStyle = .custom
