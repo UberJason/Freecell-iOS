@@ -33,6 +33,7 @@ platform :ios do
     upload_to_app_store(skip_binary_upload: true, skip_metadata: true)
   end
 
+# I've saved the app-specific password for this in Keychain Access as 'fastlane password'.
   lane :beta do
     build_app(scheme: "Freecell")
     upload_to_testflight(

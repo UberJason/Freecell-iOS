@@ -50,7 +50,9 @@ class GameHostingController: FreecellHostingController<ContentView>, GameAlertin
             .filter { $0.result == .win }
             .sink(receiveCompletion: { _ in }) { _ in
                 if !AppEnvironment.isUITest {
-                    SKStoreReviewController.requestReview()
+                    if let windowScene = self.view.window?.windowScene {
+                        SKStoreReviewController.requestReview(in: windowScene)
+                    }
                 }
             }
             .store(in: &cancellables)
