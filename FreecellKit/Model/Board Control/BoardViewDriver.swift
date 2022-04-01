@@ -91,6 +91,7 @@ public class BoardViewDriver: ObservableObject {
         // https://forums.swift.org/t/does-assign-to-produce-memory-leaks/29546
         movePublisher
             .map { $0.afterBoard }
+            .receive(on: RunLoop.main)
             .sink { [unowned self] in
                 self.renderingBoard = $0
                 if $0.isCompleted {
