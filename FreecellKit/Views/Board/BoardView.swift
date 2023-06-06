@@ -78,10 +78,12 @@ public struct BoardView: View, StackOffsetting {
                     }
                 }.padding(EdgeInsets(top: 40, leading: 20, bottom: 40, trailing: 20))
             }.frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
+                .drawingGroup()
         }
         .overlayPreferenceValue(CellInfoKey.self) { preferences in
             return GeometryReader { geometry in
                 self.allRenderedCards(using: geometry, cells: preferences)
+                    .drawingGroup()
             }
         }
         .contentShape(Rectangle())
@@ -136,6 +138,7 @@ public struct BoardView: View, StackOffsetting {
     func createDragGesture(for card: Card) -> some Gesture {
         let gesture = DragGesture()
             .updating(self.$dragState) { (value, state, _) in
+                print("updating drag for: \(card.displayTitle)")
                 if case .inactive = state {
                     self.boardDriver.dragStarted(from: card)
                 }
