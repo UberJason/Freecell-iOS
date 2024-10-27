@@ -8,7 +8,7 @@
 
 import DeckKit
 
-extension Rank: Valuing {
+extension Rank: @retroactive Valuing {
     public var value: Int {
         switch self {
         case .ace: return 1
@@ -25,7 +25,7 @@ extension Rank: Valuing {
     }
 }
 
-extension Rank: Comparable {
+extension Rank: @retroactive Comparable {
     public static func < (lhs: Rank, rhs: Rank) -> Bool {
         return lhs.value < rhs.value
     }

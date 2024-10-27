@@ -9,6 +9,6 @@
 import Foundation
 import DeckKit
 
-extension Card: Identifiable {
+extension Card: @retroactive Identifiable {
     public var id: String { return displayTitle }
 }

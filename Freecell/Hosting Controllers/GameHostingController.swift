@@ -12,7 +12,7 @@ import SwiftUI
 import FreecellKit
 import StoreKit
 
-extension Bool: UserDefaultConvertible {}
+extension Bool: @retroactive UserDefaultConvertible {}
 
 class GameHostingController: FreecellHostingController<ContentView>, GameAlerting {
     weak var game: Game?
